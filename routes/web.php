@@ -4,6 +4,8 @@ use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
+use App\Http\Controllers\IndexController as IndexController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,12 +17,8 @@ use App\Http\Controllers\Tasks\TaskController as TaskController;
 |
 */
 
-
-Route::get('/', function () {
-    $tasks = Task::paginate(config('front.tasks.pagination'));
-    return view('tasks.index', [
-        'tasks' => $tasks
-    ]);
-});
+Route::any('/', [TaskController::class, 'index']);
 
 Route::resource('tasks', TaskController::class);
+
+

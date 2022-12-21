@@ -26,7 +26,7 @@ class TaskController extends Controller
     {
 
         $tasks = Task::paginate(config('front.tasks.pagination'));
-        dd($tasks);
+
         return view('tasks.index',[
             'tasks' => $tasks,
         ]);
