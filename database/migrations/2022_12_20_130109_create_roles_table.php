@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid()->primary();
             $table->string('name', 100)->unique();
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);

@@ -13,17 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_subordinate', function (Blueprint $table) {
+        Schema::create('task_files', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->foreignId('superior_uuid')
-                ->constrained('users', 'uuid')
+            $table->foreignId('task_uuid')
+                ->constrained('tasks', 'uuid')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
-            $table->foreignId('user_uuid')
-                ->constrained('users', 'uuid')
+            $table->foreignId('file_uuid')
+                ->constrained('files', 'uuid')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('comment')->nullable()->default(null);
+            $table->integer('sort_order')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -36,11 +37,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('user_subordinate', function (Blueprint $table) {
-            $table->dropForeign(['superior_uuid']);
-            $table->dropForeign(['user_uuid']);
+        Schema::table('task_files', function (Blueprint $table) {
+            $table->dropForeign(['file_uuid']);
+            $table->dropForeign(['task_uuid']);
         });
 
-        Schema::dropIfExists('user_subordinate');
+        Schema::dropIfExists('task_files');
     }
 };

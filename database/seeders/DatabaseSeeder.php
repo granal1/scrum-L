@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Seeders\Roles\RoleSeeder;
+use Database\Seeders\Tasks\TaskPrioritySeeder;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +25,9 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
+
             RoleSeeder::class,
+            TaskPrioritySeeder::class,
 
         ]);
     }
