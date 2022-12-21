@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('task_priorities', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->string('name', 100)->unique();
             $table->string('comment')->nullable()->default(null);
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('task_priorities');
     }
 };

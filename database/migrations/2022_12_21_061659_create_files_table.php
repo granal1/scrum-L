@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('files', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->string('name', 100)->unique();
+            $table->string('name', 255);
+            $table->string('path', 255);
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);
             $table->timestamps();
@@ -30,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('files');
     }
 };
