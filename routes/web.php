@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Tasks\TaskController as TaskController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('tasks.index');
 });
+
+Route::resource('tasks', TaskController::class);
