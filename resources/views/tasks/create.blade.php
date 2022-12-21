@@ -59,7 +59,7 @@
         <div class="row pt-3">
             <div class="col">
                 <label for="description">Описание</label>
-                <textarea placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="2"></textarea>
+                <textarea required placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="2"></textarea>
             </div>
         </div>
         <div class="row pt-3">
@@ -88,7 +88,7 @@
         </div>
         <div class="row pt-3">
             <div class="col-6">
-                <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
+                <a class="btn btn-sm btn-success col-12"  onclick="javascript:history.back()">Назад</a>
             </div>
             <div class="col-6">
                 <button class="btn btn-sm btn-danger col-12" type="submit">Сохранить</button>

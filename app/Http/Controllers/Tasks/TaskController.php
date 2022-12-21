@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
+use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\Tasks\Task;
 use App\Models\Tasks\TaskPriority;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -77,9 +79,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Task $task)
     {
-        return view('tasks.edit');
+        return view('tasks.edit', [
+            'task' => $task
+        ]);
     }
 
     /**
@@ -89,9 +93,29 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTaskFormRequest $request, Task $task)
     {
-        //
+        if($request->isMethod('patch')){
+
+            $data = $request->validated();
+
+            $task->description = $data['description'];
+
+            try {
+                DB::beginTransaction();
+
+                if( $task->save() ){
+
+                    DB::commit();
+
+                    return redirect()->route('tasks.index');
+                }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                dd($e);
+            }
+        }
+        return redirect()->route('tasks.show', $task->id);
     }
 
     /**

@@ -77,7 +77,7 @@
                 <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
             </div>
                 <div class="col-6">
-                    <button class="btn btn-sm btn-danger col-12">Редактировать</button>
+                    <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
                 </div>
         </div>
     </div>
