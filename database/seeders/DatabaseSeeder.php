@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\Tasks\TaskFactory;
 use Database\Seeders\Roles\RoleSeeder;
 use Database\Seeders\Tasks\TaskPrioritySeeder;
 use Database\Seeders\Users\UserSeeder;
@@ -19,6 +20,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        \App\Models\Tasks\Task::factory(50)->create();
 
         $this->call([
 

@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('task_files', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignId('task_uuid')
-                ->constrained('tasks', 'uuid')
+                ->constrained('tasks', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('file_uuid')
-                ->constrained('files', 'uuid')
+                ->constrained('files', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('comment')->nullable()->default(null);
