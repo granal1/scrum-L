@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
@@ -16,6 +17,10 @@ use App\Http\Controllers\Tasks\TaskController as TaskController;
 
 
 Route::get('/', function () {
-    return view('tasks.index');
+    $tasks = Task::paginate(config('front.tasks.pagination'));
+    return view('tasks.index', [
+        'tasks' => $tasks
+    ]);
 });
+
 Route::resource('tasks', TaskController::class);
