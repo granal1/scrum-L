@@ -19,7 +19,7 @@ class TaskFactory extends Factory
     {
 
         return [
-            'uuid' => fake()->uuid(),
+            'id' => fake()->uuid(),
             'description' => fake()->realText(125),
             'created_at' => now()
         ];

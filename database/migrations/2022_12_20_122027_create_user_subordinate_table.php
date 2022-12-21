@@ -14,13 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('user_subordinate', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignId('superior_uuid')
-                ->constrained('users', 'uuid')
+                ->constrained('users', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('user_uuid')
-                ->constrained('users', 'uuid')
+                ->constrained('users', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->string('comment')->nullable()->default(null);

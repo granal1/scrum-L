@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->text('description');
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);

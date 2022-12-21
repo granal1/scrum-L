@@ -21,7 +21,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{route('tasks.index')}}">Home</a>
+                        <a class="nav-link active" aria-current="page" href="{{route('tasks.index')}}">Главная</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Link</a>
@@ -70,7 +70,7 @@
                     </thead>
                     <tbody style="cursor: pointer;">
                         @forelse($tasks as $task)
-                            <tr  onclick="window.location='{{ route('tasks.show', $task->uuid) }}';">
+                            <tr  onclick="window.location='{{ route('tasks.show', $task->id) }}';">
                                 <td>{{$task->uuid}}</td>
                                 <td>{{$task->description}}</td>
                                 <td>{{$task->created_at}}</td>

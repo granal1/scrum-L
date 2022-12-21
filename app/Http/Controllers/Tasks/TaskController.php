@@ -3,9 +3,15 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tasks\StoreTaskFormRequest;
+use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\Tasks\Task;
+use App\Models\Tasks\TaskPriority;
+use App\Models\User;
+use Symfony\Polyfill\Uuid\Uuid;
+
 
 class TaskController extends Controller
 {
@@ -31,7 +37,10 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+        return view('tasks.create', [
+            'priorities' => TaskPriority::all(),
+            'users' => User::all(),
+        ]);
     }
 
     /**
@@ -40,9 +49,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTaskFormRequest $request, UploadService $uploadService)
     {
-        //
+        $data = $request->validated();
+
+        $task = Task::create($data);
+
+        return redirect()->route('tasks.show', $task);
     }
 
     /**
@@ -51,9 +64,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Task $task)
     {
-        return view('tasks.show');
+        return view('tasks.show', [
+            'task' => $task
+        ]);
     }
 
     /**

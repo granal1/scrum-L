@@ -7,15 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Task extends Model
+class TaskPriority extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = "tasks";
+    protected $table = "task_priorities";
 
     protected $fillable = [
-        'uuid',
-        'description',
+        'name',
         'comment'
     ];
 }

@@ -14,21 +14,21 @@ return new class extends Migration
     public function up()
     {
         Schema::create('task_histories', function (Blueprint $table) {
-            $table->uuid()->primary();
+            $table->uuid('id')->primary();
             $table->foreignId('priority_uuid')
-                ->constrained('task_priorities', 'uuid')
+                ->constrained('task_priorities', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('parent_uuid')
-                ->constrained('tasks', 'uuid')
+                ->constrained('tasks', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('user_uuid')
-                ->constrained('users', 'uuid')
+                ->constrained('users', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->foreignId('responsible_uuid')
-                ->constrained('users', 'uuid')
+                ->constrained('users', 'id')
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
             $table->integer('done_progress')->nullable()->default(0);
