@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta lang="ru">
-    <title>Задача</title>
+    <title>Вход</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
@@ -37,11 +37,11 @@
                             </form>
                         </li>
                     @endauth
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="/login">Вход</a>
-                        </li>
-                    @endguest
+{{--                    @guest--}}
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link" href="/register">Регистрация</a>--}}
+{{--                        </li>--}}
+{{--                    @endguest--}}
                 </ul>
             </div>
         </div>
@@ -49,35 +49,38 @@
     <div class="container pt-3">
         <div class="row">
             <div class="col">
-                <h4 class="d-inline-block">Задача</h4>
+                <h4 class="d-inline-block">Вход</h4>
             </div>
         </div>
-        <div class="row pt-3">
-            <div class="col">
-                <label for="uuid">Uuid</label>
-                <input class="form-control form-control-sm" name="uuid" id="uuid" disabled value="{{$task->id}}">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col">
-                <label for="description">Описание</label>
-                <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col">
-                <label for="created_at">Создана</label>
-                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
-            </div>
-        </div>
-        <div class="row pt-3">
-            <div class="col-6">
-                <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
-            </div>
-                <div class="col-6">
-                    <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
+        <form action="/login" method="post">
+            @csrf
+            <div class="row mb-3 pt-3">
+                <div class="col">
+                    <label for="email">Почта</label>
+                    <input name="email" class="form-control form-control-sm" required type="text">
+                    @error('email')
+                        <div>{{$message}}</div>
+                    @enderror
                 </div>
-        </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="password">Пароль</label>
+                    <input name="password" class="form-control form-control-sm" required type="password">
+                    @error('password')
+                        <div>{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-sm btn-danger col-12" type="submit">Войти</button>
+                </div>
+                <div class="col">
+                    <button class="btn btn-sm btn-success col-12" type="button">Назад</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
@@ -85,5 +88,6 @@
 </body>
 
 </html>
+
 
 

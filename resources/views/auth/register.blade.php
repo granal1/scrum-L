@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta lang="ru">
-    <title>Задача</title>
+    <title>Регистрация</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
@@ -49,35 +49,56 @@
     <div class="container pt-3">
         <div class="row">
             <div class="col">
-                <h4 class="d-inline-block">Задача</h4>
+                <h4 class="d-inline-block">Регистрация</h4>
             </div>
         </div>
-        <div class="row pt-3">
+        <form action="/register" method="post">
+            @csrf
+        <div class="row mb-3 pt-3">
             <div class="col">
-                <label for="uuid">Uuid</label>
-                <input class="form-control form-control-sm" name="uuid" id="uuid" disabled value="{{$task->id}}">
+                <label for="name">Фамилия И.О.</label>
+                <input required class="form-control form-control-sm" name="name"  type="text">
+                @error('name')
+                    <div>{{$message}}</div>
+                @enderror
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row mb-3">
             <div class="col">
-                <label for="description">Описание</label>
-                <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
+                <label for="email">Почта</label>
+                <input required class="form-control form-control-sm" name="email"  type="email">
+                @error('email')
+                    <div>{{$message}}</div>
+                @enderror
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row mb-3">
             <div class="col">
-                <label for="created_at">Создана</label>
-                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
+                <label for="password">Пароль</label>
+                <input required class="form-control form-control-sm" name="password"  type="password">
+                @error('password')
+                    <div>{{$message}}</div>
+                @enderror
             </div>
         </div>
-        <div class="row pt-3">
-            <div class="col-6">
-                <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
-            </div>
-                <div class="col-6">
-                    <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="password_confirmation">Повторите пароль</label>
+                    <input required class="form-control form-control-sm" name="password_confirmation"  type="password">
+                    @error('password_confirmation')
+                        <div>{{$message}}</div>
+                    @enderror
                 </div>
+            </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-sm btn-danger col-12" type="submit">Сохранить</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-sm btn-success col-12" type="button">Назад</button>
+            </div>
         </div>
+        </form>
     </div>
 </div>
 
@@ -85,5 +106,6 @@
 </body>
 
 </html>
+
 
 
