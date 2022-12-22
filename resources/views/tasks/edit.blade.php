@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('main')
 
 @section('title', 'Редактирование задачи')
 
