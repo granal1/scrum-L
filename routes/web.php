@@ -15,9 +15,18 @@ use App\Http\Controllers\Tasks\TaskController as TaskController;
 |
 */
 
-Route::any('/', [TaskController::class, 'index']);
-Route::any('/home', [TaskController::class, 'index']);
-Route::resource('tasks', TaskController::class);
+Route::middleware(['auth'])->group(function(){
+    Route::any('/', [TaskController::class, 'index']);
+    Route::any('/home', [TaskController::class, 'index']);
+    Route::resource('tasks', TaskController::class);
+});
+
+Route::middleware(['guest'])->group(function(){
+    Route::any('/login', function(){
+        return view('auth.login');
+    });
+});
+
 
 
 //Route::fallback(function () {
