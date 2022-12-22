@@ -48,6 +48,15 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "start": [
+            "composer i",
+            "@php > database\\database.sqlite",
+            "@php artisan migrate:fresh --seed",
+            "@php artisan route:clear",
+            "@php artisan route:cach",
+            "@php artisan view:clear",
+            "@php artisan view:cach"
         ]
     },
     "extra": {
