@@ -51,7 +51,7 @@
         ],
         "start": [
             "composer i",
-            "@php > database\\database.sqlite",
+            "cd %cd%\\database && copy nul > database.sqlite",
             "@php artisan migrate:fresh --seed",
             "@php artisan route:clear",
             "@php artisan route:cach",
