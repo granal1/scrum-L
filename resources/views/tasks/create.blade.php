@@ -2,6 +2,10 @@
 
 @section('title', 'Создание задачи')
 
+@section('header')
+    @include('menu')
+@endsection
+
 @section('content')
     <div class="container pt-3">
         <div class="row">
