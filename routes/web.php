@@ -18,6 +18,7 @@ use App\Http\Controllers\IndexController as IndexController;
 */
 
 Route::any('/', [TaskController::class, 'index']);
+Route::any('/home', [TaskController::class, 'index']);
 
 Route::resource('tasks', TaskController::class);
 
