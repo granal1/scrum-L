@@ -1,10 +1,8 @@
 <?php
 
-use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
-use App\Http\Controllers\IndexController as IndexController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +17,12 @@ use App\Http\Controllers\IndexController as IndexController;
 
 Route::any('/', [TaskController::class, 'index']);
 Route::any('/home', [TaskController::class, 'index']);
-
 Route::resource('tasks', TaskController::class);
+
+
+//Route::fallback(function () {
+//    return view('errors.404');
+//});
+
 
 
