@@ -3,7 +3,13 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\Tasks\TaskFactory;
+use Database\Seeders\Roles\RoleSeeder;
+use Database\Seeders\Tasks\TaskPrioritySeeder;
+use Database\Seeders\Users\UserSeeder;
+use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,11 +20,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Tasks\Task::factory(50)->create();
+
+        $this->call([
+
+            RoleSeeder::class,
+            TaskPrioritySeeder::class,
+            UserSeeder::class,
+
+        ]);
     }
 }

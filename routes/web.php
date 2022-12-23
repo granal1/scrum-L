@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Tasks\TaskController as TaskController;
+use App\Http\Controllers\Users\UserController as UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +16,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware(['auth'])->group(function(){
+    Route::any('/', [TaskController::class, 'index']);
+    Route::any('/home', [TaskController::class, 'index']);
+    Route::resource('tasks', TaskController::class);
+    Route::post('tasks/create-subtask/{task}', [TaskController::class, 'create_subtask'])->name('tasks.create-subtask');
+    Route::resource('users', UserController::class);
 });
+
+Route::middleware(['guest'])->group(function(){
+    Route::any('/login', function(){
+        return view('auth.login');
+    });
+    Route::any('/', function(){
+        return view('auth.login');
+    });
+});
+
+
+//Route::fallback(function () {
+//    return view('errors.404');
+//});
+
+
+
