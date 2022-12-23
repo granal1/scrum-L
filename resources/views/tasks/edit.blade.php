@@ -21,6 +21,7 @@
                 <p>2. <a href="">Приложение к документу.zip</a></p>
             </div>
         </div>
+        @include('message')
         <form action="{{route('tasks.update', $task)}}" method="post">
             @csrf
             @method('patch')

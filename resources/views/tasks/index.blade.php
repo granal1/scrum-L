@@ -37,7 +37,7 @@
                                 <td>{{$task->description}}</td>
                                 <td>{{$task->created_at}}</td>
                                 <td>{{$task->created_at}}</td>
-                                <td>{{$task->getResponsible()}}</td>
+                                <td>{{$task->currentResponsible()}}</td>
                                 <td>{{$task->currentHistory->done_progress}}</td>
                             </tr>
                         @empty
