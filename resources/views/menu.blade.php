@@ -20,7 +20,7 @@
                          <a class="nav-link" href="{{ route('index') }}">Документы</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('users.create') }}">Сотрудники</a>
+                         <a class="nav-link" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>
                      <li class="nav-item">
                          <a class="nav-link" href="{{ route('index') }}">Админка</a>

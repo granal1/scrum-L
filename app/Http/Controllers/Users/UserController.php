@@ -12,6 +12,7 @@ use App\Models\Tasks\Task;
 use App\Models\Tasks\TaskPriority;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -31,11 +32,9 @@ class UserController extends Controller
     public function index()
     {
 
-//        $tasks = Task::paginate(config('front.tasks.pagination'));
-//
-//        return view('tasks.index',[
-//            'tasks' => $tasks,
-//        ]);
+//       $tasks = User::paginate(config('front.users.pagination'));
+
+       return view('users.index');
     }
 
     /**

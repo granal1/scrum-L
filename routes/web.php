@@ -24,6 +24,7 @@ Route::middleware(['auth'])
         Route::resource('users', UserController::class);
     });
 
+
 Route::middleware(['guest'])->group(function () {
     Route::any('/login', function () {
         return view('auth.login');
