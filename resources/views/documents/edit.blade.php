@@ -12,7 +12,7 @@
             @if(!is_null($task->currentHistory->parent_uuid))
                     <div class="col">
                         <h5>Создал: {{$task->getAuthor()}}</h5>
-                        <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task->currentHistory->parent_uuid)}}">Базовая задача</a>
+                        <a class="btn btn-sm btn-info" href="{{route('documents.show', $task->currentHistory->parent_uuid)}}">Базовая задача</a>
                     </div>
             @endif
             <div class="col mt-3">
@@ -22,7 +22,7 @@
             </div>
         </div>
         @include('message')
-        <form action="{{route('tasks.update', $task)}}" method="post">
+        <form action="{{route('documents.update', $task)}}" method="post">
             @csrf
             @method('patch')
             <div class="row row-cols-1 row-cols-md-2 mb-3">
@@ -89,7 +89,7 @@
 
             <div class="row row-cols-1 row-cols-md-3">
                 <div class="col mt-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
+                    <a class="btn btn-primary btn-sm col-12" href="{{route('documents.index')}}">Все задачи</a>
                 </div>
                 <div class="col mt-3">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
@@ -99,7 +99,7 @@
                 </div>
             </div>
         </form>
-        <form action="{{route('tasks.create-subtask', $task)}}" method="post">
+        <form action="{{route('documents.create-subtask', $task)}}" method="post">
             @csrf
             <div class="row mb-3 mt-3">
                 <div class="col">
@@ -107,7 +107,7 @@
                 </div>
             </div>
         </form>
-        <form action="{{route('tasks.destroy', $task)}}" method="post">
+        <form action="{{route('documents.destroy', $task)}}" method="post">
             @csrf
             @method('delete')
         <div class="row mb-4 mt-2">

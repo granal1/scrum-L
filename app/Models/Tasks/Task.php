@@ -5,6 +5,10 @@ namespace App\Models\Tasks;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -29,19 +33,44 @@ class Task extends Model
         return $this->hasOne(TaskHistory::class, 'task_uuid')->latestOfMany();
     }
 
-    public function getPriority()
+    public function priorities(): BelongsToMany
     {
-        return TaskPriority::find($this->currentHistory->priority_uuid)->name;
+       return $this->belongsToMany(
+           TaskPriority::class,
+           'task_histories',
+           'task_uuid',
+           'priority_uuid'
+       );
     }
 
-    public function getResponsible()
+    public function responsibles(): BelongsToMany
     {
-        return User::find($this->currentHistory->responsible_uuid)->name;
+        return $this->belongsToMany(
+            User::class,
+            'task_histories',
+            'task_uuid',
+            'responsible_uuid'
+        );
     }
 
-    public function getAuthor()
+    public function authors(): BelongsToMany
     {
-        return User::find($this->currentHistory->user_uuid)->name;
+        return $this->belongsToMany(
+            User::class,
+            'task_histories',
+            'task_uuid',
+            'user_uuid'
+        );
+    }
+
+    public function currentAuthor()
+    {
+        return $this->authors->last()->name;
+    }
+
+    public function currentResponsible()
+    {
+        return $this->responsibles->last()->name;
     }
 
     public static function boot() {

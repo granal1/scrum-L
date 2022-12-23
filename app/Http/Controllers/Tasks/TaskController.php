@@ -94,6 +94,8 @@ class TaskController extends Controller
                 ]);
                 DB::commit();
 
+                return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
+
             } catch (\Exception $e) {
 
                 DB::rollBack();
@@ -102,7 +104,7 @@ class TaskController extends Controller
             }
         }
 
-        return redirect()->route('tasks.show', $task);
+        return redirect()->route('tasks.show', $task)->with('error', 'Ошибка при создании задачи.');
     }
 
     /**
@@ -167,15 +169,18 @@ class TaskController extends Controller
 
                 DB::commit();
 
+                return redirect()->route('tasks.edit', $task)->with('success','Изменения сохранены.');
+
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
 
             }
+
         }
 
-        return redirect()->route('tasks.edit', $task);
+        return redirect()->route('tasks.edit', $task)->with('error','Изменения не сохранились, ошибка.');
     }
 
     /**
