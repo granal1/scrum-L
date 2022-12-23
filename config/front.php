@@ -7,4 +7,7 @@ return [
     'users' => [
         'pagination' => 5
     ],
+    'documents' => [
+        'pagination' => 5
+    ]
 ];

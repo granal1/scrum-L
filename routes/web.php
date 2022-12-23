@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
 use App\Http\Controllers\Users\UserController as UserController;
+use App\Http\Controllers\Documents\DocumentController as DocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::middleware(['auth'])->group(function(){
     Route::resource('tasks', TaskController::class);
     Route::post('tasks/create-subtask/{task}', [TaskController::class, 'create_subtask'])->name('tasks.create-subtask');
     Route::resource('users', UserController::class);
+    Route::resource('documents', DocumentController::class);
 });
 
 Route::middleware(['guest'])->group(function(){

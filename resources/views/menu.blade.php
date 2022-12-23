@@ -17,7 +17,7 @@
                          <a class="nav-link" href="{{ route('tasks.index') }}">Задачи</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('tasks.index') }}">Документы</a>
+                         <a class="nav-link" href="{{ route('documents.index') }}">Документы</a>
                      </li>
                      <li class="nav-item">
                          <a class="nav-link" href="{{ route('users.index') }}">Сотрудники</a>
