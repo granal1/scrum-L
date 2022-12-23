@@ -31,11 +31,11 @@ class UserController extends Controller
     public function index()
     {
 
-//        $tasks = Task::paginate(config('front.tasks.pagination'));
-//
-//        return view('tasks.index',[
-//            'tasks' => $tasks,
-//        ]);
+        $users = User::paginate(config('front.users.pagination'));
+
+        return view('users.index',[
+            'users' => $users,
+        ]);
     }
 
     /**
