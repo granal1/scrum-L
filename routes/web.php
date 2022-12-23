@@ -16,15 +16,16 @@ use App\Http\Controllers\Users\UserController as UserController;
 |
 */
 
-Route::middleware(['auth'])->group(function(){
-    Route::any('/', [TaskController::class, 'index']);
-    Route::any('/home', [TaskController::class, 'index']);
-    Route::resource('tasks', TaskController::class);
-    Route::resource('users', UserController::class);
-});
+Route::middleware(['auth'])
+    ->group(function () {
+        Route::any('/', [TaskController::class, 'index'])->name('index');
+        Route::any('/home', [TaskController::class, 'index']);
+        Route::resource('tasks', TaskController::class);
+        Route::resource('users', UserController::class);
+    });
 
-Route::middleware(['guest'])->group(function(){
-    Route::any('/login', function(){
+Route::middleware(['guest'])->group(function () {
+    Route::any('/login', function () {
         return view('auth.login');
     });
 });
@@ -33,6 +34,3 @@ Route::middleware(['guest'])->group(function(){
 //Route::fallback(function () {
 //    return view('errors.404');
 //});
-
-
-

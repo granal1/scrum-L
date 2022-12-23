@@ -7,7 +7,8 @@
 @endsection
 
 @section('content')
-    <div class="container pt-3">
+    <div class="container mt-2 card shadow-lg mb-2">
+        <h2 class="rounded-3 mt-2 p-3 text-bg-primary text-center">Карточка задачи</h2>
         <div class="row">
             <div class="col">
                 <h4 class="mt-3">Автор задачи: Василий Николаевич</h4>
@@ -27,7 +28,7 @@
                     <label for="priority_uuid">Приоритет</label>
                     <select class="form-select form-select-sm" name="priority_uuid">
                         @forelse($priorities as $priority)
-                            <option value="{{$priority->uuid}}">{{$priority->name}}</option>
+                            <option value="{{ $priority->uuid }}">{{ $priority->name }}</option>
                         @empty
                             <option value="">Нет приоритетов</option>
                         @endforelse
@@ -35,23 +36,27 @@
                 </div>
                 <div class="col">
                     <label for="taskDeadline">Срок выполнения:</label>
-                    <input type="datetime-local" id="taskDeadline" name="taskDeadline" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required="" value="">
+                    <input type="datetime-local" id="taskDeadline" name="taskDeadline" class="form-control form-select-sm"
+                        placeholder="Срок выполнения задачи" required="" value="">
                 </div>
             </div>
 
             <div class="row">
                 <div class="col">
                     <label for="description">Описание</label>
-                    <textarea required placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="2"></textarea>
+                    <textarea required placeholder="Описание задачи" class="form-control form-control-sm" name="description"
+                        id="description" rows="2"></textarea>
                 </div>
                 <div class="col">
                     <label for="taskDoneDescription">Результат выполнения задачи</label>
-                    <textarea class="form-control form-control-sm" rows="2" id="taskDoneDescription" placeholder="" name="taskDoneDescription"></textarea>
+                    <textarea class="form-control form-control-sm" rows="2" id="taskDoneDescription" placeholder=""
+                        name="taskDoneDescription"></textarea>
                 </div>
             </div>
             <div>
                 <label for="taskDone" class="mt-3">Выполнено, %:</label>
-                <input style="width:100%;" type="range" min="0" max="100" step="5" id="taskDone" name="taskDone" class="" required="" value="0">
+                <input style="width:100%;" type="range" min="0" max="100" step="5" id="taskDone"
+                    name="taskDone" class="" required="" value="0">
             </div>
 
             <div class="row mt-3">
@@ -82,5 +87,6 @@
             </div>
 
         </form>
+    </div>
     </div>
 @endsection
