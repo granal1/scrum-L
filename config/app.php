@@ -82,7 +82,7 @@ return [
     |
     */
 
-    'locale' => 'ru',
+    'locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -194,7 +194,6 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        App\Providers\FortifyServiceProvider::class,
 
     ],
 
