@@ -20,6 +20,7 @@ Route::middleware(['auth'])->group(function(){
     Route::any('/', [TaskController::class, 'index']);
     Route::any('/home', [TaskController::class, 'index']);
     Route::resource('tasks', TaskController::class);
+    Route::post('tasks/create-subtask/{task}', [TaskController::class, 'create_subtask'])->name('tasks.create-subtask');
     Route::resource('users', UserController::class);
 });
 

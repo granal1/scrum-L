@@ -25,7 +25,11 @@ class UpdateTaskFormRequest extends FormRequest
     {
         return [
             'description' => [ 'required', 'string', 'min:2', 'max:3000' ],
-            'comment' => ['nullable', 'text', 'min:2']
+            'comment' => ['nullable', 'string', 'min:2', 'max:3000'],
+            'done_progress' => ['required', 'numeric', 'min:0', 'max:100'],
+            'deadline_at' => ['required'],
+            'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
+            'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
         ];
     }
 

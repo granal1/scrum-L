@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Tasks;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
 use App\Http\Requests\Tasks\UpdateTaskFormRequest;
+use App\Models\Tasks\TaskHistory;
 use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\Tasks\Task;
 use App\Models\Tasks\TaskPriority;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Symfony\Polyfill\Uuid\Uuid;
 
@@ -52,6 +54,20 @@ class TaskController extends Controller
     }
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create_subtask(Task $task)
+    {
+        return view('tasks.create-subtask', [
+            'priorities' => TaskPriority::all(),
+            'users' => User::all(),
+            'task' => $task
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -59,9 +75,32 @@ class TaskController extends Controller
      */
     public function store(StoreTaskFormRequest $request, UploadService $uploadService)
     {
-        $data = $request->validated();
+        if($request->isMethod('post')) {
 
-        $task = Task::create($data);
+            $data = $request->validated();
+
+            try {
+
+                DB::beginTransaction();
+                $task = Task::create($data);
+
+                $history = TaskHistory::create([
+                    'task_uuid' => $task->id,
+                    'priority_uuid' => $data['priority_uuid'],
+                    'user_uuid' => Auth::id(),
+                    'responsible_uuid' => $data['responsible_uuid'],
+                    'deadline_at' => $data['deadline_at'],
+                    'parent_uuid' => $data['parent_uuid'] ?? null,
+                ]);
+                DB::commit();
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
+
+            }
+        }
 
         return redirect()->route('tasks.show', $task);
     }
@@ -88,7 +127,9 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         return view('tasks.edit', [
-            'task' => $task
+            'task' => $task,
+            'priorities' => TaskPriority::all(),
+            'users' => User::all()
         ]);
     }
 
@@ -101,37 +142,51 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskFormRequest $request, Task $task)
     {
-        if($request->isMethod('patch')){
+        if($request->isMethod('patch')) {
 
             $data = $request->validated();
 
-            $task->description = $data['description'];
-
             try {
+
                 DB::beginTransaction();
 
-                if( $task->save() ){
+                $task->update([
+                    'description' => $data['description']
+                ]);
 
-                    DB::commit();
+                $history = TaskHistory::create([
+                    'task_uuid' => $task->id,
+                    'priority_uuid' => $data['priority_uuid'],
+                    'user_uuid' => Auth::id(),
+                    'responsible_uuid' => $data['responsible_uuid'],
+                    'deadline_at' => $data['deadline_at'],
+                    'done_progress' => $data['done_progress'],
+                    'parent_uuid' => null,
+                    'comment' => $data['comment']
+                ]);
 
-                    return redirect()->route('tasks.index');
-                }
+                DB::commit();
+
             } catch (\Exception $e) {
+
                 DB::rollBack();
-                dd($e);
+                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
+
             }
         }
-        return redirect()->route('tasks.show', $task->id);
+
+        return redirect()->route('tasks.edit', $task);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        //
+        $task->delete();
+        return redirect()->route('tasks.index');
     }
 }

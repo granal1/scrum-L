@@ -25,7 +25,10 @@ class StoreTaskFormRequest extends FormRequest
     {
         return [
             'description' => [ 'required', 'string', 'min:2', 'max:3000' ],
-            'comment' => ['nullable', 'text', 'min:2']
+            'deadline_at' => ['required'],
+            'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
+            'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
+            'parent_uuid' => ['nullable', 'string', 'min:36', 'max:36']
         ];
     }
 

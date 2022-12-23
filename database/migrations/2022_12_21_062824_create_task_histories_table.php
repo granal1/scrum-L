@@ -15,28 +15,29 @@ return new class extends Migration
     {
         Schema::create('task_histories', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignId('priority_uuid')
-                ->constrained('task_priorities', 'id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('parent_uuid')
-                ->constrained('tasks', 'id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('user_uuid')
-                ->constrained('users', 'id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
-            $table->foreignId('responsible_uuid')
-                ->constrained('users', 'id')
-                ->onUpdate('cascade')
-                ->onDelete('cascade');
+
+            $table->foreignUuid('priority_uuid');
+            $table->foreignUuid('user_uuid');
+            $table->foreignUuid('responsible_uuid');
+            $table->foreignUuid('task_uuid');
+
+            $table->string('parent_uuid', 36)->nullable()->default(null);
+
             $table->integer('done_progress')->nullable()->default(0);
             $table->timestamp('deadline_at');
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
+
+            Schema::table('task_histories', function($table)
+            {
+                $table->foreign('priority_uuid')->references('id')->on('task_priorities')->onupdate('cascade')->ondelete('cascade');
+                $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+                $table->foreign('responsible_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+                $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('cascade');
+
+            });
         });
     }
 
@@ -49,9 +50,9 @@ return new class extends Migration
     {
         Schema::table('task_histories', function (Blueprint $table) {
             $table->dropForeign(['priority_uuid']);
-            $table->dropForeign(['parent_uuid']);
             $table->dropForeign(['user_uuid']);
             $table->dropForeign(['responsible_uuid']);
+            $table->dropForeign(['task_uuid']);
         });
 
         Schema::dropIfExists('task_histories');

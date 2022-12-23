@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Создание задачи</title>
+    <title>Создание подзадачи</title>
     <meta lang="ru">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,11 +49,20 @@
     <div class="container mt-4 card shadow-lg mb-4">
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
-                <h5 class="mt-3">Новая задача</h5>
+                <h5 class="mt-3">Новая подзадача</h5>
             </div>
         </div>
         <form action="{{route('tasks.store')}}" method="post">
             @csrf
+            <input hidden readonly name="parent_uuid" value="{{$task->id}}">
+            <div class="row row-cols-1">
+                <div class="col">
+                    <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task)}}">Базовая задача родитель</a>
+                </div>
+                <div class="col mt-3">
+                    <textarea class="form-control form-control-sm" disabled readonly>{{$task->description}}</textarea>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mt-3">
                     <label for="priority_uuid">Приоритет</label>

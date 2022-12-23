@@ -76,8 +76,8 @@
                                 <td>{{$task->description}}</td>
                                 <td>{{$task->created_at}}</td>
                                 <td>{{$task->created_at}}</td>
-                                <td>Петров П.П.</td>
-                                <td>0</td>
+                                <td>{{$task->getResponsible()}}</td>
+                                <td>{{$task->currentHistory->done_progress}}</td>
                             </tr>
                         @empty
                             <tr>
