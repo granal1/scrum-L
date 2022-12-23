@@ -27,6 +27,9 @@ Route::middleware(['guest'])->group(function(){
     Route::any('/login', function(){
         return view('auth.login');
     });
+    Route::any('/', function(){
+        return view('auth.login');
+    });
 });
 
 
