@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Tasks;
+namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
-class TaskController extends Controller
+class UserController extends Controller
 {
 
     public function __construct()
@@ -31,11 +31,11 @@ class TaskController extends Controller
     public function index()
     {
 
-        $tasks = Task::paginate(config('front.tasks.pagination'));
-
-        return view('tasks.index',[
-            'tasks' => $tasks,
-        ]);
+//        $tasks = Task::paginate(config('front.tasks.pagination'));
+//
+//        return view('tasks.index',[
+//            'tasks' => $tasks,
+//        ]);
     }
 
     /**
@@ -45,9 +45,7 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create', [
-            'priorities' => TaskPriority::all(),
-            'users' => User::all(),
+        return view('users.create', [
         ]);
     }
 
@@ -57,13 +55,13 @@ class TaskController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreTaskFormRequest $request, UploadService $uploadService)
+    public function store(StoreUserFormRequest $request, UploadService $uploadService)
     {
-        $data = $request->validated();
-
-        $task = Task::create($data);
-
-        return redirect()->route('tasks.show', $task);
+//        $data = $request->validated();
+//
+//        $task = Task::create($data);
+//
+//        return redirect()->route('tasks.show', $task);
     }
 
     /**
@@ -72,11 +70,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show(User $user)
     {
-        return view('tasks.show', [
-            'task' => $task
-        ]);
+//        return view('tasks.show', [
+//            'task' => $task
+//        ]);
     }
 
     /**
@@ -85,11 +83,11 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Task $task)
+    public function edit(User $user)
     {
-        return view('tasks.edit', [
-            'task' => $task
-        ]);
+//        return view('tasks.edit', [
+//            'task' => $task
+//        ]);
     }
 
     /**
@@ -99,29 +97,29 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateTaskFormRequest $request, Task $task)
+    public function update(UpdateUserFormRequest $request, User $user)
     {
-        if($request->isMethod('patch')){
-
-            $data = $request->validated();
-
-            $task->description = $data['description'];
-
-            try {
-                DB::beginTransaction();
-
-                if( $task->save() ){
-
-                    DB::commit();
-
-                    return redirect()->route('tasks.index');
-                }
-            } catch (\Exception $e) {
-                DB::rollBack();
-                dd($e);
-            }
-        }
-        return redirect()->route('tasks.show', $task->id);
+//        if($request->isMethod('patch')){
+//
+//            $data = $request->validated();
+//
+//            $task->description = $data['description'];
+//
+//            try {
+//                DB::beginTransaction();
+//
+//                if( $task->save() ){
+//
+//                    DB::commit();
+//
+//                    return redirect()->route('tasks.index');
+//                }
+//            } catch (\Exception $e) {
+//                DB::rollBack();
+//                dd($e);
+//            }
+//        }
+//        return redirect()->route('tasks.show', $task->id);
     }
 
     /**

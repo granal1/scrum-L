@@ -1,10 +1,9 @@
 <?php
 
-use App\Models\Tasks\Task;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
-use App\Http\Controllers\IndexController as IndexController;
+use App\Http\Controllers\Users\UserController as UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,8 +16,23 @@ use App\Http\Controllers\IndexController as IndexController;
 |
 */
 
-Route::any('/', [TaskController::class, 'index']);
+Route::middleware(['auth'])->group(function(){
+    Route::any('/', [TaskController::class, 'index']);
+    Route::any('/home', [TaskController::class, 'index']);
+    Route::resource('tasks', TaskController::class);
+    Route::resource('users', UserController::class);
+});
 
-Route::resource('tasks', TaskController::class);
+Route::middleware(['guest'])->group(function(){
+    Route::any('/login', function(){
+        return view('auth.login');
+    });
+});
+
+
+//Route::fallback(function () {
+//    return view('errors.404');
+//});
+
 
 
