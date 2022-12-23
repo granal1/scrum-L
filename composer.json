@@ -50,7 +50,6 @@
             "@php artisan key:generate --ansi"
         ],
         "start": [
-            "cd %cd%\/database && copy nul > database.sqlite",
             "composer i",
             "@php artisan migrate:fresh --seed",
             "@php artisan route:clear",
