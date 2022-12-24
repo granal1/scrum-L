@@ -8,48 +8,79 @@
 
 @section('content')
     <div class="container mt-2 card shadow-lg mb-2">
-        <h2 class="rounded-3 mt-2 p-3 text-bg-primary text-center">Карточка сотрудника</h2>
-        <form action="">
-            <div class="row">
-                <div class="col">
-                    <div class="mb-3 mt-3">
-                        <label for="name" class="form-label">Ф.И.О.</label>
-                        <input type="text" class="form-control form-control-lg" id="name" placeholder="" name="name" value="Комаров Анатолий Иванович">
-                    </div>
-                </div>
+        <div class="row mt-3">
+            <div class="col">
+                <h4>Сотрудник</h4>
             </div>
-
-            <div class="row mb-3">
+        </div>
+        @include('message')
+        <form action="{{route('users.update', $user)}}" method="post">
+            @csrf
+            @method('patch')
+            <div class="row row-cols-1 row-cols-md-2 mb-3">
+                <div class="col">
+                    <label for="name" class="form-label">Ф.И.О.</label>
+                    <input required type="text" class="form-control form-control-sm" id="name" placeholder="Введите Фамилия Имя Отчество" name="name" value="{{$user->name}}">
+                    @error('name')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
                 <div class="col">
                     <label for="login" class="form-label">Логин:</label>
-                    <input type="text" class="form-control" id="login" placeholder="" name="login" value="o1">
-                </div>
-                <div class="col">
-                    <label for="pwd" class="form-label">Пароль:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="" name="pswd" value="90-=">
-                </div>
-            </div>
-
-
-            <div class="row mb-3">
-                <div class="col">
-                    <label for="phone" class="mt-3">Номер телефона в формате xxx-xxx-xx-xx:</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="111-222-33-44">
-                </div>
-                <div class="col">
-                    <label for="birthday_at" class="mt-3">Дата рождения:</label>
-                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="" required="" value="1995-08-01">
+                    <input required type="text" class="form-control form-control-sm" id="login" placeholder="Введите логин" name="login" value="{{$user->login}}">
+                    @error('login')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
             </div>
 
             <div class="row mb-3">
                 <div class="col">
-                    <label for="email" class="mt-3">Адрес электронной почты:</label>
-                    <input type="email" id="email" name="email" class="form-control" value="o1@o1.ru">
+                    <label for="password" class="form-label">Пароль:</label>
+                    <input disabled readonly type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
+                    @error('password')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
                 <div class="col">
-                    <label for="superior_uuid" class="mt-3">Ф.И.О. начальника:</label>
-                    <input type="text" id="superior_uuid" name="superior_uuid" class="form-control" placeholder="" required="" value="Герасимов Иван Иванович">
+                    <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
+                    <input type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone}}">
+                    @error('phone')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 mb-3">
+                <div class="col">
+                    <label for="birthday_at"  class="form-label">Дата рождения:</label>
+                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="" required="" value="{{$user->birthday_at}}">
+                    @error('birthday_at')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col">
+                    <label for="email"  class="form-label">Адрес электронной почты:</label>
+                    <input required type="email" id="email" name="email" class="form-control" value="{{$user->email}}">
+                    @error('email')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col">
+                    <label for="superior_uuid"  class="form-label">Начальник:</label>
+                    <select name="superior_uuid" class="form-select form-select-sm">
+                        <option value="">Выберите руководителя ...</option>
+                    @forelse($superiors as $superior)
+                            <option @if($superior->id === $user->superior_uuid) selected @endif value="{{$superior->id}}">{{$superior->name}}</option>
+                        @empty
+                            <option value="">Нет сотрудников</option>
+                        @endforelse
+                    </select>
+                    @error('superior_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
                 </div>
             </div>
 

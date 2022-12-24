@@ -13,8 +13,8 @@
 @endif
 
 @if ($errors->any())
-    <div class="alert alert-danger">
-        <button type="button" class="close" data-dismiss="alert">×</button>
-        Please check the form below for errors
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Проверьте все поля на правильность заполнения</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
