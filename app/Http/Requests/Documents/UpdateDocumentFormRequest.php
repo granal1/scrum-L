@@ -25,7 +25,7 @@ class UpdateDocumentFormRequest extends FormRequest
     {
         return [
             'name' => [],
-            'path' => [],
+            //'path' => [],
         ];
     }
 

@@ -7,9 +7,9 @@ use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 class UploadService
 {
-    public function uploadMedia(UploadedFile $uploadedFile, $name = null): string
+    public function uploadMedia(UploadedFile $uploadedFile): string
     {
-        $path = $uploadedFile->storeAs('files/documents/' . date('Y/m/d'), $name, 'public');
+        $path = $uploadedFile->storeAs('files/documents/' . date('Y/m/d'), date('Ymd-His') . '.pdf', 'public');
         if ($path === false) {
             throw new UploadException("File was not upload");
         }

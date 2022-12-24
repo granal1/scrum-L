@@ -66,12 +66,9 @@ class DocumentController extends Controller
 
                 if ($request->hasFile('file')) {
 
-                    $document->name = isset($data['name']) ? $data['name'] . '.pdf' : $request->file('file')->getClientOriginalName();
+                    $document->name = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
 
-                    $document->path = $uploadService->uploadMedia($request->file('file'), $document->name);
-//                    $document->path = $request->file('file')->storeAs(
-//                        'public/documents/' . date('Y/m/d/'), $document->name
-//                    );
+                    $document->path = $uploadService->uploadMedia($request->file('file'));
 
                     $document->save();
                 }
@@ -129,10 +126,8 @@ class DocumentController extends Controller
                 DB::beginTransaction();
 
                 $document->update([
-                    'name' => $data['name'],
-                    'path' => $data['path']
+                    'name' => $data['name']
                 ]);
-
 
                 DB::commit();
 
@@ -156,7 +151,17 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
+        if(Storage::exists('/public/' . $document->path)){
+
+            Storage::delete('/public/' . $document->path);
+
+        }else{
+            // TODO сделать вывод в лог, чтобы сайт не крашился
+            dd('File does not exist.');
+        }
+
         $document->delete();
+
         return redirect()->route('documents.index');
     }
 }
