@@ -83,6 +83,15 @@ class UserController extends Controller
 
                 $user->save();
 
+                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
+                {
+                    $subordinate_user = User::find($data['subordinate_uuid']);
+
+                    $subordinate_user->update([
+                        'superior_uuid' => $user->id,
+                    ]);
+                }
+
                 DB::commit();
 
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
@@ -105,7 +114,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         return view('users.show', [
-            'user' => $user
+            'user' => $user,
+            'subordinates' => User::where('superior_uuid', $user->id)->get(),
         ]);
     }
 
@@ -120,6 +130,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user' => $user,
             'superiors' => User::all(),
+            'subordinates' => User::all(),
         ]);
     }
 
@@ -149,9 +160,19 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid']
                 ]);
 
+                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
+                {
+                    $subordinate_user = User::find($data['subordinate_uuid']);
+
+                    $subordinate_user->update([
+                        'superior_uuid' => $user->id,
+                    ]);
+                }
+
                     DB::commit();
 
-                    return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сохранены.');
+                    return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 dd($e); // TODO, вывод ошибки в журнал, чтобы сайт не крашился
