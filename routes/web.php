@@ -22,6 +22,7 @@ Route::middleware(['auth'])->group(function(){
     Route::any('/', [TaskController::class, 'index']);
     Route::any('/home', [TaskController::class, 'index']);
     Route::resource('tasks', TaskController::class);
+    Route::delete('tasks/task-file-destroy/{task}/{document}', [TaskController::class, 'task_file_destroy'])->name('tasks.task-file-destroy');
     Route::post('tasks/create-subtask/{task}', [TaskController::class, 'create_subtask'])->name('tasks.create-subtask');
     Route::resource('users', UserController::class);
     Route::resource('documents', DocumentController::class);
