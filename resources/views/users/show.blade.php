@@ -8,51 +8,42 @@
 
 @section('content')
     <div class="container mt-2 card shadow-lg mb-2">
-        <h2 class="rounded-3 mt-2 p-3 text-bg-primary text-center">Карточка сотрудника</h2>
-        <form action="">
-            <div class="row">
-                <div class="col">
-                    <div class="mb-3 mt-3">
-                        <label for="name" class="form-label">Ф.И.О.</label>
-                        <input type="text" class="form-control form-control-lg" id="name" placeholder="" name="name" value="Комаров Анатолий Иванович">
-                    </div>
-                </div>
+        <div class="row mt-3">
+            <div class="col">
+                <h4>Сотрудник</h4>
             </div>
-
-            <div class="row mb-3">
+        </div>
+        <form action="">
+            <div class="row row-cols-1 row-cols-md-2 mb-3">
+                <div class="col">
+                        <label for="name" class="form-label">Ф.И.О.</label>
+                        <input disabled readonly type="text" class="form-control form-control-sm" id="name" placeholder="" name="name" value="{{$user->name}}">
+                </div>
                 <div class="col">
                     <label for="login" class="form-label">Логин:</label>
-                    <input type="text" class="form-control" id="login" placeholder="" name="login" value="o1">
-                </div>
-                <div class="col">
-                    <label for="pwd" class="form-label">Пароль:</label>
-                    <input type="password" class="form-control" id="pwd" placeholder="" name="pswd" value="90-=">
+                    <input  disabled readonly type="text" class="form-control form-control-sm" id="login" placeholder="" name="login" value="{{$user->login}}">
                 </div>
             </div>
-
-
             <div class="row mb-3">
                 <div class="col">
-                    <label for="phone" class="mt-3">Номер телефона в формате xxx-xxx-xx-xx:</label>
-                    <input type="tel" id="phone" name="phone" class="form-control" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="111-222-33-44">
+                    <label for="birthday_at"  class="form-label">Дата рождения:</label>
+                    <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" placeholder="" required="" value="{{$user->birthday_at}}">
                 </div>
                 <div class="col">
-                    <label for="birthday_at" class="mt-3">Дата рождения:</label>
-                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="" required="" value="1995-08-01">
+                    <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
+                    <input  disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone}}">
                 </div>
             </div>
-
-            <div class="row mb-3">
+            <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col">
-                    <label for="email" class="mt-3">Адрес электронной почты:</label>
-                    <input type="email" id="email" name="email" class="form-control" value="o1@o1.ru">
+                    <label for="email"  class="form-label">Адрес электронной почты:</label>
+                    <input  disabled readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
                 </div>
                 <div class="col">
-                    <label for="superior_uuid" class="mt-3">Ф.И.О. начальника:</label>
-                    <input type="text" id="superior_uuid" name="superior_uuid" class="form-control" placeholder="" required="" value="Герасимов Иван Иванович">
+                    <label for="superior_uuid"  class="form-label">Начальник:</label>
+                    <input  disabled readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="{{$user->superior->name}}">
                 </div>
             </div>
-
             <p>
             <h4>Список подчиненных сотрудников:</h4>
             <ol>
@@ -72,7 +63,7 @@
             </p>
 
 
-            <div class="row pt-3 row-cols-1 row-cols-md-3">
+            <div class="row pt-3 row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
                     <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
                 </div>

@@ -23,6 +23,10 @@ class User extends Authenticatable
         'email',
         'password',
         'login',
+        'phone',
+        'birthday_at',
+        'comment',
+        'superior_uuid'
     ];
 
     /**
@@ -46,5 +50,10 @@ class User extends Authenticatable
 
     public function name(){
         return $this->name;
+    }
+
+    public function superior()
+    {
+        return $this->belongsTo(User::class, 'superior_uuid');
     }
 }
