@@ -23,7 +23,7 @@
                          <a class="nav-link" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('tasks.index') }}">Админка</a>
+                         <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
                      </li>
                  </ul>
              @endauth
