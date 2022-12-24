@@ -26,7 +26,7 @@ class User extends Authenticatable
         'phone',
         'birthday_at',
         'comment',
-        'superior_uuid'
+        'superior_uuid',
     ];
 
     /**

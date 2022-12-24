@@ -65,7 +65,7 @@
 
             <div class="row mb-3">
                 <div class="col">
-                    <label for="superior_uuid"  class="form-label">Начальник:</label>
+                    <label for="superior_uuid"  class="form-label">Начальник</label>
                     <select name="superior_uuid" class="form-select form-select-sm">
                         <option value="">Выберите руководителя ...</option>
                         @forelse($superiors as $superior)
@@ -79,26 +79,23 @@
                     @enderror
                 </div>
             </div>
-
-            <p>
-            <h4>Список подчиненных сотрудников:</h4>
-            <ol>
-                <li>
-                    Иванов Артем Анатольевич
-                </li>
-                <li>
-                    Петров Богдан Анатольевич
-                </li>
-                <li>
-                    Сидоров Валерий Анатольевич
-                </li>
-                <li>
-                    Кузнецов Георгий Анатольевич
-                </li>
-            </ol>
-            </p>
-
-            <div class="row row-cols-1 row-cols-md-3 mb-3">
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label form-label-sm">Подчиненные</label>
+                    <select name="subordinate_uuid" class="form-select form-select-sm">
+                        <option value="">Выберите подчиненного ...</option>
+                        @forelse($superiors as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @empty
+                            <option value="">Нет сотрудников</option>
+                        @endforelse
+                    </select>
+                    @error('subordinate_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 mb-4">
                 <div class="col mt-3">
                     <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
                 </div>

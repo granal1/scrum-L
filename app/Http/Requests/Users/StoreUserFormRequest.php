@@ -30,8 +30,9 @@ class StoreUserFormRequest extends FormRequest
             'phone' => ['nullable', 'string', 'min:3', 'max:15'],
             'birthday_at' => ['nullable'],
             'password' => ['required', 'string', 'min:2', 'max:50'],
-            'comment' => ['nullable'],
-            'superior_uuid' => ['nullable', 'string', 'min:36', 'max:36']
+            'comment' => ['nullable', 'string', 'min:1', 'max:3000'],
+            'superior_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'subordinate_uuid' => ['nullable', 'string', 'min:36', 'max:36']
         ];
     }
 

@@ -27,11 +27,11 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                    <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" placeholder="" required="" value="{{$user->birthday_at}}">
+                        <input  disabled readonly type="text" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{$user->birthday_at ?? 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
-                    <input  disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone}}">
+                    <input  disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2 mb-3">
@@ -41,28 +41,28 @@
                 </div>
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>
+                    @if(isset($user->superior->name))
                     <input  disabled readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="{{$user->superior->name}}">
+                    @else
+                        <input  disabled readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="Отсутствует">
+                    @endif
                 </div>
             </div>
-            <p>
-            <h4>Список подчиненных сотрудников:</h4>
-            <ol>
-                <li>
-                    Иванов Артем Анатольевич
-                </li>
-                <li>
-                    Петров Богдан Анатольевич
-                </li>
-                <li>
-                    Сидоров Валерий Анатольевич
-                </li>
-                <li>
-                    Кузнецов Георгий Анатольевич
-                </li>
-            </ol>
-            </p>
-
-
+            <div class="row mb-3">
+                <div class="col">
+                    <label class="form-label form-label-sm">Подчиненные</label>
+                    <select disabled name="subordinate_uuid" class="form-select form-select-sm">
+                        @forelse($subordinates as $user)
+                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @empty
+                            <option value="">Нет подчиненных</option>
+                        @endforelse
+                    </select>
+                    @error('subordinate_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
             <div class="row pt-3 row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
                     <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
