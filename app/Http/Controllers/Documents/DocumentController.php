@@ -43,7 +43,7 @@ class DocumentController extends Controller
     public function create()
     {
         return view('documents.create', [
-            'users' => User::all(),
+            'users' => User::all()
         ]);
     }
 

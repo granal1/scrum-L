@@ -30,6 +30,7 @@ class UpdateTaskFormRequest extends FormRequest
             'deadline_at' => ['required'],
             'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
+            'file_uuid' => ['nullable', 'string', 'min:36', 'max:36']
         ];
     }
 

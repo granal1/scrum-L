@@ -25,7 +25,7 @@ class StoreDocumentFormRequest extends FormRequest
     {
         return [
             'name' => ['nullable', 'string', 'min:1', 'max:255'],
-            'file' => ['required'],
+            'file' => ['required', 'max:25000000', 'mimes:pdf'], // kb
         ];
     }
 

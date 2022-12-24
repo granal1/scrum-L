@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Tasks;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
 use App\Http\Requests\Tasks\UpdateTaskFormRequest;
+use App\Models\Documents\Document;
+use App\Models\Tasks\TaskFile;
 use App\Models\Tasks\TaskHistory;
 use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
@@ -50,6 +52,7 @@ class TaskController extends Controller
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
             'users' => User::all(),
+            'documents' => Document::all(),
         ]);
     }
 
@@ -92,6 +95,17 @@ class TaskController extends Controller
                     'deadline_at' => $data['deadline_at'],
                     'parent_uuid' => $data['parent_uuid'] ?? null,
                 ]);
+
+                $real_document = Document::find($data['file_uuid']);
+
+                if($real_document)
+                {
+                    $task_file = TaskFile::create([
+                        'task_uuid' => $task->id,
+                        'file_uuid' => $real_document->id,
+                    ]);
+                }
+
                 DB::commit();
 
                 return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
@@ -115,8 +129,9 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+
         return view('tasks.show', [
-            'task' => $task
+            'task' => $task,
         ]);
     }
 
