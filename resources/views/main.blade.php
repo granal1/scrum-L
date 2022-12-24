@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid p-0">
         @yield('header')
         @yield('content')
         @yield('footer')

@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3">
+    <div class="container pt-3 card shadow-lg my-3 mx-auto">
         <div class="row row-cols-1 row-cols-md-2">
             @if(!is_null($task->currentHistory->parent_uuid))
                     <div class="col">
@@ -76,7 +76,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mt-2">
+            <div class="row row-cols-1 row-cols-md-2 mt-3">
                 <div class="col">
                     <label for="responsible_uuid">Ответственный за выполнение</label>
                     <select class="form-select form-select-sm" name="responsible_uuid">
@@ -113,7 +113,7 @@
                 @enderror
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-4 mt-3">
                 <div class="col mt-3">
                     <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
                 </div>
@@ -125,23 +125,21 @@
                 </div>
             </div>
         </form>
-        <form action="{{route('tasks.create-subtask', $task)}}" method="post">
-            @csrf
-            <div class="row mb-3 mt-3">
-                <div class="col">
+        <div class="row row-cols-1 row-cols-md-2">
+            <form action="{{route('tasks.create-subtask', $task)}}" method="post">
+                @csrf
+                <div class="col mb-3">
                     <button type="submit" class="btn btn-warning btn-sm col-12">Создать подзадачу</button>
                 </div>
-            </div>
-        </form>
-        <form action="{{route('tasks.destroy', $task)}}" method="post">
-            @csrf
-            @method('delete')
-        <div class="row mb-4 mt-2">
-            <div class="col">
-                <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
-            </div>
+            </form>
+            <form action="{{route('tasks.destroy', $task)}}" method="post">
+                @csrf
+                @method('delete')
+                <div class="col mb-4">
+                    <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
+                </div>
+            </form>
         </div>
-        </form>
     </div>
     @endsection
 
