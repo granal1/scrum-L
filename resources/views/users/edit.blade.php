@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Главная | Пользователи')
+@section('title', 'Редактирование пользователя')
 
 @section('header')
     @include('menu')
@@ -71,16 +71,26 @@
             </ol>
             </p>
 
-
-            <div class="row mt-5 mb-4">
-                <div class="col">
+            <div class="row row-cols-1 row-cols-md-3">
+                <div class="col mt-3">
+                    <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
+                </div>
+                <div class="col mt-3">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
                 </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger btn-sm col-12">Сохранить</button>
+                <div class="col mt-3">
+                    <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>
                 </div>
             </div>
-
+        </form>
+        <form action="{{route('users.destroy', $user)}}" method="post">
+            @csrf
+            @method('delete')
+            <div class="row mb-4 mt-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
+                </div>
+            </div>
         </form>
     </div>
 @endsection

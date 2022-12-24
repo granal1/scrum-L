@@ -72,9 +72,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-//        return view('tasks.show', [
-//            'task' => $task
-//        ]);
+        return view('users.show', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -85,9 +85,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-//        return view('tasks.edit', [
-//            'task' => $task
-//        ]);
+        return view('users.edit', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -128,8 +128,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return redirect()->route('users.index');
     }
 }
