@@ -61,9 +61,14 @@
         </div>
         <div class="row pt-3">
             <div class="col">
-                <p>Приложение:</p>
-                    <p><a href="#">Файл 1</a></p>
-                    <p><a href="#">Файл 2</a></p>
+                <label for="file_uuid" class="form-label">Приложение</label>
+                <ul>
+                @forelse($task->documents as $document)
+                    <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
+                @empty
+                    <p>Нет приложений</p>
+                @endforelse
+                </ul>
             </div>
         </div>
         <div class="row pt-3 row-cols-1 row-cols-md-3">

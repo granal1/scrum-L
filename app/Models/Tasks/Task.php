@@ -2,6 +2,7 @@
 
 namespace App\Models\Tasks;
 
+use App\Models\Documents\Document;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -71,6 +72,11 @@ class Task extends Model
     public function currentResponsible()
     {
         return $this->responsibles->last()->name;
+    }
+
+    public function documents(): BelongsToMany
+    {
+        return $this->belongsToMany(Document::class, 'task_files', 'task_uuid', 'file_uuid');
     }
 
     public static function boot() {

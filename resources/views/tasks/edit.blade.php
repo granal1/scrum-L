@@ -15,11 +15,16 @@
                         <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task->currentHistory->parent_uuid)}}">Базовая задача</a>
                     </div>
             @endif
-            <div class="col mt-3">
-                <p>Приложение:</p>
-                <p>1. <a href="">Сопроводительное письмо.pdf</a></p>
-                <p>2. <a href="">Приложение к документу.zip</a></p>
-            </div>
+                    <div class="col">
+                        <label for="file_uuid" class="form-label">Приложение</label>
+                        <ul>
+                            @forelse($task->documents as $document)
+                                <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
+                            @empty
+                                <p>Нет приложений</p>
+                            @endforelse
+                        </ul>
+                    </div>
         </div>
         @include('message')
         <form action="{{route('tasks.update', $task)}}" method="post">
