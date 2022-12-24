@@ -76,7 +76,12 @@ class Task extends Model
 
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class, 'task_files', 'task_uuid', 'file_uuid');
+        return $this->belongsToMany(
+            Document::class,
+            'task_files',
+            'task_uuid',
+            'file_uuid'
+        )->wherePivot('deleted_at', null);
     }
 
     public static function boot() {
@@ -84,6 +89,7 @@ class Task extends Model
 
         static::deleting(function($task) {
             $task->histories()->delete();
+            $task->documents()->delete();
         });
     }
 

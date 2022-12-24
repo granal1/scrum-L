@@ -146,7 +146,8 @@ class TaskController extends Controller
         return view('tasks.edit', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
-            'users' => User::all()
+            'users' => User::all(),
+            'documents' => Document::all(),
         ]);
     }
 
@@ -182,6 +183,16 @@ class TaskController extends Controller
                     'comment' => $data['comment']
                 ]);
 
+                $real_document = Document::find($data['file_uuid']);
+
+                if($real_document)
+                {
+                    $task_file = TaskFile::create([
+                        'task_uuid' => $task->id,
+                        'file_uuid' => $real_document->id,
+                    ]);
+                }
+
                 DB::commit();
 
                 return redirect()->route('tasks.edit', $task)->with('success','Изменения сохранены.');
@@ -208,5 +219,12 @@ class TaskController extends Controller
     {
         $task->delete();
         return redirect()->route('tasks.index');
+    }
+
+    public function task_file_destroy(Task $task, Document $document)
+    {
+        $task_file = TaskFile::where('task_uuid', $task->id)->where('file_uuid', $document->id)->delete();
+
+        return redirect()->route('tasks.show', $task);
     }
 }

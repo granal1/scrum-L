@@ -16,12 +16,19 @@
                     </div>
             @endif
                     <div class="col">
-                        <label for="file_uuid" class="form-label">Приложение</label>
+                        <label class="form-label">Приложение</label>
                         <ul>
                             @forelse($task->documents as $document)
-                                <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
+                                <form action="{{route('tasks.task-file-destroy', [$task, $document])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <li>
+                                        <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a>
+                                        <button class="ms-2 btn btn-sm btn-danger" type="submit">x</button>
+                                    </li>
+                                </form>
                             @empty
-                                <p>Нет приложений</p>
+                                <span>Нет приложений</span>
                             @endforelse
                         </ul>
                     </div>
@@ -90,6 +97,20 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
+            </div>
+            <div class="col mt-3 mb-2">
+                <label for="file_uuid" class="form-label">Прикрепить документ</label>
+                <select class="form-select form-select-sm" name="file_uuid">
+                    <option value="">Выберите документ ...</option>
+                @forelse($documents as $document)
+                        <option value="{{$document->id}}">{{$document->name}}</option>
+                    @empty
+                        <option value="">Нет документов</option>
+                    @endforelse
+                </select>
+                @error('file_uuid')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
             </div>
 
             <div class="row row-cols-1 row-cols-md-3">
