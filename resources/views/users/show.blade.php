@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Главная | Пользователи')
+@section('title', 'Пользователь')
 
 @section('header')
     @include('menu')
@@ -72,12 +72,15 @@
             </p>
 
 
-            <div class="row mt-5 mb-4">
-                <div class="col">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
+            <div class="row pt-3 row-cols-1 row-cols-md-3">
+                <div class="col mb-3">
+                    <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
                 </div>
-                <div class="col">
-                    <button type="button" class="btn btn-danger btn-sm col-12">Сохранить</button>
+                <div class="col mb-3">
+                    <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
+                </div>
+                <div class="col mb-3">
+                    <a class="btn btn-sm btn-danger col-12" href="{{route('users.edit', $user)}}">Редактировать</a>
                 </div>
             </div>
 
