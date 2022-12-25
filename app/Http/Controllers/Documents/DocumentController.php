@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\Documents\DocumentFilter;
+use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
 use App\Http\Requests\Documents\UpdateDocumentFormRequest;
 use App\Models\Documents\Document;
@@ -27,13 +29,19 @@ class DocumentController extends Controller
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(DocumentFilterRequest $request)
     {
 
-        $documents = Document::paginate(config('front.documents.pagination'));
+        $data = $request->validated();
+
+        $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
+
+        $documents = Document::filter($filter)
+            ->paginate(config('front.documents.pagination'));
 
         return view('documents.index',[
             'documents' => $documents,
+            'old_filters' => $data,
         ]);
     }
 
