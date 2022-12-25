@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\Tasks\TaskFilter;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
+use App\Http\Requests\Tasks\TaskFilterRequest;
 use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskFile;
@@ -32,13 +34,19 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TaskFilterRequest $request)
     {
 
-        $tasks = Task::paginate(config('front.tasks.pagination'));
+        $data = $request->validated();
+
+        $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
+
+        $tasks = Task::filter($filter)
+            ->paginate(config('front.tasks.pagination'));
 
         return view('tasks.index',[
             'tasks' => $tasks,
+            'old_filters' => $data,
         ]);
     }
 

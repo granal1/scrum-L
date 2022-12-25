@@ -3,6 +3,7 @@
 namespace App\Models\Tasks;
 
 use App\Models\Documents\Document;
+use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes, HasUuids, Filterable;
 
     protected $table = "tasks";
 
@@ -91,6 +92,16 @@ class Task extends Model
             $task->histories()->delete();
             $task->documents()->delete();
         });
+    }
+
+    protected function removeQueryParam(string ...$keys)
+    {
+        foreach($keys as $key)
+        {
+            unset($this->queryParams[$key]);
+        }
+
+        return $this;
     }
 
 }
