@@ -42,7 +42,7 @@ class UserController extends Controller
         $users = User::filter($filter)
             ->paginate(config('front.users.pagination'));
 
-        return view('users.index',[
+        return view('users.index', [
             'users' => $users,
             'old_filters' => $data,
         ]);
@@ -68,8 +68,7 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
-        if ($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $data = $request->validated();
 
             $user = new User();
@@ -90,8 +89,7 @@ class UserController extends Controller
 
                 $user->save();
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
@@ -102,7 +100,6 @@ class UserController extends Controller
                 DB::commit();
 
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
-
             } catch (\Exception $e) {
                 DB::rollBack();
                 dd($e); // TODO сделать вывод в журнол ошибок, чтобы сайт не крашился
@@ -150,7 +147,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
-        if($request->isMethod('patch')){
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -167,8 +164,7 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid']
                 ]);
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
@@ -176,10 +172,9 @@ class UserController extends Controller
                     ]);
                 }
 
-                    DB::commit();
+                DB::commit();
 
-                    return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
-
+                return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 dd($e); // TODO, вывод ошибки в журнал, чтобы сайт не крашился
