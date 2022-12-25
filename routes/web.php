@@ -39,9 +39,9 @@ Route::middleware(['guest'])->group(function(){
 });
 
 
-//Route::fallback(function () {
-//    return view('errors.404');
-//});
+Route::fallback(function () {
+    return view('errors.404');
+});
 
 
 
