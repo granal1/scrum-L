@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\Users\UserFilter;
 use App\Http\Requests\Tasks\StoreTaskFormRequest;
 use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
+use App\Http\Requests\Users\UserFilterRequest;
 use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
 
@@ -31,13 +33,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserFilterRequest $request)
     {
+        $data = $request->validated();
 
-        $users = User::paginate(config('front.users.pagination'));
+        $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
+
+        $users = User::filter($filter)
+            ->paginate(config('front.users.pagination'));
 
         return view('users.index',[
             'users' => $users,
+            'old_filters' => $data,
         ]);
     }
 

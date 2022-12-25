@@ -26,6 +26,27 @@
                             <td>Имя</td>
                             <td>Почта</td>
                         </tr>
+                        <tr>
+                            <th colspan="4">
+                                <a class="btn btn-sm btn-success col-12" href="{{route('users.index')}}">Сброс фильтров</a>
+                            </th>
+                        </tr>
+                        <form action="{{ route('users.index') }}" method="get">
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif"
+                                           class="form-control form-control-sm" id="name" name="name"
+                                           onchange="this.form.submit()">
+                                </th>
+                                <th>
+                                    <input type="search" value="@if(isset($old_filters['email'])) {{ $old_filters['email'] }} @endif"
+                                           class="form-control form-control-sm" id="email" name="email"
+                                           onchange="this.form.submit()">
+                                </th>
+                            </tr>
+                        </form>
                     </thead>
                     <tbody style="cursor: pointer;">
                         @forelse($users as $user)
@@ -43,7 +64,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{$users->links()}}
+                {{$users->withQueryString()->links()}}
             </div>
         </div>
     </div>
