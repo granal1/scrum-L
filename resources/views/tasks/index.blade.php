@@ -29,6 +29,22 @@
                             <td>Ответственный</td>
                             <td>Выполнено, %</td>
                         </tr>
+                        <tr>
+                            <th colspan="6">
+                                <a class="btn btn-sm btn-success col-12" href="{{route('tasks.index')}}">Сброс фильтров</a>
+                            </th>
+                        </tr>
+                        <form action="{{ route('tasks.index') }}" method="get">
+                            <tr>
+                                <th>
+                                </th>
+                                <th>
+                                    <input type="search" value="@if(isset($old_filters['description'])) {{ $old_filters['description'] }} @endif"
+                                           class="form-control form-control-sm" id="description" name="description"
+                                           onchange="this.form.submit()">
+                                </th>
+                            </tr>
+                        </form>
                     </thead>
                     <tbody style="cursor: pointer;">
                         @forelse($tasks as $task)
@@ -49,7 +65,7 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{$tasks->links()}}
+                {{$tasks->withQueryString()->links()}}
             </div>
         </div>
     </div>
