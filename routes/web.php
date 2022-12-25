@@ -18,22 +18,27 @@ use App\Http\Controllers\Admin\AdminController as AdminController;
 |
 */
 
-Route::middleware(['auth'])->group(function(){
-    Route::any('/', [TaskController::class, 'index']);
-    Route::any('/home', [TaskController::class, 'index']);
-    Route::resource('tasks', TaskController::class);
-    Route::delete('tasks/task-file-destroy/{task}/{document}', [TaskController::class, 'task_file_destroy'])->name('tasks.task-file-destroy');
-    Route::post('tasks/create-subtask/{task}', [TaskController::class, 'create_subtask'])->name('tasks.create-subtask');
-    Route::resource('users', UserController::class);
-    Route::resource('documents', DocumentController::class);
-    Route::resource('admin', AdminController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::controller(TaskController::class)
+        ->group(function () {
+            Route::any('/', 'index');
+            Route::any('/home', 'index');
+            Route::delete('tasks/task-file-destroy/{task}/{document}', 'task_file_destroy')->name('tasks.task-file-destroy');
+            Route::post('tasks/create-subtask/{task}', 'create_subtask')->name('tasks.create-subtask');
+        });
+    Route::resources([
+        'tasks' => TaskController::class,
+        'users' => UserController::class,
+        'documents' => DocumentController::class,
+        'admin' => AdminController::class,
+    ]);
 });
 
-Route::middleware(['guest'])->group(function(){
-    Route::any('/login', function(){
+Route::middleware(['guest'])->group(function () {
+    Route::any('/login', function () {
         return view('auth.login');
     });
-    Route::any('/', function(){
+    Route::any('/', function () {
         return view('auth.login');
     });
 });
@@ -42,6 +47,3 @@ Route::middleware(['guest'])->group(function(){
 Route::fallback(function () {
     return view('errors.404');
 });
-
-
-
