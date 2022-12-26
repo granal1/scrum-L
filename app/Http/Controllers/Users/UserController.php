@@ -172,9 +172,6 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid']
                 ]);
 
-<<<<<<< HEAD
-                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
-=======
                 UserRole::where('user_uuid', $user->id)->delete();
                 UserRole::create([
                     'user_uuid' => $user->id,
@@ -183,7 +180,6 @@ class UserController extends Controller
 
                 if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
                 {
->>>>>>> granal1/dev2
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
