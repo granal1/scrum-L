@@ -28,15 +28,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('create-document', function (User $user) {
-            foreach($user->roles as $role)
-            {
-                if($role->name === 'delo')
-                {
-                    return true;
-                }
-            }
-            return false;
-        });
     }
 }
