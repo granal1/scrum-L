@@ -29,15 +29,15 @@ return new class extends Migration
             $table->integer('sort_order')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
+        });
 
-            Schema::table('task_histories', function($table)
-            {
-                $table->foreign('priority_uuid')->references('id')->on('task_priorities')->onupdate('cascade')->ondelete('cascade');
-                $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
-                $table->foreign('responsible_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
-                $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('cascade');
+        Schema::table('task_histories', function($table)
+        {
+            $table->foreign('priority_uuid')->references('id')->on('task_priorities')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('responsible_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('cascade');
 
-            });
         });
     }
 

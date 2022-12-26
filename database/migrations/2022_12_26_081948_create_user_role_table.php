@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('task_files', function (Blueprint $table) {
+        Schema::create('user_role', function (Blueprint $table) {
             $table->uuid('id')->primary();
 
-            $table->foreignUuid('file_uuid');
-            $table->foreignUuid('task_uuid');
-
+            $table->foreignUuid('user_uuid');
+            $table->foreignUuid('role_uuid');
 
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->nullable()->default(1);
@@ -26,10 +25,10 @@ return new class extends Migration
             $table->softDeletes();
         });
 
-        Schema::table('task_files', function($table)
+        Schema::table('user_role', function($table)
         {
-            $table->foreign('file_uuid')->references('id')->on('files')->onupdate('cascade')->ondelete('cascade');
-            $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('role_uuid')->references('id')->on('roles')->onupdate('cascade')->ondelete('cascade');
 
         });
     }
@@ -41,11 +40,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('task_files', function (Blueprint $table) {
-            $table->dropForeign(['file_uuid']);
-            $table->dropForeign(['task_uuid']);
+        Schema::table('user_role', function (Blueprint $table) {
+            $table->dropForeign(['user_uuid']);
+            $table->dropForeign(['role_uuid']);
         });
 
-        Schema::dropIfExists('task_files');
+        Schema::dropIfExists('user_role');
     }
 };
