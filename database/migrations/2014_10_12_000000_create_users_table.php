@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('superior_uuid', 36)->nullable()->default(null);
             $table->string('name', 100);
             $table->string('email', 100)->unique();
-            $table->string('phone', 10)->nullable()->default(null);
+            $table->string('phone', 15)->nullable()->default(null);
             $table->timestamp('birthday_at')->nullable()->default(null);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
