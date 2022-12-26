@@ -4,6 +4,8 @@ namespace App\Http\Filters\Users;
 
 use App\Http\Filters\AbstractFilter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class UserFilter extends AbstractFilter
 {

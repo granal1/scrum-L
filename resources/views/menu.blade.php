@@ -23,6 +23,9 @@
                          <a class="nav-link" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>
                      <li class="nav-item">
+                         <a class="nav-link" href="{{ route('users.show', Auth::id()) }}">Мой профиль</a>
+                     </li>
+                     <li class="nav-item">
                          <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
                      </li>
                  </ul>
