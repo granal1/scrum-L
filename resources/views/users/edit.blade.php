@@ -26,9 +26,24 @@
                     @enderror
                 </div>
                 <div class="col">
-                    <label for="login" class="form-label">Логин:</label>
-                    <input required type="text" class="form-control form-control-sm" id="login" placeholder="Введите логин" name="login" value="{{$user->login}}">
-                    @error('login')
+                    <label for="role_uuid" class="form-label form-label-sm">Роли:</label>
+                    <select name="role_uuid" class="form-select form-select-sm">
+                        <option value="">Выберите роль ...</option>
+                        @if(isset($user->roles->first()->id))
+                        @forelse($roles as $role)
+                            <option @if($user->roles->first()->id === $role->id) selected @endif value="{{$role->id}}">{{$role->alias}}</option>
+                        @empty
+                            <option value="">Нет ролей</option>
+                        @endforelse
+                        @else
+                            @forelse($roles as $role)
+                                <option value="{{$role->id}}">{{$role->alias}}</option>
+                            @empty
+                                <option value="">Нет ролей</option>
+                            @endforelse
+                        @endif
+                    </select>
+                    @error('role_uuid')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -53,7 +68,7 @@
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="" required="" value="{{$user->birthday_at}}">
+                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="" value="{{$user->birthday_at}}">
                     @error('birthday_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

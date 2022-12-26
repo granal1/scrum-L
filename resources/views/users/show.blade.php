@@ -20,8 +20,8 @@
                         <input disabled readonly type="text" class="form-control form-control-sm" id="name" placeholder="" name="name" value="{{$user->name}}">
                 </div>
                 <div class="col">
-                    <label for="login" class="form-label">Логин:</label>
-                    <input  disabled readonly type="text" class="form-control form-control-sm" id="login" placeholder="" name="login" value="{{$user->login}}">
+                    <label for="role_uuid" class="form-label">Роль:</label>
+                    <input  disabled readonly type="text" class="form-control form-control-sm" id="role_uuid" placeholder="" name="role_uuid" value="@if(isset($user->roles->first()->id)) {{$user->roles->first()->alias}} @else {{'Не определено'}} @endif">
                 </div>
             </div>
             <div class="row mb-3">

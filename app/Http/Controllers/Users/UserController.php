@@ -9,11 +9,13 @@ use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
 use App\Http\Requests\Users\UserFilterRequest;
+use App\Models\UserRoles\UserRole;
 use App\Services\Tasks\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\Tasks\Task;
 use App\Models\Tasks\TaskPriority;
+use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -57,6 +59,7 @@ class UserController extends Controller
     {
         return view('users.create', [
             'superiors' => User::all(),
+            'roles' => Role::all(),
         ]);
     }
 
@@ -79,7 +82,6 @@ class UserController extends Controller
 
                 $user->fill([
                     'name' => $data['name'],
-                    'login' => $data['login'],
                     'email' => $data['email'],
                     'superior_uuid' => $data['superior_uuid'],
                     'phone' => $data['phone'],
@@ -89,7 +91,13 @@ class UserController extends Controller
 
                 $user->save();
 
-                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
+                UserRole::create([
+                    'user_uuid' => $user->id,
+                    'role_uuid' => $data['role_uuid'],
+                ]);
+
+                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
+                {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
@@ -135,6 +143,7 @@ class UserController extends Controller
             'user' => $user,
             'superiors' => User::all(),
             'subordinates' => User::all(),
+            'roles' => Role::all(),
         ]);
     }
 
@@ -156,7 +165,6 @@ class UserController extends Controller
 
                 $user->update([
                     'name' => $data['name'],
-                    'login' => $data['login'],
                     'email' => $data['email'],
                     //'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
                     'phone' => $data['phone'],
@@ -164,7 +172,18 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid']
                 ]);
 
+<<<<<<< HEAD
                 if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
+=======
+                UserRole::where('user_uuid', $user->id)->delete();
+                UserRole::create([
+                    'user_uuid' => $user->id,
+                    'role_uuid' => $data['role_uuid'],
+                ]);
+
+                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
+                {
+>>>>>>> granal1/dev2
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
