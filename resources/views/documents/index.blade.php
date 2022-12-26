@@ -14,9 +14,9 @@
         <div class="row">
             <div class="col">
                 <h4 class="d-inline-block">Документы</h4>
-                @if(Auth::user()->roles->first()->name === Auth::user()::ROLE_DELO)
+                @can('create', \App\Models\Documents\Document::class)
                     <a class="btn btn-sm btn-success" href="{{route('documents.create')}}">Добавить</a>
-                @endif
+                @endcan
             </div>
         </div>
         <div class="row pt-3">

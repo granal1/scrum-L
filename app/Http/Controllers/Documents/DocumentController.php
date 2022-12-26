@@ -51,9 +51,8 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        if (! Gate::allows('create-document')) {
-            abort(403);
-        }
+
+        $this->authorize('create', Document::class);
 
         return view('documents.create', [
             'users' => User::all()

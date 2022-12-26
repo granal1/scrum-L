@@ -11,6 +11,12 @@ class Role extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
+    public const DELO = 'delo';
+    public const ADMIN = 'admin';
+    public const GUEST = 'guest';
+    public const KADR = 'kadr';
+    public const USER = 'user';
+
     protected $table = "roles";
 
     protected $fillable = [

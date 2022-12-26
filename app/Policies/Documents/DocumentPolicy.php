@@ -3,6 +3,7 @@
 namespace App\Policies\Documents;
 
 use App\Models\Documents\Document;
+use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -41,7 +42,14 @@ class DocumentPolicy
      */
     public function create(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
