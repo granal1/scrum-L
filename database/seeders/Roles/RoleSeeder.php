@@ -19,35 +19,40 @@ class RoleSeeder extends Seeder
         DB::table('roles')->insert([
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'Администратор',
+                'name' => 'admin',
+                'alias' => 'Администратор',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'Гость',
+                'name' => 'guest',
+                'alias' => 'Гость',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'Кадровик',
+                'name' => 'kadr',
+                'alias' => 'Кадровик',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'Делопроизводитель',
+                'name' => 'delo',
+                'alias' => 'Делопроизводитель',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'Пользователь',
+                'name' => 'user',
+                'alias' => 'Пользователь',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
