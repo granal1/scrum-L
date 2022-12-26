@@ -68,7 +68,7 @@
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" value="{{$user->birthday_at}}">
+                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d')}}">
                     @error('birthday_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
