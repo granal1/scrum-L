@@ -23,13 +23,13 @@ return new class extends Migration
             $table->integer('sort_order')->nullable()->default(1);
             $table->timestamps();
             $table->softDeletes();
+        });
 
-            Schema::table('user_role', function($table)
-            {
-                $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
-                $table->foreign('role_uuid')->references('id')->on('roles')->onupdate('cascade')->ondelete('cascade');
+        Schema::table('user_role', function($table)
+        {
+            $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('role_uuid')->references('id')->on('roles')->onupdate('cascade')->ondelete('cascade');
 
-            });
         });
     }
 
