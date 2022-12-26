@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Database\Factories\Tasks\TaskFactory;
 use Database\Seeders\Roles\RoleSeeder;
 use Database\Seeders\Tasks\TaskPrioritySeeder;
+use Database\Seeders\Users\UserRoleSeeder;
 use Database\Seeders\Users\UserSeeder;
 use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Seeder;
@@ -28,7 +29,6 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             TaskPrioritySeeder::class,
             UserSeeder::class,
-
         ]);
     }
 }

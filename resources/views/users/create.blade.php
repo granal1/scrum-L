@@ -22,9 +22,16 @@
                     @enderror
                 </div>
                 <div class="col">
-                    <label for="login" class="form-label">Логин:</label>
-                    <input required type="text" class="form-control form-control-sm" id="login" placeholder="Введите логин" name="login">
-                    @error('login')
+                    <label class="form-label form-label-sm">Роли</label>
+                    <select name="role_uuid" class="form-select form-select-sm">
+                        <option value="">Выберите роль ...</option>
+                        @forelse($roles as $role)
+                            <option value="{{$role->id}}">{{$role->alias}}</option>
+                        @empty
+                            <option value="">Нет ролей</option>
+                        @endforelse
+                    </select>
+                    @error('role_uuid')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>

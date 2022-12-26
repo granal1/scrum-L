@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Roles\Role;
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,7 +24,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'login',
         'phone',
         'birthday_at',
         'comment',
@@ -56,6 +56,16 @@ class User extends Authenticatable
     public function superior()
     {
         return $this->belongsTo(User::class, 'superior_uuid');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'user_role',
+            'user_uuid',
+            'role_uuid'
+        )->wherePivot('deleted_at', null);
     }
 
     protected function removeQueryParam(string ...$keys)

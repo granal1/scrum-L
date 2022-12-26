@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -28,7 +29,14 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('create-document', function (User $user) {
-            return $user->login === 'delo';
+            foreach($user->roles as $role)
+            {
+                if($role->name === 'delo')
+                {
+                    return true;
+                }
+            }
+            return false;
         });
     }
 }
