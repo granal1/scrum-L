@@ -27,7 +27,7 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                        <input  disabled readonly type="text" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{$user->birthday_at ?? 'Нет данных'}}">
+                        <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') ?? 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
