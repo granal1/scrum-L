@@ -8,16 +8,15 @@
 
 @section('content')
     <div class="container pt-3">
-        @auth
-            <h4>Здравствуйте {{ auth()->user()->name() }}</h4>
-        @endauth
-
-                <div class="card">
-            <div class="card-header">
-                <div class="d-grid gap-2 d-md-flex justify-content-between">
-                    <h4 class="d-inline-block">Документы</h4>
-                    <a class="btn btn-outline-success" href="{{route('documents.create')}}">Добавить</a>
-                </div>
+{{--        @auth--}}
+{{--            <h4>Здравствуйте {{ auth()->user()->name() }}</h4>--}}
+{{--        @endauth--}}
+        <div class="row">
+            <div class="col">
+                <h4 class="d-inline-block">Документы</h4>
+                @can('create', \App\Models\Documents\Document::class)
+                    <a class="btn btn-sm btn-success" href="{{route('documents.create')}}">Добавить</a>
+                @endcan
             </div>
         <div class="row pt-3">
             <div class="col">
