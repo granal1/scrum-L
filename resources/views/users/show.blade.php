@@ -52,8 +52,8 @@
                 <div class="col">
                     <label class="form-label form-label-sm">Подчиненные</label>
                     <select disabled name="subordinate_uuid" class="form-select form-select-sm">
-                        @forelse($subordinates as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
+                        @forelse($subordinates as $subordinate)
+                            <option value="{{$subordinate->id}}">{{$subordinate->name}}</option>
                         @empty
                             <option value="">Нет подчиненных</option>
                         @endforelse
