@@ -14,7 +14,9 @@
         <div class="row">
             <div class="col">
                 <h4 class="d-inline-block">Документы</h4>
-                <a class="btn btn-sm btn-success" href="{{route('documents.create')}}">Добавить</a>
+                @if(Auth::user()->roles->first()->name === Auth::user()::ROLE_DELO)
+                    <a class="btn btn-sm btn-success" href="{{route('documents.create')}}">Добавить</a>
+                @endif
             </div>
         </div>
         <div class="row pt-3">
