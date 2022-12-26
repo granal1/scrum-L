@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Polyfill\Uuid\Uuid;
 
@@ -42,6 +43,10 @@ class DocumentController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('create-document')) {
+            abort(403);
+        }
+
         return view('documents.create', [
             'users' => User::all()
         ]);
