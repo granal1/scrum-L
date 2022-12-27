@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Admin;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,8 @@ class AdminController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Admin::class);
+
         return view('admin.index');
     }
 
