@@ -11,22 +11,19 @@
              @auth
                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('tasks.index') }}">Главная</a>
+                         <a class="nav-link {{ request()->routeIs('tasks.index*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('tasks.index') }}">Задачи</a>
+                         <a class="nav-link {{ request()->routeIs('documents.index*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('documents.index') }}">Документы</a>
+                         <a class="nav-link {{ request()->routeIs('users.index*')?'active':'' }}" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('users.index') }}">Сотрудники</a>
+                         <a class="nav-link {{ request()->routeIs('users.show')?'active':'' }}" href="{{ route('users.show', Auth::id()) }}">Профиль</a>
                      </li>
                      <li class="nav-item">
-                         <a class="nav-link" href="{{ route('users.show', Auth::id()) }}">Мой профиль</a>
-                     </li>
-                     <li class="nav-item">
-                         <a class="nav-link" href="{{ route('admin.index') }}">Админка</a>
+                         <a class="nav-link {{ request()->routeIs('admin.index*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
                      </li>
                  </ul>
              @endauth
@@ -41,7 +38,7 @@
                  @endauth
                  @guest
                      <li class="nav-item">
-                         <a class="nav-link" href="/login">Вход</a>
+                         <a class="nav-link {{ request()->routeIs('login')?'active':'' }}" href="/login">Вход</a>
                      </li>
                  @endguest
              </ul>
