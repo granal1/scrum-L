@@ -21,7 +21,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -40,7 +40,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -58,7 +58,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -77,7 +77,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -96,7 +96,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -115,7 +115,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -134,7 +134,7 @@ class AdminPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }

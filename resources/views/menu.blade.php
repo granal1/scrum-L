@@ -24,9 +24,11 @@
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('users.show')?'active':'' }}" href="{{ route('users.show', Auth::id()) }}">Профиль</a>
                      </li>
+                     @can('viewAny', \App\Models\Admin\Admin::class)
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('admin.index*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
                      </li>
+                     @endcan
                  </ul>
              @endauth
              <ul class="navbar-nav mb-2 mb-lg-0">
