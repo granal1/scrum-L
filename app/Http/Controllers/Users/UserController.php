@@ -4,23 +4,17 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\Users\UserFilter;
-use App\Http\Requests\Tasks\StoreTaskFormRequest;
-use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
 use App\Http\Requests\Users\UserFilterRequest;
-use App\Models\Documents\Document;
 use App\Models\UserRoles\UserRole;
-use App\Services\Tasks\UploadService;
-use Illuminate\Http\Request;
 
-use App\Models\Tasks\Task;
-use App\Models\Tasks\TaskPriority;
 use App\Models\Roles\Role;
 use App\Models\User;
-use Illuminate\Support\Benchmark;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -120,8 +114,7 @@ class UserController extends Controller
 
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO сделать вывод в журнол ошибок, чтобы сайт не крашился
-            }
+                Log::error($e);            }
         }
 
         return redirect()->route('users.create')->with('error', 'Не удалось создать нового сотрудника.');
@@ -209,8 +202,7 @@ class UserController extends Controller
 
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO, вывод ошибки в журнал, чтобы сайт не крашился
-            }
+                Log::error($e);            }
         }
         return redirect()->route('users.edit', $user->id)->with('error', 'Не удалось сохранить новые данные.');
     }
