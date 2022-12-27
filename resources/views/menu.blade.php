@@ -13,9 +13,11 @@
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('tasks.index*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                      </li>
+                     @can('viewAny', \App\Models\Documents\Document::class)
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('documents.index*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
                      </li>
+                     @endcan
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('users.index*')?'active':'' }}" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>

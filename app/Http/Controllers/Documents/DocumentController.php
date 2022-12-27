@@ -32,6 +32,7 @@ class DocumentController extends Controller
      */
     public function index(DocumentFilterRequest $request)
     {
+        $this->authorize('viewAny', Document::class);
 
         $data = $request->validated();
 
@@ -66,6 +67,8 @@ class DocumentController extends Controller
      */
     public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
     {
+        $this->authorize('create', Document::class);
+
         if($request->isMethod('post')) {
 
             $data = $request->validated();
@@ -105,6 +108,8 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
+        $this->authorize('view', Document::class);
+
         return view('documents.show', [
             'document' => $document
         ]);
@@ -116,6 +121,8 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
+        $this->authorize('update', Document::class);
+
         return view('documents.edit', [
             'document' => $document,
             'users' => User::all()
@@ -129,6 +136,8 @@ class DocumentController extends Controller
      */
     public function update(UpdateDocumentFormRequest $request, Document $document)
     {
+        $this->authorize('update', Document::class);
+
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
@@ -163,6 +172,8 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
+        $this->authorize('delete', Document::class);
+
         if(Storage::exists('/public/' . $document->path)){
 
             Storage::delete('/public/' . $document->path);

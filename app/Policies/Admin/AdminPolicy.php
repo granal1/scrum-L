@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Policies\Documents;
+namespace App\Policies\Admin;
 
 use App\Models\Documents\Document;
 use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class DocumentPolicy
+class AdminPolicy
 {
     use HandlesAuthorization;
 
