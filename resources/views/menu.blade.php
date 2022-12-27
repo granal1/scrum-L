@@ -11,22 +11,24 @@
              @auth
                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                      <li class="nav-item">
-                         <a class="nav-link {{ request()->routeIs('tasks.index*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
+                         <a class="nav-link {{ request()->routeIs('tasks.*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                      </li>
                      @can('viewAny', \App\Models\Documents\Document::class)
                      <li class="nav-item">
-                         <a class="nav-link {{ request()->routeIs('documents.index*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
+                         <a class="nav-link {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
                      </li>
                      @endcan
+                     @can('viewAny', \App\Models\Users\User::class)
                      <li class="nav-item">
-                         <a class="nav-link {{ request()->routeIs('users.index*')?'active':'' }}" href="{{ route('users.index') }}">Сотрудники</a>
+                         <a class="nav-link {{ request()->routeIs('users.*')?'active':'' }}" href="{{ route('users.index') }}">Сотрудники</a>
                      </li>
+                     @endcan
                      <li class="nav-item">
                          <a class="nav-link {{ request()->routeIs('users.show')?'active':'' }}" href="{{ route('users.show', Auth::id()) }}">Профиль</a>
                      </li>
                      @can('viewAny', \App\Models\Admin\Admin::class)
                      <li class="nav-item">
-                         <a class="nav-link {{ request()->routeIs('admin.index*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
+                         <a class="nav-link {{ request()->routeIs('admin.*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
                      </li>
                      @endcan
                  </ul>

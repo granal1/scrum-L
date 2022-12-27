@@ -39,6 +39,8 @@ class UserController extends Controller
      */
     public function index(UserFilterRequest $request)
     {
+        //$this->authorize('viewAny', User::class);
+
         $data = $request->validated();
 
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
@@ -59,6 +61,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        //$this->authorize('create', User::class);
+
         return view('users.create', [
             'superiors' => User::all(),
             'roles' => Role::all(),
@@ -73,6 +77,8 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
+        //$this->authorize('create', User::class);
+
         if ($request->isMethod('post'))
         {
             $data = $request->validated();
@@ -129,6 +135,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        //$this->authorize('view', User::class);
+
         return view('users.show', [
             'user' => $user,
             'subordinates' => User::where('superior_uuid', $user->id)->get(),
@@ -143,6 +151,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        //$this->authorize('update', User::class);
+
         return view('users.edit', [
             'user' => $user,
             'superiors' => User::all(),
@@ -160,6 +170,8 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
+        //$this->authorize('update', User::class);
+
         if($request->isMethod('patch')){
 
             $data = $request->validated();
@@ -211,6 +223,8 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        //$this->authorize('delete', User::class);
+
         $user->delete();
         return redirect()->route('users.index');
     }
