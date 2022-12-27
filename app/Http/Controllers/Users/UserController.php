@@ -12,6 +12,7 @@ use App\Models\UserRoles\UserRole;
 use App\Models\Roles\Role;
 use App\Models\User;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -33,6 +34,13 @@ class UserController extends Controller
      */
     public function index(UserFilterRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
         //$this->authorize('viewAny', User::class);
 
         $data = $request->validated();
@@ -55,6 +63,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
         //$this->authorize('create', User::class);
 
         return view('users.create', [
@@ -71,6 +84,13 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
         //$this->authorize('create', User::class);
 
         if ($request->isMethod('post'))
@@ -128,6 +148,12 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                //'user_request_data' => $user
+            ]);
+
         //$this->authorize('view', User::class);
 
         return view('users.show', [
@@ -144,6 +170,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
         //$this->authorize('update', User::class);
 
         return view('users.edit', [
@@ -163,6 +194,13 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
         //$this->authorize('update', User::class);
 
         if($request->isMethod('patch')){
@@ -215,6 +253,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
         //$this->authorize('delete', User::class);
 
         $user->delete();
