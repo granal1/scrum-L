@@ -41,7 +41,7 @@ class UserController extends Controller
 
             ]);
 
-        //$this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
 
         $data = $request->validated();
 
@@ -68,7 +68,7 @@ class UserController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
-        //$this->authorize('create', User::class);
+        $this->authorize('create', User::class);
 
         return view('users.create', [
             'superiors' => User::all(),
@@ -91,7 +91,7 @@ class UserController extends Controller
 
             ]);
 
-        //$this->authorize('create', User::class);
+        $this->authorize('create', User::class);
 
         if ($request->isMethod('post'))
         {
@@ -154,7 +154,7 @@ class UserController extends Controller
                 //'user_request_data' => $user
             ]);
 
-        //$this->authorize('view', User::class);
+        $this->authorize('view', User::class);
 
         return view('users.show', [
             'user' => $user,
@@ -175,7 +175,7 @@ class UserController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
-        //$this->authorize('update', User::class);
+        $this->authorize('update', User::class);
 
         return view('users.edit', [
             'user' => $user,
@@ -201,7 +201,7 @@ class UserController extends Controller
 
             ]);
 
-        //$this->authorize('update', User::class);
+        $this->authorize('update', User::class);
 
         if($request->isMethod('patch')){
 
@@ -258,7 +258,7 @@ class UserController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
-        //$this->authorize('delete', User::class);
+        $this->authorize('delete', User::class);
 
         $user->delete();
         return redirect()->route('users.index');

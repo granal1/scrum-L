@@ -7,6 +7,7 @@ use App\Http\Controllers\Tasks\TaskController as TaskController;
 use App\Http\Controllers\Users\UserController as UserController;
 use App\Http\Controllers\Documents\DocumentController as DocumentController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Roles\RoleController as RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
         'users' => UserController::class,
         'documents' => DocumentController::class,
         'admin' => AdminController::class,
+        'roles' => RoleController::class,
     ]);
 });
 

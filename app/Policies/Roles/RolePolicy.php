@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Policies\Users;
+namespace App\Policies\Roles;
 
 use App\Models\Documents\Document;
 use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class UserPolicy
+class RolePolicy
 {
     use HandlesAuthorization;
 
@@ -21,7 +21,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::KADR || $role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -40,11 +40,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if(
-                $role->name === Role::KADR ||
-                $role->name === Role::ADMIN ||
-                $role->name === Role::USER
-            )
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -62,7 +58,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::KADR || $role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -79,14 +75,14 @@ class UserPolicy
      */
     public function update(User $user)
     {
-//        foreach($user->roles as $role)
-//        {
-//            if($role->name === Role::KADR || $role->name === Role::ADMIN)
-//            {
-//                return true;
-//            }
-//        }
-        return true;
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -100,7 +96,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::KADR || $role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -119,7 +115,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::KADR || $role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -138,7 +134,7 @@ class UserPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::KADR || $role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN)
             {
                 return true;
             }
