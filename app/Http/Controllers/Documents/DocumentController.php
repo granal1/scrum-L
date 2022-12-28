@@ -15,6 +15,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Polyfill\Uuid\Uuid;
 
@@ -32,6 +33,14 @@ class DocumentController extends Controller
      */
     public function index(DocumentFilterRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
+        $this->authorize('viewAny', Document::class);
 
         $data = $request->validated();
 
@@ -66,6 +75,8 @@ class DocumentController extends Controller
      */
     public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
     {
+        $this->authorize('create', Document::class);
+
         if($request->isMethod('post')) {
 
             $data = $request->validated();
@@ -92,8 +103,7 @@ class DocumentController extends Controller
             } catch (\Exception $e) {
 
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
         }
             return redirect()->route('documents.create')->with('error', 'Ошибка при загрузке документа.');
@@ -105,6 +115,8 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
+        $this->authorize('view', Document::class);
+
         return view('documents.show', [
             'document' => $document
         ]);
@@ -116,6 +128,8 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
+        $this->authorize('update', Document::class);
+
         return view('documents.edit', [
             'document' => $document,
             'users' => User::all()
@@ -129,6 +143,8 @@ class DocumentController extends Controller
      */
     public function update(UpdateDocumentFormRequest $request, Document $document)
     {
+        $this->authorize('update', Document::class);
+
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
@@ -148,8 +164,7 @@ class DocumentController extends Controller
             } catch (\Exception $e) {
 
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
 
         }
@@ -163,16 +178,22 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        if(Storage::exists('/public/' . $document->path)){
+        $this->authorize('delete', Document::class);
 
-            Storage::delete('/public/' . $document->path);
+        try{
 
-        }else{
-            // TODO сделать вывод в лог, чтобы сайт не крашился
-            dd('File does not exist.');
+            if(Storage::exists('/public/' . $document->path)){
+
+                Storage::delete('/public/' . $document->path);
+
+
+            }
+
+            $document->delete();
+
+        } catch (\Exception $e) {
+            Log::error($e);
         }
-
-        $document->delete();
 
         return redirect()->route('documents.index');
     }

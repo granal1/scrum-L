@@ -75,6 +75,11 @@ class Task extends Model
         return $this->responsibles->last()->name;
     }
 
+    public function currentPriority()
+    {
+        return $this->priorities->last()->name;
+    }
+
     public function documents(): BelongsToMany
     {
         return $this->belongsToMany(

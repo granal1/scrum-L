@@ -19,7 +19,14 @@ class DocumentPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -29,9 +36,16 @@ class DocumentPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Document $document)
+    public function view(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -44,7 +58,7 @@ class DocumentPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO)
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
             {
                 return true;
             }
@@ -59,9 +73,16 @@ class DocumentPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Document $document)
+    public function update(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -71,9 +92,16 @@ class DocumentPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Document $document)
+    public function delete(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -83,9 +111,16 @@ class DocumentPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Document $document)
+    public function restore(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -95,8 +130,15 @@ class DocumentPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Document $document)
+    public function forceDelete(User $user)
     {
-        //
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

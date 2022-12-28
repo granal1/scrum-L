@@ -1,11 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
 use App\Http\Controllers\Users\UserController as UserController;
 use App\Http\Controllers\Documents\DocumentController as DocumentController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Roles\RoleController as RoleController;
+use App\Http\Controllers\Profile\ProfileController as ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
             Route::any('/', 'index');
             Route::any('/home', 'index');
             Route::delete('tasks/task-file-destroy/{task}/{document}', 'task_file_destroy')->name('tasks.task-file-destroy');
+            Route::get('tasks/progress/{task}', 'progress')->name('tasks.progress');
+            Route::patch('tasks/progress_update/{task}', 'progress_update')->name('tasks.progress_update');
             Route::post('tasks/create-subtask/{task}', 'create_subtask')->name('tasks.create-subtask');
         });
     Route::resources([
@@ -31,7 +36,11 @@ Route::middleware(['auth'])->group(function () {
         'users' => UserController::class,
         'documents' => DocumentController::class,
         'admin' => AdminController::class,
+        'roles' => RoleController::class,
     ]);
+    Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['guest'])->group(function () {

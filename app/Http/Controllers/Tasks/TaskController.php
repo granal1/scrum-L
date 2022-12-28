@@ -3,23 +3,34 @@
 namespace App\Http\Controllers\Tasks;
 
 use App\Http\Controllers\Controller;
+
 use App\Http\Filters\Tasks\TaskFilter;
-use App\Http\Requests\Tasks\StoreTaskFormRequest;
-use App\Http\Requests\Tasks\TaskFilterRequest;
-use App\Http\Requests\Tasks\UpdateTaskFormRequest;
+
+use App\Http\Filters\Tasks\TaskHistoryFilter;
+use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
+
 use App\Models\Documents\Document;
-use App\Models\Tasks\TaskFile;
-use App\Models\Tasks\TaskHistory;
-use App\Services\Tasks\UploadService;
-use Illuminate\Http\Request;
 
-use App\Models\Tasks\Task;
-use App\Models\Tasks\TaskPriority;
+use App\Models\Tasks\
+{
+    TaskFile,
+    TaskHistory,
+    Task,
+    TaskPriority
+};
+
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Symfony\Polyfill\Uuid\Uuid;
 
+use App\Services\Tasks\UploadService;
+
+use Illuminate\Support\Facades\
+{
+    Auth,
+    DB,
+    Log
+};
+
+use Symfony\Polyfill\Uuid\Uuid;
 
 class TaskController extends Controller
 {
@@ -36,17 +47,28 @@ class TaskController extends Controller
      */
     public function index(TaskFilterRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+                            [
+                                'user' => Auth::user()->name,
+                                'request' => $request->all(),
+
+                            ]);
 
         $data = $request->validated();
+
+        $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
+        $histories = TaskHistory::filter($filter)->pluck('task_uuid')->all();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
+            ->whereIn('id', $histories)
             ->paginate(config('front.tasks.pagination'));
 
         return view('tasks.index',[
             'tasks' => $tasks,
             'old_filters' => $data,
+            'priorities' => TaskPriority::all(),
         ]);
     }
 
@@ -57,6 +79,11 @@ class TaskController extends Controller
      */
     public function create()
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
             'users' => User::all(),
@@ -71,6 +98,13 @@ class TaskController extends Controller
      */
     public function create_subtask(Task $task)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+
+            ]);
+
         return view('tasks.create-subtask', [
             'priorities' => TaskPriority::all(),
             'users' => User::all(),
@@ -86,6 +120,12 @@ class TaskController extends Controller
      */
     public function store(StoreTaskFormRequest $request, UploadService $uploadService)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+            ]);
+
         if($request->isMethod('post')) {
 
             $data = $request->validated();
@@ -119,10 +159,8 @@ class TaskController extends Controller
                 return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
 
             } catch (\Exception $e) {
-
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
         }
 
@@ -137,6 +175,11 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+            ]);
 
         return view('tasks.show', [
             'task' => $task,
@@ -151,6 +194,13 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+
+            ]);
+
         return view('tasks.edit', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
@@ -168,6 +218,13 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskFormRequest $request, Task $task)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+                'request' => $request->all(),
+            ]);
+
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
@@ -208,8 +265,7 @@ class TaskController extends Controller
             } catch (\Exception $e) {
 
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
 
         }
@@ -225,14 +281,100 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+            ]);
+
         $task->delete();
         return redirect()->route('tasks.index');
     }
 
     public function task_file_destroy(Task $task, Document $document)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+                'document' => $document->id,
+            ]);
+
         $task_file = TaskFile::where('task_uuid', $task->id)->where('file_uuid', $document->id)->delete();
 
         return redirect()->route('tasks.show', $task);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function progress(Task $task)
+    {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+
+            ]);
+
+        return view('tasks.progress', [
+            'task' => $task,
+            'priorities' => TaskPriority::all(),
+            'users' => User::all(),
+            'documents' => Document::all(),
+        ]);
+    }
+
+    /**
+     * Progress the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function progress_update(ProgressTaskFormRequest $request, Task $task)
+    {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+                'request' => $request->all(),
+            ]);
+
+        if($request->isMethod('patch')) {
+
+            $data = $request->validated();
+
+            try {
+
+                DB::beginTransaction();
+
+                $history = TaskHistory::create([
+                    'task_uuid' => $task->id,
+                    'priority_uuid' => $task->currentHistory->priority_uuid,
+                    'user_uuid' => Auth::id(),
+                    'responsible_uuid' => $task->currentHistory->responsible_uuid,
+                    'deadline_at' => $task->currentHistory->deadline_at,
+                    'done_progress' => $data['done_progress'],
+                    'parent_uuid' => $task->currentHistory->parent_uuid,
+                    'comment' => $data['comment']
+                ]);
+
+                DB::commit();
+
+                return redirect()->route('tasks.show', $task)->with('success','Изменения сохранены.');
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                Log::error($e);
+            }
+
+        }
+
+        return redirect()->route('tasks.show', $task)->with('error','Изменения не сохранились, ошибка.');
     }
 }

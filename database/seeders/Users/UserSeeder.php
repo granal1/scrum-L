@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab70a',
-                'name' => 'Василий Николаевич',
+                'name' => 'Админ',
                 'email' => 'admin@admin.ru',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password

@@ -9,5 +9,8 @@ return [
     ],
     'documents' => [
         'pagination' => 5
+    ],
+    'roles' => [
+        'pagination' => 5
     ]
 ];

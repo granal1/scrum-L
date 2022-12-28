@@ -4,21 +4,18 @@ namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\Users\UserFilter;
-use App\Http\Requests\Tasks\StoreTaskFormRequest;
-use App\Http\Requests\Tasks\UpdateTaskFormRequest;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
 use App\Http\Requests\Users\UserFilterRequest;
 use App\Models\UserRoles\UserRole;
-use App\Services\Tasks\UploadService;
-use Illuminate\Http\Request;
 
-use App\Models\Tasks\Task;
-use App\Models\Tasks\TaskPriority;
 use App\Models\Roles\Role;
 use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -37,6 +34,15 @@ class UserController extends Controller
      */
     public function index(UserFilterRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
+        $this->authorize('viewAny', User::class);
+
         $data = $request->validated();
 
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
@@ -57,6 +63,13 @@ class UserController extends Controller
      */
     public function create()
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
+        $this->authorize('create', User::class);
+
         return view('users.create', [
             'superiors' => User::all(),
             'roles' => Role::all(),
@@ -71,7 +84,17 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
-        if ($request->isMethod('post')) {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
+        $this->authorize('create', User::class);
+
+        if ($request->isMethod('post'))
+        {
             $data = $request->validated();
 
             $user = new User();
@@ -110,8 +133,7 @@ class UserController extends Controller
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO сделать вывод в журнол ошибок, чтобы сайт не крашился
-            }
+                Log::error($e);            }
         }
 
         return redirect()->route('users.create')->with('error', 'Не удалось создать нового сотрудника.');
@@ -125,6 +147,14 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                //'user_request_data' => $user
+            ]);
+
+        $this->authorize('view', User::class);
+
         return view('users.show', [
             'user' => $user,
             'subordinates' => User::where('superior_uuid', $user->id)->get(),
@@ -139,6 +169,13 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
+        $this->authorize('update', User::class);
+
         return view('users.edit', [
             'user' => $user,
             'superiors' => User::all(),
@@ -156,7 +193,16 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
-        if ($request->isMethod('patch')) {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]);
+
+        $this->authorize('update', User::class);
+
+        if($request->isMethod('patch')){
 
             $data = $request->validated();
 
@@ -192,8 +238,7 @@ class UserController extends Controller
                 return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO, вывод ошибки в журнал, чтобы сайт не крашился
-            }
+                Log::error($e);            }
         }
         return redirect()->route('users.edit', $user->id)->with('error', 'Не удалось сохранить новые данные.');
     }
@@ -206,6 +251,13 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]);
+
+        $this->authorize('delete', User::class);
+
         $user->delete();
         return redirect()->route('users.index');
     }
