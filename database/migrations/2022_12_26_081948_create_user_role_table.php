@@ -27,8 +27,8 @@ return new class extends Migration
 
         Schema::table('user_role', function($table)
         {
-            $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('cascade');
-            $table->foreign('role_uuid')->references('id')->on('roles')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('user_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
+            $table->foreign('role_uuid')->references('id')->on('roles')->onupdate('cascade')->ondelete('no action');
 
         });
     }

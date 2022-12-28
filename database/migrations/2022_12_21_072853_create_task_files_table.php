@@ -28,8 +28,8 @@ return new class extends Migration
 
         Schema::table('task_files', function($table)
         {
-            $table->foreign('file_uuid')->references('id')->on('files')->onupdate('cascade')->ondelete('cascade');
-            $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('cascade');
+            $table->foreign('file_uuid')->references('id')->on('files')->onupdate('cascade')->ondelete('no action');
+            $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('no action');
 
         });
     }
