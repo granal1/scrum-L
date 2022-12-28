@@ -66,7 +66,7 @@
                                     <td>{{$task->description}}</td>
                                     <td>{{$task->currentResponsible()}}</td>
                                     <td>{{$task->currentHistory->deadline_at}}</td>
-                                    <td>{{$task->currentHistory->done_progress}}</td>
+                                    <td>@include('graph.progressbar')</td>
                                 </tr>
                             @empty
                                 <tr>
