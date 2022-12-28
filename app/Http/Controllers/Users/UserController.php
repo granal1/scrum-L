@@ -50,7 +50,7 @@ class UserController extends Controller
         $users = User::filter($filter)
             ->paginate(config('front.users.pagination'));
 
-        return view('users.index',[
+        return view('users.index', [
             'users' => $users,
             'old_filters' => $data,
         ]);
@@ -131,7 +131,6 @@ class UserController extends Controller
                 DB::commit();
 
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
-
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);            }
@@ -234,10 +233,9 @@ class UserController extends Controller
                     ]);
                 }
 
-                    DB::commit();
+                DB::commit();
 
-                    return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
-
+                return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);            }

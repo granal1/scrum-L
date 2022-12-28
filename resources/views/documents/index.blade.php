@@ -15,10 +15,9 @@
                     <a class="btn btn-sm btn-success" href="{{route('documents.create')}}">Добавить</a>
                 @endcan
             </div>
-        </div>
         <div class="row pt-3">
             <div class="col">
-                <table class="table table-sm table-striped table-responsive table-hover table-bordered">
+                <table class="table table-hover">
                     <thead>
                         <tr>
                             <td>Создан</td>
