@@ -112,11 +112,7 @@
                 <div class="text-danger">{{$message}}</div>
                 @enderror
             </div>
-
-            <div class="row row-cols-1 row-cols-md-3 mb-4 mt-3">
-                <div class="col mt-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
-                </div>
+            <div class="row row-cols-1 row-cols-md-2 mb-4 mt-3">
                 <div class="col mt-3">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
                 </div>
@@ -125,18 +121,11 @@
                 </div>
             </div>
         </form>
-        <div class="row row-cols-1 row-cols-md-2">
+        <div class="row row-cols-1">
             <form action="{{route('tasks.create-subtask', $task)}}" method="post">
                 @csrf
                 <div class="col mb-3">
-                    <button type="submit" class="btn btn-warning btn-sm col-12">Создать подзадачу</button>
-                </div>
-            </form>
-            <form action="{{route('tasks.destroy', $task)}}" method="post">
-                @csrf
-                @method('delete')
-                <div class="col mb-4">
-                    <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
+                    <button type="submit" class="btn btn-danger btn-sm col-12">Создать подзадачу</button>
                 </div>
             </form>
         </div>
