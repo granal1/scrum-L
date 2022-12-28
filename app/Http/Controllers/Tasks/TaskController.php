@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Filters\Tasks\TaskFilter;
 
+use App\Http\Filters\Tasks\TaskHistoryFilter;
 use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
 
 use App\Models\Documents\Document;
@@ -46,7 +47,6 @@ class TaskController extends Controller
      */
     public function index(TaskFilterRequest $request)
     {
-
         Log::info(get_class($this) . ', method: ' . __FUNCTION__,
                             [
                                 'user' => Auth::user()->name,
@@ -56,14 +56,19 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
+        $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
+        $histories = TaskHistory::filter($filter)->pluck('task_uuid')->all();
+
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
+            ->whereIn('id', $histories)
             ->paginate(config('front.tasks.pagination'));
 
         return view('tasks.index',[
             'tasks' => $tasks,
             'old_filters' => $data,
+            'priorities' => TaskPriority::all(),
         ]);
     }
 
