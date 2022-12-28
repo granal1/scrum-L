@@ -36,12 +36,9 @@
                 </div>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-3 mt-2">
+            <div class="row row-cols-1 row-cols-md-2 mt-2">
                 <div class="col mt-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('documents.index')}}">Все документы</a>
-                </div>
-                <div class="col mt-3">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
+                    <a type="button" class="btn btn-success btn-sm col-12"  href="{{route('documents.show', $document->id)}}">Назад</a>
                 </div>
                 <div class="col mt-3">
                     <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>
