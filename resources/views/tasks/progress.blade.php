@@ -97,10 +97,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 mb-4 mt-3">
-                <div class="col mt-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
-                </div>
+            <div class="row row-cols-1 row-cols-md-2 mb-4 mt-3">
                 <div class="col mt-3">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
                 </div>
