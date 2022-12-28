@@ -18,7 +18,7 @@
             @csrf
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <input accept=".pdf" required class="form-control form-control-sm" name="file" id="file" type="file">
+                    <input accept=".pdf" required class="form-control form-control-sm" name="file" id="document_file" type="file">
                     @error('file')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -27,7 +27,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="name">Название документа (необязательно)</label>
-                    <input placeholder="Название" class="form-control form-control-sm" name="name" id="name">
+                    <input placeholder="Название" class="form-control form-control-sm" name="name" id="document_name">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -44,6 +44,7 @@
         </form>
     </div>
 </div>
+    <script src="{{ asset('assets/documents/create.js') }}"></script>
     @endsection
 
 
