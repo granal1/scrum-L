@@ -33,7 +33,7 @@
         <div class="card-body">
             <div class="row pt-3">
                 <div class="col">
-                    <table class="table table-sm table-hover">
+                    <table class="table table-sm table-hover table-striped">
                         <thead>
                             <tr>
                                 <td>Uuid</td>

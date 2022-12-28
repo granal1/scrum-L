@@ -65,16 +65,18 @@
                 <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->currentHistory->done_progress}}">
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-3">
+        <div class="row pt-3 row-cols-1 {{$task->currentHistory->user_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
             </div>
             <div class="col mb-3">
                 <a class="btn btn-sm btn-warning col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
             </div>
+            @if($task->currentHistory->user_uuid === Auth::id())
             <div class="col mb-3">
                 <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
             </div>
+            @endif
         </div>
     </div>
     @endsection

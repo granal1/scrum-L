@@ -4,10 +4,16 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\Roles\RoleFilter;
+use App\Http\Filters\Tasks\TaskFilter;
+use App\Http\Filters\Tasks\TaskHistoryFilter;
+use App\Models\Tasks\TaskPriority;
 use App\Http\Requests\Roles\RoleFilterRequest;
 use App\Http\Requests\Roles\StoreRoleFormRequest;
 use App\Http\Requests\Roles\UpdateRoleFormRequest;
+use App\Http\Requests\Tasks\TaskFilterRequest;
 use App\Models\Roles\Role;
+use App\Models\Tasks\Task;
+use App\Models\Tasks\TaskHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,25 +26,35 @@ class SiteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(TaskFilterRequest $request)
     {
         Log::info(get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
-                //'request' => $request->all(),
+                'request' => $request->all(),
 
             ]);
 
-//        $this->authorize('viewAny', Role::class);
-//
-//        $data = $request->validated();
-//
-//        $filter = app()->make(RoleFilter::class, ['queryParams' => array_filter($data)]);
-//
-//        $roles = Role::filter($filter)
-//            ->paginate(config('front.roles.pagination'));
+        $data = $request->validated();
 
-        return view('index', [
+        $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
+
+        $histories = TaskHistory::filter($filter)
+            ->where('responsible_uuid', 'like', Auth::id())
+            ->orWhere('user_uuid', 'like', Auth::id())
+            ->pluck('task_uuid')
+            ->all();
+
+        $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
+
+        $tasks = Task::filter($filter)
+            ->whereIn('id', $histories)
+            ->paginate(config('front.tasks.pagination'));
+
+        return view('index',[
+            'tasks' => $tasks,
+            'old_filters' => $data,
+            'priorities' => TaskPriority::all(),
         ]);
     }
 
