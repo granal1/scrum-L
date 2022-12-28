@@ -21,11 +21,7 @@
         </div>
         @endif
         @include('message')
-        <div class="row pt-3 row-cols-1 row-cols-md-4">
-            <div class="col">
-                <label for="uuid">Uuid</label>
-                <input class="form-control form-control-sm" name="uuid" id="uuid" disabled value="{{$task->id}}">
-            </div>
+        <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <label for="created_at">Создана</label>
                 <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
@@ -39,10 +35,20 @@
                 <input class="form-control form-control-sm" name="priority_uuid" id="priority_uuid" disabled value="{{$task->priorities->last()->name}}">
             </div>
         </div>
-        <div class="row pt-3">
+        <div class="row pt-3 row-cols-1 row-cols-md-2">
             <div class="col">
                 <label for="description">Описание</label>
                 <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
+            </div>
+            <div class="col">
+                <label for="file_uuid" class="form-label">Приложение</label>
+                <ul>
+                    @forelse($task->documents as $document)
+                        <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
+                    @empty
+                        <p>Нет приложений</p>
+                    @endforelse
+                </ul>
             </div>
         </div>
         <div class="row pt-3 row-cols-1 row-cols-md-3">
@@ -59,32 +65,15 @@
                 <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->currentHistory->done_progress}}">
             </div>
         </div>
-        <div class="row pt-3">
-            <div class="col">
-                <label for="file_uuid" class="form-label">Приложение</label>
-                <ul>
-                @forelse($task->documents as $document)
-                    <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
-                @empty
-                    <p>Нет приложений</p>
-                @endforelse
-                </ul>
-            </div>
-        </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-2">
-            <div class="col mb-3">
-                <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
-            </div>
+        <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
             </div>
-        </div>
-        <div class="row pt-2 row-cols-1 row-cols-md-2">
-        <div class="col mb-3">
-                    <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
-                </div>
             <div class="col mb-3">
-                <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+                <a class="btn btn-sm btn-warning col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+            </div>
+            <div class="col mb-3">
+                <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
             </div>
         </div>
     </div>
