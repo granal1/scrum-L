@@ -26,6 +26,8 @@ Route::middleware(['auth'])->group(function () {
             Route::any('/', 'index');
             Route::any('/home', 'index');
             Route::delete('tasks/task-file-destroy/{task}/{document}', 'task_file_destroy')->name('tasks.task-file-destroy');
+            Route::get('tasks/progress/{task}', 'progress')->name('tasks.progress');
+            Route::patch('tasks/progress_update/{task}', 'progress_update')->name('tasks.progress_update');
             Route::post('tasks/create-subtask/{task}', 'create_subtask')->name('tasks.create-subtask');
         });
     Route::resources([

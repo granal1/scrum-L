@@ -6,12 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Filters\Tasks\TaskFilter;
 
-use App\Http\Requests\Tasks\
-{
-    StoreTaskFormRequest,
-    TaskFilterRequest,
-    UpdateTaskFormRequest
-};
+use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
 
 use App\Models\Documents\Document;
 
@@ -303,5 +298,78 @@ class TaskController extends Controller
         $task_file = TaskFile::where('task_uuid', $task->id)->where('file_uuid', $document->id)->delete();
 
         return redirect()->route('tasks.show', $task);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function progress(Task $task)
+    {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+
+            ]);
+
+        return view('tasks.progress', [
+            'task' => $task,
+            'priorities' => TaskPriority::all(),
+            'users' => User::all(),
+            'documents' => Document::all(),
+        ]);
+    }
+
+    /**
+     * Progress the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function progress_update(ProgressTaskFormRequest $request, Task $task)
+    {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'task' => $task->id,
+                'request' => $request->all(),
+            ]);
+
+        if($request->isMethod('patch')) {
+
+            $data = $request->validated();
+
+            try {
+
+                DB::beginTransaction();
+
+                $history = TaskHistory::create([
+                    'task_uuid' => $task->id,
+                    'priority_uuid' => $task->currentHistory->priority_uuid,
+                    'user_uuid' => Auth::id(),
+                    'responsible_uuid' => $task->currentHistory->responsible_uuid,
+                    'deadline_at' => $task->currentHistory->deadline_at,
+                    'done_progress' => $data['done_progress'],
+                    'parent_uuid' => $task->currentHistory->parent_uuid,
+                    'comment' => $data['comment']
+                ]);
+
+                DB::commit();
+
+                return redirect()->route('tasks.show', $task)->with('success','Изменения сохранены.');
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+                Log::error($e);
+            }
+
+        }
+
+        return redirect()->route('tasks.show', $task)->with('error','Изменения не сохранились, ошибка.');
     }
 }

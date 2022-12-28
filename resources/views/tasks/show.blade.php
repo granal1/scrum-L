@@ -71,16 +71,21 @@
                 </ul>
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-3">
+        <div class="row pt-3 row-cols-1 row-cols-md-2">
             <div class="col mb-3">
                 <a class="btn btn-primary btn-sm col-12" href="{{route('tasks.index')}}">Все задачи</a>
             </div>
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
             </div>
-                <div class="col mb-3">
+        </div>
+        <div class="row pt-2 row-cols-1 row-cols-md-2">
+        <div class="col mb-3">
                     <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
                 </div>
+            <div class="col mb-3">
+                <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+            </div>
         </div>
     </div>
     @endsection
