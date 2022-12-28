@@ -50,7 +50,7 @@
                             <h3 class="h2">
                                 Такой страницы не существует
                             </h3>
-                            <a href="{{route('tasks.index')}}" class="link_404">На главную</a>
+                            <a href="/" class="link_404">На главную</a>
                         </div>
                     </div>
                 </div>

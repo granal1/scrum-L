@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
     <div class="container">
-        <a href="{{route('site.index')}}"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45"></a>
+        <a href="/"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -9,6 +9,9 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('site.index')?'active':'' }}" href="{{ route('site.index') }}">Главная</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('tasks.*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
