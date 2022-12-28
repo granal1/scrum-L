@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
     <div class="container">
-        <img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45">
+        <a href="{{route('tasks.index')}}"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

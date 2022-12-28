@@ -21,7 +21,6 @@
                 <table class="table table-sm table-striped table-responsive table-hover table-bordered">
                     <thead>
                         <tr>
-                            <td>Uuid</td>
                             <td>Создан</td>
                             <td>Путь</td>
                             <td>Название</td>
@@ -33,8 +32,6 @@
                         </tr>
                         <form action="{{ route('documents.index') }}" method="get">
                             <tr>
-                                <th>
-                                </th>
                                 <th></th>
                                 <th>
                                     <input type="search" value="@if(isset($old_filters['path'])) {{ $old_filters['path'] }} @endif"
@@ -52,7 +49,6 @@
                     <tbody style="cursor: pointer;">
                         @forelse($documents as $document)
                             <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
-                                <td>{{$document->uuid}}</td>
                                 <td>{{$document->created_at}}</td>
                                 <td>{{$document->path}}</td>
                                 <td>{{$document->name}}</td>
