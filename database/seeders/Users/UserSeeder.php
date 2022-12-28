@@ -211,6 +211,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id' => 'f5900f0c-ef8f-4862-925e-4957926ae7a2',
+                'superior_uuid' => '',
                 'name' => 'Гость',
                 'email' => 'guest@guest.ru',
                 'email_verified_at' => now(),
