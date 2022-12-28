@@ -6,7 +6,7 @@
         </button>
 
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse nav nav-tabs" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
