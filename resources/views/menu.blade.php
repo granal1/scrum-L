@@ -23,7 +23,7 @@
                 </li>
                 @else
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('users.show')?'active':'' }}" href="{{ route('users.show', Auth::id()) }}">Профиль</a>
+                        <a class="nav-link {{ request()->routeIs('profile.show')?'active':'' }}" href="{{ route('profile.show', Auth::id()) }}">Профиль</a>
                     </li>
                 @endcan
                 @can('viewAny', \App\Models\Roles\Role::class)
