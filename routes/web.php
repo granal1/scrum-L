@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\UserController as UserController;
 use App\Http\Controllers\Documents\DocumentController as DocumentController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\Roles\RoleController as RoleController;
+use App\Http\Controllers\Profile\ProfileController as ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
         'admin' => AdminController::class,
         'roles' => RoleController::class,
     ]);
+    Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 Route::middleware(['guest'])->group(function () {
