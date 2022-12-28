@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+<nav class="navbar navbar-expand-md bg-dark" style="--bs-bg-opacity: .005;">
     <div class="container">
         <a href="/"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,7 +6,7 @@
         </button>
 
 
-        <div class="collapse navbar-collapse nav nav-tabs" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse nav nav-tabs bg-primary rounded-top" style="--bs-bg-opacity: .2;" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">

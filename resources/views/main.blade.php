@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
+<body  class="bg-dark" style="--bs-bg-opacity: .15;">
     <div class="container-fluid p-0">
         @yield('header')
         @yield('content')
