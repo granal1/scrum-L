@@ -42,7 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::any('/', [SiteController::class, 'index'])->name('site.index');
     Route::any('/home', [SiteController::class, 'index'])->name('site.index');
-    Route::get('site/', [SiteController::class, 'index'])->name('site.index');
 });
 
 Route::middleware(['guest'])->group(function () {
