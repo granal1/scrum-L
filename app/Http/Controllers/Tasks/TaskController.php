@@ -84,9 +84,11 @@ class TaskController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
+        $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
+
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
-            'users' => User::all(),
+            'users' => $users,
             'documents' => Document::all(),
         ]);
     }
@@ -102,12 +104,13 @@ class TaskController extends Controller
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-
             ]);
+
+        $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
         return view('tasks.create-subtask', [
             'priorities' => TaskPriority::all(),
-            'users' => User::all(),
+            'users' => $users,
             'task' => $task
         ]);
     }

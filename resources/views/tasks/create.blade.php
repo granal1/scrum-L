@@ -67,7 +67,7 @@
                     <select class="form-select form-select-sm" name="responsible_uuid">
                         <option value="">Выберите ответственного ...</option>
                     @forelse($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                <option value="{{$user->id}}" {{$user->id === Auth::id() ? 'selected' : ''}}>{{$user->name}}</option>
                             @empty
                                 <option value="">Нет пользователей</option>
                         @endforelse
