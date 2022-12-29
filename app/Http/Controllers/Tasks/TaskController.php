@@ -61,6 +61,7 @@ class TaskController extends Controller
         $histories = TaskHistory::filter($filter)
             ->where('responsible_uuid', 'like', Auth::id())
             ->orWhere('user_uuid', 'like', Auth::id())
+            ->groupBy('task_uuid')
             ->pluck('task_uuid')
             ->all();
 
