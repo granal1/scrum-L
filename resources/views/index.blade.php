@@ -31,17 +31,17 @@
                         <table class="table table-sm table-hover table-striped">
                             <thead>
                             <tr>
-                                <td>Приоритет</td>
+                                <td class="d-none d-sm-table-cell">Приоритет</td>
                                 <td>Описание</td>
-                                <td>Ответственный</td>
-                                <td>Выполнить до</td>
+                                <td class="d-none d-sm-table-cell">Ответственный</td>
+                                <td class="d-none d-sm-table-cell">Выполнить до</td>
                                 <td>Выполнено, %</td>
                             </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
 
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
-                                <form action="{{ route('tasks.index') }}" method="get">
+                                <form action="{{ route('site.index') }}" method="get">
                                     <td>
                                         <select class="form-select form-select-sm" name="priority_uuid" id="priority_uuid" onchange="this.form.submit()">
                                             <option value="">Выберите ...</option>
@@ -57,15 +57,15 @@
                                     </td>
                                     <td></td>
                                     <td></td>
-                                    <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('tasks.index')}}">Сброс фильтров</a></td>
+                                    <td colspan="3"><a class="btn btn-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс фильтров</a></td>
                                 </form>
                             </tr>
                             @forelse($tasks as $task)
                                 <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
-                                    <td>{{$task->currentPriority()}}</td>
-                                    <td>{{$task->description}}</td>
-                                    <td>{{$task->currentResponsible()}}</td>
-                                    <td>{{$task->currentHistory->deadline_at}}</td>
+                                    <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
+                                    <td class="">{{$task->description}}</td>
+                                    <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
+                                    <td class="d-none d-sm-table-cell">{{$task->currentHistory->deadline_at}}</td>
                                     <td>@include('graph.progressbar')</td>
                                 </tr>
                             @empty
