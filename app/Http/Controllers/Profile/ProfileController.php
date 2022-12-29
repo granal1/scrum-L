@@ -69,7 +69,7 @@ class ProfileController extends Controller
         return view('profile.edit', [
             'user' => $user,
             'superiors' => User::all(),
-            'subordinates' => User::all(),
+            'subordinates' => User::where('superior_uuid', $user->id)->get(),
             'roles' => Role::all(),
         ]);
     }
@@ -107,15 +107,6 @@ class ProfileController extends Controller
                     'birthday_at' => $data['birthday_at'],
                     'superior_uuid' => $data['superior_uuid']
                 ]);
-
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
-                    $subordinate_user = User::find($data['subordinate_uuid']);
-
-                    $subordinate_user->update([
-                        'superior_uuid' => $user->id,
-                    ]);
-                }
 
                     DB::commit();
 
