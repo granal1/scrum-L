@@ -52,7 +52,7 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="password" class="form-label">Пароль:</label>
-                    <input disabled readonly type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
+                    <input type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
                     @error('password')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

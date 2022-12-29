@@ -212,7 +212,7 @@ class UserController extends Controller
                 $user->update([
                     'name' => $data['name'],
                     'email' => $data['email'],
-                    //'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
+                    'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
                     'superior_uuid' => $data['superior_uuid']
@@ -231,6 +231,18 @@ class UserController extends Controller
                     $subordinate_user->update([
                         'superior_uuid' => $user->id,
                     ]);
+
+                } else {
+
+                    $subordinate_user = User::where('superior_uuid', 'like', $user->id)->get()->first();
+
+                    if($subordinate_user)
+                    {
+                        $subordinate_user->update([
+                            'superior_uuid' => null,
+                        ]);
+                    }
+
                 }
 
                 DB::commit();
