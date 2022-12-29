@@ -86,10 +86,12 @@ class TaskController extends Controller
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
+        $documents = Document::orderBy('created_at', 'desc')->get();
+
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
             'users' => $users,
-            'documents' => Document::all(),
+            'documents' => $documents,
         ]);
     }
 
@@ -108,10 +110,13 @@ class TaskController extends Controller
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
+        $documents = Document::orderBy('created_at', 'desc')->get();
+
         return view('tasks.create-subtask', [
             'priorities' => TaskPriority::all(),
             'users' => $users,
-            'task' => $task
+            'task' => $task,
+            'documents' => $documents
         ]);
     }
 
@@ -136,6 +141,7 @@ class TaskController extends Controller
             try {
 
                 DB::beginTransaction();
+
                 $task = Task::create($data);
 
                 $history = TaskHistory::create([
