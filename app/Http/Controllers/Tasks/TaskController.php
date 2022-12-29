@@ -57,7 +57,13 @@ class TaskController extends Controller
         $data = $request->validated();
 
         $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
-        $histories = TaskHistory::filter($filter)->pluck('task_uuid')->all();
+
+        $histories = TaskHistory::filter($filter)
+            ->where('responsible_uuid', 'like', Auth::id())
+            ->orWhere('user_uuid', 'like', Auth::id())
+            ->groupBy('task_uuid')
+            ->pluck('task_uuid')
+            ->all();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -84,10 +90,14 @@ class TaskController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
+        $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
+
+        $documents = Document::orderBy('created_at', 'desc')->get();
+
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
-            'users' => User::all(),
-            'documents' => Document::all(),
+            'users' => $users,
+            'documents' => $documents,
         ]);
     }
 
@@ -102,13 +112,17 @@ class TaskController extends Controller
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-
             ]);
+
+        $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
+
+        $documents = Document::orderBy('created_at', 'desc')->get();
 
         return view('tasks.create-subtask', [
             'priorities' => TaskPriority::all(),
-            'users' => User::all(),
-            'task' => $task
+            'users' => $users,
+            'task' => $task,
+            'documents' => $documents
         ]);
     }
 
@@ -133,6 +147,7 @@ class TaskController extends Controller
             try {
 
                 DB::beginTransaction();
+
                 $task = Task::create($data);
 
                 $history = TaskHistory::create([

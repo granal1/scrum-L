@@ -29,7 +29,7 @@
                     <label for="priority_uuid">Приоритет</label>
                     <select class="form-select form-select-sm" name="priority_uuid">
                         @forelse($priorities as $priority)
-                            <option value="{{$priority->id}}">{{$priority->name}}</option>
+                            <option value="{{$priority->id}}" {{$priority->sort_order === 1 ? 'selected' : ''}}>{{$priority->name}}</option>
                         @empty
                             <option value="">Нет приоритетов</option>
                         @endforelse
@@ -58,12 +58,14 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mt-3">
-                    <label for="files">Приложение</label>
-                    <select class="form-select form-select-sm" name="files">
-                        <option value="">Выберите ...</option>
-                        <option value="1">Файл 1</option>
-                        <option value="2">Файл 2</option>
-                        <option value="3">Файл 3</option>
+                    <label for="file_uuid">Приложение</label>
+                    <select class="form-select form-select-sm" name="file_uuid">
+                        <option value="">Выберите документ ...</option>
+                        @forelse($documents as $document)
+                            <option value="{{$document->id}}">{{$document->name}}</option>
+                        @empty
+                            <option value="">Нет документов</option>
+                        @endforelse
                     </select>
                     @error('files')
                     <div class="text-danger">{{$message}}</div>

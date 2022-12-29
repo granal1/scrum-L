@@ -19,15 +19,15 @@ class TaskPrioritySeeder extends Seeder
         DB::table('task_priorities')->insert([
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'самый низкий',
-                'sort_order' => 1,
+                'name' => 'низкий',
+                'sort_order' => 2,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'низкий',
-                'sort_order' => 1,
+                'name' => 'ниже среднего',
+                'sort_order' => 2,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
@@ -40,15 +40,15 @@ class TaskPrioritySeeder extends Seeder
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'высокий',
-                'sort_order' => 1,
+                'name' => 'выше среднего',
+                'sort_order' => 2,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'id' => UUID::uuid_create(),
-                'name' => 'самый высокий',
-                'sort_order' => 1,
+                'name' => 'высокий',
+                'sort_order' => 2,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
