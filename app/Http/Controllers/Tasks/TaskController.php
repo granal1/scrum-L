@@ -57,7 +57,12 @@ class TaskController extends Controller
         $data = $request->validated();
 
         $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
-        $histories = TaskHistory::filter($filter)->pluck('task_uuid')->all();
+
+        $histories = TaskHistory::filter($filter)
+            ->where('responsible_uuid', 'like', Auth::id())
+            ->orWhere('user_uuid', 'like', Auth::id())
+            ->pluck('task_uuid')
+            ->all();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
