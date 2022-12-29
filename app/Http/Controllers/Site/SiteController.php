@@ -39,9 +39,7 @@ class SiteController extends Controller
 
         $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
 
-        $histories = TaskHistory::filter($filter)
-            ->where('responsible_uuid', Auth::id())
-            ->orWhere('user_uuid', Auth::id())
+        $task_uuids = TaskHistory::filter($filter)
             ->groupBy('task_uuid')
             ->pluck('task_uuid')
             ->all();
@@ -50,9 +48,21 @@ class SiteController extends Controller
 
         $tasks = Task::filter($filter)
             ->whereHas('currentHistory', function($query) {
-                return $query->where('done_progress', '<', 100);
+                return $query
+                    ->where(function($query){
+                        return $query->where([
+                            ['done_progress', '<', 100],
+                            ['responsible_uuid', 'like', Auth::id()]
+                        ]);
+                    })
+                    ->orWhere(function($query){
+                        return $query->where([
+                            ['done_progress', '<', 100],
+                            ['user_uuid', 'like', Auth::id()]
+                        ]);
+                    });
             })
-            ->whereIn('id', $histories)
+            ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
         return view('index',[
