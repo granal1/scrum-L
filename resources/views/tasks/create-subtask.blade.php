@@ -29,7 +29,7 @@
                     <label for="priority_uuid">Приоритет</label>
                     <select class="form-select form-select-sm" name="priority_uuid">
                         @forelse($priorities as $priority)
-                            <option value="{{$priority->id}}">{{$priority->name}}</option>
+                            <option value="{{$priority->id}}" {{$priority->sort_order === 1 ? 'selected' : ''}}>{{$priority->name}}</option>
                         @empty
                             <option value="">Нет приоритетов</option>
                         @endforelse
