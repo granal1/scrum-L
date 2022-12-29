@@ -21,6 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\User' => 'App\Policies\Users\UserPolicy',
         'App\Models\Roles\Role' => 'App\Policies\Roles\RolePolicy',
         'App\Models\Profile\Profile' => 'App\Policies\Profile\ProfilePolicy',
+        'App\Models\Tasks\Task' => 'App\Policies\Tasks\TaskPolicy',
     ];
 
     /**
