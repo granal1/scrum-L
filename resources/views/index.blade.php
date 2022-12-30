@@ -17,12 +17,8 @@
             <div class="card-header">
                 <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                     <h5 class="d-inline-block">Ваши задачи</h5>
-                    <div class="mb-3 d-flex">
-                        <div class="input-group-append">
                             <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                             </button>
-                        </div>
-                    </div>
                 </div>
             </div>
             <div class="card-body">
