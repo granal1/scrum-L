@@ -8,17 +8,12 @@
 
 @section('content')
 <div class="container pt-3">
-    @auth
-    <div class="row mb-3 d-md-flex justify-content-between">
-        <div class="col-auto">
-            <h4>Здравствуйте {{ auth()->user()->name() }}</h4>
-        </div>
-        <div class="col-auto"><a class="btn btn-outline-success" href="{{route('tasks.create')}}">Добавить задачу</a></div>
-    </div>
-    @endauth
     <div class="card shadow">
         <div class="card-header">
             <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                @auth
+                    <a class="btn btn-outline-success" href="{{route('tasks.create')}}">Добавить</a>
+            @endauth
                 <h4 class="d-inline-block">Задачи</h4>
                 <div class="mb-3 d-flex">
                     <div class="input-group-append">
