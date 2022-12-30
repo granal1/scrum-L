@@ -114,7 +114,7 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2 mb-4 mt-3">
                 <div class="col mt-3">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back()"; return false;>Назад</button>
+                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back(); return false;">Назад</button>
                 </div>
                 <div class="col mt-3">
                     <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>

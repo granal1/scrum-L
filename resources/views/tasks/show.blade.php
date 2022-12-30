@@ -67,7 +67,7 @@
         </div>
         <div class="row pt-3 row-cols-1 {{$task->currentHistory->user_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
             <div class="col mb-3">
-                <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back()"; return false;>Назад</button>
+                <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
             <div class="col mb-3">
                 <a class="btn btn-sm btn-warning col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
