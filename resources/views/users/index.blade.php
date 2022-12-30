@@ -13,12 +13,8 @@
             <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                 <a class="btn btn-outline-success btn-sm" href="{{route('users.create')}}">Добавить</a>
                 <h4 class="d-inline-block">Сотрудники</h4>
-                <div class="mb-3 d-flex">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                         </button>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="card-body">
