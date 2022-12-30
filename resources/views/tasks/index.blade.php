@@ -10,12 +10,12 @@
 <div class="container pt-3">
     <div class="card shadow">
         <div class="card-header">
-            <div class="row row-cols-2 d-flex justify-content-between">
-                    <div class="col">
+            <div class="row row-cols-2">
+                <div class="col-7">
                         <h4 class="d-inline-block">Задачи</h4>
                         <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
                     </div>
-                    <div class="col">
+                    <div class="col-5 text-end">
                         <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                         </button>
                         <a class="btn btn-outline-danger btn-sm d-table-cell d-sm-none" type="button" href="{{route('tasks.index')}}">Сброс</a>
