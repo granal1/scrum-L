@@ -31,7 +31,7 @@
                         <tbody style="cursor: pointer;">
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('users.index') }}" method="get">
-                                    <td><a class="btn btn-outline-danger" type="button" href="{{route('users.index')}}">Сброс фильтров</a></td>
+                                    <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('users.index')}}">Сброс фильтров</a></td>
                                     <td>
                                         <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif" class="form-control form-control-sm" id="name" name="name" onchange="this.form.submit()">
                                     </td>

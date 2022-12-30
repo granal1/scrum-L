@@ -34,7 +34,7 @@
 
                                 <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                     <form action="{{ route('documents.index') }}" method="get">
-                                        <td></td>
+                                        <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('documents.index')}}">Сброс фильтров</a></td>
                                         <td>
                                             <input type="search" value="@if(isset($old_filters['path'])) {{ $old_filters['path'] }} @endif"
                                                    class="form-control form-control-sm" id="path" name="path"
@@ -45,7 +45,6 @@
                                                    class="form-control form-control-sm" id="name" name="name"
                                                    onchange="this.form.submit()">
                                         </td>
-                                        <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('documents.index')}}">Сброс фильтров</a></td>
                                     </form>
                                 </tr>
                                 @forelse($documents as $document)
