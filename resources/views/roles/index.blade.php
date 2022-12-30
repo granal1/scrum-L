@@ -8,60 +8,62 @@
 
 @section('content')
     <div class="container pt-3">
-        <div class="row">
-            <div class="col">
-                <h4 class="d-inline-block">Роли</h4>
-                @can('create', \App\Models\Roles\Role::class)
-                    <a class="btn btn-sm btn-success" href="{{route('roles.create')}}">Добавить</a>
-                @endcan
+        <div class="card shadow">
+            <div class="card-header">
+                <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                    @auth
+                        <a class="btn btn-outline-success btn-sm" href="{{route('roles.create')}}">Добавить</a>
+                    @endauth
+                    <h4 class="d-inline-block">Роли</h4>
+                    <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row pt-3">
+                    <div class="col">
+                        <table class="table table-sm table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <td>Алиас</td>
+                                <td colspan="2">Название</td>
+                            </tr>
+                            </thead>
+                            <tbody style="cursor: pointer;">
+
+                            <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
+                                <form action="{{ route('roles.index') }}" method="get">
+                                    <td>
+                                        <input type="search" value="@if(isset($old_filters['alias'])) {{ $old_filters['alias'] }} @endif"
+                                               class="form-control form-control-sm" id="alias" name="alias"
+                                               onchange="this.form.submit()">
+                                    </td>
+                                    <td>
+                                        <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif"
+                                               class="form-control form-control-sm" id="name" name="name"
+                                               onchange="this.form.submit()">
+                                    </td>
+                                    <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('documents.index')}}">Сброс фильтров</a></td>
+                                </form>
+                            </tr>
+                            @forelse($roles as $role)
+                                <tr  onclick="window.location='{{ route('roles.show', $role->id) }}';">
+                                    <td>{{$role->alias}}</td>
+                                    <td colspan="2">{{$role->name}}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2">
+                                        Нет ролей
+                                    </td>
+                                </tr>
+                            @endforelse
+                            </tbody>
+                        </table>
+                        {{$roles->withQueryString()->links()}}
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row pt-3">
-            <div class="col">
-                <table class="table table-sm table-striped table-responsive table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <td>Алиас</td>
-                            <td>Название</td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">
-                                <a class="btn btn-sm btn-success col-12" href="{{route('roles.index')}}">Сброс фильтров</a>
-                            </th>
-                        </tr>
-                        <form action="{{ route('roles.index') }}" method="get">
-                            <tr>
-                                <th>
-                                    <input type="search" value="@if(isset($old_filters['alias'])) {{ $old_filters['alias'] }} @endif"
-                                           class="form-control form-control-sm" id="alias" name="alias"
-                                           onchange="this.form.submit()">
-                                </th>
-                                <th>
-                                    <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif"
-                                           class="form-control form-control-sm" id="name" name="name"
-                                           onchange="this.form.submit()">
-                                </th>
-                            </tr>
-                        </form>
-                    </thead>
-                    <tbody style="cursor: pointer;">
-                        @forelse($roles as $role)
-                            <tr  onclick="window.location='{{ route('roles.show', $role->id) }}';">
-                                <td>{{$role->alias}}</td>
-                                <td>{{$role->name}}</td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="2">
-                                    Нет ролей
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                {{$roles->withQueryString()->links()}}
-            </div>
-        </div>
-    </div>
 @endsection
 
