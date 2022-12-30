@@ -10,21 +10,15 @@
 <div class="container pt-3">
     <div class="card shadow">
         <div class="card-header">
-            <div class="row row-cols-2 row-cols-sm-3">
-                    @auth
-                    <div class="col">
-                        <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
-                    </div>
-                        @endauth
+            <div class="row row-cols-2 d-flex justify-content-between">
                     <div class="col">
                         <h4 class="d-inline-block">Задачи</h4>
+                        <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
                     </div>
-                        <div class="col">
-                            <a class="btn btn-outline-danger btn-sm" type="button" href="{{route('tasks.index')}}">Сброс</a>
-                        </div>
                     <div class="col">
                         <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                         </button>
+                        <a class="btn btn-outline-danger btn-sm d-table-cell d-sm-none" type="button" href="{{route('tasks.index')}}">Сброс</a>
                     </div>
             </div>
         </div>
