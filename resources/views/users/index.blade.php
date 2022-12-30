@@ -8,22 +8,13 @@
 
 @section('content')
 <div class="container pt-3">
-    {{-- @auth--}}
-    {{-- <h4>Здравствуйте {{ auth()->user()->name() }}</h4>--}}
-    {{-- @endauth--}}
-    <div class="row mb-3 d-md-flex justify-content-between">
-        <div class="col-auto">
-            <h4>Пользователи</h4>
-        </div>
-        <div class="col-auto"><a class="btn btn-outline-success" href="{{route('users.create')}}">Добавить пользователя</a></div>
-    </div>
     <div class="card shadow">
         <div class="card-header">
             <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
-                <h4 class="d-inline-block">Список пользователей</h4>
+                <a class="btn btn-outline-success" href="{{route('users.create')}}">Добавить</a>
+                <h4 class="d-inline-block">Сотрудники</h4>
                 <div class="mb-3 d-flex">
                     <div class="input-group-append">
-
                         <button class="btn btn-outline-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                         </button>
                     </div>
