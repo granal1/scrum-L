@@ -68,7 +68,7 @@
                     <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
                 </div>
                 <div class="col mb-3">
-                    <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
+                    <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back()"; return false;">Назад</button>
                 </div>
                 <div class="col mb-3">
                     <a class="btn btn-sm btn-danger col-12" href="{{route('users.edit', $user)}}">Редактировать</a>
