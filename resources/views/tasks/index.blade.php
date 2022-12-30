@@ -16,8 +16,7 @@
                         <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
                     </div>
                     <div class="col-5 text-end">
-                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
-                        </button>
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск</button>
                         <a class="btn btn-outline-danger btn-sm d-table-cell d-sm-none" type="button" href="{{route('tasks.index')}}">Сброс</a>
                     </div>
             </div>
