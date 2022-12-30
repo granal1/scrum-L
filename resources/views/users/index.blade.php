@@ -11,7 +11,7 @@
     <div class="card shadow">
         <div class="card-header">
             <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
-                <a class="btn btn-outline-success" href="{{route('users.create')}}">Добавить</a>
+                <a class="btn btn-outline-success btn-sm" href="{{route('users.create')}}">Добавить</a>
                 <h4 class="d-inline-block">Сотрудники</h4>
                 <div class="mb-3 d-flex">
                     <div class="input-group-append">

@@ -12,8 +12,8 @@
         <div class="card-header">
             <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                 @auth
-                    <a class="btn btn-outline-success" href="{{route('tasks.create')}}">Добавить</a>
-            @endauth
+                    <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
+                @endauth
                 <h4 class="d-inline-block">Задачи</h4>
                 <div class="mb-3 d-flex">
                     <div class="input-group-append">
