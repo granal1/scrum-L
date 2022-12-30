@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <div class="row pt-3">
+                <div class="row">
                     <div class="col">
                         <table class="table table-sm table-hover table-striped">
                             <thead>
