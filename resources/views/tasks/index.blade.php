@@ -10,15 +10,14 @@
 <div class="container pt-3">
     <div class="card shadow">
         <div class="card-header">
-            <div class="row row-cols-2">
-                <div class="col-7">
-                        <h4 class="d-inline-block">Задачи</h4>
-                        <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
-                    </div>
-                    <div class="col-5 text-end">
-                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск</button>
-                        <a class="btn btn-outline-danger btn-sm d-table-cell d-sm-none" type="button" href="{{route('tasks.index')}}">Сброс</a>
-                    </div>
+            <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                @auth
+                    <a class="btn btn-outline-success btn-sm" href="{{route('tasks.create')}}">Добавить</a>
+                @endauth
+                <h4 class="d-inline-block">Задачи</h4>
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
+                        </button>
+                    <a class="btn btn-outline-danger btn-sm d-sm-none" type="button" href="{{route('tasks.index')}}">Сброс</a>
             </div>
         </div>
         <div class="card-body">
@@ -31,14 +30,14 @@
                                 <td>Описание</td>
                                 <td class="d-none d-sm-table-cell">Ответственный</td>
                                 <td class="d-none d-md-table-cell">Выполнить до</td>
-                                <td>Выполнено, %</td>
+                                <td class="d-none d-sm-table-cell">Выполнено, %</td>
                             </tr>
                         </thead>
                         <tbody style="cursor: pointer;">
 
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('tasks.index') }}" method="get">
-                                    <td>
+                                    <td class="d-none d-sm-table-cell">
                                         <select class="form-select form-select-sm" name="priority_uuid" id="priority_uuid" onchange="this.form.submit()">
                                             <option value="">Выберите ...</option>
                                             @forelse($priorities as $priority)
@@ -53,7 +52,7 @@
                                     </td>
                                     <td class="d-none d-sm-table-cell"></td>
                                     <td class="d-none d-md-table-cell"></td>
-                                    <td><a class="btn btn-outline-danger btn-sm d-none d-sm-table-cell" type="button" href="{{route('tasks.index')}}">Сброс</a></td>
+                                    <td class="d-none d-sm-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('tasks.index')}}">Сброс</a></td>
                                 </form>
                             </tr>
                             @forelse($tasks as $task)
@@ -62,7 +61,7 @@
                                 <td>{{$task->description}}</td>
                                 <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
                                 <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
-                                <td>@include('graph.progressbar')</td>
+                                <td class="d-none d-sm-table-cell">@include('graph.progressbar')</td>
                             </tr>
                             @empty
                             <tr>
