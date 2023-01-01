@@ -26,7 +26,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название документа (необязательно)</label>
+                    <label for="name">Название</label>
                     <input placeholder="Название" class="form-control form-control-sm" name="name" id="document_name">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
