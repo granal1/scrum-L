@@ -19,7 +19,7 @@
                     <h5 class="d-inline-block">Ваши задачи</h5>
                             <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                             </button>
-                    <a class="btn btn-danger btn-sm d-sm-table-cell d-md-none" type="button" href="{{route('site.index')}}">Сброс</a>
+                    <a class="btn btn-danger btn-sm d-sm-none" type="button" href="{{route('site.index')}}">Сброс</a>
                 </div>
             </div>
             <div class="card-body">
@@ -32,14 +32,14 @@
                                 <td>Описание</td>
                                 <td class="d-none d-sm-table-cell">Ответственный</td>
                                 <td class="d-none d-md-table-cell">Выполнить до</td>
-                                <td>Выполнено, %</td>
+                                <td>Исп.,&nbsp;%</td>
                             </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
 
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('site.index') }}" method="get">
-                                    <td>
+                                    <td class="d-none d-sm-table-cell">
                                         <select class="form-select form-select-sm" name="priority_uuid" id="priority_uuid" onchange="this.form.submit()">
                                             <option value="">Выберите ...</option>
                                             @forelse($priorities as $priority)
@@ -53,8 +53,8 @@
                                         <input type="search" value="@if(isset($old_filters['description'])) {{ $old_filters['description'] }} @endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
                                     </td>
                                     <td class="d-none d-sm-table-cell"></td>
-                                    <td class="d-none d-sm-table-cell"></td>
-                                    <td colspan="3" class="d-none d-md-table-cell"><a class="btn btn-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс фильтров</a></td>
+                                    <td></td>
+                                    <td colspan="3" class="d-none d-sm-table-cell"><a class="btn btn-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс</a></td>
                                 </form>
                             </tr>
                             @forelse($tasks as $task)
