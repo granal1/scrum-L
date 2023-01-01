@@ -91,7 +91,7 @@
                     @enderror
                 </div>
                 <div class="col">
-                    <label for="done_progress" class="mt-3">Выполнено, %:</label>
+                    <label for="done_progress" class="mt-3">Исполнено, <output id="progress_bar_value"></output>%:</label>
                     <input style="width:100%;" type="range" min="0" max="100" step="5" id="done_progress" name="done_progress" required value="{{$task->currentHistory->done_progress}}">
                     @error('done_progress')
                     <div class="text-danger">{{$message}}</div>
@@ -130,6 +130,7 @@
             </form>
         </div>
     </div>
+    <script src="{{asset('assets/tasks/progress_bar_value_display.js')}}" defer></script>
     @endsection
 
 
