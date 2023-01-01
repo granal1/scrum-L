@@ -15,7 +15,7 @@
         </div>
         @include('message')
         <div class="row pt-3 row-cols-1 row-cols-md-2">
-            <div class="col">
+            <div class="col mb-3">
                 <label for="uuid">Uuid</label>
                 <input class="form-control form-control-sm" name="uuid" id="uuid" disabled value="{{$role->id}}">
             </div>

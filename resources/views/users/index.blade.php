@@ -15,6 +15,7 @@
                 <h4 class="d-inline-block">Сотрудники</h4>
                         <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                         </button>
+                <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('users.index')}}">Сброс</a>
             </div>
         </div>
         <div class="card-body">
@@ -23,28 +24,28 @@
                     <table class="table table-sm table-hover table-striped">
                         <thead>
                             <tr>
-                                <td>Uuid</td>
+                                <td class="d-none d-md-table-cell">Uuid</td>
                                 <td>Имя</td>
-                                <td>Почта</td>
+                                <td class="d-none d-sm-table-cell">Почта</td>
                             </tr>
                         </thead>
                         <tbody style="cursor: pointer;">
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('users.index') }}" method="get">
-                                    <td><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('users.index')}}">Сброс фильтров</a></td>
+                                    <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('users.index')}}">Сброс</a></td>
                                     <td>
                                         <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif" class="form-control form-control-sm" id="name" name="name" onchange="this.form.submit()">
                                     </td>
-                                    <td>
+                                    <td class="d-none d-sm-table-cell">
                                         <input type="search" value="@if(isset($old_filters['email'])) {{ $old_filters['email'] }} @endif" class="form-control form-control-sm" id="email" name="email" onchange="this.form.submit()">
                                     </td>
                                 </form>
                             </tr>
                             @forelse($users as $user)
                             <tr onclick="window.location='{{ route('users.show', $user->id) }}';">
-                                <td>{{$user->id}}</td>
+                                <td class="d-none d-md-table-cell">{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
-                                <td>{{$user->email}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->email}}</td>
                             </tr>
                             @empty
                             <tr>

@@ -30,7 +30,7 @@
                                 <td>Описание</td>
                                 <td class="d-none d-sm-table-cell">Ответственный</td>
                                 <td class="d-none d-md-table-cell">Выполнить до</td>
-                                <td class="d-none d-sm-table-cell">Выполнено, %</td>
+                                <td class="d-none d-sm-table-cell">Исп.,&nbsp;%</td>
                             </tr>
                         </thead>
                         <tbody style="cursor: pointer;">
