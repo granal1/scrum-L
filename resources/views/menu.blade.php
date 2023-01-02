@@ -5,16 +5,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-
-        <div class="collapse navbar-collapse nav nav-tabs bg-primary rounded-top" style="--bs-bg-opacity: .2;" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('site.index')?'active':'' }}" href="{{ route('site.index') }}">Главная</a>
                 </li>
+                @can('viewAny', \App\Models\Tasks\Task::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('tasks.*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
+                @endcan
                 @can('viewAny', \App\Models\Documents\Document::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>

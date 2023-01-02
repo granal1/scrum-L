@@ -35,8 +35,22 @@
                 <input class="form-control form-control-sm" name="priority_uuid" id="priority_uuid" disabled value="{{$task->priorities->last()->name}}">
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-2">
+        <div class="row pt-3 row-cols-1 row-cols-md-3">
+            <div class="col mb-3">
+                <label for="deadline_at">Выполнить до:</label>
+                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->currentHistory->deadline_at}}">
+            </div>
+            <div class="col mb-3">
+                <label for="responsible_uuid">Ответственный</label>
+                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->currentResponsible()}}">
+            </div>
             <div class="col">
+                <label for="done_progress">Выполнено, %</label>
+                <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->currentHistory->done_progress}}">
+            </div>
+        </div>
+        <div class="row pt-3 row-cols-1 row-cols-md-2">
+            <div class="col mb-3">
                 <label for="description">Описание</label>
                 <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
             </div>
@@ -51,23 +65,9 @@
                 </ul>
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-3">
-            <div class="col mb-3">
-                <label for="responsible_uuid">Ответственный</label>
-                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->currentResponsible()}}">
-            </div>
-            <div class="col mb-3">
-                <label for="deadline_at">Выполнить до:</label>
-                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->currentHistory->deadline_at}}">
-            </div>
-            <div class="col">
-                <label for="done_progress">Выполнено, %</label>
-                <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->currentHistory->done_progress}}">
-            </div>
-        </div>
         <div class="row pt-3 row-cols-1 {{$task->currentHistory->user_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
             <div class="col mb-3">
-                <button class="btn btn-sm btn-success col-12"  onclick="history.back()">Назад</button>
+                <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
             <div class="col mb-3">
                 <a class="btn btn-sm btn-warning col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>

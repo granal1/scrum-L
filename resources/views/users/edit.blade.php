@@ -18,7 +18,7 @@
             @csrf
             @method('patch')
             <div class="row row-cols-1 row-cols-md-2 mb-3">
-                <div class="col">
+                <div class="col mb-3">
                     <label for="name" class="form-label">Ф.И.О.</label>
                     <input required type="text" class="form-control form-control-sm" id="name" placeholder="Введите Фамилия Имя Отчество" name="name" value="{{$user->name}}">
                     @error('name')
@@ -49,10 +49,10 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
-                <div class="col">
+            <div class="row row-cols-1 row-cols-md-2 mb-3">
+                <div class="col mb-3">
                     <label for="password" class="form-label">Пароль:</label>
-                    <input disabled readonly type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
+                    <input type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
                     @error('password')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2 mb-3">
-                <div class="col">
+                <div class="col mb-3">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
                     <input type="date" id="birthday_at" name="birthday_at" class="form-control" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d')}}">
                     @error('birthday_at')
@@ -82,7 +82,7 @@
                 </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row row-cols-1 mb-3">
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>
                     <select name="superior_uuid" class="form-select form-select-sm">
@@ -119,7 +119,7 @@
                     <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
                 </div>
                 <div class="col mt-3">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
+                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back(); return false;">Назад</button>
                 </div>
                 <div class="col mt-3">
                     <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>
@@ -129,7 +129,7 @@
         <form action="{{route('users.destroy', $user)}}" method="post">
             @csrf
             @method('delete')
-            <div class="row mb-4 mt-2">
+            <div class="row mb-4 mt-3">
                 <div class="col">
                     <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
                 </div>
