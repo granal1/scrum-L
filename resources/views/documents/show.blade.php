@@ -84,6 +84,58 @@
                 @enderror
             </div>
         </div>
+        <div class="row row-cols-1">
+            <div class="col mt-3">
+                <label for="task_description">Описание</label>
+                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="task_description" id="task_description" rows="2">{{$document->task_description}}</textarea>
+                @error('task_description')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2">
+            <div class="col mt-3">
+                <label for="executor" class="form-label">Исполнитель</label>
+                <input readonly disabled type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor" value="{{$document->executor}}">
+                @error('executor')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+            <div class="col mt-3">
+                <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
+                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{date('Y-m-d', strtotime($document->deadline_at))}}">
+                @error('deadline_at')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="row row-cols-1">
+            <div class="col mt-3">
+                <label for="executed_result">Результат выполнения</label>
+                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="executed_result" id="executed_result" rows="2">{{$document->executed_result}}</textarea>
+                @error('executed_result')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="row row-cols-1">
+            <div class="col mt-3">
+                <label for="executed_at">Срок выполнения по факту:</label>
+                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{date('Y-m-d', strtotime($document->executed_at))}}">
+                @error('executed_at')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="row row-cols-1">
+            <div class="col mt-3">
+                <label for="file_mark" class="form-label">Отметка о подшивке документа</label>
+                <input readonly disabled type="text" class="form-control form-control-sm" id="file_mark" placeholder="Отметка" name="file_mark" value="{{$document->file_mark}}">
+                @error('file_mark')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
         <div class="row pt-3 row-cols-1 row-cols-md-2">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>

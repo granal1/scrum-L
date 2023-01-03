@@ -161,7 +161,19 @@ class DocumentController extends Controller
                 DB::beginTransaction();
 
                 $document->update([
-                    'name' => $data['name']
+                    'name' => $data['name'],
+                    'incoming_at' => $data['incoming_at'],
+                    'incoming_number' => $data['incoming_number'],
+                    'incoming_author' => $data['incoming_author'],
+                    'number' => $data['number'],
+                    'date' => $data['date'],
+                    'document_and_application_sheets' => $data['document_and_application_sheets'],
+                    'task_description' => $data['task_description'],
+                    'executor' => $data['executor'],
+                    'deadline_at' => $data['deadline_at'],
+                    'executed_result' => $data['executed_result'],
+                    'executed_at' => $data['executed_at'],
+                    'file_mark' => $data['file_mark']
                 ]);
 
                 DB::commit();
