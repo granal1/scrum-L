@@ -103,7 +103,7 @@
             </div>
             <div class="col mt-3">
                 <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{date('Y-m-d', strtotime($document->deadline_at))}}">
+                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{$document->deadline_at ? date('Y-m-d', strtotime($document->deadline_at)) : null}}">
                 @error('deadline_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -121,7 +121,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="executed_at">Срок выполнения по факту:</label>
-                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{date('Y-m-d', strtotime($document->executed_at))}}">
+                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{$document->executed_at ? date('Y-m-d', strtotime($document->executed_at)) : null}}">
                 @error('executed_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
