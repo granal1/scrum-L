@@ -16,16 +16,14 @@
         @include('message')
         <form action="{{route('documents.store')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="incoming_at">Дата входящего:</label>
+                    <label for="incoming_at" class="form-label">Дата входящего:</label>
                     <input type="datetime-local" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа">
                     @error('incoming_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="incoming_number" class="form-label">Номер входящего документа</label>
                     <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number">
@@ -43,7 +41,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
                     <label for="number" class="form-label">Номер</label>
                     <input type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number">
@@ -51,10 +49,8 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="date">Дата</label>
+                    <label for="date" class="form-label">Дата</label>
                     <input type="datetime-local" id="date" name="date" class="form-control form-select-sm" placeholder="Дата">
                     @error('date')
                     <div class="text-danger">{{$message}}</div>
@@ -88,7 +84,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
                     <label for="executor" class="form-label">Исполнитель</label>
                     <input type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor">
@@ -96,10 +92,8 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="deadline_at">Срок выполнения:</label>
+                    <label for="deadline_at" class="form-label">Срок выполнения:</label>
                     <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи">
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
