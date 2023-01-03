@@ -15,6 +15,19 @@ return new class extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->timestamp('incoming_at')->nullable()->default(null);
+            $table->string('incoming_number', 255)->nullable()->default(null);
+            $table->string('incoming_author', 255)->nullable()->default(null);
+            $table->string('number', 255)->nullable()->default(null);
+            $table->timestamp('date')->nullable()->default(null);
+            $table->string('short_description', 255)->nullable()->default(null);
+            $table->string('document_and_application_sheets', 6)->nullable()->default(null);
+            $table->text('task_description')->nullable()->default(null);
+            $table->string('executor', 255)->nullable()->default(null);
+            $table->timestamp('deadline_at')->nullable()->default(null);
+            $table->text('executed_result')->nullable()->default(null);
+            $table->timestamp('executed_at')->nullable()->default(null);
+            $table->string('file_mark')->nullable()->default(null);
             $table->string('name', 255);
             $table->string('path', 255);
             $table->string('comment')->nullable()->default(null);
