@@ -7,7 +7,7 @@
 @endsection
 
 @section('content')
-        <div class="container pt-3">
+        <div class="container-fluid pt-3">
             <div class="card shadow">
                 <div class="card-header">
                     <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
@@ -26,9 +26,20 @@
                             <table class="table table-sm table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <td class="d-none d-md-table-cell">Создан</td>
-                                    <td class="d-none d-sm-table-cell">Путь</td>
-                                    <td>Название</td>
+                                    <td class="d-none d-md-table-cell">Дата</td>
+                                    <td class="d-none d-md-table-cell">Вх.№</td>
+                                    <td class="d-none d-md-table-cell">Корреспондент<br>(автор)</td>
+                                    <td class="d-none d-md-table-cell">Номер<br>док-та</td>
+                                    <td class="d-none d-md-table-cell">Дата<br>док-та</td>
+                                    <td class="d-none d-md-table-cell">Наименование или<br>краткое содержание</td>
+                                    <td class="d-none d-md-table-cell">Кол-во<br>листов</td>
+                                    <td class="d-none d-sm-table-cell">Место сохранения</td>
+                                    <td class="d-none d-sm-table-cell">Задание (Резолюция)</td>
+                                    <td class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</td>
+                                    <td class="d-none d-sm-table-cell">Срок<br>исполнения</td>
+                                    <td class="d-none d-sm-table-cell">Результат<br>исполнения</td>
+                                    <td class="d-none d-sm-table-cell">Дата<br>исполнения</td>
+                                    <td class="d-none d-sm-table-cell">Место<br>подшивки</td>
                                 </tr>
                                 </thead>
                                 <tbody style="cursor: pointer;">
@@ -50,9 +61,20 @@
                                 </tr>
                                 @forelse($documents as $document)
                                     <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
-                                        <td class="d-none d-md-table-cell">{{$document->created_at}}</td>
-                                        <td class="d-none d-sm-table-cell">{{$document->path}}</td>
-                                        <td>{{$document->name}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->incoming_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->number}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->date}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->path}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->task_description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->executor}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->deadline_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->executed_result}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->executed_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->file_mark}}</td>
                                     </tr>
                                 @empty
                                     <tr>
