@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('incoming_author', 255)->nullable()->default(null);
             $table->string('number', 255)->nullable()->default(null);
             $table->timestamp('date')->nullable()->default(null);
-            $table->string('short_description', 255)->nullable()->default(null);
             $table->string('document_and_application_sheets', 6)->nullable()->default(null);
             $table->text('task_description')->nullable()->default(null);
             $table->string('executor', 255)->nullable()->default(null);

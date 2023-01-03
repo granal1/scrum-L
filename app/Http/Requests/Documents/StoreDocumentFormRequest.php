@@ -26,6 +26,12 @@ class StoreDocumentFormRequest extends FormRequest
         return [
             'name' => ['nullable', 'string', 'min:1', 'max:255'],
             'file' => ['required', 'max:25000000', 'mimes:pdf'], // kb
+            'incoming_at' => ['nullable', 'date'],
+            'incoming_number' => ['nullable', 'string', 'min:1', 'max:255'],
+            'incoming_author' => ['nullable', 'string', 'min:2', 'max:255'],
+            'number' => ['nullable', 'string', 'min:1', 'max:255'],
+            'date' => ['nullable', 'date'],
+            'document_and_application_sheets' => ['nullable', 'string', 'min:6', 'max:6'],
         ];
     }
 

@@ -93,6 +93,13 @@ class DocumentController extends Controller
 
                     $document->path = $uploadService->uploadMedia($request->file('file'));
 
+                    $document->incoming_at = $data['incoming_at'];
+                    $document->incoming_number = $data['incoming_number'];
+                    $document->incoming_author = $data['incoming_author'];
+                    $document->number = $data['number'];
+                    $document->date = $data['date'];
+                    $document->document_and_application_sheets = $data['document_and_application_sheets'];
+
                     $document->save();
                 }
 
