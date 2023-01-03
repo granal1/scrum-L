@@ -17,7 +17,19 @@ class Document extends Model
     protected $fillable = [
         'name',
         'path',
-        'comment'
+        'comment',
+        'incoming_at',
+        'incoming_number',
+        'incoming_author',
+        'number',
+        'date',
+        'document_and_application_sheets',
+        'task_description',
+        'executor',
+        'deadline_at',
+        'executed_result',
+        'executed_at',
+        'file_mark'
     ];
 
     protected function removeQueryParam(string ...$keys)
