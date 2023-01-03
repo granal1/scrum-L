@@ -93,7 +93,7 @@
                     @enderror
                 </div>
                 <div class="col mt-3">
-                    <label for="deadline_at" class="form-label">Срок выполнения:</label>
+                    <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
                     <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи">
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
@@ -111,7 +111,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="executed_at">Срок выполнения:</label>
+                    <label for="executed_at">Срок выполнения по факту:</label>
                     <input type="datetime-local" id="executed_at" name="executed_at" class="form-control form-select-sm">
                     @error('executed_at')
                     <div class="text-danger">{{$message}}</div>
@@ -137,7 +137,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название</label>
+                    <label for="name">Название файла</label>
                     <input placeholder="Название" class="form-control form-control-sm" name="name" id="document_name">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
