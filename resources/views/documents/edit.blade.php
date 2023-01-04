@@ -29,7 +29,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="name">Название документа</label>
-                    <input class="form-control form-control-sm" name="name" id="name" value="{{$document->name}}">
+                    <input class="form-control form-control-sm" name="name" id="name" value="{{$document->short_description}}">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
