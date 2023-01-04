@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3">
+    <div class="container pt-3 mt-3 mb-3 card shadow-lg">
         @include('message')
         <form action="{{route('documents.update', $document)}}" method="post">
             @csrf
@@ -28,9 +28,9 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название документа</label>
-                    <input class="form-control form-control-sm" name="name" id="name" value="{{$document->name}}">
-                    @error('name')
+                    <label for="short_description">Название документа</label>
+                    <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$document->short_description}}">
+                    @error('short_description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>

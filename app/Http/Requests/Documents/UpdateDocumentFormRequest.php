@@ -35,8 +35,8 @@ class UpdateDocumentFormRequest extends FormRequest
             'deadline_at' => ['nullable', 'date'],
             'executed_result' => ['nullable', 'string', 'min:2', 'max:3000'],
             'executed_at' => ['nullable', 'date'],
-            'file_mark' => ['nullable', 'string', 'min:2', 'max:255']
-            //'path' => [],
+            'file_mark' => ['nullable', 'string', 'min:2', 'max:255'],
+            'short_description' => ['required', 'string', 'min:1', 'max:255'],
         ];
     }
 

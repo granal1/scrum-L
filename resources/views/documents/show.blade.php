@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3 pb-3 mb-3">
+    <div class="container pt-3 pb-3 mb-3 mt-3 card shadow-lg">
         <div class="row">
             <div class="col">
                 <h4 class="d-inline-block">Документ</h4>
@@ -21,7 +21,7 @@
             </div>
             <div class="col mb-3">
                 <label for="">Ссылка</label><br>
-                <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a>
+                <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a>
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">

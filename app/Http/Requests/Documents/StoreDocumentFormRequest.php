@@ -24,7 +24,7 @@ class StoreDocumentFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['nullable', 'string', 'min:1', 'max:255'],
+            'short_description' => ['required', 'string', 'min:1', 'max:255'],
             'file' => ['required', 'max:25000000', 'mimes:pdf'], // kb
             'incoming_at' => ['nullable', 'date'],
             'incoming_number' => ['nullable', 'string', 'min:1', 'max:255'],

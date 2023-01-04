@@ -7,22 +7,22 @@ use Illuminate\Database\Eloquent\Builder;
 
 class DocumentFilter extends AbstractFilter
 {
-    public const NAME = 'name';
+    public const SHORT_DESCRIPTION = 'short_description';
     public const PATH = 'path';
 
 
     protected function getCallbacks(): array
     {
         return [
-            self::NAME => [$this, 'name'],
+            self::SHORT_DESCRIPTION => [$this, 'short_description'],
             self::PATH => [$this, 'path'],
 
         ];
     }
 
-    public function name(Builder $builder, $value)
+    public function short_description(Builder $builder, $value)
     {
-        $builder->where('name', 'like', "%" . $value . "%");
+        $builder->where('short_description', 'like', "%" . $value . "%");
     }
 
     public function path(Builder $builder, $value)

@@ -89,11 +89,7 @@ class DocumentController extends Controller
 
                 if ($request->hasFile('file')) {
 
-                    $document->name = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
-                    $document->short_description = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
-//TODO Исправить заполнение Наименование или краткое содержание. Name теряет смысл.
-
-
+                    $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
                     $document->path = $uploadService->uploadMedia($request->file('file'));
 
                     $document->incoming_at = $data['incoming_at'];
@@ -164,7 +160,7 @@ class DocumentController extends Controller
                 DB::beginTransaction();
 
                 $document->update([
-                    'name' => $data['name'],
+                    'short_description' => $data['short_description'],
                     'incoming_at' => $data['incoming_at'],
                     'incoming_number' => $data['incoming_number'],
                     'incoming_author' => $data['incoming_author'],

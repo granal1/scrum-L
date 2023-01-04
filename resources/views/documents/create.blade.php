@@ -43,9 +43,9 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Наименование или краткое содержание</label>
-                    <input placeholder="Наименование" class="form-control form-control-sm" name="name" id="document_name">
-                    @error('name')
+                    <label for="short_description">Наименование или краткое содержание</label>
+                    <input placeholder="Наименование" class="form-control form-control-sm" name="short_description" id="document_name">
+                    @error('short_description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -96,6 +96,7 @@
         </form>
     </div>
 </div>
+        <script src="{{asset('assets/documents/create.js')}}"></script>
     @endsection
 
 
