@@ -89,8 +89,8 @@ class DocumentController extends Controller
 
                 if ($request->hasFile('file')) {
 
-                    $document->name = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
-                    $document->short_description = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
+                    //$document->name = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
+                    $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
 //TODO Исправить заполнение Наименование или краткое содержание. Name теряет смысл.
 
 
