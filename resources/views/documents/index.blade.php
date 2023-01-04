@@ -26,11 +26,11 @@
                             <table class="table table-sm table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <th class="d-none d-md-table-cell text-center" style="width:11ch">Дата</th>
+                                    <th class="d-none d-md-table-cell text-center">Дата</th>
                                     <th class="d-none d-md-table-cell text-center">Вх.№</th>
                                     <th class="d-none d-md-table-cell text-center">Корреспондент<br>(автор)</th>
                                     <th class="d-none d-md-table-cell text-center">Номер<br>док-та</th>
-                                    <th class="d-none d-md-table-cell text-center" style="width:11ch">Дата<br>док-та</th>
+                                    <th class="d-none d-md-table-cell text-center">Дата<br>док-та</th>
                                     <th class="d-none d-md-table-cell text-center">Наименование или<br>краткое содержание</th>
                                     <th class="d-none d-md-table-cell text-center">Кол-во<br>листов</th>
                                     <th class="d-none d-sm-table-cell text-center">Задание (Резолюция)</th>
@@ -60,18 +60,18 @@
                                 </tr>
                                 @forelse($documents as $document)
                                     <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
-                                        <td class="d-none d-md-table-cell">{{$document->incoming_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->number}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->date}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime($document->date)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->task_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->executor}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->deadline_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->deadline_at ? date('d.m.Y', strtotime($document->deadline_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->executed_result}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->executed_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->executed_at ? date('d.m.Y', strtotime($document->executed_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->file_mark}}</td>
                                     </tr>
                                 @empty
