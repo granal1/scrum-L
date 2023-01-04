@@ -24,7 +24,7 @@ class DocumentFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => '',
+            'short_description' => '',
             'path' => '',
         ];
     }

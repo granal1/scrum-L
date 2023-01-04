@@ -28,9 +28,9 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название документа</label>
-                    <input class="form-control form-control-sm" name="name" id="name" value="{{$document->name}}">
-                    @error('name')
+                    <label for="short_description">Название документа</label>
+                    <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$document->short_description}}">
+                    @error('short_description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
