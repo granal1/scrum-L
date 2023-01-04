@@ -24,7 +24,6 @@ class UpdateDocumentFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [],
             'incoming_at' => ['nullable', 'date'],
             'incoming_number' => ['nullable', 'string', 'min:1', 'max:255'],
             'incoming_author' => ['nullable', 'string', 'min:2', 'max:255'],

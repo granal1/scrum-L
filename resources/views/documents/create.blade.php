@@ -96,7 +96,6 @@
         </form>
     </div>
 </div>
-    <script src="{{ asset('assets/documents/create.js') }}"></script>
     @endsection
 
 
