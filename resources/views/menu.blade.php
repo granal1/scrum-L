@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm" style="font-size: 1.25em">
     <div class="container">
-        <a href="/"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/navbar_icon.svg')}}" width="45" height="45"></a>
+        <a href="/"><img class="navbar-brand" alt="Navbar picture" src="{{asset('assets/icons/edp.svg')}}" height="50"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
