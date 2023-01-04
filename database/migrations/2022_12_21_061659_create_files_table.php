@@ -28,7 +28,6 @@ return new class extends Migration
             $table->text('executed_result')->nullable()->default(null);
             $table->date('executed_at')->nullable()->default(null);
             $table->string('file_mark')->nullable()->default(null);
-            $table->string('name', 255);
             $table->string('path', 255);
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);

@@ -15,7 +15,7 @@ class Document extends Model
     protected $table = "files";
 
     protected $fillable = [
-        'name',
+        'short_description',
         'path',
         'comment',
         'incoming_at',
