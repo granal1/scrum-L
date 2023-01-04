@@ -21,24 +21,24 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div class="row pt-3">
+                    <div class="row">
                         <div class="col">
                             <table class="table table-sm table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <td class="d-none d-md-table-cell">Дата</td>
-                                    <td class="d-none d-md-table-cell">Вх.№</td>
-                                    <td class="d-none d-md-table-cell">Корреспондент<br>(автор)</td>
-                                    <td class="d-none d-md-table-cell">Номер<br>док-та</td>
-                                    <td class="d-none d-md-table-cell">Дата<br>док-та</td>
-                                    <td class="d-none d-md-table-cell">Наименование или<br>краткое содержание</td>
-                                    <td class="d-none d-md-table-cell">Кол-во<br>листов</td>
-                                    <td class="d-none d-sm-table-cell">Задание (Резолюция)</td>
-                                    <td class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</td>
-                                    <td class="d-none d-sm-table-cell">Срок<br>исполнения</td>
-                                    <td class="d-none d-sm-table-cell">Результат<br>исполнения</td>
-                                    <td class="d-none d-sm-table-cell">Дата<br>исполнения</td>
-                                    <td class="d-none d-sm-table-cell">Место<br>подшивки</td>
+                                    <th class="d-none d-md-table-cell text-center" style="width:11ch">Дата</th>
+                                    <th class="d-none d-md-table-cell text-center">Вх.№</th>
+                                    <th class="d-none d-md-table-cell text-center">Корреспондент<br>(автор)</th>
+                                    <th class="d-none d-md-table-cell text-center">Номер<br>док-та</th>
+                                    <th class="d-none d-md-table-cell text-center" style="width:11ch">Дата<br>док-та</th>
+                                    <th class="d-none d-md-table-cell text-center">Наименование или<br>краткое содержание</th>
+                                    <th class="d-none d-md-table-cell text-center">Кол-во<br>листов</th>
+                                    <th class="d-none d-sm-table-cell text-center">Задание (Резолюция)</th>
+                                    <th class="d-none d-sm-table-cell text-center">Исполнитель<br>(Исполнители)</th>
+                                    <th class="d-none d-sm-table-cell text-center">Срок<br>исполнения</th>
+                                    <th class="d-none d-sm-table-cell text-center">Результат<br>исполнения</th>
+                                    <th class="d-none d-sm-table-cell text-center">Дата<br>исполнения</th>
+                                    <th class="d-none d-sm-table-cell text-center">Место<br>подшивки</th>
                                 </tr>
                                 </thead>
                                 <tbody style="cursor: pointer;">
