@@ -16,27 +16,10 @@
         @include('message')
         <form action="{{route('documents.store')}}" method="post" enctype="multipart/form-data">
             @csrf
-            <div class="row row-cols-1">
-                <div class="col mt-3">
-                    <input accept=".pdf" required class="form-control form-control-sm" name="file" id="document_file" type="file">
-                    @error('file')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="row row-cols-1">
-                <div class="col mt-3">
-                    <label for="name">Название файла</label>
-                    <input placeholder="Название" class="form-control form-control-sm" name="name" id="document_name">
-                    @error('name')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-            </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
                     <label for="incoming_at" class="form-label">Дата входящего:</label>
-                    <input type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа">
+                    <input type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
                     @error('incoming_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -49,6 +32,25 @@
                     @enderror
                 </div>
             </div>
+            <div class="row row-cols-1">
+                <div class="col mt-3">
+                    <label for="document_file" class="form-label">Загрузить документ</label>
+                    <input accept=".pdf" required class="form-control form-control-sm" name="file" id="document_file" type="file">
+                    @error('file')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col mt-3">
+                    <label for="name">Наименование или краткое содержание</label>
+                    <input placeholder="Наименование" class="form-control form-control-sm" name="name" id="document_name">
+                    @error('name')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="incoming_author" class="form-label">Корреспондент (автор)</label>

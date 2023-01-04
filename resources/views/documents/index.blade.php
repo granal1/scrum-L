@@ -14,7 +14,7 @@
                         @auth
                             <a class="btn btn-outline-success btn-sm" href="{{route('documents.create')}}">Добавить</a>
                         @endauth
-                        <h4 class="d-inline-block">Документы</h4>
+                        <h4 class="d-inline-block">Журнал учета входящих документов</h4>
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>
                             <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('documents.index')}}">Сброс</a>
@@ -33,7 +33,6 @@
                                     <td class="d-none d-md-table-cell">Дата<br>док-та</td>
                                     <td class="d-none d-md-table-cell">Наименование или<br>краткое содержание</td>
                                     <td class="d-none d-md-table-cell">Кол-во<br>листов</td>
-                                    <td class="d-none d-sm-table-cell">Место сохранения</td>
                                     <td class="d-none d-sm-table-cell">Задание (Резолюция)</td>
                                     <td class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</td>
                                     <td class="d-none d-sm-table-cell">Срок<br>исполнения</td>
@@ -68,7 +67,6 @@
                                         <td class="d-none d-md-table-cell">{{$document->date}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->path}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->task_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->executor}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->deadline_at}}</td>

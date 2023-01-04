@@ -31,7 +31,7 @@ class StoreDocumentFormRequest extends FormRequest
             'incoming_author' => ['nullable', 'string', 'min:2', 'max:255'],
             'number' => ['nullable', 'string', 'min:1', 'max:255'],
             'date' => ['nullable', 'date'],
-            'document_and_application_sheets' => ['nullable', 'string', 'min:6', 'max:6'],
+            'document_and_application_sheets' => ['nullable', 'string', 'max:6'],
         ];
     }
 
