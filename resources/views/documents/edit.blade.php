@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3">
+    <div class="container pt-3 mt-3 mb-3 card shadow-lg">
         @include('message')
         <form action="{{route('documents.update', $document)}}" method="post">
             @csrf

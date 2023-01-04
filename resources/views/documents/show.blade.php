@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3 pb-3 mb-3">
+    <div class="container pt-3 pb-3 mb-3 mt-3 card shadow-lg">
         <div class="row">
             <div class="col">
                 <h4 class="d-inline-block">Документ</h4>
