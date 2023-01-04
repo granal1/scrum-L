@@ -45,7 +45,7 @@
                 <div class="col mt-3">
                     <label for="short_description">Наименование или краткое содержание</label>
                     <input placeholder="Наименование" class="form-control form-control-sm" name="short_description" id="document_name">
-                    @error('name')
+                    @error('short_description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
