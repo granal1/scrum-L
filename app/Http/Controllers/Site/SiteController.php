@@ -77,21 +77,25 @@ class SiteController extends Controller
             ->where('deadline_at', null)
             ->get();
 
-        $outstanding_tasks = Task::whereHas('currentHistory', function($query) {
+        $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
+
+        $outstanding_tasks = Task::filter($filter)
+            ->whereHas('currentHistory', function($query) {
                 return $query
                     ->where(function($query){
                         return $query->where([
-                            ['deadline_at', '<', now()],
+                            ['deadline_at', '<=', now()],
                             ['responsible_uuid', 'like', Auth::id()]
                         ]);
                     })
                     ->orWhere(function($query){
                         return $query->where([
-                            ['deadline_at', '<', now()],
+                            ['deadline_at', '<=', now()],
                             ['user_uuid', 'like', Auth::id()]
                         ]);
                     });
             })
+            ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
         return view('index',[

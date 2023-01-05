@@ -17,10 +17,13 @@
                 <div class="card-header">
                     <div class="d-grid gap-2 d-flex align-items-center justify-content-between">
                         <h5 class="d-inline-block">Актуальная информация</h5>
+                        <div class="">
                         <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#collapseExample" aria-expanded="false"
                                 aria-controls="collapseExample">Поиск
                         </button>
+                        <a class="btn btn-outline-danger btn-sm" href="{{route('site.index')}}">Сброс</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -33,8 +36,8 @@
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
                                             Новые документы
+                                            <span class="badge bg-primary rounded-pill">{{count($new_documents)}}</span>
                                         </a>
-                                        <span class="badge bg-primary rounded-pill">{{count($new_documents)}}</span>
                                     </div>
                                     <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
                                         <div class="card-body">
@@ -95,8 +98,8 @@
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
                                             Список невыполненных задач
+                                            <span class="badge bg-danger rounded-pill">{{count($outstanding_tasks)}}</span>
                                         </a>
-                                        <span class="badge bg-danger rounded-pill">{{count($outstanding_tasks)}}</span>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
                                         <div class="card-body">
@@ -119,25 +122,16 @@
                                                                     name="priority_uuid" id="priority_uuid"
                                                                     onchange="this.form.submit()">
                                                                 <option value="">Выберите ...</option>
-                                                                <option
-                                                                    value="1eea24f3-1f6e-4866-8d24-d52cc648b803">
-                                                                    высокий</option>
-                                                                <option
-                                                                    value="7c90557c-52b1-4960-874d-93850be8bfaa">
-                                                                    ниже среднего</option>
-                                                                <option
-                                                                    value="8875c5c8-55e2-4ed8-9902-b9a3f1b0b9d1">
-                                                                    выше среднего</option>
-                                                                <option
-                                                                    value="d1d0a5e2-fec3-46bc-93a1-5afd2632bc89">
-                                                                    низкий</option>
-                                                                <option
-                                                                    value="d87f0aad-9008-4813-8dd1-13d6421c9939">
-                                                                    средний</option>
+                                                                @forelse($priorities as $priority)
+                                                                <option {{isset($old_filters['priority_uuid']) && $old_filters['priority_uuid'] === $priority->id ? 'selected' : null}}
+                                                                    value="{{$priority->id}}">{{$priority->name}}</option>
+                                                                @empty
+                                                                    <option value="">Нет приоритетов</option>
+                                                                @endforelse
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="search" value=""
+                                                            <input type="search" value="{{isset($old_filters['description']) ? $old_filters['description'] : null}}"
                                                                    class="form-control form-control-sm"
                                                                    id="description" name="description"
                                                                    onchange="this.form.submit()">
@@ -176,8 +170,8 @@
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
                                             Текущий список задач
+                                            <span class="badge bg-primary rounded-pill">{{count($tasks)}}</span>
                                         </a>
-                                        <span class="badge bg-primary rounded-pill">{{count($tasks)}}</span>
                                     </div>
                                     <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
                                         <div class="card-body">
