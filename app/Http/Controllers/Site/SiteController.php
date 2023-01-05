@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Filters\Roles\RoleFilter;
 use App\Http\Filters\Tasks\TaskFilter;
 use App\Http\Filters\Tasks\TaskHistoryFilter;
+use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
 use App\Http\Requests\Roles\RoleFilterRequest;
 use App\Http\Requests\Roles\StoreRoleFormRequest;
@@ -52,23 +53,49 @@ class SiteController extends Controller
                     ->where(function($query){
                         return $query->where([
                             ['done_progress', '<', 100],
-                            ['responsible_uuid', 'like', Auth::id()]
+                            ['responsible_uuid', 'like', Auth::id()],
+                            ['deadline_at', '>', now()],
                         ]);
                     })
                     ->orWhere(function($query){
                         return $query->where([
                             ['done_progress', '<', 100],
-                            ['user_uuid', 'like', Auth::id()]
+                            ['user_uuid', 'like', Auth::id()],
+                            ['deadline_at', '>', now()],
                         ]);
                     });
             })
             ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
+        $new_documents = Document::where('task_description', null)
+            ->where('executor', null)
+            ->where('deadline_at', null)
+            ->get();
+
+        $outstanding_tasks = Task::whereHas('currentHistory', function($query) {
+                return $query
+                    ->where(function($query){
+                        return $query->where([
+                            ['deadline_at', '<', now()],
+                            ['responsible_uuid', 'like', Auth::id()]
+                        ]);
+                    })
+                    ->orWhere(function($query){
+                        return $query->where([
+                            ['deadline_at', '<', now()],
+                            ['user_uuid', 'like', Auth::id()]
+                        ]);
+                    });
+            })
+            ->paginate(config('front.tasks.pagination'));
+
         return view('index',[
             'tasks' => $tasks,
             'old_filters' => $data,
             'priorities' => TaskPriority::all(),
+            'new_documents' => $new_documents,
+            'outstanding_tasks' => $outstanding_tasks,
         ]);
     }
 
