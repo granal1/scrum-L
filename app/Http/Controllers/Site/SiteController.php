@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\Documents\DocumentFilter;
 use App\Http\Filters\Roles\RoleFilter;
 use App\Http\Filters\Tasks\TaskFilter;
 use App\Http\Filters\Tasks\TaskHistoryFilter;
@@ -68,7 +69,10 @@ class SiteController extends Controller
             ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
-        $new_documents = Document::where('task_description', null)
+        $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
+
+        $new_documents = Document::filter($filter)
+            ->where('task_description', null)
             ->where('executor', null)
             ->where('deadline_at', null)
             ->get();
