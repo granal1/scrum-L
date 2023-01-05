@@ -26,6 +26,7 @@ class TaskFilterRequest extends FormRequest
         return [
             'description' => '',
             'priority_uuid' => '',
+            'short_description' => '',
         ];
     }
 }
