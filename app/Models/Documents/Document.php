@@ -2,6 +2,7 @@
 
 namespace App\Models\Documents;
 
+use App\Models\Tasks\Task;
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -24,13 +25,19 @@ class Document extends Model
         'number',
         'date',
         'document_and_application_sheets',
-        'task_description',
-        'executor',
-        'deadline_at',
-        'executed_result',
-        'executed_at',
         'file_mark'
     ];
+
+
+    public function tasks()
+    {
+        return $this->belongsToMany(
+            Task::class,
+            'task_files',
+            'file_uuid',
+            'task_uuid'
+        )->wherePivot('deleted_at', null);
+    }
 
     protected function removeQueryParam(string ...$keys)
     {

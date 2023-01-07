@@ -8,6 +8,7 @@ use App\Http\Filters\Roles\RoleFilter;
 use App\Http\Filters\Tasks\TaskFilter;
 use App\Http\Filters\Tasks\TaskHistoryFilter;
 use App\Models\Documents\Document;
+use App\Models\Tasks\TaskFile;
 use App\Models\Tasks\TaskPriority;
 use App\Http\Requests\Roles\RoleFilterRequest;
 use App\Http\Requests\Roles\StoreRoleFormRequest;
@@ -71,10 +72,15 @@ class SiteController extends Controller
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
+        $document_ids = TaskFile::groupBy('file_uuid')
+            ->pluck('file_uuid')
+            ->all();
+
         $new_documents = Document::filter($filter)
-            ->where('task_description', null)
-            ->where('executor', null)
-            ->where('deadline_at', null)
+            ->with(['tasks' => function($query){
+                $query->orderBy('created_at', 'desc')->first();
+            }])
+            ->whereNot('id', $document_ids)
             ->get();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);

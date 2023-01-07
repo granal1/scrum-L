@@ -64,11 +64,11 @@
                                         <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime($document->date)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->task_description}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->executor}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->deadline_at ? date('d.m.Y', strtotime($document->deadline_at)) : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->executed_result}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->executed_at ? date('d.m.Y', strtotime($document->executed_at)) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentResponsible() : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentHistory->comment : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->currentHistory->created_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->file_mark}}</td>
                                     </tr>
                                 @empty

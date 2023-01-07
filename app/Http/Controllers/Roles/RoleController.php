@@ -29,7 +29,7 @@ class RoleController extends Controller
 
             ]);
 
-        $this->authorize('viewAny', Role::class);
+        //$this->authorize('viewAny', Role::class);
 
         $data = $request->validated();
 
@@ -51,7 +51,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Role::class);
+        //$this->authorize('create', Role::class);
 
         return view('roles.create', [
         ]);
@@ -103,7 +103,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        $this->authorize('view', Role::class);
+        //$this->authorize('view', Role::class);
 
         return view('roles.show', [
             'role' => $role

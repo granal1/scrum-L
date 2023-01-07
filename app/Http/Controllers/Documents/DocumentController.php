@@ -8,6 +8,7 @@ use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
 use App\Http\Requests\Documents\UpdateDocumentFormRequest;
 use App\Models\Documents\Document;
+use App\Models\Tasks\TaskPriority;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
@@ -40,7 +41,7 @@ class DocumentController extends Controller
 
             ]);
 
-        $this->authorize('viewAny', Document::class);
+        //$this->authorize('viewAny', Document::class);
 
         $data = $request->validated();
 
@@ -61,12 +62,13 @@ class DocumentController extends Controller
     public function create()
     {
 
-        $this->authorize('create', Document::class);
+        //$this->authorize('create', Document::class);
 
         return view('documents.create', [
             'users' => User::all()
         ]);
     }
+
 
     /**
      * @param StoreDocumentFormRequest $request
@@ -75,7 +77,7 @@ class DocumentController extends Controller
      */
     public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
     {
-        $this->authorize('create', Document::class);
+        //$this->authorize('create', Document::class);
 
         if($request->isMethod('post')) {
 
@@ -121,7 +123,7 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
-        $this->authorize('view', Document::class);
+        //$this->authorize('view', Document::class);
 
         return view('documents.show', [
             'document' => $document
@@ -134,7 +136,7 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
-        $this->authorize('update', Document::class);
+        //$this->authorize('update', Document::class);
 
         return view('documents.edit', [
             'document' => $document,
@@ -149,7 +151,7 @@ class DocumentController extends Controller
      */
     public function update(UpdateDocumentFormRequest $request, Document $document)
     {
-        $this->authorize('update', Document::class);
+        //$this->authorize('update', Document::class);
 
         if($request->isMethod('patch')) {
 
@@ -167,11 +169,6 @@ class DocumentController extends Controller
                     'number' => $data['number'],
                     'date' => $data['date'],
                     'document_and_application_sheets' => $data['document_and_application_sheets'],
-                    'task_description' => $data['task_description'],
-                    'executor' => $data['executor'],
-                    'deadline_at' => $data['deadline_at'],
-                    'executed_result' => $data['executed_result'],
-                    'executed_at' => $data['executed_at'],
                     'file_mark' => $data['file_mark']
                 ]);
 
@@ -196,7 +193,7 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        $this->authorize('delete', Document::class);
+        //$this->authorize('delete', Document::class);
 
         try{
 
@@ -214,5 +211,17 @@ class DocumentController extends Controller
         }
 
         return redirect()->route('documents.index');
+    }
+
+    public function create_task(Document $document)
+    {
+
+        //$this->authorize('create', Document::class);
+
+        return view('documents.create-task', [
+            'document' => $document,
+            'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
+            'priorities' => TaskPriority::all(),
+        ]);
     }
 }

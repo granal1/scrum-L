@@ -22,9 +22,6 @@ return new class extends Migration
             $table->date('date')->nullable()->default(null);
             $table->text('short_description')->nullable()->default(null);
             $table->string('document_and_application_sheets', 6)->nullable()->default(null);
-            $table->text('task_description')->nullable()->default(null);
-            $table->string('executor', 255)->nullable()->default(null);
-            $table->date('deadline_at')->nullable()->default(null);
             $table->text('executed_result')->nullable()->default(null);
             $table->date('executed_at')->nullable()->default(null);
             $table->string('file_mark')->nullable()->default(null);
