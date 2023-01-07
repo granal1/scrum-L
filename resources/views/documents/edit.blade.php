@@ -88,7 +88,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="task_description">Описание</label>
-                    <textarea disabled readonly placeholder="Описание задачи" class="form-control form-control-sm" name="task_description" id="task_description" rows="2">{{$document->tasks[0]->description}}</textarea>
+                    <textarea disabled readonly placeholder="Описание задачи" class="form-control form-control-sm" name="task_description" id="task_description" rows="2">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</textarea>
                     @error('task_description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -97,14 +97,14 @@
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
                     <label for="executor" class="form-label">Исполнитель</label>
-                    <input disabled readonly type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor" value="{{$document->tasks[0]->currentResponsible()}}">
+                    <input disabled readonly type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor" value="{{isset($document->tasks[0]) ? $document->tasks[0]->currentResponsible() : null}}">
                     @error('executor')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col mt-3">
                     <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                    <input disabled readonly type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{$document->tasks[0]->currentHistory->deadline_at ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}">
+                    <input disabled readonly type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}">
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
