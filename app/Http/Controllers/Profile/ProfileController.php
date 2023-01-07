@@ -43,7 +43,7 @@ class ProfileController extends Controller
                 //'user_request_data' => $user
             ]);
 
-        $this->authorize('view', Profile::class);
+        //$this->authorize('view', Profile::class);
 
         return view('profile.show', [
             'user' => $user,
@@ -64,7 +64,7 @@ class ProfileController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
-        $this->authorize('update', Profile::class);
+        //$this->authorize('update', Profile::class);
 
         return view('profile.edit', [
             'user' => $user,
@@ -90,7 +90,7 @@ class ProfileController extends Controller
 
             ]);
 
-        $this->authorize('update', Profile::class);
+        //$this->authorize('update', Profile::class);
 
         if($request->isMethod('patch')){
 

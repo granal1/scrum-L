@@ -87,7 +87,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="task_description">Описание</label>
-                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="task_description" id="task_description" rows="2">{{$document->task_description}}</textarea>
+                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="task_description" id="task_description" rows="2">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</textarea>
                 @error('task_description')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -96,14 +96,14 @@
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mt-3">
                 <label for="executor" class="form-label">Исполнитель</label>
-                <input readonly disabled type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor" value="{{$document->executor}}">
+                <input readonly disabled type="text" class="form-control form-control-sm" id="executor" placeholder="Исполнитель" name="executor" value="{{isset($document->tasks[0]) ? $document->tasks[0]->currentResponsible() : null}}">
                 @error('executor')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
             </div>
             <div class="col mt-3">
                 <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{$document->deadline_at ? date('Y-m-d', strtotime($document->deadline_at)) : null}}">
+                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}">
                 @error('deadline_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -112,7 +112,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="executed_result">Результат выполнения</label>
-                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="executed_result" id="executed_result" rows="2">{{$document->executed_result}}</textarea>
+                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="executed_result" id="executed_result" rows="2">{{isset($document->tasks[0]) ? $document->tasks[0]->currentHistory->comment : null}}</textarea>
                 @error('executed_result')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -121,7 +121,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="executed_at">Срок выполнения по факту:</label>
-                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{$document->executed_at ? date('Y-m-d', strtotime($document->executed_at)) : null}}">
+                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->created_at)) : null}}">
                 @error('executed_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -136,9 +136,12 @@
                 @enderror
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-2">
+        <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
+            </div>
+            <div class="col mb-3">
+                <a class="btn btn-sm btn-warning col-12 {{isset($document->tasks[0]) ? 'disabled' : ''}}" href="{{route('documents.create_task', $document)}}">Создать задачу</a>
             </div>
                 <div class="col mb-3">
                     <a class="btn btn-sm btn-danger col-12" href="{{route('documents.edit', $document)}}">Редактировать</a>

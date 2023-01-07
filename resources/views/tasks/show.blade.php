@@ -58,7 +58,7 @@
                 <label for="file_uuid" class="form-label">Приложение</label>
                 <ul>
                     @forelse($task->documents as $document)
-                        <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a></li>
+                        <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a></li>
                     @empty
                         <p>Нет приложений</p>
                     @endforelse
@@ -70,7 +70,7 @@
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
             <div class="col mb-3">
-                <a class="btn btn-sm btn-warning col-12" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+                <a class="btn btn-sm btn-warning col-12 {{$task->currentHistory->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
             </div>
             @if($task->currentHistory->user_uuid === Auth::id())
             <div class="col mb-3">

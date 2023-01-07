@@ -37,6 +37,7 @@ Route::middleware(['auth'])->group(function () {
         'admin' => AdminController::class,
         'roles' => RoleController::class,
     ]);
+    Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
