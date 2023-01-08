@@ -15,6 +15,11 @@ use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        //$this->authorizeResource(Role::class, 'role');
+    }
     /**
      * Display a listing of the resource.
      *

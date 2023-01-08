@@ -11,9 +11,6 @@
         <div class="card shadow">
             <div class="card-header">
                 <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
-                    @auth
-                        <a class="btn btn-outline-success btn-sm" href="{{route('roles.create')}}">Добавить</a>
-                    @endauth
                     <h4 class="d-inline-block">Роли</h4>
                     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                     </button>
