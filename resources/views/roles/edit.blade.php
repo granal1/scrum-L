@@ -7,7 +7,7 @@
     @endsection
 
     @section('content')
-    <div class="container pt-3">
+    <div class="container pt-3 mt-3 card">
         @include('message')
         <form action="{{route('roles.update', $role)}}" method="post">
             @csrf
@@ -19,7 +19,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="alias">Алиас</label>
+                    <label for="alias" class="form-label">Алиас<span class="text-danger"><b>*</b></span></label>
                     <input required placeholder="Роль" class="form-control form-control-sm" name="alias" id="alias" type="text" value="{{$role->alias}}">
                     @error('alias')
                     <div class="text-danger">{{$message}}</div>
@@ -28,8 +28,8 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название</label>
-                    <input class="form-control form-control-sm" name="name" id="name" value="{{$role->name}}">
+                    <label for="name" class="form-label">Название</label>
+                    <input readonly class="form-control form-control-sm" name="name" id="name" value="{{$role->name}}">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

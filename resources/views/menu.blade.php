@@ -30,14 +30,21 @@
                         <a class="nav-link {{ request()->routeIs('profile.show')?'active':'' }}" href="{{ route('profile.show', Auth::id()) }}">Профиль</a>
                     </li>
 {{--                @endcan--}}
-{{--                @can('viewAny', \App\Models\Roles\Role::class)--}}
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('roles.index')?'active':'' }}" href="{{ route('roles.index') }}">Роли</a>
-                    </li>
-{{--                @endcan--}}
 {{--                @can('viewAny', \App\Models\Admin\Admin::class)--}}
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('admin.*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>
+                    {{--                    <a class="nav-link {{ request()->routeIs('admin.*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>--}}
+                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Админка
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="{{ route('roles.index') }}">Роли</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
 {{--                @endcan--}}
             </ul>

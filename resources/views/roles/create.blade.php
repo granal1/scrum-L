@@ -18,7 +18,7 @@
             @csrf
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="alias">Алиас</label>
+                    <label for="alias" class="form-label">Алиас<span class="text-danger"><b>*</b></span></label>
                     <input required placeholder="Роль" class="form-control form-control-sm" name="alias" id="alias" type="text">
                     @error('alias')
                     <div class="text-danger">{{$message}}</div>
@@ -27,8 +27,8 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name">Название</label>
-                    <input placeholder="Name" class="form-control form-control-sm" name="name" id="name">
+                    <label for="name" class="form-label">Название<span class="text-danger"><b>*</b></span></label>
+                    <input required placeholder="Name" class="form-control form-control-sm" name="name" id="name">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
