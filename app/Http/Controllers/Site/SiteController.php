@@ -24,6 +24,12 @@ use Illuminate\Support\Facades\Log;
 
 class SiteController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth']);
+        //$this->authorizeResource(Document::class, 'document');
+    }
+
     /**
      * Display a listing of the resource.
      *
