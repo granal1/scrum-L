@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
-                'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
+                'superior_uuid' => '',
                 'name' => 'Иван Иванович',
                 'email' => 'boss@boss.ru',
                 'email_verified_at' => now(),
@@ -208,15 +208,7 @@ class UserSeeder extends Seeder
                 'email' => 'o4s4@o4s4.ru',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
-            ],
-            [
-                'id' => 'f5900f0c-ef8f-4862-925e-4957926ae7a2',
-                'superior_uuid' => '',
-                'name' => 'Гость',
-                'email' => 'guest@guest.ru',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$4f8w0NJRkK/dKnC.qTI8mOi1quTYzaP2ST3R8QewSSLiXaYaD9gSW', // password
-           ]
+            ]
        ]);
 
     }
