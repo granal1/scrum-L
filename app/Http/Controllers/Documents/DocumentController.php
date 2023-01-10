@@ -27,7 +27,7 @@ class DocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->authorizeResource(Document::class, 'document');
+       // $this->authorizeResource(Document::class, 'document');
     }
 
     /**
