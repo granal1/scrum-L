@@ -86,7 +86,7 @@ class SiteController extends Controller
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $responsible_outstanding_task_ids[] = TaskHistoryService::getResponsibleUserOutstandingTaskIds();
-        dd($responsible_outstanding_task_ids);
+       // dd($responsible_outstanding_task_ids);
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
             ->paginate(config('front.tasks.pagination'));
