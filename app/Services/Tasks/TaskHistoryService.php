@@ -10,25 +10,29 @@ class TaskHistoryService
 {
     public static function getResponsibleUserCurrentTaskIds()
     {
-        return DB::table('task_histories')->where([
-            ['done_progress', '<', 100],
-            ['responsible_uuid', 'like', Auth::id()],
-            ['deadline_at', '>', now()]
-        ])
-            ->groupBy('task_uuid')
-            ->pluck('task_uuid')
-            ->all();
+
+        return DB::table('task_histories')
+            ->where([
+               // ['done_progress', '<', 100],
+                //['deadline_at', '>', now()]
+            ])
+            ->select('task_uuid', 'responsible_uuid', DB::raw('MAX(created_at) as created_at'))
+            ->groupBy('responsible_uuid')
+            ->having('responsible_uuid', 'like', Auth::id())
+            ->get()->value('task_uuid');
     }
 
     public static function getResponsibleUserOutstandingTaskIds()
     {
-        return DB::table('task_histories')->where([
-            ['deadline_at', '<=', now()],
-            ['responsible_uuid', 'like', Auth::id()]
-        ])
-            ->groupBy('task_uuid')
-            ->pluck('task_uuid')
-            ->all();
+        return DB::table('task_histories')
+            ->where([
+                //['done_progress', '<', 100],
+                //['deadline_at', '<=', now()]
+            ])
+            ->select('task_uuid', 'responsible_uuid', DB::raw('MAX(created_at) as created_at'))
+            ->groupBy('responsible_uuid')
+            ->having('responsible_uuid', 'like', Auth::id())
+            ->get()->value('task_uuid');
     }
 }
 

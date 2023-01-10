@@ -20,6 +20,7 @@ use App\Models\Tasks\TaskHistory;
 use App\Services\Tasks\TaskHistoryService;
 use App\Services\Tasks\TaskService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -48,12 +49,12 @@ class SiteController extends Controller
 
         $data = $request->validated();
 
-        $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
+        //$filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
 
-        $task_uuids = TaskHistory::filter($filter)
-            ->groupBy('task_uuid')
-            ->pluck('task_uuid')
-            ->all();
+        //$task_uuids_after_search_filter = TaskHistory::filter($filter)
+        //    ->groupBy('task_uuid')
+        //    ->pluck('task_uuid')
+        //    ->all();
 
         $responsible_current_task_ids = TaskHistoryService::getResponsibleUserCurrentTaskIds();
 
@@ -61,10 +62,12 @@ class SiteController extends Controller
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
+        $current_task_ids = Arr::collapse([ $responsible_current_task_ids, $task_author_ids]);
+
+        $current_task_ids = array_unique($current_task_ids);
+
         $tasks = Task::filter($filter)
-            ->whereIn('id', $task_uuids)
-            ->whereIn('id', $responsible_current_task_ids)
-            ->whereIn('id', $task_author_ids)
+            ->whereIn('id', $current_task_ids)
             ->paginate(config('front.tasks.pagination'));
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
@@ -82,12 +85,10 @@ class SiteController extends Controller
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
-        $responsible_outstanding_task_ids = TaskHistoryService::getResponsibleUserOutstandingTaskIds();
-
+        $responsible_outstanding_task_ids[] = TaskHistoryService::getResponsibleUserOutstandingTaskIds();
+        dd($responsible_outstanding_task_ids);
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
-            ->whereIn('id', $task_author_ids)
-            ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
         return view('index',[
