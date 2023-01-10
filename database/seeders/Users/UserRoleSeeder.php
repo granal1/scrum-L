@@ -138,11 +138,11 @@ class UserRoleSeeder extends Seeder
                 'user_uuid' => 'a48c76ac-e787-4979-b075-7f1cdd46c16f',
                 'role_uuid' => DB::table('roles')->where('name', 'like', 'user')->value('id'),
             ],
-            [
-                'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab94g',
-                'user_uuid' => 'f5900f0c-ef8f-4862-925e-4957926ae7a2',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'guest')->value('id'),
-            ],
+//            [
+//                'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab94g',
+//                'user_uuid' => 'f5900f0c-ef8f-4862-925e-4957926ae7a2',
+//                'role_uuid' => DB::table('roles')->where('name', 'like', 'guest')->value('id'),
+//            ],
         ]);
     }
 }
