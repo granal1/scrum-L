@@ -151,6 +151,7 @@ class TaskController extends Controller
         if($request->isMethod('post')) {
 
             $data = $request->validated();
+            $data['author_uuid'] = Auth::id();
 
             try {
 

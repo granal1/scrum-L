@@ -17,6 +17,8 @@ use App\Http\Requests\Tasks\TaskFilterRequest;
 use App\Models\Roles\Role;
 use App\Models\Tasks\Task;
 use App\Models\Tasks\TaskHistory;
+use App\Services\Tasks\TaskHistoryService;
+use App\Services\Tasks\TaskService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -53,27 +55,16 @@ class SiteController extends Controller
             ->pluck('task_uuid')
             ->all();
 
+        $responsible_current_task_ids = TaskHistoryService::getResponsibleUserCurrentTaskIds();
+
+        $task_author_ids = TaskService::getAuthorCurrentTaskIds();
+
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
-            ->whereHas('currentHistory', function($query) {
-                return $query
-                    ->where(function($query){
-                        return $query->where([
-                            ['done_progress', '<', 100],
-                            ['responsible_uuid', 'like', Auth::id()],
-                            ['deadline_at', '>', now()],
-                        ]);
-                    })
-                    ->orWhere(function($query){
-                        return $query->where([
-                            ['done_progress', '<', 100],
-                            ['user_uuid', 'like', Auth::id()],
-                            ['deadline_at', '>', now()],
-                        ]);
-                    });
-            })
             ->whereIn('id', $task_uuids)
+            ->whereIn('id', $responsible_current_task_ids)
+            ->whereIn('id', $task_author_ids)
             ->paginate(config('front.tasks.pagination'));
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
@@ -91,22 +82,11 @@ class SiteController extends Controller
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
+        $responsible_outstanding_task_ids = TaskHistoryService::getResponsibleUserOutstandingTaskIds();
+
         $outstanding_tasks = Task::filter($filter)
-            ->whereHas('currentHistory', function($query) {
-                return $query
-                    ->where(function($query){
-                        return $query->where([
-                            ['deadline_at', '<=', now()],
-                            ['responsible_uuid', 'like', Auth::id()]
-                        ]);
-                    })
-                    ->orWhere(function($query){
-                        return $query->where([
-                            ['deadline_at', '<=', now()],
-                            ['user_uuid', 'like', Auth::id()]
-                        ]);
-                    });
-            })
+            ->whereIn('id', $responsible_outstanding_task_ids)
+            ->whereIn('id', $task_author_ids)
             ->whereIn('id', $task_uuids)
             ->paginate(config('front.tasks.pagination'));
 
