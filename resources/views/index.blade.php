@@ -147,7 +147,7 @@
                                                     </form>
                                                 </tr>
                                                 @forelse($outstanding_tasks as $task)
-                                                <tr>
+                                                    <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
                                                     <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
                                                     <td>{{$task->description}}</td>
                                                     <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
