@@ -84,7 +84,7 @@
                                                 </tr>
                                                 @empty
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="7">
                                                             Нет новых документов
                                                         </td>
                                                     </tr>
@@ -156,7 +156,7 @@
                                                 </tr>
                                                 @empty
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="5">
                                                             Нет задач
                                                         </td>
                                                     </tr>
