@@ -23,7 +23,10 @@ class Task extends Model
     protected $fillable = [
         'description',
         'comment',
-        'author_uuid'
+        'author_uuid',
+        'priority_uuid',
+        'responsible_uuid',
+        'deadline_at',
     ];
 
     public function histories()

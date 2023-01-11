@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('tasks', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('parent_uuid', 36)->nullable()->default(null);
-            
+
             $table->foreignUuid('priority_uuid');
             $table->foreignUuid('author_uuid');
             $table->foreignUuid('responsible_uuid');
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->text('description');
             $table->timestamp('deadline_at');
             $table->integer('done_progress')->nullable()->default(0);
-            $table->text('report');
+            $table->text('report')->nullable()->default(null);
             $table->integer('sort_order')->default(1);
             $table->string('comment')->nullable()->default(null);
             $table->timestamps();
