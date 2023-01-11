@@ -23,7 +23,7 @@
                                     @csrf
                                     @method('delete')
                                     <li>
-                                        <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a>
+                                        <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a>
                                         <button class="ms-2 btn btn-sm btn-danger" type="submit">x</button>
                                     </li>
                                 </form>
@@ -103,7 +103,7 @@
                 <select class="form-select form-select-sm" name="file_uuid">
                     <option value="">Выберите документ ...</option>
                 @forelse($documents as $document)
-                        <option value="{{$document->id}}">{{$document->name}}</option>
+                        <option value="{{$document->id}}">{{$document->short_description}}</option>
                     @empty
                         <option value="">Нет документов</option>
                     @endforelse

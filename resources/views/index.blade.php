@@ -84,7 +84,7 @@
                                                 </tr>
                                                 @empty
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="7">
                                                             Нет новых документов
                                                         </td>
                                                     </tr>
@@ -147,7 +147,7 @@
                                                     </form>
                                                 </tr>
                                                 @forelse($outstanding_tasks as $task)
-                                                <tr>
+                                                    <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
                                                     <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
                                                     <td>{{$task->description}}</td>
                                                     <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
@@ -156,7 +156,7 @@
                                                 </tr>
                                                 @empty
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="5">
                                                             Нет задач
                                                         </td>
                                                     </tr>
@@ -199,7 +199,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="search" value="@if(isset($old_filters['description'])) {{ $old_filters['description'] }} @endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
+                                                            <input type="search" value="@if(isset($old_filters['description'])){{$old_filters['description']}}@endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
                                                         </td>
                                                         <td class="d-none d-sm-table-cell"></td>
                                                         <td>
