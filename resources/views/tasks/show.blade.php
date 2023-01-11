@@ -78,6 +78,14 @@
             </div>
             @endif
         </div>
+        <div class="row row-cols-1">
+            <form action="{{route('tasks.create-subtask', $task)}}" method="post">
+                @csrf
+                <div class="col mb-3">
+                    <button type="submit" class="btn btn-danger btn-sm col-12">Создать подзадачу</button>
+                </div>
+            </form>
+        </div>
     </div>
     @endsection
 
