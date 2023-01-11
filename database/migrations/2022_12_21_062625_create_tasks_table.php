@@ -29,13 +29,6 @@ return new class extends Migration
             $table->string('comment')->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreignUuid('author_uuid');
-        });
-
-        Schema::table('tasks', function($table)
-        {
-            $table->foreign('author_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
         });
 
         Schema::table('tasks', function($table)
