@@ -199,7 +199,7 @@
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <input type="search" value="@if(isset($old_filters['description'])) {{ $old_filters['description'] }} @endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
+                                                            <input type="search" value="@if(isset($old_filters['description'])){{$old_filters['description']}}@endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
                                                         </td>
                                                         <td class="d-none d-sm-table-cell"></td>
                                                         <td>

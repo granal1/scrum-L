@@ -6,29 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class TaskHistoryService
+class TaskHistoryService extends Model
 {
-    public static function getResponsibleUserCurrentTaskIds()
+
+    protected $table = "task_histories";
+
+    public function getCurrentTaskIds()
     {
-        return DB::table('task_histories')->where([
-            ['done_progress', '<', 100],
-            ['responsible_uuid', 'like', Auth::id()],
-            ['deadline_at', '>', now()]
-        ])
-            ->groupBy('task_uuid')
+        return collect($this::latest()
+            ->get()
+            ->unique('task_uuid')
+            ->filter(function($key){
+                return ($key->responsible_uuid === Auth::id() || $key->user_uuid === Auth::id()) && $key->deadline_at > now() && $key->done_progress < 100;
+            })
+            ->values()
+            ->all())
             ->pluck('task_uuid')
             ->all();
     }
 
-    public static function getResponsibleUserOutstandingTaskIds()
+    public function getOutstandingTaskIds()
     {
-        return DB::table('task_histories')->where([
-            ['deadline_at', '<=', now()],
-            ['responsible_uuid', 'like', Auth::id()]
-        ])
-            ->groupBy('task_uuid')
+        return collect($this::latest()
+            ->get()
+            ->unique('task_uuid')
+            ->filter(function($key){
+                return ($key->responsible_uuid === Auth::id() || $key->user_uuid === Auth::id()) && $key->deadline_at <= now() && $key->done_progress < 100;
+            })
+            ->values()
+            ->all())
             ->pluck('task_uuid')
             ->all();
     }
+
 }
 
