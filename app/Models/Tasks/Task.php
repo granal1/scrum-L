@@ -27,6 +27,7 @@ class Task extends Model
         'priority_uuid',
         'responsible_uuid',
         'deadline_at',
+        'report'
     ];
 
     public function histories()

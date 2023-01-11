@@ -26,6 +26,8 @@ class ProgressTaskFormRequest extends FormRequest
         return [
             'comment' => ['required', 'string', 'min:2', 'max:3000'],
             'done_progress' => ['required', 'numeric', 'min:0', 'max:100'],
+            'file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'report' => ['nullable', 'string', 'min:1', 'max:3000']
         ];
     }
 

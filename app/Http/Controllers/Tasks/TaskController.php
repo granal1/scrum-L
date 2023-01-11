@@ -262,6 +262,7 @@ class TaskController extends Controller
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
 
+
             try {
 
                 DB::beginTransaction();
