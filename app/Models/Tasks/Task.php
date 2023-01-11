@@ -21,12 +21,16 @@ class Task extends Model
     protected $table = "tasks";
 
     protected $fillable = [
-        'description',
-        'comment',
-        'author_uuid',
+        'parent_uuid',
         'priority_uuid',
+        'author_uuid',
         'responsible_uuid',
+        'description',
         'deadline_at',
+        'done_progress',
+        'report',
+        'sort_order',
+        'comment',
     ];
 
     public function histories()
@@ -69,12 +73,22 @@ class Task extends Model
         );
     }
 
-    public function currentAuthor()
+    public function currentAuthor() //TODO вроде в формах больше не используется
     {
         return $this->authors->last()->name;
     }
 
-    public function currentResponsible()
+    public function getAuthor()
+    {
+        return User::find($this->author_uuid)->name;
+    }
+
+    public function getResponsible()
+    {
+        return User::find($this->responsible_uuid)->name;
+    }
+
+    public function currentResponsible() //TODO вроде в формах больше не используется
     {
         return $this->responsibles->last()->name;
     }

@@ -13,10 +13,10 @@
                 <h4 class="d-inline-block">Задача</h4>
             </div>
         </div>
-        @if(!is_null($task->currentHistory->parent_uuid))
+        @if(!is_null($task->parent_uuid))
         <div class="row mb-2">
             <div class="col">
-                <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task->currentHistory->parent_uuid)}}">Базовая задача</a>
+                <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task->parent_uuid)}}">Базовая задача</a>
             </div>
         </div>
         @endif
@@ -28,7 +28,7 @@
             </div>
             <div class="col mb-3">
                 <label for="user_uuid">Создал</label>
-                <input class="form-control form-control-sm" name="user_uuid" id="user_uuid" disabled value="{{$task->currentAuthor()}}">
+                <input class="form-control form-control-sm" name="user_uuid" id="user_uuid" disabled value="{{$task->getAuthor()}}">
             </div>
             <div class="col">
                 <label for="priority_uuid">Приоритет</label>
@@ -38,15 +38,15 @@
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <label for="deadline_at">Выполнить до:</label>
-                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->currentHistory->deadline_at}}">
+                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->deadline_at}}">
             </div>
             <div class="col mb-3">
                 <label for="responsible_uuid">Ответственный</label>
-                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->currentResponsible()}}">
+                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->getResponsible()}}">
             </div>
             <div class="col">
                 <label for="done_progress">Выполнено, %</label>
-                <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->currentHistory->done_progress}}">
+                <input class="form-control form-control-sm" name="done_progress" id="done_progress" disabled value="{{$task->done_progress}}">
             </div>
         </div>
         <div class="row pt-3 row-cols-1 row-cols-md-2">
@@ -65,14 +65,14 @@
                 </ul>
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 {{$task->currentHistory->user_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
+        <div class="row pt-3 row-cols-1 {{$task->author_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
             <div class="col mb-3">
-                <a class="btn btn-sm btn-warning col-12 {{$task->currentHistory->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+                <a class="btn btn-sm btn-warning col-12 {{$task->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
             </div>
-            @if($task->currentHistory->user_uuid === Auth::id())
+            @if($task->author_uuid === Auth::id())
             <div class="col mb-3">
                 <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
             </div>

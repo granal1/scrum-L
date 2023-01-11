@@ -190,6 +190,7 @@ class TaskController extends Controller
         }
 
         return redirect()->route('tasks.show', $task)->with('error', 'Ошибка при создании задачи.');
+        //TODO Пишет, что $task не определен. Определить или убрать?
     }
 
     /**
@@ -260,14 +261,19 @@ class TaskController extends Controller
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
-            $data['author_uuid'] = Auth::id();
+            // $data['author_uuid'] = Auth::id(); автор не может меняться.
 
             try {
 
                 DB::beginTransaction();
 
                 $task->update([
-                    'description' => $data['description']
+                    'priority_uuid' => $data['priority_uuid'],
+                    'responsible_uuid' => $data['responsible_uuid'],
+                    'description' => $data['description'],
+                    'deadline_at' => $data['deadline_at'],
+                    'done_progress' => $data['done_progress'],
+                    'report' => $data['comment'],
                 ]);
 
                 $history = TaskHistory::create([
@@ -393,6 +399,11 @@ class TaskController extends Controller
 
                 DB::beginTransaction();
 
+                $task->update([
+                    'done_progress' => $data['done_progress'],
+                    'report' => $data['comment'],
+                ]);
+
                 $history = TaskHistory::create([
                     'task_uuid' => $task->id,
                     'priority_uuid' => $task->currentHistory->priority_uuid,
@@ -403,7 +414,7 @@ class TaskController extends Controller
                     'parent_uuid' => $task->currentHistory->parent_uuid,
                     'comment' => $data['comment']
                 ]);
-
+ 
                 DB::commit();
 
                 return redirect()->route('tasks.show', $task)->with('success','Изменения сохранены.');
