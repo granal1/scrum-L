@@ -48,7 +48,7 @@
                                         <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('documents.index')}}">Сброс</a></td>
                                       <td colspan="4"></td>
                                         <td>
-                                            <input type="search" value="@if(isset($old_filters['short_description'])) {{ $old_filters['short_description'] }} @endif"
+                                            <input type="search" value="@if(isset($old_filters['short_description'])){{$old_filters['short_description']}}@endif"
                                                    class="form-control form-control-sm" id="short_description" name="short_description"
                                                    onchange="this.form.submit()">
                                         </td>
