@@ -6,33 +6,38 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class TaskHistoryService
+class TaskHistoryService extends Model
 {
-    public static function getResponsibleUserCurrentTaskIds()
-    {
 
-        return DB::table('task_histories')
-            ->where([
-               // ['done_progress', '<', 100],
-                //['deadline_at', '>', now()]
-            ])
-            ->select('task_uuid', 'responsible_uuid', DB::raw('MAX(created_at) as created_at'))
-            ->groupBy('responsible_uuid')
-            ->having('responsible_uuid', 'like', Auth::id())
-            ->get()->value('task_uuid');
+    protected $table = "task_histories";
+
+    public function getCurrentTaskIds()
+    {
+        return collect($this::latest()
+            ->get()
+            ->unique('task_uuid')
+            ->filter(function($key){
+                return ($key->responsible_uuid === Auth::id() || $key->user_uuid === Auth::id()) && $key->deadline_at > now() && $key->done_progress < 100;
+            })
+            ->values()
+            ->all())
+            ->pluck('task_uuid')
+            ->all();
     }
 
-    public static function getResponsibleUserOutstandingTaskIds()
+    public function getOutstandingTaskIds()
     {
-        return DB::table('task_histories')
-            ->where([
-                //['done_progress', '<', 100],
-                //['deadline_at', '<=', now()]
-            ])
-            ->select('task_uuid', 'responsible_uuid', DB::raw('MAX(created_at) as created_at'))
-            ->groupBy('responsible_uuid')
-            ->having('responsible_uuid', 'like', Auth::id())
-            ->get()->value('task_uuid');
+        return collect($this::latest()
+            ->get()
+            ->unique('task_uuid')
+            ->filter(function($key){
+                return ($key->responsible_uuid === Auth::id() || $key->user_uuid === Auth::id()) && $key->deadline_at <= now() && $key->done_progress < 100;
+            })
+            ->values()
+            ->all())
+            ->pluck('task_uuid')
+            ->all();
     }
+
 }
 

@@ -30,7 +30,7 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        //$this->authorizeResource(Document::class, 'document');
+        $this->taskHistoryService = new TaskHistoryService();
     }
 
     /**
@@ -56,15 +56,9 @@ class SiteController extends Controller
         //    ->pluck('task_uuid')
         //    ->all();
 
-        $responsible_current_task_ids = TaskHistoryService::getResponsibleUserCurrentTaskIds();
-
-        $task_author_ids = TaskService::getAuthorCurrentTaskIds();
+        $current_task_ids = $this->taskHistoryService->getCurrentTaskIds();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
-
-        $current_task_ids = Arr::collapse([ $responsible_current_task_ids, $task_author_ids]);
-
-        $current_task_ids = array_unique($current_task_ids);
 
         $tasks = Task::filter($filter)
             ->whereIn('id', $current_task_ids)
@@ -85,8 +79,8 @@ class SiteController extends Controller
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
-        $responsible_outstanding_task_ids[] = TaskHistoryService::getResponsibleUserOutstandingTaskIds();
-       // dd($responsible_outstanding_task_ids);
+        $responsible_outstanding_task_ids = $this->taskHistoryService->getOutstandingTaskIds();
+
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
             ->paginate(config('front.tasks.pagination'));
