@@ -3,6 +3,7 @@
 namespace App\Models\Roles;
 
 use App\Models\Traits\Filterable;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -24,6 +25,16 @@ class Role extends Model
         'name',
         'alias'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(
+            User::class,
+            'user_role',
+            'role_uuid',
+            'user_uuid'
+        )->wherePivot('deleted_at', null);
+    }
 
     protected function removeQueryParam(string ...$keys)
     {

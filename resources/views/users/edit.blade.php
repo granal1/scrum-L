@@ -27,21 +27,19 @@
                 </div>
                 <div class="col">
                     <label for="role_uuid" class="form-label form-label-sm">Роли:</label>
-                    <select name="role_uuid" class="form-select form-select-sm">
-                        <option value="">Выберите роль ...</option>
-                        @if(isset($user->roles->first()->id))
+                    <select  size="5" multiple name="role_uuid[]" class="form-select form-select-sm">
                         @forelse($roles as $role)
-                            <option @if($user->roles->first()->id === $role->id) selected @endif value="{{$role->id}}">{{$role->alias}}</option>
+                            <option
+                                @foreach($user->roles as $user_role)
+                                    @if($user_role->id === $role->id)
+                                        selected
+                                    @endif
+                                @endforeach
+                                value="{{$role->id}}">{{$role->alias}}
+                            </option>
                         @empty
                             <option value="">Нет ролей</option>
                         @endforelse
-                        @else
-                            @forelse($roles as $role)
-                                <option value="{{$role->id}}">{{$role->alias}}</option>
-                            @empty
-                                <option value="">Нет ролей</option>
-                            @endforelse
-                        @endif
                     </select>
                     @error('role_uuid')
                     <div class="text-danger">{{$message}}</div>

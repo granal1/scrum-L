@@ -17,34 +17,44 @@
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mb-3">
                         <label for="name" class="form-label">Ф.И.О.</label>
-                        <input disabled readonly type="text" class="form-control form-control-sm" id="name" placeholder="" name="name" value="{{$user->name}}">
+                    <input readonly type="text" class="form-control form-control-sm" id="name" placeholder="" name="name" value="{{$user->name}}">
                 </div>
                 <div class="col">
-                    <label for="role_uuid" class="form-label">Роль:</label>
-                    <input  disabled readonly type="text" class="form-control form-control-sm" id="role_uuid" placeholder="" name="role_uuid" value="@if(isset($user->roles->first()->id)) {{$user->roles->first()->alias}} @else {{'Не определено'}} @endif">
+                    <label for="role_uuid" class="form-label">Роли:</label>
+                    <ol class="list-group list-group-numbered">
+                    @forelse($user->roles as $user_role)
+                        <li class="list-group-item">
+                            {{$user_role->alias}}
+                        </li>
+                    @empty
+                        <li class="list-group-item">
+                            Нет ролей
+                        </li>
+                    @endforelse
+                    </ol>
                 </div>
             </div>
             <div class="row  row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mb-3">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                        <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') ?? 'Нет данных'}}">
+                        <input  readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') ?? 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
-                    <input  disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
+                    <input  readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mb-3">
                     <label for="email"  class="form-label">Адрес электронной почты:</label>
-                    <input  disabled readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
+                    <input  readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
                 </div>
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>
                     @if(isset($user->superior->name))
-                    <input  disabled readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="{{$user->superior->name}}">
+                    <input  readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="{{$user->superior->name}}">
                     @else
-                        <input  disabled readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="Отсутствует">
+                        <input  readonly type="text" id="superior_uuid" name="superior_uuid" class="form-control form-control-sm" placeholder="" required="" value="Отсутствует">
                     @endif
                 </div>
             </div>

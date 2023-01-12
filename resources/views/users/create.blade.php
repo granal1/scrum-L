@@ -23,8 +23,7 @@
                 </div>
                 <div class="col">
                     <label class="form-label form-label-sm">Роли</label>
-                    <select name="role_uuid" class="form-select form-select-sm">
-                        <option value="">Выберите роль ...</option>
+                    <select multiple name="role_uuid[]" class="form-select form-select-sm">
                         @forelse($roles as $role)
                             <option value="{{$role->id}}">{{$role->alias}}</option>
                         @empty
