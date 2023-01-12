@@ -26,7 +26,7 @@ class UserRoleSeeder extends Seeder
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab71g',
                 'user_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'employee')->value('id'),
+                'role_uuid' => DB::table('roles')->where('name', 'like', 'main_supervisor')->value('id'),
             ],
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab72g',
@@ -41,22 +41,22 @@ class UserRoleSeeder extends Seeder
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab74g',
                 'user_uuid' => 'e75fb917-4d70-44d2-8560-c785aff50780',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'employee')->value('id'),
+                'role_uuid' => DB::table('roles')->where('name', 'like', 'supervisor')->value('id'),
             ],
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab75g',
                 'user_uuid' => '7d9a3510-5118-4cd9-ac9d-0b9fda8c3ed9',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'employee')->value('id'),
+                'role_uuid' => DB::table('roles')->where('name', 'like', 'supervisor')->value('id'),
             ],
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab76g',
                 'user_uuid' => '9d5b1b8a-03bb-40db-b795-c98b8f898352',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'employee')->value('id'),
+                'role_uuid' => DB::table('roles')->where('name', 'like', 'supervisor')->value('id'),
             ],
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab77g',
                 'user_uuid' => '37eb9897-568a-4af1-a0a8-244d3f697487',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'employee')->value('id'),
+                'role_uuid' => DB::table('roles')->where('name', 'like', 'supervisor')->value('id'),
             ],
             [
                 'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab78g',
