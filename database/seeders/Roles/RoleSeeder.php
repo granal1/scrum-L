@@ -27,8 +27,16 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id' => '52e0d6ca-3b62-4e06-8134-64378049ca9b',
-                'name' => 'guest',
-                'alias' => 'Гость',
+                'name' => 'main_supervisor',
+                'alias' => 'Руководитель организации',
+                'sort_order' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
+                'id' => '7848f09a-0ecc-4e4e-8e65-b6846e1a635b',
+                'name' => 'supervisor',
+                'alias' => 'Руководитель',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -51,8 +59,8 @@ class RoleSeeder extends Seeder
             ],
             [
                 'id' => 'eb62b24c-fb64-4982-a6fa-32da92ebd2cd',
-                'name' => 'user',
-                'alias' => 'Пользователь',
+                'name' => 'employee',
+                'alias' => 'Сотрудник',
                 'sort_order' => 1,
                 'created_at' => now(),
                 'updated_at' => now()
