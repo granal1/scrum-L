@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -114,10 +115,14 @@ class UserController extends Controller
 
                 $user->save();
 
-                UserRole::create([
-                    'user_uuid' => $user->id,
-                    'role_uuid' => $data['role_uuid'],
-                ]);
+                $data_to_sync = [];
+
+                foreach( $data['role_uuid'] as $role_id ) {
+                    $data_to_sync[ $role_id ] = [ 'id' => Str::uuid() ];
+                }
+
+                $user->roles()->detach();
+                $user->roles()->sync($data_to_sync, false);
 
                 if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
                 {
@@ -218,11 +223,22 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid']
                 ]);
 
-                UserRole::where('user_uuid', $user->id)->delete();
-                UserRole::create([
-                    'user_uuid' => $user->id,
-                    'role_uuid' => $data['role_uuid'],
-                ]);
+                $data_to_sync = [];
+
+                foreach( $data['role_uuid'] as $role_id ) {
+                    $data_to_sync[ $role_id ] = [ 'id' => Str::uuid() ];
+                }
+
+                $user->roles()->detach();
+                $user->roles()->sync($data_to_sync, false);
+
+                //UserRole::where('user_uuid', $user->id)->delete();
+                //UserRole::create([
+                //    'user_uuid' => $user->id,
+                //    'role_uuid' => $data['role_uuid'],
+               // ]);
+
+
 
                 if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
                 {
