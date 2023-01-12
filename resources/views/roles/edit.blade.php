@@ -35,8 +35,7 @@
                     @enderror
                 </div>
             </div>
-
-            <div class="row row-cols-1 row-cols-md-3 mt-2">
+            <div class="row row-cols-1 row-cols-md-3 mt-2 mb-3">
                 <div class="col mt-3">
                     <a class="btn btn-primary btn-sm col-12" href="{{route('roles.index')}}">Все роли</a>
                 </div>
@@ -47,15 +46,6 @@
                     <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>
                 </div>
             </div>
-        </form>
-        <form action="{{route('roles.destroy', $role)}}" method="post">
-            @csrf
-            @method('delete')
-        <div class="row mb-4 mt-3">
-            <div class="col">
-                <button type="submit" class="btn btn-danger btn-sm col-12">Удалить</button>
-            </div>
-        </div>
         </form>
     </div>
     @endsection
