@@ -84,20 +84,6 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-                <div class="col">
-                    <label class="form-label form-label-sm">Подчиненные</label>
-                    <select name="subordinate_uuid" class="form-select form-select-sm">
-                        <option value="">Выберите подчиненного ...</option>
-                        @forelse($superiors as $user)
-                            <option value="{{$user->id}}">{{$user->name}}</option>
-                        @empty
-                            <option value="">Нет сотрудников</option>
-                        @endforelse
-                    </select>
-                    @error('subordinate_uuid')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
             </div>
             <div class="row row-cols-1 row-cols-md-3 mb-4">
                 <div class="col mt-3">

@@ -26,11 +26,11 @@
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mb-3">
-                <label for="path">Алиас</label>
+                <label for="path">Название</label>
                 <input class="form-control form-control-sm" name="alias" id="alias" disabled value="{{$role->alias}}">
             </div>
             <div class="col">
-                <label for="name">Название</label>
+                <label for="name">Алиас</label>
                 <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$role->name}}">
             </div>
         </div>
