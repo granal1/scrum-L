@@ -19,7 +19,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="alias" class="form-label">Алиас<span class="text-danger"><b>*</b></span></label>
+                    <label for="alias" class="form-label">Название<span class="text-danger"><b>*</b></span></label>
                     <input required placeholder="Роль" class="form-control form-control-sm" name="alias" id="alias" type="text" value="{{$role->alias}}">
                     @error('alias')
                     <div class="text-danger">{{$message}}</div>
@@ -28,7 +28,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name" class="form-label">Название</label>
+                    <label for="name" class="form-label">Алиас</label>
                     <input readonly class="form-control form-control-sm" name="name" id="name" value="{{$role->name}}">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>

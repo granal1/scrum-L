@@ -61,16 +61,17 @@
             <div class="row mb-3">
                 <div class="col">
                     <label class="form-label form-label-sm">Подчиненные</label>
-                    <select disabled name="subordinate_uuid" class="form-select form-select-sm">
+                    <ol class="list-group list-group-numbered">
                         @forelse($subordinates as $subordinate)
-                            <option value="{{$subordinate->id}}">{{$subordinate->name}}</option>
+                            <li class="list-group-item">
+                                {{$subordinate->name}}
+                            </li>
                         @empty
-                            <option value="">Нет подчиненных</option>
+                            <li class="list-group-item">
+                                Нет подчиненных
+                            </li>
                         @endforelse
-                    </select>
-                    @error('subordinate_uuid')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
+                    </ol>
                 </div>
             </div>
             <div class="row pt-3 row-cols-1 row-cols-md-3 mb-3">

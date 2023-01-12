@@ -184,7 +184,7 @@ class UserController extends Controller
         return view('users.edit', [
             'user' => $user,
             'superiors' => User::all(),
-            'subordinates' => User::all(),
+            'subordinates' => User::where('superior_uuid', $user->id)->get(),
             'roles' => Role::all(),
         ]);
     }

@@ -97,20 +97,20 @@
                 </div>
             </div>
             <div class="row mb-3">
-                <div class="col">
-                    <label class="form-label form-label-sm">Подчиненные</label>
-                    <select name="subordinate_uuid" class="form-select form-select-sm">
-                            <option value="">Выберите подчиненных ...</option>
-                        @forelse($subordinates as $subordinate)
-                            <option @if($subordinate->superior_uuid === $user->id) selected @endif value="{{$subordinate->id}}">{{$subordinate->name}}</option>
-                        @empty
-                            <option value="">Нет сотрудников</option>
-                        @endforelse
-                    </select>
-                    @error('subordinate_uuid')
-                        <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
+            <div class="col">
+                <label class="form-label form-label-sm">Подчиненные</label>
+                <ol class="list-group list-group-numbered">
+                    @forelse($subordinates as $subordinate)
+                        <li class="list-group-item">
+                            {{$subordinate->name}}
+                        </li>
+                    @empty
+                        <li class="list-group-item">
+                            Нет подчиненных
+                        </li>
+                    @endforelse
+                </ol>
+            </div>
             </div>
             <div class="row row-cols-1 row-cols-md-3">
                 <div class="col mt-3">
