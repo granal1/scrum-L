@@ -227,7 +227,7 @@ class TaskController extends Controller
         return view('tasks.edit', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
-            'users' => User::all(),
+            'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
             'documents' => Document::all(),
         ]);
     }
