@@ -19,15 +19,11 @@
                 <label for="created_at">Создан</label>
                 <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$document->created_at}}">
             </div>
-            <div class="col mb-3">
-                <label for="">Ссылка</label><br>
-                <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a>
-            </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mb-3">
                 <label for="path">Путь</label>
-                <input class="form-control form-control-sm" name="path" id="path" disabled value="{{$document->path}}">
+                <a href="{{'/storage/' . $document->path}}" target="_blank"><input class="form-control form-control-sm" name="path" id="path" disabled value="{{$document->path}}"></a>
             </div>
             <div class="col">
                 <label for="name">Название</label>
