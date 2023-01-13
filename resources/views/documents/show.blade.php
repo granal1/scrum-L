@@ -143,9 +143,11 @@
             <div class="col mb-3">
                 <a class="btn btn-sm btn-warning col-12 {{isset($document->tasks[0]) ? 'disabled' : ''}}" href="{{route('documents.create_task', $document)}}">Создать задачу</a>
             </div>
+            @can('update', \App\Models\Documents\Document::class)
                 <div class="col mb-3">
                     <a class="btn btn-sm btn-danger col-12" href="{{route('documents.edit', $document)}}">Редактировать</a>
                 </div>
+            @endcan
         </div>
     </div>
     @endsection

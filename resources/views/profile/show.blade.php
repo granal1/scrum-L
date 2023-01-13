@@ -27,7 +27,7 @@
             <div class="row mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                        <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') ?? 'Нет данных'}}">
+                        <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{$user->birthday_at ? \Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') : 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
@@ -57,16 +57,18 @@
                         @empty
                             <li class="list-group-item">Нет подчиненных</li>
                         @endforelse
-                        <ol>
+                    </ol>
                 </div>
             </div>
             <div class="row pt-3 row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mb-3">
                     <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
                 </div>
+                @can('update', \App\Models\Profile\Profile::class)
                 <div class="col mb-3">
                     <a class="btn btn-sm btn-danger col-12" href="{{route('profile.edit', $user)}}">Редактировать</a>
                 </div>
+                @endcan
             </div>
 
         </form>

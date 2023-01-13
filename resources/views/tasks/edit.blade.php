@@ -69,9 +69,9 @@
                     @enderror
                 </div>
                 <div class="col mt-3">
-                    <label for="comment">Результат выполнения задачи</label>
-                    <textarea class="form-control form-control-sm" rows="2" id="comment" name="comment">{{$task->comment}}</textarea>
-                    @error('comment')
+                    <label for="report">Результат выполнения задачи</label>
+                    <textarea @if($task->responsible_uuid !== Auth::id()) disabled @endif class="form-control form-control-sm" rows="2" id="report" name="report">{{$task->report}}</textarea>
+                    @error('report')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -92,7 +92,7 @@
                 </div>
                 <div class="col">
                     <label for="done_progress" class="mt-3">Исполнено, <output id="progress_bar_value"></output>%:</label>
-                    <input style="width:100%;" type="range" min="0" max="100" step="5" id="done_progress" name="done_progress" required value="{{$task->done_progress}}">
+                    <input  @if($task->responsible_uuid !== Auth::id()) disabled @endif style="width:100%;" type="range" min="0" max="100" step="5" id="done_progress" name="done_progress" required value="{{$task->done_progress}}">
                     @error('done_progress')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

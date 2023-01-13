@@ -3,8 +3,10 @@
 namespace App\Policies\Tasks;
 
 use App\Models\Roles\Role;
+use App\Models\Tasks\Task;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class TaskPolicy
 {
@@ -18,14 +20,14 @@ class TaskPolicy
      */
     public function viewAny(User $user)
     {
-        foreach($user->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
-            {
+//        foreach($user->roles as $role)
+//        {
+//            if($role->name === Role::ADMIN)
+//            {
                 return true;
-            }
-        }
-        return false;
+//            }
+//        }
+//        return false;
     }
 
     /**
@@ -37,14 +39,14 @@ class TaskPolicy
      */
     public function view(User $user)
     {
-        foreach($user->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
-            {
+//        foreach($user->roles as $role)
+//        {
+//            if($role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR)
+//            {
                 return true;
-            }
-        }
-        return false;
+//            }
+//        }
+//        return false;
     }
 
     /**
@@ -55,14 +57,14 @@ class TaskPolicy
      */
     public function create(User $user)
     {
-        foreach($user->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
-            {
+//        foreach($user->roles as $role)
+//        {
+//            if($role->name === Role::ADMIN || )
+//            {
                 return true;
-            }
-        }
-        return false;
+//            }
+//        }
+//        return false;
     }
 
     /**
@@ -72,15 +74,12 @@ class TaskPolicy
      * @param  \App\Models\Documents\Document  $document
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user)
+    public function update(User $user, Task $task)
     {
-        foreach($user->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
+        if($task->responsible_uuid === Auth::id() || $task->author_uuid === Auth::id())
             {
                 return true;
             }
-        }
         return false;
     }
 

@@ -21,7 +21,7 @@ class DocumentPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            if($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR)
             {
                 return true;
             }
@@ -40,7 +40,7 @@ class DocumentPolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::DELO || $role->name === Role::ADMIN)
+            if($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR)
             {
                 return true;
             }
