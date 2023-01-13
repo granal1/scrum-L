@@ -65,7 +65,6 @@
                 <div class="col mt-3">
                     <label for="responsible_uuid">Ответственный за выполнение</label>
                     <select class="form-select form-select-sm" name="responsible_uuid">
-                        <option value="">Выберите ответственного ...</option>
                     @forelse($users as $user)
                                 <option value="{{$user->id}}" {{$user->id === Auth::id() ? 'selected' : ''}}>{{$user->name}}</option>
                             @empty
