@@ -31,7 +31,7 @@
             </div>
             <div class="col">
                 <label for="name">Название</label>
-                <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$document->name}}">
+                <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$document->short_description}}">
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
