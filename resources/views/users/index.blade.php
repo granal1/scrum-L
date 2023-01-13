@@ -34,10 +34,10 @@
                                 <form action="{{ route('users.index') }}" method="get">
                                     <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('users.index')}}">Сброс</a></td>
                                     <td>
-                                        <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif" class="form-control form-control-sm" id="name" name="name" onchange="this.form.submit()">
+                                        <input type="search" value="@if(isset($old_filters['name'])){{$old_filters['name']}}@endif" class="form-control form-control-sm" id="name" name="name" onchange="this.form.submit()">
                                     </td>
                                     <td class="d-none d-sm-table-cell">
-                                        <input type="search" value="@if(isset($old_filters['email'])) {{ $old_filters['email'] }} @endif" class="form-control form-control-sm" id="email" name="email" onchange="this.form.submit()">
+                                        <input type="search" value="@if(isset($old_filters['email'])){{$old_filters['email']}}@endif" class="form-control form-control-sm" id="email" name="email" onchange="this.form.submit()">
                                     </td>
                                 </form>
                             </tr>
