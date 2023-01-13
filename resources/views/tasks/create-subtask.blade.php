@@ -62,7 +62,7 @@
                     <select class="form-select form-select-sm" name="file_uuid">
                         <option value="">Выберите документ ...</option>
                         @forelse($documents as $document)
-                            <option value="{{$document->id}}">{{$document->name}}</option>
+                            <option value="{{$document->id}}">{{$document->short_description}}</option>
                         @empty
                             <option value="">Нет документов</option>
                         @endforelse
