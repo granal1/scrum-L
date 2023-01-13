@@ -23,7 +23,7 @@
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mb-3">
                 <label for="path">Путь</label>
-                <a href="{{'/storage/' . $document->path}}" target="_blank"><input class="form-control form-control-sm" name="path" id="path" disabled value="{{$document->path}}"></a>
+                <a href="{{'/storage/' . $document->path}}" target="_blank"><input class="form-control form-control-sm" name="path" id="path" disabled value="{{$document->path}}" style="cursor: pointer;"></a>
             </div>
             <div class="col">
                 <label for="name">Название</label>
