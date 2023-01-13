@@ -376,7 +376,7 @@ class TaskController extends Controller
                 'request' => $request->all(),
             ]);
 
-        $this->authorize('update', Task::class);
+        $this->authorize('update', $task);
 
         if($request->isMethod('patch')) {
 
