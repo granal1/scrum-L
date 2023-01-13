@@ -23,7 +23,7 @@
                                     @csrf
                                     @method('delete')
                                     <li>
-                                        <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->name}}</a>
+                                        <a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a>
                                         <button class="ms-2 btn btn-sm btn-danger" type="submit">x</button>
                                     </li>
                                 </form>

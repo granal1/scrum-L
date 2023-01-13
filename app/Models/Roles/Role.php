@@ -15,9 +15,10 @@ class Role extends Model
 
     public const DELO = 'delo';
     public const ADMIN = 'admin';
-    public const GUEST = 'guest';
     public const KADR = 'kadr';
-    public const USER = 'user';
+    public const EMPLOYEE = 'employee';
+    public const SUPERVISOR = 'supervisor';
+    public const MAIN_SUPERVISOR = 'main_supervisor';
 
     protected $table = "roles";
 

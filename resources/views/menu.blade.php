@@ -11,28 +11,28 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('site.index')?'active':'' }}" href="{{ route('site.index') }}">Главная</a>
                 </li>
-{{--                @can('viewAny', \App\Models\Tasks\Task::class)--}}
+                @can('viewAny', \App\Models\Tasks\Task::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('tasks.*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
-{{--                @endcan--}}
-{{--                @can('viewAny', \App\Models\Documents\Document::class)--}}
+                @endcan
+                @can('viewAny', \App\Models\Documents\Document::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
                 </li>
-{{--                @endcan--}}
-{{--                @can('viewAny', \App\Models\User::class)--}}
+                @endcan
+                @can('viewAny', \App\Models\User::class)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('users.*')?'active':'' }}" href="{{ route('users.index') }}">Сотрудники</a>
                 </li>
-{{--                @else--}}
+                @endcan
+                @can('view', \App\Models\Profile\Profile::class)
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('profile.show')?'active':'' }}" href="{{ route('profile.show', Auth::id()) }}">Профиль</a>
                     </li>
-{{--                @endcan--}}
-{{--                @can('viewAny', \App\Models\Admin\Admin::class)--}}
+                @endcan
+                @can('viewAny', \App\Models\Admin\Admin::class)
                 <li class="nav-item">
-                    {{--                    <a class="nav-link {{ request()->routeIs('admin.*')?'active':'' }}" href="{{ route('admin.index') }}">Админка</a>--}}
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
@@ -46,7 +46,7 @@
                         </ul>
                     </div>
                 </li>
-{{--                @endcan--}}
+               @endcan
             </ul>
             @endauth
             <ul class="navbar-nav mb-2 mb-lg-0">
