@@ -261,8 +261,6 @@ class TaskController extends Controller
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
-            // $data['author_uuid'] = Auth::id(); автор не может меняться.
-
 
             try {
 
@@ -273,19 +271,19 @@ class TaskController extends Controller
                     'responsible_uuid' => $data['responsible_uuid'],
                     'description' => $data['description'],
                     'deadline_at' => $data['deadline_at'],
-                    'done_progress' => $data['done_progress'],
-                    'report' => $data['comment'],
+                    'done_progress' => $data['done_progress'] ?? $task->done_progress,
+                    'report' => $data['report'] ?? $task->report,
                 ]);
 
                 $history = TaskHistory::create([
                     'task_uuid' => $task->id,
-                    'priority_uuid' => $data['priority_uuid'],
+                    'priority_uuid' => $task->priority_uuid,
                     'user_uuid' => Auth::id(),
-                    'responsible_uuid' => $data['responsible_uuid'],
-                    'deadline_at' => $data['deadline_at'],
-                    'done_progress' => $data['done_progress'],
-                    'parent_uuid' => null,
-                    'comment' => $data['comment']
+                    'responsible_uuid' => $task->responsible_uuid,
+                    'deadline_at' => $task->deadline_at,
+                    'done_progress' => $task->done_progress,
+                    'parent_uuid' => $task->parent_uuid,
+                    'comment' => $task->report
                 ]);
 
                 $real_document = Document::find($data['file_uuid']);

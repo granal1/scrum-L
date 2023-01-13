@@ -21,11 +21,7 @@ class ProfilePolicy
      */
     public function view(User $user)
     {
-        if($user->id === Auth::id())
-        {
-            return true;
-        }
-        return false;
+        return true;
     }
 
     /**
@@ -37,9 +33,12 @@ class ProfilePolicy
      */
     public function update(User $user)
     {
-        if($user->id === Auth::id())
+        foreach($user->roles as $role)
         {
-            return true;
+            if($role->name === Role::ADMIN)
+            {
+                return true;
+            }
         }
         return false;
     }
