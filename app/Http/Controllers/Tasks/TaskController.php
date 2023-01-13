@@ -415,7 +415,7 @@ class TaskController extends Controller
                     'parent_uuid' => $task->currentHistory->parent_uuid,
                     'comment' => $data['comment']
                 ]);
- 
+
                 DB::commit();
 
                 return redirect()->route('tasks.show', $task)->with('success','Изменения сохранены.');

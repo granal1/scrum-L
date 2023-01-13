@@ -232,14 +232,6 @@ class UserController extends Controller
                 $user->roles()->detach();
                 $user->roles()->sync($data_to_sync, false);
 
-                //UserRole::where('user_uuid', $user->id)->delete();
-                //UserRole::create([
-                //    'user_uuid' => $user->id,
-                //    'role_uuid' => $data['role_uuid'],
-               // ]);
-
-
-
                 if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
                 {
                     $subordinate_user = User::find($data['subordinate_uuid']);
