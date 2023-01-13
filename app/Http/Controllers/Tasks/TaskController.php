@@ -38,6 +38,7 @@ class TaskController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->authorizeResource(Task::class, 'task');
     }
 
     /**
@@ -53,8 +54,6 @@ class TaskController extends Controller
                                 'request' => $request->all(),
 
                             ]);
-
-        //$this->authorize('viewAny', Task::class);
 
         $data = $request->validated();
 
@@ -92,8 +91,6 @@ class TaskController extends Controller
                 'user' => Auth::user()->name,
             ]);
 
-        //$this->authorize('create', Task::class);
-
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
         $documents = Document::orderBy('created_at', 'desc')->get();
@@ -118,7 +115,7 @@ class TaskController extends Controller
                 'task' => $task->id,
             ]);
 
-        //$this->authorize('create', Task::class);
+        $this->authorize('create', Task::class);
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
@@ -146,7 +143,7 @@ class TaskController extends Controller
                 'request' => $request->all(),
             ]);
 
-        //$this->authorize('create', Task::class);
+        $this->authorize('create', Task::class);
 
         if($request->isMethod('post')) {
 
@@ -207,9 +204,6 @@ class TaskController extends Controller
                 'task' => $task->id,
             ]);
 
-        //$this->authorize('view', Task::class);
-
-
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -229,8 +223,6 @@ class TaskController extends Controller
                 'task' => $task->id,
 
             ]);
-
-        //$this->authorize('update', Task::class);
 
         return view('tasks.edit', [
             'task' => $task,
@@ -255,8 +247,6 @@ class TaskController extends Controller
                 'task' => $task->id,
                 'request' => $request->all(),
             ]);
-
-        //$this->authorize('update', Task::class);
 
         if($request->isMethod('patch')) {
 
@@ -325,8 +315,6 @@ class TaskController extends Controller
                 'task' => $task->id,
             ]);
 
-        //$this->authorize('delete', Task::class);
-
         $task->delete();
         return redirect()->route('tasks.index');
     }
@@ -340,7 +328,7 @@ class TaskController extends Controller
                 'document' => $document->id,
             ]);
 
-        //$this->authorize('delete', Task::class);
+        $this->authorize('delete', Task::class);
 
         $task_file = TaskFile::where('task_uuid', $task->id)->where('file_uuid', $document->id)->delete();
 
@@ -362,7 +350,7 @@ class TaskController extends Controller
 
             ]);
 
-        //$this->authorize('view', Task::class);
+        $this->authorize('view', Task::class);
 
         return view('tasks.progress', [
             'task' => $task,
@@ -388,7 +376,7 @@ class TaskController extends Controller
                 'request' => $request->all(),
             ]);
 
-        //$this->authorize('update', Task::class);
+        $this->authorize('update', Task::class);
 
         if($request->isMethod('patch')) {
 

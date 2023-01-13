@@ -69,9 +69,11 @@
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
+            @if($task->responsible_uuid === Auth::id())
             <div class="col mb-3">
                 <a class="btn btn-sm btn-warning col-12 {{$task->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
             </div>
+            @endif
             @if($task->author_uuid === Auth::id())
             <div class="col mb-3">
                 <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
