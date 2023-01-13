@@ -32,6 +32,7 @@
 
 
                             <div id="accordion">
+                                @if(Auth::user()->isMainSupervisor())
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="btn" data-bs-toggle="collapse" href="#collapseOne">
@@ -94,6 +95,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                @endif
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
