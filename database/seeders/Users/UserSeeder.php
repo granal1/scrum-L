@@ -18,18 +18,22 @@ class UserSeeder extends Seeder
     {
         DB::table('users')->insert([
             [
-                'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab70a',
-                'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
-                'name' => 'Админ',
-                'email' => 'admin@admin.ru',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
-            ],
-            [
                 'id' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'superior_uuid' => '',
                 'name' => 'Иван Иванович',
                 'email' => 'boss@boss.ru',
+                'phone' => '999-816-45-84',
+                'birthday_at' => '1970-01-01',
+                'email_verified_at' => now(),
+                'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
+            ],
+            [
+                'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab70a',
+                'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
+                'name' => 'Админ',
+                'email' => 'admin@admin.ru',
+                'phone' => '999-854-99-74',
+                'birthday_at' => '1980-01-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -38,6 +42,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Валентина Валентиновна',
                 'email' => 'kadr@kadr.ru',
+                'phone' => '999-254-36-85',
+                'birthday_at' => '1980-01-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -46,6 +52,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Ольга Олеговна',
                 'email' => 'delo@delo.ru',
+                'phone' => '999-654-32-85',
+                'birthday_at' => '1980-01-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -54,6 +62,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Анатолий Иванович',
                 'email' => 'o1@o1.ru',
+                'phone' => '999-985-36-45',
+                'birthday_at' => '1980-01-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -62,6 +72,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Борис Иванович',
                 'email' => 'o2@o2.ru',
+                'phone' => '999-368-96-77',
+                'birthday_at' => '1980-02-02',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -70,6 +82,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Владимир Иванович',
                 'email' => 'o3@o3.ru',
+                'phone' => '999-848-36-75',
+                'birthday_at' => '1980-03-03',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -78,6 +92,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Геннадий Иванович',
                 'email' => 'o4@o4.ru',
+                'phone' => '999-965-35-42',
+                'birthday_at' => '1980-04-04',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -86,6 +102,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => 'e75fb917-4d70-44d2-8560-c785aff50780',
                 'name' => 'Артем Анатольевич',
                 'email' => 'o1s1@o1s1.ru',
+                'phone' => '999-365-54-86',
+                'birthday_at' => '1990-01-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -94,6 +112,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => 'e75fb917-4d70-44d2-8560-c785aff50780',
                 'name' => 'Богдан Анатольевич',
                 'email' => 'o1s2@o1s2.ru',
+                'phone' => '999-745-85-22',
+                'birthday_at' => '1990-01-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -102,6 +122,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => 'e75fb917-4d70-44d2-8560-c785aff50780',
                 'name' => 'Валерий Анатольевич',
                 'email' => 'o1s3@o1s3.ru',
+                'phone' => '999-965-85-33',
+                'birthday_at' => '1990-01-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -110,6 +132,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => 'e75fb917-4d70-44d2-8560-c785aff50780',
                 'name' => 'Георгий Анатольевич',
                 'email' => 'o1s4@o1s4.ru',
+                'phone' => '999-112-58-88',
+                'birthday_at' => '1990-01-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -118,6 +142,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '7d9a3510-5118-4cd9-ac9d-0b9fda8c3ed9',
                 'name' => 'Артемий Борисович',
                 'email' => 'o2s1@o2s1.ru',
+                'phone' => '999-587-66-87',
+                'birthday_at' => '1990-02-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -126,6 +152,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '7d9a3510-5118-4cd9-ac9d-0b9fda8c3ed9',
                 'name' => 'Бронислав Борисович',
                 'email' => 'o2s2@o2s2.ru',
+                'phone' => '999-663-99-85',
+                'birthday_at' => '1990-02-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -134,6 +162,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '7d9a3510-5118-4cd9-ac9d-0b9fda8c3ed9',
                 'name' => 'Вера Борисовна',
                 'email' => 'o2s3@o2s3.ru',
+                'phone' => '999-365-96-77',
+                'birthday_at' => '1990-02-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -142,6 +172,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '7d9a3510-5118-4cd9-ac9d-0b9fda8c3ed9',
                 'name' => 'Глеб Борисович',
                 'email' => 'o2s4@o2s4.ru',
+                'phone' => '999-236-88-74',
+                'birthday_at' => '1990-02-25',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -150,6 +182,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '9d5b1b8a-03bb-40db-b795-c98b8f898352',
                 'name' => 'Алиса Владимировна',
                 'email' => 'o3s1@o3s1.ru',
+                'phone' => '999-254-99-74',
+                'birthday_at' => '1990-03-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -158,6 +192,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '9d5b1b8a-03bb-40db-b795-c98b8f898352',
                 'name' => 'Берта Владимировна',
                 'email' => 'o3s2@o3s2.ru',
+                'phone' => '999-236-86-97',
+                'birthday_at' => '1990-03-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -166,6 +202,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '9d5b1b8a-03bb-40db-b795-c98b8f898352',
                 'name' => 'Вениамин Владимирович',
                 'email' => 'o3s3@o3s3.ru',
+                'phone' => '999-145-87-88',
+                'birthday_at' => '1990-03-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -174,6 +212,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '9d5b1b8a-03bb-40db-b795-c98b8f898352',
                 'name' => 'Герман Владимирович',
                 'email' => 'o3s4@o3s4.ru',
+                'phone' => '999-254-87-96',
+                'birthday_at' => '1990-03-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -182,6 +222,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '37eb9897-568a-4af1-a0a8-244d3f697487',
                 'name' => 'Алла Геннадьевна',
                 'email' => 'o4s1@o4s1.ru',
+                'phone' => '999-145-89-66',
+                'birthday_at' => '1990-04-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -190,6 +232,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '37eb9897-568a-4af1-a0a8-244d3f697487',
                 'name' => 'Белла Геннадьевна',
                 'email' => 'o4s2@o4s2.ru',
+                'phone' => '999-365-79-85',
+                'birthday_at' => '1990-04-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
@@ -198,6 +242,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '37eb9897-568a-4af1-a0a8-244d3f697487',
                 'name' => 'Валентин Геннадьевич',
                 'email' => 'o4s3@o4s3.ru',
+                'phone' => '999-225-65-88',
+                'birthday_at' => '1990-04-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
              ],
@@ -206,6 +252,8 @@ class UserSeeder extends Seeder
                 'superior_uuid' => '37eb9897-568a-4af1-a0a8-244d3f697487',
                 'name' => 'Галина Геннадьевна',
                 'email' => 'o4s4@o4s4.ru',
+                'phone' => '999-336-46-79',
+                'birthday_at' => '1990-04-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ]
