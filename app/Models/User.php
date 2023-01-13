@@ -77,4 +77,17 @@ class User extends Authenticatable
 
         return $this;
     }
+
+    public function isMainSupervisor()
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name === Role::MAIN_SUPERVISOR)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
