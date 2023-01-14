@@ -25,7 +25,9 @@ class Document extends Model
         'number',
         'date',
         'document_and_application_sheets',
-        'file_mark'
+        'file_mark',
+        'executed_result',
+        'executed_at',
     ];
 
 

@@ -90,4 +90,17 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function isAdmin()
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

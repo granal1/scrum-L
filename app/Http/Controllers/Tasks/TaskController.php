@@ -389,6 +389,17 @@ class TaskController extends Controller
                     'report' => $data['comment'],
                 ]);
 
+                if($task->done_progress == 100)
+                {
+                    foreach($task->documents as $document)
+                    {
+                        $document->update([
+                            'executed_result' => $task->report,
+                            'executed_at' => date('Y-m-d H:i:s')
+                        ]);
+                    }
+                }
+
                 $history = TaskHistory::create([
                     'task_uuid' => $task->id,
                     'priority_uuid' => $task->currentHistory->priority_uuid,
