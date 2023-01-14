@@ -30,6 +30,13 @@ return new class extends Migration
             $table->integer('sort_order')->default(1);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreignUuid('author_uuid');
+        });
+
+        Schema::table('files', function($table)
+        {
+            $table->foreign('author_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
         });
     }
 
@@ -40,6 +47,10 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('files', function (Blueprint $table) {
+            $table->dropForeign(['author_uuid']);
+        });
+
         Schema::dropIfExists('files');
     }
 };

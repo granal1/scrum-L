@@ -101,6 +101,7 @@ class DocumentController extends Controller
                     $document->number = $data['number'];
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
+                    $document->author_uuid = Auth::id();
 
                     $document->save();
                 }
