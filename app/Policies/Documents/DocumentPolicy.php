@@ -66,6 +66,18 @@ class DocumentPolicy
         return false;
     }
 
+    public function create_task(User $user)
+    {
+        foreach($user->roles as $role)
+        {
+            if($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Determine whether the user can update the model.
      *
