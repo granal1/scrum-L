@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                 'name' => 'Иван Иванович',
                 'email' => 'boss@boss.ru',
                 'phone' => '999-816-45-84',
+                'position' => 'Руководитель организации',
                 'birthday_at' => '1970-01-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -33,6 +34,7 @@ class UserSeeder extends Seeder
                 'name' => 'Админ',
                 'email' => 'admin@admin.ru',
                 'phone' => '999-854-99-74',
+                'position' => 'Администратор',
                 'birthday_at' => '1980-01-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -43,6 +45,7 @@ class UserSeeder extends Seeder
                 'name' => 'Валентина Валентиновна',
                 'email' => 'kadr@kadr.ru',
                 'phone' => '999-254-36-85',
+                'position' => 'Специалист по кадровому делопроизводству',
                 'birthday_at' => '1980-01-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -53,6 +56,7 @@ class UserSeeder extends Seeder
                 'name' => 'Ольга Олеговна',
                 'email' => 'delo@delo.ru',
                 'phone' => '999-654-32-85',
+                'position' => 'Секретарь-делопроизводитель',
                 'birthday_at' => '1980-01-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -63,6 +67,7 @@ class UserSeeder extends Seeder
                 'name' => 'Анатолий Иванович',
                 'email' => 'o1@o1.ru',
                 'phone' => '999-985-36-45',
+                'position' => 'Начальник 1 отдела',
                 'birthday_at' => '1980-01-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -73,6 +78,7 @@ class UserSeeder extends Seeder
                 'name' => 'Борис Иванович',
                 'email' => 'o2@o2.ru',
                 'phone' => '999-368-96-77',
+                'position' => 'Начальник 2 отдела',
                 'birthday_at' => '1980-02-02',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -83,6 +89,7 @@ class UserSeeder extends Seeder
                 'name' => 'Владимир Иванович',
                 'email' => 'o3@o3.ru',
                 'phone' => '999-848-36-75',
+                'position' => 'Начальник 3 отдела',
                 'birthday_at' => '1980-03-03',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -93,6 +100,7 @@ class UserSeeder extends Seeder
                 'name' => 'Геннадий Иванович',
                 'email' => 'o4@o4.ru',
                 'phone' => '999-965-35-42',
+                'position' => 'Начальник 4 отдела',
                 'birthday_at' => '1980-04-04',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -103,6 +111,7 @@ class UserSeeder extends Seeder
                 'name' => 'Артем Анатольевич',
                 'email' => 'o1s1@o1s1.ru',
                 'phone' => '999-365-54-86',
+                'position' => 'Специалист 1 отдела',
                 'birthday_at' => '1990-01-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -113,6 +122,7 @@ class UserSeeder extends Seeder
                 'name' => 'Богдан Анатольевич',
                 'email' => 'o1s2@o1s2.ru',
                 'phone' => '999-745-85-22',
+                'position' => 'Специалист 1 отдела',
                 'birthday_at' => '1990-01-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -123,6 +133,7 @@ class UserSeeder extends Seeder
                 'name' => 'Валерий Анатольевич',
                 'email' => 'o1s3@o1s3.ru',
                 'phone' => '999-965-85-33',
+                'position' => 'Специалист 1 отдела',
                 'birthday_at' => '1990-01-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -133,6 +144,7 @@ class UserSeeder extends Seeder
                 'name' => 'Георгий Анатольевич',
                 'email' => 'o1s4@o1s4.ru',
                 'phone' => '999-112-58-88',
+                'position' => 'Специалист 1 отдела',
                 'birthday_at' => '1990-01-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -143,6 +155,7 @@ class UserSeeder extends Seeder
                 'name' => 'Артемий Борисович',
                 'email' => 'o2s1@o2s1.ru',
                 'phone' => '999-587-66-87',
+                'position' => 'Специалист 2 отдела',
                 'birthday_at' => '1990-02-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -153,6 +166,7 @@ class UserSeeder extends Seeder
                 'name' => 'Бронислав Борисович',
                 'email' => 'o2s2@o2s2.ru',
                 'phone' => '999-663-99-85',
+                'position' => 'Специалист 2 отдела',
                 'birthday_at' => '1990-02-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -163,6 +177,7 @@ class UserSeeder extends Seeder
                 'name' => 'Вера Борисовна',
                 'email' => 'o2s3@o2s3.ru',
                 'phone' => '999-365-96-77',
+                'position' => 'Специалист 2 отдела',
                 'birthday_at' => '1990-02-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -173,6 +188,7 @@ class UserSeeder extends Seeder
                 'name' => 'Глеб Борисович',
                 'email' => 'o2s4@o2s4.ru',
                 'phone' => '999-236-88-74',
+                'position' => 'Специалист 2 отдела',
                 'birthday_at' => '1990-02-25',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -183,6 +199,7 @@ class UserSeeder extends Seeder
                 'name' => 'Алиса Владимировна',
                 'email' => 'o3s1@o3s1.ru',
                 'phone' => '999-254-99-74',
+                'position' => 'Специалист 3 отдела',
                 'birthday_at' => '1990-03-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -193,6 +210,7 @@ class UserSeeder extends Seeder
                 'name' => 'Берта Владимировна',
                 'email' => 'o3s2@o3s2.ru',
                 'phone' => '999-236-86-97',
+                'position' => 'Специалист 3 отдела',
                 'birthday_at' => '1990-03-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -203,6 +221,7 @@ class UserSeeder extends Seeder
                 'name' => 'Вениамин Владимирович',
                 'email' => 'o3s3@o3s3.ru',
                 'phone' => '999-145-87-88',
+                'position' => 'Специалист 3 отдела',
                 'birthday_at' => '1990-03-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -213,6 +232,7 @@ class UserSeeder extends Seeder
                 'name' => 'Герман Владимирович',
                 'email' => 'o3s4@o3s4.ru',
                 'phone' => '999-254-87-96',
+                'position' => 'Специалист 3 отдела',
                 'birthday_at' => '1990-03-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -223,6 +243,7 @@ class UserSeeder extends Seeder
                 'name' => 'Алла Геннадьевна',
                 'email' => 'o4s1@o4s1.ru',
                 'phone' => '999-145-89-66',
+                'position' => 'Специалист 4 отдела',
                 'birthday_at' => '1990-04-01',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -233,6 +254,7 @@ class UserSeeder extends Seeder
                 'name' => 'Белла Геннадьевна',
                 'email' => 'o4s2@o4s2.ru',
                 'phone' => '999-365-79-85',
+                'position' => 'Специалист 4 отдела',
                 'birthday_at' => '1990-04-10',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -243,6 +265,7 @@ class UserSeeder extends Seeder
                 'name' => 'Валентин Геннадьевич',
                 'email' => 'o4s3@o4s3.ru',
                 'phone' => '999-225-65-88',
+                'position' => 'Специалист 4 отдела',
                 'birthday_at' => '1990-04-20',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
@@ -253,6 +276,7 @@ class UserSeeder extends Seeder
                 'name' => 'Галина Геннадьевна',
                 'email' => 'o4s4@o4s4.ru',
                 'phone' => '999-336-46-79',
+                'position' => 'Специалист 4 отдела',
                 'birthday_at' => '1990-04-30',
                 'email_verified_at' => now(),
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
