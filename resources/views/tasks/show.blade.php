@@ -54,6 +54,10 @@
                 <label for="description">Описание</label>
                 <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
             </div>
+            <div class="col mb-3">
+                <label for="description">Результат выполнения</label>
+                <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
+            </div>
             <div class="col">
                 <label for="file_uuid" class="form-label">Приложение</label>
                 <ul>
@@ -65,7 +69,7 @@
                 </ul>
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 {{$task->author_uuid === Auth::id() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
+        <div class="row pt-3 row-cols-1 {{$task->author_uuid === Auth::id() || Auth::user()->isAdmin() ? 'row-cols-md-3' : 'row-cols-md-2'}}">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
             </div>
@@ -74,7 +78,7 @@
                 <a class="btn btn-sm btn-warning col-12 {{$task->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
             </div>
             @endif
-            @if($task->author_uuid === Auth::id())
+            @if($task->author_uuid === Auth::id() || Auth::user()->isAdmin())
             <div class="col mb-3">
                 <a class="btn btn-sm btn-danger col-12" href="{{route('tasks.edit', $task)}}">Редактировать</a>
             </div>
