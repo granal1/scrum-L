@@ -34,7 +34,11 @@
                     </ol>
                 </div>
             </div>
-            <div class="row  row-cols-1 row-cols-md-2 mb-3">
+            <div class="row  row-cols-1 row-cols-md-3 mb-3">
+                <div class="col mb-3">
+                    <label for="email"  class="form-label">Адрес электронной почты:</label>
+                    <input  readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
+                </div>
                 <div class="col mb-3">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
                         <input  readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') ?? 'Нет данных'}}">
@@ -44,10 +48,14 @@
                     <input  readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
-                    <label for="email"  class="form-label">Адрес электронной почты:</label>
-                    <input  readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
+                    <label for="position" class="form-label">Должность</label>
+                    <input readonly type="text" class="form-control form-control-sm" id="position" placeholder="" name="position" value="{{$user->position ?? 'Нет данных'}}">
+                </div>
+                <div class="col mb-3">
+                    <label for="employment_at"  class="form-label">Дата трудоустройства:</label>
+                    <input  readonly type="date" id="employment_at" name="employment_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->employment_at)->format('Y-m-d') ?? 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>

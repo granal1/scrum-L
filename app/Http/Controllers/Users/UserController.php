@@ -110,7 +110,9 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid'],
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
-                    'password' => Hash::make($data['password'])
+                    'password' => Hash::make($data['password']),
+                    'employment_at' => $data['employment_at'],
+                    'position' => $data['position'],
                 ]);
 
                 $user->save();
@@ -220,7 +222,9 @@ class UserController extends Controller
                     'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
-                    'superior_uuid' => $data['superior_uuid']
+                    'superior_uuid' => $data['superior_uuid'],
+                    'employment_at' => $data['employment_at'],
+                    'position' => $data['position'],
                 ]);
 
                 $data_to_sync = [];

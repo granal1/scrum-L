@@ -47,7 +47,7 @@
                 </div>
             </div>
 
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
                     <label for="password" class="form-label">Пароль:</label>
                     <input type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль или останется существующий" name="password">
@@ -62,8 +62,15 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
+                <div class="col">
+                    <label for="email"  class="form-label">Адрес электронной почты:</label>
+                    <input required type="email" id="email" name="email" class="form-control" value="{{$user->email}}">
+                    @error('email')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
                     <input type="date" id="birthday_at" name="birthday_at" class="form-control" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d')}}">
@@ -71,10 +78,17 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-                <div class="col">
-                    <label for="email"  class="form-label">Адрес электронной почты:</label>
-                    <input required type="email" id="email" name="email" class="form-control" value="{{$user->email}}">
-                    @error('email')
+                <div class="col mb-3">
+                    <label for="employment_at"  class="form-label">Дата трудоустройства:</label>
+                    <input type="date" id="employment_at" name="employment_at" class="form-control" value="{{\Carbon\Carbon::parse($user->employment_at)->format('Y-m-d')}}">
+                    @error('employment_at')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mb-3">
+                    <label for="position" class="form-label">Должность</label>
+                    <input type="text" class="form-control form-control-sm" id="position" placeholder="Должность" name="position" value="{{$user->position}}">
+                    @error('position')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>

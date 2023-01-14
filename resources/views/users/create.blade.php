@@ -15,14 +15,14 @@
             @method('post')
             <div class="row row-cols-1 row-cols-md-2 mb-3 mt-2">
                 <div class="col mb-3">
-                    <label for="name" class="form-label">Фамилия И.О.</label>
+                    <label for="name" class="form-label">Фамилия И.О.<span class="text-danger"><b>*</b></span></label>
                     <input required type="text" class="form-control form-control-sm" id="name" placeholder="Введите Фамилия Имя Отчество" name="name">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col">
-                    <label class="form-label form-label-sm">Роли</label>
+                    <label class="form-label form-label-sm">Роли<span class="text-danger"><b>*</b></span></label>
                     <select multiple name="role_uuid[]" class="form-select form-select-sm">
                         @forelse($roles as $role)
                             <option value="{{$role->id}}">{{$role->alias}}</option>
@@ -36,9 +36,9 @@
                 </div>
             </div>
 
-            <div class="row mb-3 row-cols-1 row-cols-md-2">
+            <div class="row mb-3 row-cols-1 row-cols-md-3">
                 <div class="col mb-3">
-                    <label for="password" class="form-label">Пароль:</label>
+                    <label for="password" class="form-label">Пароль:<span class="text-danger"><b>*</b></span></label>
                     <input required type="password" class="form-control form-control-sm" id="password" placeholder="Введите пароль" name="password">
                     @error('password')
                     <div class="text-danger">{{$message}}</div>
@@ -51,27 +51,41 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
                 <div class="col mb-3">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                    <input type="date" id="birthday_at" name="birthday_at" class="form-control" placeholder="">
+                    <input type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" placeholder="">
                     @error('birthday_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
-                    <label for="email"  class="form-label">Адрес электронной почты:</label>
-                    <input required type="email" id="email" name="email" class="form-control" placeholder="mail@mail.ru">
+                    <label for="email"  class="form-label">Адрес электронной почты:<span class="text-danger"><b>*</b></span></label>
+                    <input required type="email" id="email" name="email" class="form-control form-control-sm" placeholder="mail@mail.ru">
                     @error('email')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mb-3">
+                    <label for="employment_at"  class="form-label">Дата трудоустройства:</label>
+                    <input type="date" id="employment_at" name="employment_at" class="form-control form-control-sm" placeholder="">
+                    @error('employment_at')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mb-3">
+                    <label for="position" class="form-label">Должность</label>
+                    <input type="text" class="form-control form-control-sm" id="position" placeholder="Должность" name="position">
+                    @error('position')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
             </div>
 
-            <div class="row mb-3 row-cols-1 row-cols-md-2">
+            <div class="row mb-3 row-cols-1 row-cols-md-3">
                 <div class="col mb-3">
-                    <label for="superior_uuid"  class="form-label">Начальник</label>
+                    <label for="superior_uuid"  class="form-label">Начальник<span class="text-danger"><b>*</b></span></label>
                     <select name="superior_uuid" class="form-select form-select-sm">
                         <option value="">Выберите руководителя ...</option>
                         @forelse($superiors as $superior)
