@@ -99,7 +99,7 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
-                                            Список невыполненных задач
+                                            Невыполненные задачи
                                             <span class="badge bg-danger rounded-pill">{{count($outstanding_tasks)}}</span>
                                         </a>
                                     </div>
@@ -171,7 +171,7 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
-                                            Текущий список задач
+                                            Текущие задачи
                                             <span class="badge bg-primary rounded-pill">{{count($tasks)}}</span>
                                         </a>
                                     </div>
