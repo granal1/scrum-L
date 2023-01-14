@@ -12,8 +12,10 @@
                 <div class="card-header">
                     <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                         @auth
-                            <a class="btn btn-outline-success btn-sm" href="{{route('documents.create')}}">Добавить</a>
-                        @endauth
+                            @can('create', \App\Models\Documents\Document::class)
+                                <a class="btn btn-outline-success btn-sm" href="{{route('documents.create')}}">Добавить</a>
+                            @endcan
+                            @endauth
                         <h4 class="d-inline-block">Журнал учета входящих документов</h4>
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>

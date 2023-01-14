@@ -27,7 +27,7 @@ class DocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-       // $this->authorizeResource(Document::class, 'document');
+        $this->authorizeResource(Document::class, 'document');
     }
 
     /**
@@ -217,7 +217,7 @@ class DocumentController extends Controller
     public function create_task(Document $document)
     {
 
-        //$this->authorize('create', Document::class);
+        $this->authorize('create_task', Document::class);
 
         return view('documents.create-task', [
             'document' => $document,
