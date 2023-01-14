@@ -54,10 +54,12 @@
                 <label for="description">Описание</label>
                 <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
             </div>
+            @if($task->done_progress == 100)
             <div class="col mb-3">
-                <label for="description">Результат выполнения</label>
-                <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
+                <label for="report">Результат выполнения</label>
+                <textarea class="form-control form-control-sm" name="report" id="report" disabled>{{$task->report}}</textarea>
             </div>
+           @endif
             <div class="col">
                 <label for="file_uuid" class="form-label">Приложение</label>
                 <ul>
