@@ -65,7 +65,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
                     <input type="date" id="birthday_at" name="birthday_at" class="form-control" value="{{\Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d')}}">
@@ -80,9 +80,13 @@
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
+                <div class="col mb-3">
+                    <label for="employment_at"  class="form-label">Дата трудоустройства:</label>
+                    <input type="date" id="employment_at" name="employment_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->employment_at)->format('Y-m-d') ?? 'Нет данных'}}">
+                </div>
             </div>
 
-            <div class="row mb-3">
+            <div class="row  row-cols-1 row-cols-md-2 mb-3">
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>
                     <select name="superior_uuid" class="form-select form-select-sm">
@@ -96,6 +100,10 @@
                     @error('superior_uuid')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
+                </div>
+                <div class="col mb-3">
+                    <label for="position" class="form-label">Должность</label>
+                    <input type="text" class="form-control form-control-sm" id="position" placeholder="" name="position" value="{{$user->position ?? 'Нет данных'}}">
                 </div>
             </div>
             <div class="row mb-3">

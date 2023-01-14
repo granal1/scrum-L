@@ -31,6 +31,8 @@ class UpdateProfileFormRequest extends FormRequest
             'password' => ['nullable', 'string', 'min:2', 'max:50'],
             'comment' => ['nullable', 'string', 'min:1', 'max:3000'],
             'superior_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'employment_at' => ['nullable', 'date'],
+            'position' => ['nullable', 'string', 'min:2', 'max:255'],
         ];
     }
 
