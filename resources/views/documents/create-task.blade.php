@@ -121,7 +121,7 @@
                 </div>
                 <div class="col mt-3">
                     <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                    <input type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="">
+                    <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required>
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
