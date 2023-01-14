@@ -29,7 +29,7 @@ class UpdateDocumentFormRequest extends FormRequest
             'incoming_author' => ['nullable', 'string', 'min:2', 'max:255'],
             'number' => ['nullable', 'string', 'min:1', 'max:255'],
             'date' => ['nullable', 'date'],
-            'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:6'],
+            'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
             'task_description' => ['nullable', 'string', 'min:2', 'max:3000'],
             'executor' => ['nullable', 'string', 'min:2', 'max:255'],
             'deadline_at' => ['nullable', 'date'],

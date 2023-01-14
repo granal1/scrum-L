@@ -78,8 +78,8 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="document_and_application_sheets" class="form-label">Количество листов документа и приложения (хх+ххх)</label>
-                    <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="хх+ххх" name="document_and_application_sheets" value="{{$document->document_and_application_sheets}}">
+                    <label for="document_and_application_sheets" class="form-label">Количество листов документа, включая приложение</label>
+                    <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="укажите количество листов" name="document_and_application_sheets" value="{{$document->document_and_application_sheets}}">
                     @error('document_and_application_sheets')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
