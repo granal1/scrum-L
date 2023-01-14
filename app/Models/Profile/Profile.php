@@ -28,6 +28,8 @@ class Profile extends Authenticatable
         'birthday_at',
         'comment',
         'superior_uuid',
+        'employment_at',
+        'position',
     ];
 
     /**

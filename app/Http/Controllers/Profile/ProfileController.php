@@ -106,7 +106,9 @@ class ProfileController extends Controller
                     'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
-                    'superior_uuid' => $data['superior_uuid']
+                    'superior_uuid' => $data['superior_uuid'],
+                    'employment_at' => $data['employment_at'],
+                    'position' => $data['position'],
                 ]);
 
                     DB::commit();
