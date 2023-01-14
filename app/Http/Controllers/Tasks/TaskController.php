@@ -185,9 +185,7 @@ class TaskController extends Controller
                 Log::error($e);
             }
         }
-
-        return redirect()->route('tasks.show', $task)->with('error', 'Ошибка при создании задачи.');
-        //TODO Пишет, что $task не определен. Определить или убрать?
+        return redirect()->route('tasks.create')->with('error', 'Ошибка при создании задачи.');
     }
 
     /**
