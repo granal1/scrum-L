@@ -21,23 +21,31 @@
                 </div>
                 <div class="col">
                     <label for="role_uuid" class="form-label">Роль:</label>
-                    <input  disabled readonly type="text" class="form-control form-control-sm" id="role_uuid" placeholder="" name="role_uuid" value="@if(isset($user->roles->first()->id)) {{$user->roles->first()->alias}} @else {{'Не определено'}} @endif">
+                    <input disabled readonly type="text" class="form-control form-control-sm" id="role_uuid" placeholder="" name="role_uuid" value="@if(isset($user->roles->first()->id)) {{$user->roles->first()->alias}} @else {{'Не определено'}} @endif">
                 </div>
             </div>
-            <div class="row mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
                     <label for="birthday_at"  class="form-label">Дата рождения:</label>
-                        <input  disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{$user->birthday_at ? \Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') : 'Нет данных'}}">
+                        <input disabled readonly type="date" id="birthday_at" name="birthday_at" class="form-control form-control-sm" value="{{$user->birthday_at ? \Carbon\Carbon::parse($user->birthday_at)->format('Y-m-d') : 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="phone" class="form-label">Номер телефона в формате xxx-xxx-xx-xx:</label>
-                    <input  disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
+                    <input disabled readonly type="tel" id="phone" name="phone" class="form-control form-control-sm" pattern="[0-9]{3}-[0-9]{3}-[0-9]{2}-[0-9]{2}" value="{{$user->phone ?? 'Нет данных'}}">
+                </div>
+                <div class="col mb-3">
+                    <label for="employment_at"  class="form-label">Дата трудоустройства:</label>
+                    <input disabled readonly type="date" id="employment_at" name="employment_at" class="form-control form-control-sm" value="{{\Carbon\Carbon::parse($user->employment_at)->format('Y-m-d') ?? 'Нет данных'}}">
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
                     <label for="email"  class="form-label">Адрес электронной почты:</label>
                     <input  disabled readonly type="email" id="email" name="email" class="form-control form-control-sm" value="{{$user->email}}">
+                </div>
+                <div class="col mb-3">
+                    <label for="position" class="form-label">Должность</label>
+                    <input disabled readonly type="text" class="form-control form-control-sm" id="position" placeholder="" name="position" value="{{$user->position ?? 'Нет данных'}}">
                 </div>
                 <div class="col">
                     <label for="superior_uuid"  class="form-label">Начальник:</label>
