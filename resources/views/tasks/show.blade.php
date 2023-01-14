@@ -86,6 +86,7 @@
             </div>
             @endif
         </div>
+        @if($task->done_progress < 100)
         <div class="row row-cols-1">
             <form action="{{route('tasks.create-subtask', $task)}}" method="post">
                 @csrf
@@ -94,6 +95,7 @@
                 </div>
             </form>
         </div>
+        @endif
     </div>
     @endsection
 
