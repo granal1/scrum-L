@@ -35,7 +35,7 @@ class ProfilePolicy
     {
         foreach($user->roles as $role)
         {
-            if($role->name === Role::ADMIN)
+            if($role->name === Role::ADMIN || $role->name === Role::KADR)
             {
                 return true;
             }
