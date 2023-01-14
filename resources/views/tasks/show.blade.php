@@ -54,7 +54,7 @@
                 <label for="description">Описание</label>
                 <textarea class="form-control form-control-sm" name="description" id="description" disabled>{{$task->description}}</textarea>
             </div>
-            @if($task->done_progress == 100)
+            @if($task->done_progress > 0)
             <div class="col mb-3">
                 <label for="report">Результат выполнения</label>
                 <textarea class="form-control form-control-sm" name="report" id="report" disabled>{{$task->report}}</textarea>
