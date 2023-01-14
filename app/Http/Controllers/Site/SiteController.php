@@ -64,17 +64,17 @@ class SiteController extends Controller
             ->whereIn('id', $current_task_ids)
             ->paginate(config('front.tasks.pagination'));
 
+
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
-        $document_ids = TaskFile::groupBy('file_uuid')
-            ->pluck('file_uuid')
-            ->all();
+        $file_ids = TaskFile::all()->pluck('file_uuid')->all();
 
         $new_documents = Document::filter($filter)
-            ->with(['tasks' => function($query){
-                $query->orderBy('created_at', 'desc')->first();
-            }])
-            ->whereNot('id', $document_ids)
+            ->with(['tasks'])
+            ->whereNot(function ($query) use ($file_ids) {
+                $query->whereIn('id', $file_ids);
+            })
+            ->latest()
             ->get();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
