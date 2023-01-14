@@ -28,6 +28,8 @@ class User extends Authenticatable
         'birthday_at',
         'comment',
         'superior_uuid',
+        'position',
+        'employment_at'
     ];
 
     /**
