@@ -81,6 +81,8 @@ class SiteController extends Controller
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $responsible_outstanding_task_ids = $this->taskHistoryService->getOutstandingTaskIds();
+        $outstanding_task_count = count($responsible_outstanding_task_ids);
+
 
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
@@ -93,6 +95,7 @@ class SiteController extends Controller
             'priorities' => TaskPriority::all(),
             'new_documents' => $new_documents,
             'outstanding_tasks' => $outstanding_tasks,
+            'outstanding_tasks_count' => $outstanding_task_count,
         ]);
     }
 

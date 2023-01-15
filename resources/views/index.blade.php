@@ -100,7 +100,7 @@
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseTwo">
                                             Невыполненные задачи
-                                            <span class="badge bg-danger rounded-pill">{{count($outstanding_tasks)}}</span>
+                                            <span class="badge bg-danger rounded-pill">{{$outstanding_tasks_count}}</span>
                                         </a>
                                     </div>
                                     <div id="collapseTwo" class="collapse" data-bs-parent="#accordion">
@@ -165,6 +165,7 @@
                                                 @endforelse
                                                 </tbody>
                                             </table>
+                                            {{$outstanding_tasks->withQueryString()->links()}}
                                         </div>
                                     </div>
                                 </div>
