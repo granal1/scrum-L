@@ -29,8 +29,6 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-
-
                             <div id="accordion">
                                 @if(Auth::user()->isMainSupervisor())
                                 <div class="card">
