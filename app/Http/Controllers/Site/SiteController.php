@@ -57,6 +57,7 @@ class SiteController extends Controller
         //    ->all();
 
         $current_task_ids = $this->taskHistoryService->getCurrentTaskIds();
+        $current_task_count = count($current_task_ids);
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -87,6 +88,7 @@ class SiteController extends Controller
 
         return view('index',[
             'tasks' => $tasks,
+            'current_tasks_count' => $current_task_count,
             'old_filters' => $data,
             'priorities' => TaskPriority::all(),
             'new_documents' => $new_documents,

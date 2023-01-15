@@ -56,6 +56,8 @@
             "@php artisan route:cach",
             "@php artisan view:clear",
             "@php artisan view:cach",
+            "@php artisan config:clear",
+            "@php artisan config:cache",
             "@php artisan storage:link"
         ],
         "recache": [
@@ -63,6 +65,8 @@
             "@php artisan route:cach",
             "@php artisan view:clear",
             "@php artisan view:cach",
+            "@php artisan config:clear",
+            "@php artisan config:cache",
             "@php artisan storage:link"
         ]
     },
