@@ -172,7 +172,7 @@
                                     <div class="card-header d-flex justify-content-between align-items-center">
                                         <a class="collapsed btn" data-bs-toggle="collapse" href="#collapseThree">
                                             Текущие задачи
-                                            <span class="badge bg-primary rounded-pill">{{count($tasks)}}</span>
+                                            <span class="badge bg-primary rounded-pill">{{$current_tasks_count}}</span>
                                         </a>
                                     </div>
                                     <div id="collapseThree" class="collapse" data-bs-parent="#accordion">
@@ -227,6 +227,7 @@
                                                 @endforelse
                                                 </tbody>
                                             </table>
+                                            {{$tasks->withQueryString()->links()}}
                                         </div>
                                     </div>
                                 </div>

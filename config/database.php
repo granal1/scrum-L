@@ -58,6 +58,13 @@ return [
             'prefix_indexes' => true,
             'strict' => false,
             'engine' => null,
+            //'dump' => [
+                //'dump_command_path' => 'D:\PortableSoft\OpenServer_5_4_2\modules\database\MySQL-8.0-Win10\bin', // only the path, so without `mysqldump` or `pg_dump`; this is a working example from MAMP on Mac OS
+                //'use_single_transaction',
+                //'timeout' => 60 * 5, // 5 minute timeout
+                // 'exclude_tables' => ['table1', 'table2'],
+                // 'add_extra_option' => '--optionname=optionvalue',
+            //],
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
