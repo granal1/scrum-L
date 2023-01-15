@@ -23,6 +23,7 @@
         @include('message')
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
+                @displayDate($task->created_at, 'Y-m-d g:i', true)
                 <label for="created_at">Создана</label>
                 <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
             </div>
