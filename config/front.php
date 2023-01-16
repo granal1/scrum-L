@@ -12,5 +12,8 @@ return [
     ],
     'roles' => [
         'pagination' => 5
+    ],
+    'user_statuses' => [
+        'pagination' => 5
     ]
 ];

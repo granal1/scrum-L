@@ -7,7 +7,8 @@ use App\Http\Filters\Users\UserFilter;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
 use App\Http\Requests\Users\UserFilterRequest;
-use App\Models\UserRoles\UserRole;
+use App\Models\UserStatuses\UserStatus;
+
 
 use App\Models\Roles\Role;
 use App\Models\User;
@@ -75,6 +76,7 @@ class UserController extends Controller
         return view('users.create', [
             'superiors' => User::all(),
             'roles' => Role::all(),
+            'user_statuses' => UserStatus::all(),
         ]);
     }
 
@@ -114,6 +116,7 @@ class UserController extends Controller
                     'password' => Hash::make($data['password']),
                     'employment_at' => $data['employment_at'],
                     'position' => $data['position'],
+                    'user_status_uuid' => $data['user_status_uuid'],
                 ]);
 
                 $user->save();
@@ -189,6 +192,7 @@ class UserController extends Controller
             'superiors' => User::all(),
             'subordinates' => User::where('superior_uuid', $user->id)->get(),
             'roles' => Role::all(),
+            'user_statuses' => UserStatus::all(),
         ]);
     }
 
@@ -226,6 +230,7 @@ class UserController extends Controller
                     'superior_uuid' => $data['superior_uuid'],
                     'employment_at' => $data['employment_at'],
                     'position' => $data['position'],
+                    'user_status_uuid' => $data['user_status_uuid'],
                 ]);
 
                 $data_to_sync = [];

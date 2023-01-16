@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Roles\Role;
 use App\Models\Traits\Filterable;
+use App\Models\UserStatuses\UserStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -29,7 +30,8 @@ class User extends Authenticatable
         'comment',
         'superior_uuid',
         'position',
-        'employment_at'
+        'employment_at',
+        'user_status_uuid'
     ];
 
     /**
@@ -53,6 +55,14 @@ class User extends Authenticatable
 
     public function name(){
         return $this->name;
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(
+            UserStatus::class,
+            'user_status_uuid'
+        );
     }
 
     public function superior()

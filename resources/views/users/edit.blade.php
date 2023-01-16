@@ -17,11 +17,27 @@
         <form action="{{route('users.update', $user)}}" method="post">
             @csrf
             @method('patch')
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col mb-3">
                     <label for="name" class="form-label">Ф.И.О.</label>
                     <input required type="text" class="form-control form-control-sm" id="name" placeholder="Введите Фамилия Имя Отчество" name="name" value="{{$user->name}}">
                     @error('name')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col">
+                    <label class="form-label form-label-sm">Статус<span class="text-danger"><b>*</b></span></label>
+                    <select name="user_status_uuid" class="form-select form-select-sm">
+                        @forelse($user_statuses as $user_status)
+                            <option @if($user->status->id === $user_status->id)
+                                        selected
+                                    @endif
+                                    value="{{$user_status->id}}">{{$user_status->name}}</option>
+                        @empty
+                            <option value="">Нет статусов</option>
+                        @endforelse
+                    </select>
+                    @error('user_status_uuid')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
