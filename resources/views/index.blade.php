@@ -29,8 +29,6 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-
-
                             <div id="accordion">
                                 @if(Auth::user()->isMainSupervisor())
                                 <div class="card">
@@ -150,11 +148,11 @@
                                                 </tr>
                                                 @forelse($outstanding_tasks as $task)
                                                     <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
-                                                    <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
+                                                    <td class="d-none d-sm-table-cell">{{$task->priority->name}}</td>
                                                     <td>{{$task->description}}</td>
-                                                    <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
-                                                    <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
-                                                    <td>{{$task->currentHistory->done_progress}}</td>
+                                                    <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
+                                                    <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
+                                                    <td>{{$task->done_progress}}</td>
                                                 </tr>
                                                 @empty
                                                     <tr>
@@ -213,10 +211,10 @@
                                                 </tr>
                                                 @forelse($tasks as $task)
                                                     <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
-                                                        <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
+                                                        <td class="d-none d-sm-table-cell">{{$task->priority->name}}</td>
                                                         <td class="">{{$task->description}}</td>
-                                                        <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
-                                                        <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
+                                                        <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
+                                                        <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
                                                         <td>@include('graph.progressbar')</td>
                                                     </tr>
                                                 @empty

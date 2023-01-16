@@ -52,20 +52,22 @@
         "start": [
             "composer i",
             "@php artisan migrate:fresh --seed",
+            "@php artisan cache:clear",
             "@php artisan route:clear",
-            "@php artisan route:cach",
             "@php artisan view:clear",
-            "@php artisan view:cach",
             "@php artisan config:clear",
+            "@php artisan view:cach",
+            "@php artisan route:cach",
             "@php artisan config:cache",
             "@php artisan storage:link"
         ],
         "recache": [
+            "@php artisan cache:clear",
             "@php artisan route:clear",
-            "@php artisan route:cach",
             "@php artisan view:clear",
-            "@php artisan view:cach",
             "@php artisan config:clear",
+            "@php artisan route:cach",
+            "@php artisan view:cach",
             "@php artisan config:cache",
             "@php artisan storage:link"
         ]

@@ -33,69 +33,28 @@ class Task extends Model
         'comment',
     ];
 
-    public function histories()
+    public function responsible(): BelongsTo
     {
-        return $this->hasMany(TaskHistory::class, 'task_uuid', 'id');
-    }
-
-    public function currentHistory()
-    {
-        return $this->hasOne(TaskHistory::class, 'task_uuid')->latestOfMany();
-    }
-
-    public function priorities(): BelongsToMany
-    {
-       return $this->belongsToMany(
-           TaskPriority::class,
-           'task_histories',
-           'task_uuid',
-           'priority_uuid'
-       );
-    }
-
-    public function responsibles(): BelongsToMany
-    {
-        return $this->belongsToMany(
+        return $this->belongsTo(
             User::class,
-            'task_histories',
-            'task_uuid',
-            'responsible_uuid'
+                    'responsible_uuid'
         );
     }
 
-    public function authors(): BelongsToMany
+    public function author(): BelongsTo
     {
-        return $this->belongsToMany(
+        return $this->belongsTo(
             User::class,
-            'task_histories',
-            'task_uuid',
-            'user_uuid'
+            'author_uuid'
         );
     }
 
-    public function currentAuthor() //TODO вроде в формах больше не используется
+    public function priority(): BelongsTo
     {
-        return $this->authors->last()->name;
-    }
-
-    public function getAuthor()
-    {
-        return User::find($this->author_uuid)->name;
-    }
-
-    public function getResponsible()
-    {
-        return User::find($this->responsible_uuid)->name;
-    }
-
-    public function currentResponsible() //TODO вроде в формах больше не используется
-    {
-        return $this->responsibles->last()->name;
-    }
-
-    public function currentPriority()
-    {
-        return $this->priorities->last()->name;
+        return $this->belongsTo(
+            TaskPriority::class,
+                    'priority_uuid'
+        );
     }
 
     public function documents(): BelongsToMany
@@ -112,7 +71,6 @@ class Task extends Model
         parent::boot();
 
         static::deleting(function($task) {
-            $task->histories()->delete();
             $task->documents()->delete();
         });
     }

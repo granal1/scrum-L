@@ -67,9 +67,9 @@
                                         <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentResponsible() : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentHistory->comment : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->responsible->name : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->deadline_at)) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->executed_result : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->executed_at ?? null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->file_mark}}</td>
                                     </tr>

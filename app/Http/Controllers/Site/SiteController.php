@@ -30,7 +30,7 @@ class SiteController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->taskHistoryService = new TaskHistoryService();
+        $this->taskService = new TaskService();
     }
 
     /**
@@ -49,20 +49,15 @@ class SiteController extends Controller
 
         $data = $request->validated();
 
-        //$filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
 
-        //$task_uuids_after_search_filter = TaskHistory::filter($filter)
-        //    ->groupBy('task_uuid')
-        //    ->pluck('task_uuid')
-        //    ->all();
-
-        $current_task_ids = $this->taskHistoryService->getCurrentTaskIds();
+        $current_task_ids = $this->taskService->getCurrentTaskIds();
         $current_task_count = count($current_task_ids);
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
             ->whereIn('id', $current_task_ids)
+            ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
 
@@ -75,17 +70,19 @@ class SiteController extends Controller
             ->whereNot(function ($query) use ($file_ids) {
                 $query->whereIn('id', $file_ids);
             })
+            ->orderBy('created_at', 'desc')
             ->latest()
             ->get();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
-        $responsible_outstanding_task_ids = $this->taskHistoryService->getOutstandingTaskIds();
+        $responsible_outstanding_task_ids = $this->taskService->getOutstandingTaskIds();
         $outstanding_task_count = count($responsible_outstanding_task_ids);
 
 
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
+            ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
         return view('index',[
@@ -106,10 +103,6 @@ class SiteController extends Controller
      */
     public function create()
     {
-//        $this->authorize('create', Role::class);
-//
-//        return view('roles.create', [
-//        ]);
     }
 
     /**
@@ -120,34 +113,6 @@ class SiteController extends Controller
      */
     public function store(StoreRoleFormRequest $request)
     {
-//        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
-//            [
-//                'user' => Auth::user()->name,
-//                'request' => $request->all(),
-//            ]);
-//
-//        if($request->isMethod('post')) {
-//
-//            $data = $request->validated();
-//
-//            try {
-//
-//                DB::beginTransaction();
-//
-//                $task = Role::create($data);
-//
-//                DB::commit();
-//
-//                return redirect()->route('roles.show', $task)->with('success', 'Роль создана.');
-//
-//            } catch (\Exception $e) {
-//                DB::rollBack();
-//                Log::error($e);
-//            }
-//        }
-//
-//        return redirect()->route('roles.show', $task)->with('error', 'Ошибка при создании роли.');
-
     }
 
     /**
@@ -158,11 +123,6 @@ class SiteController extends Controller
      */
     public function show(Role $role)
     {
-//        $this->authorize('view', Role::class);
-//
-//        return view('roles.show', [
-//            'role' => $role
-//        ]);
     }
 
     /**
@@ -173,16 +133,6 @@ class SiteController extends Controller
      */
     public function edit(Role $role)
     {
-//        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
-//            [
-//                'user' => Auth::user()->name,
-//                'role' => $role->id,
-//
-//            ]);
-//
-//        return view('roles.edit', [
-//            'role' => $role,
-//        ]);
     }
 
     /**
@@ -194,40 +144,6 @@ class SiteController extends Controller
      */
     public function update(UpdateRoleFormRequest $request, Role $role)
     {
-//        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
-//            [
-//                'user' => Auth::user()->name,
-//                'role' => $role->id,
-//                'request' => $request->all(),
-//            ]);
-//
-//        if($request->isMethod('patch')) {
-//
-//            $data = $request->validated();
-//
-//            try {
-//
-//                DB::beginTransaction();
-//
-//                $role->update([
-//                    'alias' => $data['alias'],
-//                    'name' => $data['name'],
-//                ]);
-//
-//                DB::commit();
-//
-//                return redirect()->route('roles.edit', $role)->with('success','Изменения сохранены.');
-//
-//            } catch (\Exception $e) {
-//
-//                DB::rollBack();
-//                Log::error($e);
-//            }
-//
-//        }
-//
-//        return redirect()->route('roles.edit', $role)->with('error','Изменения не сохранились, ошибка.');
-
     }
 
     /**
@@ -238,13 +154,5 @@ class SiteController extends Controller
      */
     public function destroy(Role $role)
     {
-//        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
-//            [
-//                'user' => Auth::user()->name,
-//                'role' => $role->id,
-//            ]);
-//
-//        $role->delete();
-//        return redirect()->route('roles.index');
     }
 }
