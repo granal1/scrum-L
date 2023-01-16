@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use Database\Factories\Tasks\TaskFactory;
 use Database\Seeders\Roles\RoleSeeder;
 use Database\Seeders\Tasks\TaskPrioritySeeder;
+use Database\Seeders\Users\UserStatusSeeder;
 use Database\Seeders\Users\UserRoleSeeder;
 use Database\Seeders\Users\UserSeeder;
 use Illuminate\Console\View\Components\Task;
@@ -25,11 +26,11 @@ class DatabaseSeeder extends Seeder
         //\App\Models\Tasks\Task::factory(50)->create();
 
         $this->call([
-
             RoleSeeder::class,
             TaskPrioritySeeder::class,
             UserSeeder::class,
             UserRoleSeeder::class,
+            UserStatusSeeder::class,
         ]);
     }
 }

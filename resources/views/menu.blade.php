@@ -39,6 +39,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('roles.index') }}">Роли</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user_statuses.index') }}">Статусы</a></li>
                                 </ul>
                             </li>
                         </ul>
