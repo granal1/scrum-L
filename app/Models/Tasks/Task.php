@@ -19,6 +19,9 @@ class Task extends Model
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
     protected $table = "tasks";
+    protected $casts = [
+        'deadline_at' => 'datetime',
+    ];
 
     protected $fillable = [
         'parent_uuid',

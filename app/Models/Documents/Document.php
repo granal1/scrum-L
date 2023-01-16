@@ -14,6 +14,11 @@ class Document extends Model
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
     protected $table = "files";
+    protected $casts = [
+        'incoming_at' => 'datetime',
+        'date' => 'datetime',
+        'executed_at' => 'datetime',
+    ];
 
     protected $fillable = [
         'short_description',

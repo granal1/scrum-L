@@ -49,6 +49,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birthday_at' => 'datetime',
+        'employment_at' => 'datetime',
+        'two_factor_confirmed_at' => 'datetime',
     ];
 
     public function name(){

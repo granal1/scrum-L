@@ -13,6 +13,9 @@ class TaskHistory extends Model
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
     protected $table = "task_histories";
+    protected $casts = [
+        'deadline_at' => 'datetime',
+    ];
 
     protected $fillable = [
         'priority_uuid',
