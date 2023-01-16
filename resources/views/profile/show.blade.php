@@ -14,10 +14,14 @@
             </div>
         </div>
         <form action="">
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
                         <label for="name" class="form-label">Ф.И.О.</label>
                         <input disabled readonly type="text" class="form-control form-control-sm" id="name" placeholder="" name="name" value="{{$user->name}}">
+                </div>
+                <div class="col mb-3">
+                    <label for="user_status_uuid" class="form-label">Статус</label>
+                    <input disabled readonly type="text" class="form-control form-control-sm" id="user_status_uuid" placeholder="" name="user_status_uuid" value="{{$user->status->name}}">
                 </div>
                 <div class="col">
                     <label for="role_uuid" class="form-label">Роль:</label>
