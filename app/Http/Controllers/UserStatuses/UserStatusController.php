@@ -23,7 +23,7 @@ class UserStatusController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        //$this->authorizeResource(UserStatus::class, 'user_status');
+        $this->authorizeResource(UserStatus::class, 'user_status');
     }
     /**
      * Display a listing of the resource.
@@ -39,7 +39,7 @@ class UserStatusController extends Controller
 
             ]);
 
-        //$this->authorize('viewAny', Role::class);
+        //$this->authorize('viewAny', UserStatus::class);
 
         $data = $request->validated();
 
@@ -61,7 +61,7 @@ class UserStatusController extends Controller
      */
     public function create()
     {
-        //$this->authorize('create', Role::class);
+        //$this->authorize('create', UserStatus::class);
 
         return view('user_statuses.create', [
         ]);
@@ -113,7 +113,7 @@ class UserStatusController extends Controller
      */
     public function show(UserStatus $user_status)
     {
-        //$this->authorize('view', Role::class);
+        //$this->authorize('view', UserStatus::class);
 
         return view('user_statuses.show', [
             'user_status' => $user_status

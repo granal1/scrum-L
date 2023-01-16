@@ -20,7 +20,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="alias" class="form-label">Алиас<span class="text-danger"><b>*</b></span></label>
-                    <input required placeholder="Роль" class="form-control form-control-sm" name="alias" id="alias" type="text" value="{{$user_status->alias}}">
+                    <input readonly placeholder="Роль" class="form-control form-control-sm" name="alias" id="alias" type="text" value="{{$user_status->alias}}">
                     @error('alias')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -28,8 +28,8 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="name" class="form-label">Название</label>
-                    <input readonly class="form-control form-control-sm" name="name" id="name" value="{{$user_status->name}}">
+                    <label for="name" class="form-label">Название<span class="text-danger"><b>*</b></span></label>
+                    <input required class="form-control form-control-sm" name="name" id="name" value="{{$user_status->name}}">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

@@ -20,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\Admin\Admin' => 'App\Policies\Admin\AdminPolicy',
         'App\Models\User' => 'App\Policies\Users\UserPolicy',
         'App\Models\Roles\Role' => 'App\Policies\Roles\RolePolicy',
+        'App\Models\UserStatuses\UserStatus' => 'App\Policies\UserStatuses\UserStatusPolicy',
         'App\Models\Profile\Profile' => 'App\Policies\Profile\ProfilePolicy',
         'App\Models\Tasks\Task' => 'App\Policies\Tasks\TaskPolicy',
     ];
