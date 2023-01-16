@@ -38,7 +38,7 @@
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <label for="deadline_at">Выполнить до:</label>
-                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->deadline_at}}"
+                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{Timezone::convertToLocal($task->deadline_at)}}">
             </div>
             <div class="col mb-3">
                 <label for="responsible_uuid">Ответственный</label>
@@ -97,8 +97,6 @@
         </div>
         @endif
     </div>
-    <pre>{{  dump($task->created_at) }}</pre>
-    <pre>{{  dump($task->deadline_at) }}</pre>
     @endsection
 
 

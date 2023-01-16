@@ -17,7 +17,7 @@
         <div class="row pt-3 row-cols-1 row-cols-md-2">
             <div class="col mb-3">
                 <label for="created_at">Создан</label>
-                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$document->created_at}}">
+                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{Timezone::convertToLocal($document->created_at)}}">
             </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
@@ -33,7 +33,7 @@
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">
                 <label for="incoming_at" class="form-label">Дата входящего:</label>
-                <input readonly disabled type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime($document->incoming_at))}}">
+                <input readonly disabled type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime(Timezone::convertToLocal($document->incoming_at)))}}">
                 @error('incoming_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -65,7 +65,7 @@
             </div>
             <div class="col mt-3">
                 <label for="date" class="form-label">Дата</label>
-                <input readonly disabled type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime($document->date))}}">
+                <input readonly disabled type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime(Timezone::convertToLocal($document->date)))}}">
                 @error('date')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -99,7 +99,7 @@
             </div>
             <div class="col mt-3">
                 <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}">
+                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime(Timezone::convertToLocal($document->tasks[0]->currentHistory->deadline_at))) : null}}">
                 @error('deadline_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
@@ -117,7 +117,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="executed_at">Срок выполнения по факту:</label>
-                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->currentHistory->created_at)) : null}}">
+                <input readonly disabled type="date" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime(Timezone::convertToLocal($document->tasks[0]->currentHistory->created_at))) : null}}">
                 @error('executed_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror

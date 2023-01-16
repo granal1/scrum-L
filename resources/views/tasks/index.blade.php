@@ -60,7 +60,7 @@
                                 <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
                                 <td>{{$task->description}}</td>
                                 <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
-                                <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
+                                <td class="d-none d-md-table-cell">{{Timezone::convertToLocal($task->currentHistory->deadline_at)}}</td>
                                 <td class="d-none d-sm-table-cell">@include('graph.progressbar')</td>
                             </tr>
                             @empty

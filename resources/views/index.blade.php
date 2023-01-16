@@ -75,7 +75,7 @@
                                                 @forelse($new_documents as $document)
                                                 <tr
                                                     onclick="window.location='{{route('documents.show', $document->id)}}';">
-                                                    <td class="d-none d-md-table-cell">{{$document->incoming_at}}</td>
+                                                    <td class="d-none d-md-table-cell">{{Timezone::convertToLocal($document->incoming_at)}}</td>
                                                     <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>
                                                     <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
                                                     <td class="d-none d-md-table-cell">{{$document->number}}</td>
@@ -153,7 +153,7 @@
                                                     <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
                                                     <td>{{$task->description}}</td>
                                                     <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
-                                                    <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
+                                                    <td class="d-none d-md-table-cell">{{Timezone::convertToLocal($task->currentHistory->deadline_at)}}</td>
                                                     <td>{{$task->currentHistory->done_progress}}</td>
                                                 </tr>
                                                 @empty
@@ -215,7 +215,7 @@
                                                         <td class="d-none d-sm-table-cell">{{$task->currentPriority()}}</td>
                                                         <td class="">{{$task->description}}</td>
                                                         <td class="d-none d-sm-table-cell">{{$task->currentResponsible()}}</td>
-                                                        <td class="d-none d-md-table-cell">{{$task->currentHistory->deadline_at}}</td>
+                                                        <td class="d-none d-md-table-cell">{{Timezone::convertToLocal($task->currentHistory->deadline_at)}}</td>
                                                         <td>@include('graph.progressbar')</td>
                                                     </tr>
                                                 @empty

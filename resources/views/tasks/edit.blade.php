@@ -53,7 +53,7 @@
                 </div>
                 <div class="col mt-3">
                     <label for="deadline_at">Срок выполнения:</label>
-                    <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{$task->deadline_at}}">
+                    <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{Timezone::convertToLocal($task->deadline_at)}}">
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
