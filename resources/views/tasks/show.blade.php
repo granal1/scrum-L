@@ -28,11 +28,11 @@
             </div>
             <div class="col mb-3">
                 <label for="user_uuid">Создал</label>
-                <input class="form-control form-control-sm" name="user_uuid" id="user_uuid" disabled value="{{$task->getAuthor()}}">
+                <input class="form-control form-control-sm" name="user_uuid" id="user_uuid" disabled value="{{$task->author->name}}">
             </div>
             <div class="col">
                 <label for="priority_uuid">Приоритет</label>
-                <input class="form-control form-control-sm" name="priority_uuid" id="priority_uuid" disabled value="{{$task->priorities->last()->name}}">
+                <input class="form-control form-control-sm" name="priority_uuid" id="priority_uuid" disabled value="{{$task->priority->name}}">
             </div>
         </div>
         <div class="row pt-3 row-cols-1 row-cols-md-3">
@@ -42,7 +42,7 @@
             </div>
             <div class="col mb-3">
                 <label for="responsible_uuid">Ответственный</label>
-                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->getResponsible()}}">
+                <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->responsible->name}}">
             </div>
             <div class="col">
                 <label for="done_progress">Выполнено, %</label>

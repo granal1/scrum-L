@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Filters\Tasks\TaskFilter;
 
-use App\Http\Filters\Tasks\TaskHistoryFilter;
+use App\Services\Tasks\TaskService;
 use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
 
 use App\Models\Documents\Document;
@@ -14,7 +14,6 @@ use App\Models\Documents\Document;
 use App\Models\Tasks\
 {
     TaskFile,
-    TaskHistory,
     Task,
     TaskPriority
 };
@@ -39,6 +38,7 @@ class TaskController extends Controller
     {
         $this->middleware(['auth']);
         $this->authorizeResource(Task::class, 'task');
+        $this->service = new TaskService();
     }
 
     /**
@@ -57,19 +57,11 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
-        $filter = app()->make(TaskHistoryFilter::class, ['queryParams' => array_filter($data)]);
-
-        $histories = TaskHistory::filter($filter)
-            ->where('responsible_uuid', 'like', Auth::id())
-            ->orWhere('user_uuid', 'like', Auth::id())
-            ->groupBy('task_uuid')
-            ->pluck('task_uuid')
-            ->all();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
-            ->whereIn('id', $histories)
+            ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
         return view('tasks.index',[
@@ -155,15 +147,6 @@ class TaskController extends Controller
                 DB::beginTransaction();
 
                 $task = Task::create($data);
-
-                $history = TaskHistory::create([
-                    'task_uuid' => $task->id,
-                    'priority_uuid' => $data['priority_uuid'],
-                    'user_uuid' => Auth::id(),
-                    'responsible_uuid' => $data['responsible_uuid'],
-                    'deadline_at' => $data['deadline_at'],
-                    'parent_uuid' => $data['parent_uuid'] ?? null,
-                ]);
 
                 $real_document = Document::find($data['file_uuid']);
 
@@ -261,17 +244,6 @@ class TaskController extends Controller
                     'deadline_at' => $data['deadline_at'],
                     'done_progress' => $data['done_progress'] ?? $task->done_progress,
                     'report' => $data['report'] ?? $task->report,
-                ]);
-
-                $history = TaskHistory::create([
-                    'task_uuid' => $task->id,
-                    'priority_uuid' => $task->priority_uuid,
-                    'user_uuid' => Auth::id(),
-                    'responsible_uuid' => $task->responsible_uuid,
-                    'deadline_at' => $task->deadline_at,
-                    'done_progress' => $task->done_progress,
-                    'parent_uuid' => $task->parent_uuid,
-                    'comment' => $task->report
                 ]);
 
                 $real_document = Document::find($data['file_uuid']);
@@ -399,17 +371,6 @@ class TaskController extends Controller
                         ]);
                     }
                 }
-
-                $history = TaskHistory::create([
-                    'task_uuid' => $task->id,
-                    'priority_uuid' => $task->currentHistory->priority_uuid,
-                    'user_uuid' => Auth::id(),
-                    'responsible_uuid' => $task->currentHistory->responsible_uuid,
-                    'deadline_at' => $task->currentHistory->deadline_at,
-                    'done_progress' => $data['done_progress'],
-                    'parent_uuid' => $task->currentHistory->parent_uuid,
-                    'comment' => $data['comment']
-                ]);
 
                 DB::commit();
 
