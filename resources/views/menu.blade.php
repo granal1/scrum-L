@@ -4,7 +4,6 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             @auth
             <ul class="navbar-nav me-auto">
@@ -16,24 +15,18 @@
                 </li>
                 @can('viewAny', \App\Models\Documents\Document::class)
                     <li class="nav-item">
-                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown2">
                             <ul class="navbar-nav">
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Документы
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink2">
-                                        <li><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
-                                        <li><a class="dropdown-item {{ request()->routeIs('outgoing_files.*')?'active':'' }}" href="{{ route('outgoing_files.index') }}">Исходящие</a></li>
+                                        <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
+                                        <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('outgoing_files.*')?'active':'' }}" href="{{ route('outgoing_files.index') }}">Исходящие</a></li>
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
                     </li>
-
-
-
-
                 @endcan
                 @can('viewAny', \App\Models\User::class)
                 <li class="nav-item">
@@ -47,19 +40,17 @@
                 @endcan
                 @can('viewAny', \App\Models\Admin\Admin::class)
                 <li class="nav-item">
-                    <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Админка
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="{{ route('roles.index') }}">Роли</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('user_statuses.index') }}">Статусы</a></li>
+                                    <li><a class="dropdown-item {{ request()->routeIs('roles.*')?'active':'' }}" href="{{ route('roles.index') }}">Роли</a></li>
+                                    <li><a class="dropdown-item  {{ request()->routeIs('user_statuses.*')?'active':'' }}"  href="{{ route('user_statuses.index') }}">Статусы</a></li>
                                 </ul>
                             </li>
                         </ul>
-                    </div>
                 </li>
                @endcan
             </ul>
