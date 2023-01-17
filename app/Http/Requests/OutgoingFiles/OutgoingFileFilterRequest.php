@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\OutputFiles;
+namespace App\Http\Requests\OutgoingFiles;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OutputFileFilterRequest extends FormRequest
+class OutgoingFileFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

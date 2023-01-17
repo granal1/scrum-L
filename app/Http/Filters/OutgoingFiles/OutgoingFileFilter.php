@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Filters\OutputFiles;
+namespace App\Http\Filters\OutgoingFiles;
 
 use App\Http\Filters\AbstractFilter;
 use Illuminate\Database\Eloquent\Builder;
 
-class OutputFileFilter extends AbstractFilter
+class OutgoingFileFilter extends AbstractFilter
 {
     public const SHORT_DESCRIPTION = 'short_description';
     public const PATH = 'path';

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\OutputFiles;
+namespace App\Services\OutgoingFiles;
 
 use Illuminate\Http\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;

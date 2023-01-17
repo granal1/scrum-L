@@ -24,7 +24,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink2">
                                         <li><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
-                                        <li><a class="dropdown-item {{ request()->routeIs('output_files.*')?'active':'' }}" href="{{ route('output_files.index') }}">Исходящие</a></li>
+                                        <li><a class="dropdown-item {{ request()->routeIs('outgoing_files.*')?'active':'' }}" href="{{ route('outgoing_files.index') }}">Исходящие</a></li>
                                     </ul>
                                 </li>
                             </ul>

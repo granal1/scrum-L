@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\OutputFiles;
+namespace App\Models\OutgoingFiles;
 
 use App\Models\Tasks\Task;
 use App\Models\Traits\Filterable;
@@ -9,21 +9,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class OutputFile extends Model
+class OutgoingFile extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
-    protected $table = "output_files";
+    protected $table = "outgoing_files";
 
     protected $fillable = [
         'short_description',
         'path',
         'comment',
-        'incoming_at',
-        'incoming_number',
-        'incoming_author',
-        'number',
-        'date',
+        'outgoing_at',
+        'outgoing_number',
+        'outgoing_author',
+        'number_of_source_document',
+        'date_of_source_document',
         'document_and_application_sheets',
         'file_mark',
         'author_uuid'
@@ -35,7 +35,6 @@ class OutputFile extends Model
         {
             unset($this->queryParams[$key]);
         }
-
         return $this;
     }
 

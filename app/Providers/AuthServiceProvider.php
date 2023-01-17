@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\UserStatuses\UserStatus' => 'App\Policies\UserStatuses\UserStatusPolicy',
         'App\Models\Profile\Profile' => 'App\Policies\Profile\ProfilePolicy',
         'App\Models\Tasks\Task' => 'App\Policies\Tasks\TaskPolicy',
-        'App\Models\OutputFiles\OutputFile' => 'App\Policies\OutputFiles\OutputFilePolicy',
+        'App\Models\OutgoingFiles\OutgoingFile' => 'App\Policies\OutgoingFiles\OutgoingFilePolicy',
     ];
 
     /**

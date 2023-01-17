@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('output_files', function (Blueprint $table) {
+        Schema::create('outgoing_files', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->date('incoming_at')->nullable()->default(null);
-            $table->string('incoming_number', 255)->nullable()->default(null);
-            $table->string('incoming_author', 255)->nullable()->default(null);
-            $table->string('number', 255)->nullable()->default(null);
-            $table->date('date')->nullable()->default(null);
+            $table->date('outgoing_at')->nullable()->default(null);
+            $table->string('outgoing_number', 255)->nullable()->default(null);
+            $table->string('destination', 255)->nullable()->default(null);
+            $table->string('number_of_source_document', 255)->nullable()->default(null);
+            $table->date('date_of_source_document')->nullable()->default(null);
             $table->text('short_description')->nullable()->default(null);
             $table->string('document_and_application_sheets', 6)->nullable()->default(null);
             $table->string('file_mark')->nullable()->default(null);
@@ -32,7 +32,7 @@ return new class extends Migration
             $table->foreignUuid('author_uuid');
         });
 
-        Schema::table('output_files', function($table)
+        Schema::table('outgoing_files', function($table)
         {
             $table->foreign('author_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
         });
@@ -45,10 +45,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('output_files', function (Blueprint $table) {
+        Schema::table('outgoing_files', function (Blueprint $table) {
             $table->dropForeign(['author_uuid']);
         });
 
-        Schema::dropIfExists('output_files');
+        Schema::dropIfExists('outgoing_files');
     }
 };

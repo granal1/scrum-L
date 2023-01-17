@@ -14,20 +14,20 @@
             </div>
         </div>
         @include('message')
-        <form action="{{route('output_files.store')}}" method="post" enctype="multipart/form-data">
+        <form action="{{route('outgoing_files.store')}}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="incoming_at" class="form-label">Дата исходящего:</label>
-                    <input type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
-                    @error('incoming_at')
+                    <label for="outgoing_at" class="form-label">Дата исходящего:</label>
+                    <input type="date" id="outgoing_at" name="outgoing_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
+                    @error('outgoing_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col mt-3">
-                    <label for="incoming_number" class="form-label">Номер исходящего документа</label>
-                    <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number">
-                    @error('incoming_number')
+                    <label for="outgoing_number" class="form-label">Номер исходящего документа</label>
+                    <input type="text" class="form-control form-control-sm" id="outgoing_number" placeholder="Номер" name="outgoing_number">
+                    @error('outgoing_number')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -53,25 +53,25 @@
 
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="incoming_author" class="form-label">Адресат</label>
-                    <input type="text" class="form-control form-control-sm" id="incoming_author" placeholder="Корреспондент (автор)" name="incoming_author">
-                    @error('incoming_author')
+                    <label for="destination" class="form-label">Адресат</label>
+                    <input type="text" class="form-control form-control-sm" id="destination" placeholder="Корреспондент (автор)" name="destination">
+                    @error('destination')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
             </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="number" class="form-label">Номер</label>
-                    <input type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number">
-                    @error('number')
+                    <label for="number_of_source_document" class="form-label">Номер</label>
+                    <input type="text" class="form-control form-control-sm" id="number_of_source_document" placeholder="Номер" name="number_of_source_document">
+                    @error('number_of_source_document')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col mt-3">
-                    <label for="date" class="form-label">Дата</label>
-                    <input type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата">
-                    @error('date')
+                    <label for="date_of_source_document" class="form-label">Дата</label>
+                    <input type="date" id="date_of_source_document" name="date_of_source_document" class="form-control form-select-sm" placeholder="Дата">
+                    @error('date_of_source_document')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -96,7 +96,7 @@
         </form>
     </div>
 </div>
-        <script src="{{asset('assets/output_files/create.js')}}"></script>
+        <script src="{{asset('assets/outgoing_files/create.js')}}"></script>
     @endsection
 
 
