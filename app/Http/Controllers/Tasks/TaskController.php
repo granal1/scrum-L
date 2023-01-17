@@ -149,13 +149,13 @@ class TaskController extends Controller
 
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
-
+            $data['deadline_at'] = \Illuminate\Support\Carbon::parse(\JamesMills\LaravelTimezone\Facades\Timezone::convertFromLocal($data['deadline_at']))->format('Y-m-d H:i:s');
+            
             try {
-
                 DB::beginTransaction();
 
                 $task = Task::create($data);
-
+                
                 $history = TaskHistory::create([
                     'task_uuid' => $task->id,
                     'priority_uuid' => $data['priority_uuid'],

@@ -29,7 +29,8 @@ class User extends Authenticatable
         'comment',
         'superior_uuid',
         'position',
-        'employment_at'
+        'employment_at',
+        'timezone',
     ];
 
     /**
