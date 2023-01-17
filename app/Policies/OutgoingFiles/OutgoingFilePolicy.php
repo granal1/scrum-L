@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Policies\OutputFiles;
+namespace App\Policies\OutgoingFiles;
 
 use App\Models\Documents\Document;
 use App\Models\Roles\Role;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class OutputFilePolicy
+class OutgoingFilePolicy
 {
     use HandlesAuthorization;
 
