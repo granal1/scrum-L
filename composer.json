@@ -83,7 +83,7 @@
         "sort-packages": true,
         "allow-plugins": {
             "pestphp/pest-plugin": true,
-            "treeware/plant": true
+            "treeware/plant": false
         }
     },
     "minimum-stability": "dev",
