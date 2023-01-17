@@ -33,7 +33,7 @@
                                     <th class="d-none d-md-table-cell">Корреспондент<br>(автор)</th>
                                     <th class="d-none d-md-table-cell">Номер<br>док-та</th>
                                     <th class="d-none d-md-table-cell">Дата<br>док-та</th>
-                                    <th class="d-none d-md-table-cell">Наименование или<br>краткое содержание</th>
+                                    <th>Наименование или<br>краткое содержание</th>
                                     <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
                                     <th class="d-none d-sm-table-cell">Задание (Резолюция)</th>
                                     <th class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</th>
@@ -64,7 +64,7 @@
                                         <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->number}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime($document->date)) : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
+                                        <td>{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->responsible->name : null}}</td>
@@ -75,7 +75,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="13">
                                             Нет документов
                                         </td>
                                     </tr>
