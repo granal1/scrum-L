@@ -4,25 +4,17 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\Documents\DocumentFilter;
-use App\Http\Filters\Roles\RoleFilter;
 use App\Http\Filters\Tasks\TaskFilter;
-use App\Http\Filters\Tasks\TaskHistoryFilter;
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskFile;
 use App\Models\Tasks\TaskPriority;
-use App\Http\Requests\Roles\RoleFilterRequest;
 use App\Http\Requests\Roles\StoreRoleFormRequest;
 use App\Http\Requests\Roles\UpdateRoleFormRequest;
 use App\Http\Requests\Tasks\TaskFilterRequest;
 use App\Models\Roles\Role;
 use App\Models\Tasks\Task;
-use App\Models\Tasks\TaskHistory;
-use App\Services\Tasks\TaskHistoryService;
 use App\Services\Tasks\TaskService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class SiteController extends Controller
@@ -42,9 +34,9 @@ class SiteController extends Controller
     {
         Log::info(get_class($this) . ', method: ' . __FUNCTION__,
             [
-                'user' => Auth::user()->name,
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name,
                 'request' => $request->all(),
-
             ]);
 
         $data = $request->validated();

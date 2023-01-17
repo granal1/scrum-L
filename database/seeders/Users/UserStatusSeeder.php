@@ -42,6 +42,14 @@ class UserStatusSeeder extends Seeder
                 'updated_at' => now()
             ],
             [
+                'id' => 'e4bd0e30-f978-4af7-a38e-7cfddd491e8e',
+                'name' => 'Заблокирован',
+                'alias' => 'blocked',
+                'sort_order' => 1,
+                'created_at' => now(),
+                'updated_at' => now()
+            ],
+            [
                 'id' => '7dddc9a4-7393-49dc-a600-89543a9fd4d8',
                 'name' => 'В отпуске',
                 'alias' => 'on_holiday',
