@@ -15,9 +15,25 @@
                     <a class="nav-link {{ request()->routeIs('tasks.*')?'active':'' }}" href="{{ route('tasks.index') }}">Задачи</a>
                 </li>
                 @can('viewAny', \App\Models\Documents\Document::class)
-                <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Документы</a>
-                </li>
+                    <li class="nav-item">
+                        <div class="collapse navbar-collapse" id="navbarNavDarkDropdown2">
+                            <ul class="navbar-nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Документы
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink2">
+                                        <li><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
+                                        <li><a class="dropdown-item {{ request()->routeIs('output_files.*')?'active':'' }}" href="{{ route('output_files.index') }}">Исходящие</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+
+
                 @endcan
                 @can('viewAny', \App\Models\User::class)
                 <li class="nav-item">
@@ -39,6 +55,7 @@
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="{{ route('roles.index') }}">Роли</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('user_statuses.index') }}">Статусы</a></li>
                                 </ul>
                             </li>
                         </ul>

@@ -10,6 +10,8 @@ use App\Http\Requests\Users\UpdateUserFormRequest;
 use App\Http\Requests\Users\UserFilterRequest;
 use App\Models\Profile\Profile;
 use App\Models\UserRoles\UserRole;
+use App\Models\UserStatuses\UserStatus;
+
 
 use App\Models\Roles\Role;
 use App\Models\User;
@@ -72,6 +74,7 @@ class ProfileController extends Controller
             'superiors' => User::all(),
             'subordinates' => User::where('superior_uuid', $user->id)->get(),
             'roles' => Role::all(),
+            'user_statuses' => UserStatus::all(),
         ]);
     }
 

@@ -1,29 +1,32 @@
 <?php
 
-namespace App\Models\Tasks;
+namespace App\Models\OutputFiles;
 
+use App\Models\Tasks\Task;
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TaskHistory extends Model
+class OutputFile extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
-    protected $table = "task_histories";
+    protected $table = "output_files";
 
     protected $fillable = [
-        'priority_uuid',
-        'parent_uuid',
-        'user_uuid',
-        'task_uuid',
-        'responsible_uuid',
-        'done_progress',
-        'deadline_at',
+        'short_description',
+        'path',
         'comment',
-        'sort_order',
+        'incoming_at',
+        'incoming_number',
+        'incoming_author',
+        'number',
+        'date',
+        'document_and_application_sheets',
+        'file_mark',
+        'author_uuid'
     ];
 
     protected function removeQueryParam(string ...$keys)
@@ -35,4 +38,5 @@ class TaskHistory extends Model
 
         return $this;
     }
+
 }

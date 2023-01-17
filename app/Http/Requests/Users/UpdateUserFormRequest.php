@@ -35,6 +35,7 @@ class UpdateUserFormRequest extends FormRequest
             'role_uuid.*' => ['required', 'string', 'min:36', 'max:36'],
             'employment_at' => ['nullable', 'date'],
             'position' => ['nullable', 'string', 'min:2', 'max:255'],
+            'user_status_uuid' => ['required', 'string', 'min:36', 'max:36'],
         ];
     }
 

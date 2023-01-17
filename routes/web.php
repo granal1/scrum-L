@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\AdminController as AdminController;
 use App\Http\Controllers\Roles\RoleController as RoleController;
 use App\Http\Controllers\Profile\ProfileController as ProfileController;
 use App\Http\Controllers\Site\SiteController as SiteController;
+use App\Http\Controllers\UserStatuses\UserStatusController as UserStatusController;
+use App\Http\Controllers\OutputFiles\OutputFileController as OutputFileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,8 @@ Route::middleware(['auth'])->group(function () {
         'documents' => DocumentController::class,
         'admin' => AdminController::class,
         'roles' => RoleController::class,
+        'user_statuses' => UserStatusController::class,
+        'output_files' => OutputFileController::class,
     ]);
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');

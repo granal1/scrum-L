@@ -25,6 +25,7 @@
                         <thead>
                             <tr>
                                 <td class="d-none d-md-table-cell">Uuid</td>
+                                <td class="d-none d-md-table-cell">Статус</td>
                                 <td>Имя</td>
                                 <td class="d-none d-sm-table-cell">Почта</td>
                             </tr>
@@ -44,6 +45,7 @@
                             @forelse($users as $user)
                             <tr onclick="window.location='{{ route('users.show', $user->id) }}';">
                                 <td class="d-none d-md-table-cell">{{$user->id}}</td>
+                                <td class="d-none d-md-table-cell">{{$user->status->name}}</td>
                                 <td>{{$user->name}}</td>
                                 <td class="d-none d-sm-table-cell">{{$user->email}}</td>
                             </tr>
