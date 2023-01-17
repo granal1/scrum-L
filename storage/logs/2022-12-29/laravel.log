@@ -1,0 +1,109 @@
+[2022-12-28 22:07:37] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:08:07] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:08:50] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:09:06] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:10:31] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:12:07] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:12:15] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:12:23] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:12:48] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:12:55] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:13:03] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:13:22] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:14:26] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:14:48] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:15:50] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:16:07] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:16:19] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:16:26] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:16:34] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:16:47] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:20] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:22] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:24] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:29] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:31] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:35] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:39] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:20:42] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:22:01] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:22:24] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:23:26] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:23:40] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:23:42] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:23:44] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:23:59] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:25:06] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:25:17] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:25:19] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:25:23] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:26:36] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-28 22:26:47] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 08:20:56] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 08:21:22] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 08:21:43] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 08:21:45] local.INFO: App\Http\Controllers\Tasks\TaskController, method: create {"user":"Анатолий Иванович"} 
+[2022-12-29 08:21:54] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:01] local.INFO: App\Http\Controllers\Tasks\TaskController, method: progress {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:10] local.INFO: App\Http\Controllers\Tasks\TaskController, method: progress_update {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d","request":{"_token":"laJiJISMCEWIsB1tB5ia32lL0BN0VrmAeaa75hRU","_method":"patch","comment":"В процессе подготовки","done_progress":"30"}} 
+[2022-12-29 08:22:11] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:18] local.INFO: App\Http\Controllers\Tasks\TaskController, method: progress {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:21] local.INFO: App\Http\Controllers\Tasks\TaskController, method: progress_update {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d","request":{"_token":"laJiJISMCEWIsB1tB5ia32lL0BN0VrmAeaa75hRU","_method":"patch","comment":"В процессе подготовки","done_progress":"35"}} 
+[2022-12-29 08:22:21] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:22] local.INFO: App\Http\Controllers\Tasks\TaskController, method: edit {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:32] local.INFO: App\Http\Controllers\Tasks\TaskController, method: update {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d","request":{"_token":"laJiJISMCEWIsB1tB5ia32lL0BN0VrmAeaa75hRU","_method":"patch","priority_uuid":"1a655b35-aeeb-4f54-be64-e9a8dff8c932","deadline_at":"2022-12-29T09:00","description":"Совещание","comment":"В процессе подготовки","responsible_uuid":"a9dbf6a6-0ecf-4445-b612-f720eebfaf4e","done_progress":"40","file_uuid":null}} 
+[2022-12-29 08:22:32] local.INFO: App\Http\Controllers\Tasks\TaskController, method: edit {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:35] local.INFO: App\Http\Controllers\Tasks\TaskController, method: update {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d","request":{"_token":"laJiJISMCEWIsB1tB5ia32lL0BN0VrmAeaa75hRU","_method":"patch","priority_uuid":"1a655b35-aeeb-4f54-be64-e9a8dff8c932","deadline_at":"2022-12-29T09:00","description":"Совещание","comment":"В процессе подготовки","responsible_uuid":"a9dbf6a6-0ecf-4445-b612-f720eebfaf4e","done_progress":"45","file_uuid":null}} 
+[2022-12-29 08:22:35] local.INFO: App\Http\Controllers\Tasks\TaskController, method: edit {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:22:46] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 08:23:00] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 09:23:20] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 09:23:22] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 10:13:49] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 10:14:01] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Анатолий Иванович"} 
+[2022-12-29 10:14:08] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:42:26] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:42:54] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:42:57] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:43:00] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:43:07] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e4be-f5c4-445d-82bf-ce56b13f182e"} 
+[2022-12-29 13:43:20] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:49:17] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:49:23] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 13:49:26] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e9b2-617c-4ddd-ae4f-7c1450e1dea1"} 
+[2022-12-29 13:49:30] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816f1f7-7aca-48ef-a10a-64f509cdf73c"} 
+[2022-12-29 13:49:48] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Анатолий Иванович"} 
+[2022-12-29 13:49:55] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-29 13:49:57] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e788-b0eb-4328-90fe-c0be8d896b8d"} 
+[2022-12-29 13:49:59] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Анатолий Иванович"} 
+[2022-12-29 13:51:03] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:51:06] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:51:15] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:51:21] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:51:23] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:51:32] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:51:39] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:51:41] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:51:51] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":{"name":"Генн","email":null}} 
+[2022-12-29 13:51:53] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:53:39] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:53:47] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:53:53] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:53:56] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:54:05] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":{"name":"Генн","email":null}} 
+[2022-12-29 13:54:07] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:55:07] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:55:13] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":{"name":"валент","email":null}} 
+[2022-12-29 13:55:18] local.INFO: App\Http\Controllers\Users\UserController, method: show {"user":"Админ"} 
+[2022-12-29 13:56:54] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:28] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:30] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:30] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:32] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:35] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:36] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:38] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:39] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:43] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:45] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2022-12-29 13:59:45] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 

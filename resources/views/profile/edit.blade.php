@@ -17,16 +17,32 @@
         <form action="{{route('profile.update', $user)}}" method="post">
             @csrf
             @method('patch')
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
+            <div class="row row-cols-1 row-cols-md-3 mb-3">
                 <div class="col">
-                    <label for="name" class="form-label">Ф.И.О.</label>
+                    <label for="name" class="form-label">Ф.И.О.<span class="text-danger"><b>*</b></span></label>
                     <input required type="text" class="form-control form-control-sm" id="name" placeholder="Введите Фамилия Имя Отчество" name="name" value="{{$user->name}}">
                     @error('name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col">
-                    <label for="role_uuid" class="form-label form-label-sm">Роли:</label>
+                    <label class="form-label form-label-sm">Статус<span class="text-danger"><b>*</b></span></label>
+                    <select disabled name="user_status_uuid" class="form-select form-select-sm">
+                        @forelse($user_statuses as $user_status)
+                            <option @if($user->status->id === $user_status->id)
+                                        selected
+                                    @endif
+                                    value="{{$user_status->id}}">{{$user_status->name}}</option>
+                        @empty
+                            <option value="">Нет статусов</option>
+                        @endforelse
+                    </select>
+                    @error('user_status_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col">
+                    <label for="role_uuid" class="form-label form-label-sm">Роли:<span class="text-danger"><b>*</b></span></label>
                     <select disabled name="role_uuid" class="form-select form-select-sm">
                         <option value="">Выберите роль ...</option>
                         @if(isset($user->roles->first()->id))
@@ -74,7 +90,7 @@
                     @enderror
                 </div>
                 <div class="col">
-                    <label for="email"  class="form-label">Адрес электронной почты:</label>
+                    <label for="email"  class="form-label">Адрес электронной почты:<span class="text-danger"><b>*</b></span></label>
                     <input required type="email" id="email" name="email" class="form-control" value="{{$user->email}}">
                     @error('email')
                     <div class="text-danger">{{$message}}</div>
