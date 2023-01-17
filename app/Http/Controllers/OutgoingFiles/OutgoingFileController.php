@@ -104,7 +104,13 @@ class OutgoingFileController extends Controller
                     $outgoing_file->document_and_application_sheets = $data['document_and_application_sheets'];
                     $outgoing_file->author_uuid = Auth::id();
 
+                    // Parse PDF file and build necessary objects.
+                    $parser = new \Smalot\PdfParser\Parser();
+                    $pdf = $parser->parseFile($request->file('file'));
+                    $outgoing_file->content = $pdf->getText();
+
                     $outgoing_file->save();
+
                 }
 
                 DB::commit();

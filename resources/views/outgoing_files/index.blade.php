@@ -38,6 +38,7 @@
                                 <th class="d-none d-md-table-cell">Номер<br>док-та</th>
                                 <th class="d-none d-md-table-cell">Дата<br>док-та</th>
                                 <th>Наименование или<br>краткое содержание</th>
+                                <th class="d-none d-md-table-cell">Полное содержание</th>
                                 <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
                                 <th class="d-none d-sm-table-cell">Место<br>подшивки</th>
                             </tr>
@@ -58,6 +59,13 @@
                                                name="short_description"
                                                onchange="this.form.submit()">
                                     </td>
+                                    <td>
+                                        <input type="search"
+                                               value="@if(isset($old_filters['content'])){{$old_filters['content']}}@endif"
+                                               class="form-control form-control-sm" id="content"
+                                               name="content"
+                                               onchange="this.form.submit()">
+                                    </td>
                                     <td colspan="7"></td>
                                 </form>
                             </tr>
@@ -69,6 +77,7 @@
                                     <td class="d-none d-md-table-cell">{{$output_file->number_of_source_document}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->date_of_source_document ? date('d.m.Y', strtotime($output_file->date_of_source_document)) : null}}</td>
                                     <td>{{$output_file->short_description}}</td>
+                                    <td>{{Str::limit($output_file->content, 30)}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->document_and_application_sheets}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->file_mark}}</td>
                                 </tr>
