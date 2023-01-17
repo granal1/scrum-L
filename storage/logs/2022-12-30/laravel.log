@@ -1,0 +1,4 @@
+[2022-12-30 10:56:56] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2022-12-30 10:57:10] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Анатолий Иванович","request":[]} 
+[2022-12-30 10:57:14] local.INFO: App\Http\Controllers\Tasks\TaskController, method: show {"user":"Анатолий Иванович","task":"9816e4be-f5c4-445d-82bf-ce56b13f182e"} 
+[2022-12-30 10:57:16] local.INFO: App\Http\Controllers\Tasks\TaskController, method: progress {"user":"Анатолий Иванович","task":"9816e4be-f5c4-445d-82bf-ce56b13f182e"} 

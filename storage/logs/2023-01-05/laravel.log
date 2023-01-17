@@ -1,0 +1,4 @@
+[2023-01-05 10:47:30] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2023-01-05 13:33:04] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2023-01-05 13:33:09] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
+[2023-01-05 13:35:34] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
