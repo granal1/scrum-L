@@ -29,7 +29,8 @@ class StoreTaskFormRequest extends FormRequest
             'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'parent_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
-            'file_uuid' => ['nullable', 'string', 'min:36', 'max:36']
+            'file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'timeZoneOffset' => ['nullable', 'string'],
         ];
     }
 

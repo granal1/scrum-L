@@ -142,6 +142,11 @@ class TaskController extends Controller
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
 
+            $request->session()->put('timezone', $data['timeZoneOffset']); //запись в сессию для последующего использования
+            $deadline_at = date_create($data['deadline_at']);
+            $timeZoneOffset = $data['timeZoneOffset'];
+            $data['deadline_at'] = date_modify($deadline_at, "$timeZoneOffset minutes"); //перевод в UTC+0
+
             try {
 
                 DB::beginTransaction();

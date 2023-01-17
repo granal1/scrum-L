@@ -76,6 +76,9 @@
                     @enderror
                 </div>
             </div>
+            <div>
+                <input  value="" type="text" id="timeZoneOffset" name="timeZoneOffset">
+            </div>
 
             <div class="row mt-5 mb-4">
                 <div class="col">
@@ -88,6 +91,9 @@
         </form>
     </div>
 </div>
+<script>
+    document.getElementById('timeZoneOffset').value = new Date().getTimezoneOffset();
+</script>
     @endsection
 
 
