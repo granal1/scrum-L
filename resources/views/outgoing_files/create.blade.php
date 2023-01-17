@@ -18,6 +18,22 @@
             @csrf
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
+                    <label for="date_of_source_document" class="form-label">Дата документа входящего</label>
+                    <input type="date" id="date_of_source_document" name="date_of_source_document" class="form-control form-select-sm" placeholder="Дата">
+                    @error('date_of_source_document')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mt-3">
+                    <label for="number_of_source_document" class="form-label">Номер документа входящего</label>
+                    <input type="text" class="form-control form-control-sm" id="number_of_source_document" placeholder="Номер" name="number_of_source_document">
+                    @error('number_of_source_document')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col mt-3">
                     <label for="outgoing_at" class="form-label">Дата исходящего:</label>
                     <input type="date" id="outgoing_at" name="outgoing_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
                     @error('outgoing_at')
@@ -54,32 +70,16 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="destination" class="form-label">Адресат</label>
-                    <input type="text" class="form-control form-control-sm" id="destination" placeholder="Корреспондент (автор)" name="destination">
+                    <input type="text" class="form-control form-control-sm" id="destination" placeholder="Адресат" name="destination">
                     @error('destination')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2">
-                <div class="col mt-3">
-                    <label for="number_of_source_document" class="form-label">Номер</label>
-                    <input type="text" class="form-control form-control-sm" id="number_of_source_document" placeholder="Номер" name="number_of_source_document">
-                    @error('number_of_source_document')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-                <div class="col mt-3">
-                    <label for="date_of_source_document" class="form-label">Дата</label>
-                    <input type="date" id="date_of_source_document" name="date_of_source_document" class="form-control form-select-sm" placeholder="Дата">
-                    @error('date_of_source_document')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="document_and_application_sheets" class="form-label">Количество листов документа, включая приложение</label>
-                    <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="укажите количество листов" name="document_and_application_sheets">
+                    <label for="document_and_application_sheets" class="form-label">Количество листов исходящего документа, включая приложение</label>
+                    <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="Укажите количество листов" name="document_and_application_sheets">
                     @error('document_and_application_sheets')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

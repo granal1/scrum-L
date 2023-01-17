@@ -770,3 +770,14 @@ Stack trace:
 #50 {main}  
 [2023-01-17 09:15:28] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
 [2023-01-17 09:15:30] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:17:48] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:21:58] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:22:15] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:26:38] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
+[2023-01-17 13:26:39] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:27:18] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:27:21] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:27:22] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
+[2023-01-17 13:27:27] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
+[2023-01-17 13:27:29] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Админ"} 
+[2023-01-17 13:27:36] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
