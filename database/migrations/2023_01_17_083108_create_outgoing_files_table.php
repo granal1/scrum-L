@@ -31,10 +31,12 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->foreignUuid('author_uuid');
+            $table->foreignUuid('executor_uuid');
         });
 
         Schema::table('outgoing_files', function($table)
         {
+            $table->foreign('executor_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
             $table->foreign('author_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
         });
     }
@@ -47,6 +49,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('outgoing_files', function (Blueprint $table) {
+            $table->dropForeign(['executor_uuid']);
             $table->dropForeign(['author_uuid']);
             $table->dropFullText('content');
         });
