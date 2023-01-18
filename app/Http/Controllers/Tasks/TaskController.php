@@ -10,6 +10,7 @@ use App\Services\Tasks\TaskService;
 use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
 
 use App\Models\Documents\Document;
+use App\Models\OutgoingFiles\OutgoingFile;
 
 use App\Models\Tasks\
 {
@@ -332,6 +333,7 @@ class TaskController extends Controller
             'priorities' => TaskPriority::all(),
             'users' => User::all(),
             'documents' => Document::all(),
+            'outgoing_documents' => OutgoingFile::where('executor_uuid', Auth::id())->get(),
         ]);
     }
 
@@ -375,6 +377,17 @@ class TaskController extends Controller
                             'executed_at' => date('Y-m-d H:i:s')
                         ]);
                     }
+
+                    $task_files = TaskFile::where('task_uuid', $task->id)->get();
+
+                    if($task_files)
+                    {
+                        foreach($task_files as $task_file)
+                            $task_file->update([
+                            'outgoing_file_uuid' => $data['outgoing_file_uuid'],
+                        ]);
+                    }
+
                 }
 
                 DB::commit();

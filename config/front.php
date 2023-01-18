@@ -15,5 +15,8 @@ return [
     ],
     'user_statuses' => [
         'pagination' => 5
+    ],
+    'outgoing_files' => [
+        'pagination' => 5
     ]
 ];

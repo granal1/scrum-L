@@ -3,6 +3,7 @@
 namespace App\Models\Tasks;
 
 use App\Models\Documents\Document;
+use App\Models\OutgoingFiles\OutgoingFile;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -64,6 +65,16 @@ class Task extends Model
             'task_files',
             'task_uuid',
             'file_uuid'
+        )->wherePivot('deleted_at', null);
+    }
+
+    public function outgoing_documents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            OutgoingFile::class,
+            'task_files',
+            'task_uuid',
+            'outgoing_file_uuid'
         )->wherePivot('deleted_at', null);
     }
 

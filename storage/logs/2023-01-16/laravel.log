@@ -1,7 +1,0 @@
-[2023-01-17 06:27:31] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 07:28:25] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 07:28:27] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 07:29:21] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 07:32:09] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 07:32:10] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 07:32:11] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 

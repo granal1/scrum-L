@@ -97,6 +97,22 @@
                     @enderror
                 </div>
             </div>
+            <div id="outgoing_files_block" class="row row-cols-1 mb-3 d-none">
+                <div class="col mt-3">
+                    <label for="outgoing_file_uuid">Приложение исходящее</label>
+                    <select class="form-select form-select-sm" name="outgoing_file_uuid">
+                        <option value="">Выберите документ ...</option>
+                        @forelse($outgoing_documents as $outgoing_document)
+                            <option value="{{$outgoing_document->id}}">{{$outgoing_document->short_description}}</option>
+                        @empty
+                            <option value="">Нет документов</option>
+                        @endforelse
+                    </select>
+                    @error('outgoing_file_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-2 mb-4 mt-3">
                 <div class="col mt-3">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
