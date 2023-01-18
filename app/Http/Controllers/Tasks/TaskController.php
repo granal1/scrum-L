@@ -64,8 +64,6 @@ class TaskController extends Controller
         $tasks = Task::filter($filter)
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
-//dd(date_default_timezone_get());
-
 
         return view('tasks.index',[
             'tasks' => $tasks,
