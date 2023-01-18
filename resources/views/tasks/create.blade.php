@@ -76,10 +76,6 @@
                     @enderror
                 </div>
             </div>
-            <div>
-                <input  value="" type="text" id="timeZoneOffset" name="timeZoneOffset">
-            </div>
-
             <div class="row mt-5 mb-4">
                 <div class="col">
                     <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back(); return false;">Назад</button>
@@ -91,9 +87,6 @@
         </form>
     </div>
 </div>
-<script>
-    document.getElementById('timeZoneOffset').value = new Date().getTimezoneOffset();
-</script>
     @endsection
 
 

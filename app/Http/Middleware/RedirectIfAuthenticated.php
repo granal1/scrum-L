@@ -19,6 +19,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+        $request->session()->put('timezone', $request->get('timeZoneOffset')); //TODO ВНИМАНИЕ! Авторская правка. Запись в сессию часового пояса при входе на сайт.
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

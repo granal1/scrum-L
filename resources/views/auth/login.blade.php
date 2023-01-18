@@ -54,6 +54,9 @@
                                     </button>
                                 </div>
                             </div>
+                            <div>
+                                <input  value="" hidden type="text" id="timeZoneOffset" name="timeZoneOffset">
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -61,4 +64,7 @@
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('timeZoneOffset').value = new Date().getTimezoneOffset();
+</script>
 @endsection
