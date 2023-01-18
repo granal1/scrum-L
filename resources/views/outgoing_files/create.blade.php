@@ -72,9 +72,9 @@
                     <input  list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name">
                     <datalist id="executors_list">
                         @forelse($users as $user)
-                            <option value="{{$user->name}}">
+                            <option value="{{$user->name}}"></option>
                         @empty
-                            <option value="Нет исполнителей">
+                            <option value="Нет исполнителей"></option>
                         @endforelse
                     </datalist>
                     @error('executor_uuid')
