@@ -60,11 +60,23 @@
                 <textarea class="form-control form-control-sm" name="report" id="report" disabled>{{$task->report}}</textarea>
             </div>
            @endif
+        </div>
+        <div class="row pt-3 row-cols-1 row-cols-md-2">
             <div class="col">
-                <label for="file_uuid" class="form-label">Приложение</label>
+                <label for="file_uuid" class="form-label">Приложения входящие</label>
                 <ul>
                     @forelse($task->documents as $document)
                         <li class="text-decoration-none"><a href="{{'/storage/' . $document->path}}" target="_blank">{{$document->short_description}}</a></li>
+                    @empty
+                        <p>Нет приложений</p>
+                    @endforelse
+                </ul>
+            </div>
+            <div class="col">
+                <label for="file_uuid" class="form-label">Приложения исходящие</label>
+                <ul>
+                    @forelse($task->outgoing_documents as $outgoing_document)
+                        <li class="text-decoration-none"><a href="{{'/storage/' . $outgoing_document->path}}" target="_blank">{{$outgoing_document->short_description}}</a></li>
                     @empty
                         <p>Нет приложений</p>
                     @endforelse

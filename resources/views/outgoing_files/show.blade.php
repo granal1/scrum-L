@@ -73,6 +73,17 @@
         </div>
         <div class="row row-cols-1">
             <div class="col mt-3">
+                <label for="executor_uuid" class="form-label">Исполнитель</label>
+                <input readonly disabled type="text" class="form-control form-control-sm" id="executor_uuid"
+                       placeholder="Исполнитель" name="executor_uuid"
+                       value="{{$output_file->executor->name}}">
+                @error('executor_uuid')
+                <div class="text-danger">{{$message}}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="row row-cols-1">
+            <div class="col mt-3">
                 <label for="destination" class="form-label">Адресат</label>
                 <input readonly disabled type="text" class="form-control form-control-sm" id="destination"
                        placeholder="Корреспондент (автор)" name="destination"

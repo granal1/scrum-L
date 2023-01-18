@@ -32,6 +32,7 @@ class UpdateOutgoingFileFormRequest extends FormRequest
             'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
             'file_mark' => ['nullable', 'string', 'min:2', 'max:255'],
             'short_description' => ['required', 'string', 'min:1', 'max:255'],
+            'executor_name' => ['required', 'string', 'min:2', 'max:100'],
         ];
     }
 

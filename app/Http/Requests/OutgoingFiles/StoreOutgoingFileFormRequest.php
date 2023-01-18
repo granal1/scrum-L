@@ -32,6 +32,7 @@ class StoreOutgoingFileFormRequest extends FormRequest
             'number_of_source_document' => ['nullable', 'string', 'min:1', 'max:255'],
             'date_of_source_document' => ['nullable', 'date'],
             'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
+            'executor_name' => ['required', 'string', 'min:2', 'max:100'],
         ];
     }
 

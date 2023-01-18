@@ -89,6 +89,8 @@ class OutgoingFileController extends Controller
 
                 DB::beginTransaction();
 
+                $data['executor_uuid'] = User::where('name', 'like', $data['executor_name'])->pluck('id')->first();
+
                 $outgoing_file = new OutgoingFile();
 
                 if ($request->hasFile('file')) {
@@ -103,8 +105,10 @@ class OutgoingFileController extends Controller
                     $outgoing_file->date_of_source_document = $data['date_of_source_document'];
                     $outgoing_file->document_and_application_sheets = $data['document_and_application_sheets'];
                     $outgoing_file->author_uuid = Auth::id();
+                    $outgoing_file->executor_uuid = $data['executor_uuid'];
 
                     // Parse PDF file and build necessary objects.
+                    set_time_limit(180);
                     $parser = new \Smalot\PdfParser\Parser();
                     $pdf = $parser->parseFile($request->file('file'));
                     $outgoing_file->content = $pdf->getText();

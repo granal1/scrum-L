@@ -66,8 +66,21 @@
                     @enderror
                 </div>
             </div>
-
             <div class="row row-cols-1">
+                <div class="col mt-3">
+                    <label for="executor_name" class="form-label">Исполнитель задачи</label>
+                    <input  list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name">
+                    <datalist id="executors_list">
+                        @forelse($users as $user)
+                            <option value="{{$user->name}}"></option>
+                        @empty
+                            <option value="Нет исполнителей"></option>
+                        @endforelse
+                    </datalist>
+                    @error('executor_uuid')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
                 <div class="col mt-3">
                     <label for="destination" class="form-label">Адресат</label>
                     <input type="text" class="form-control form-control-sm" id="destination" placeholder="Адресат" name="destination">

@@ -4,6 +4,7 @@ namespace App\Models\OutgoingFiles;
 
 use App\Models\Tasks\Task;
 use App\Models\Traits\Filterable;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,8 +27,14 @@ class OutgoingFile extends Model
         'date_of_source_document',
         'document_and_application_sheets',
         'file_mark',
-        'author_uuid'
+        'author_uuid',
+        'executor_uuid',
     ];
+
+    public function executor()
+    {
+        return $this->belongsTo(User::class, 'executor_uuid');
+    }
 
     protected function removeQueryParam(string ...$keys)
     {

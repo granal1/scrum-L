@@ -18,8 +18,8 @@ return new class extends Migration
 
             $table->foreignUuid('task_uuid');
             $table->foreignUuid('file_uuid');
-//            $table->foreignUuid('output_file_uuid');
-// TODO Раскомментировать (3 места), когда будет сделана таблица output_files
+
+            $table->string('outgoing_file_uuid', 36)->nullable()->default(null);
 
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->nullable()->default(1);
@@ -31,8 +31,6 @@ return new class extends Migration
         {
             $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('no action');
             $table->foreign('file_uuid')->references('id')->on('files')->onupdate('cascade')->ondelete('no action');
-//            $table->foreign('output_file_uuid')->references('id')->on('output_files')->onupdate('cascade')->ondelete('no action');
-
         });
     }
 
@@ -46,7 +44,6 @@ return new class extends Migration
         Schema::table('task_files', function (Blueprint $table) {
             $table->dropForeign(['file_uuid']);
             $table->dropForeign(['task_uuid']);
-//            $table->dropForeign(['output_file_uuid']);
         });
 
         Schema::dropIfExists('task_files');
