@@ -108,6 +108,7 @@ class OutgoingFileController extends Controller
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
 
                     // Parse PDF file and build necessary objects.
+                    set_time_limit(180);
                     $parser = new \Smalot\PdfParser\Parser();
                     $pdf = $parser->parseFile($request->file('file'));
                     $outgoing_file->content = $pdf->getText();
