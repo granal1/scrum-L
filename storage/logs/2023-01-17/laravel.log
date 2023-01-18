@@ -1,5 +1,5 @@
-[2023-01-17 08:56:37] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 09:00:17] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
+[2023-01-17 08:56:37] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 09:00:17] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
 [2023-01-17 09:00:17] local.ERROR: Route [output_files.index] not defined. {"view":{"view":"D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\resources\\views\\menu.blade.php","data":[]},"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Route [output_files.index] not defined. at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\UrlGenerator.php:467)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\helpers.php(822): Illuminate\\Routing\\UrlGenerator->route()
@@ -133,9 +133,9 @@
 #61 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #62 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #63 {main}
-"} 
-[2023-01-17 09:00:36] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 09:02:30] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
+"}
+[2023-01-17 09:00:36] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 09:02:30] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
 [2023-01-17 09:02:32] local.ERROR: Class "App\Http\Requests\OutputFiles\OutputFileFilterRequest" does not exist {"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (ReflectionException(code: -1): Class \"App\\Http\\Requests\\OutputFiles\\OutputFileFilterRequest\" does not exist at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteDependencyResolverTrait.php:81)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\RouteDependencyResolverTrait.php(81): ReflectionClass->__construct()
@@ -190,8 +190,8 @@
 #49 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #50 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #51 {main}
-"} 
-[2023-01-17 09:05:33] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
+"}
+[2023-01-17 09:05:33] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]}
 [2023-01-17 09:05:33] local.ERROR: Class "App\Models\OutputFiles\OutputFile" not found {"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (Error(code: 0): Class \"App\\Models\\OutputFiles\\OutputFile\" not found at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\app\\Http\\Controllers\\OutputFiles\\OutputFileController.php:51)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Controller.php(54): App\\Http\\Controllers\\OutputFiles\\OutputFileController->index()
@@ -243,8 +243,8 @@
 #46 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #47 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #48 {main}
-"} 
-[2023-01-17 09:06:34] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
+"}
+[2023-01-17 09:06:34] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]}
 [2023-01-17 09:06:34] local.ERROR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'scrum.output_files' doesn't exist (SQL: select count(*) as aggregate from `output_files` where `output_files`.`deleted_at` is null) {"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (Illuminate\\Database\\QueryException(code: 42S02): SQLSTATE[42S02]: Base table or view not found: 1146 Table 'scrum.output_files' doesn't exist (SQL: select count(*) as aggregate from `output_files` where `output_files`.`deleted_at` is null) at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -370,7 +370,7 @@
 #58 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #59 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #60 {main}
-"} 
+"}
 [2023-01-17 09:07:04] local.ERROR: SQLSTATE[HY000]: General error: 1005 Can't create table `scrum`.`files` (errno: 121 "Duplicate key on write or update") (SQL: alter table `files` add constraint `files_author_uuid_foreign` foreign key (`author_uuid`) references `users` (`id`)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: HY000): SQLSTATE[HY000]: General error: 1005 Can't create table `scrum`.`files` (errno: 121 \"Duplicate key on write or update\") (SQL: alter table `files` add constraint `files_author_uuid_foreign` foreign key (`author_uuid`) references `users` (`id`)) at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -468,9 +468,9 @@
 #44 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run()
 #45 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
 #46 {main}
-"} 
-[2023-01-17 09:09:13] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 09:09:38] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
+"}
+[2023-01-17 09:09:13] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 09:09:38] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]}
 [2023-01-17 09:11:38] local.ERROR: Undefined variable $output_file {"view":{"view":"D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\resources\\views\\output_files\\show.blade.php","data":[]},"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined variable $output_file at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\storage\\framework\\views\\e0f1da29d7d8743d64f7ecbfa23cfe2dd3a06460.php:18)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(266): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
@@ -592,7 +592,7 @@
 #55 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #56 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #57 {main}
-"} 
+"}
 [2023-01-17 09:13:20] local.ERROR: Undefined variable $output_file {"view":{"view":"D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\resources\\views\\output_files\\edit.blade.php","data":[]},"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (Spatie\\LaravelIgnition\\Exceptions\\ViewException(code: 0): Undefined variable $output_file at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\storage\\framework\\views\\17565ff74a8eb91b6e0e0920ae0b4e07cd5f6018.php:10)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Bootstrap\\HandleExceptions.php(266): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError()
@@ -714,7 +714,7 @@
 #55 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #56 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #57 {main}
-"} 
+"}
 [2023-01-17 09:14:13] local.ERROR: ErrorException: Undefined array key "OutputFile_and_application_sheets" in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\app\Http\Controllers\OutputFiles\OutputFileController.php:174
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -767,35 +767,39 @@ Stack trace:
 #47 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #48 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#50 {main}  
-[2023-01-17 09:15:28] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 09:15:30] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:17:48] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:21:58] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:22:15] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:26:38] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 13:26:39] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:27:18] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:27:21] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:27:22] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 13:27:27] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:27:29] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Админ"} 
-[2023-01-17 13:27:36] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 13:29:46] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:30:57] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:32:41] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:32:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:32:54] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:33:58] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:34:23] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:34:42] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:34:48] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:37] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:39] local.INFO: App\Http\Controllers\UserStatuses\UserStatusController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:41] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:43] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:45] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 13:35:46] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
+#50 {main}
+[2023-01-17 09:15:28] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 09:15:30] local.INFO: App\Http\Controllers\OutputFiles\OutputFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:17:48] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:21:58] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:22:15] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:26:38] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 13:26:39] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:27:18] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:27:21] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:27:22] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 13:27:27] local.INFO: App\Http\Controllers\Users\UserController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:27:29] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Админ"}
+[2023-01-17 13:27:36] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 13:29:46] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:30:57] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:32:41] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:32:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:32:54] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:33:58] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:34:23] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:34:42] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:34:48] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:37] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:39] local.INFO: App\Http\Controllers\UserStatuses\UserStatusController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:41] local.INFO: App\Http\Controllers\Roles\RoleController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:43] local.INFO: App\Http\Controllers\Documents\DocumentController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:45] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:35:46] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 13:36:47] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 13:36:48] local.INFO: App\Http\Controllers\Tasks\TaskController, method: index {"user":"Админ","request":[]}
+[2023-01-17 13:36:56] local.INFO: App\Http\Controllers\Profile\ProfileController, method: show {"user":"Админ"}
+[2023-01-17 13:36:59] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
 [2023-01-17 18:21:38] local.ERROR: SQLSTATE[42000]: Syntax error or access violation: 1072 Key column 'content' doesn't exist in table (SQL: alter table `outgoing_files` add fulltext `outgoing_files_content_fulltext`(`content`)) {"exception":"[object] (Illuminate\\Database\\QueryException(code: 42000): SQLSTATE[42000]: Syntax error or access violation: 1072 Key column 'content' doesn't exist in table (SQL: alter table `outgoing_files` add fulltext `outgoing_files_content_fulltext`(`content`)) at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:760)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php(720): Illuminate\\Database\\Connection->runQueryCallback()
@@ -893,9 +897,9 @@ Stack trace:
 #44 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(155): Illuminate\\Console\\Application->run()
 #45 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\artisan(37): Illuminate\\Foundation\\Console\\Kernel->handle()
 #46 {main}
-"} 
-[2023-01-17 18:27:19] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 
-[2023-01-17 18:27:22] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
+"}
+[2023-01-17 18:27:19] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]}
+[2023-01-17 18:27:22] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
 [2023-01-17 18:27:43] local.ERROR: ErrorException: file_get_contents(files/output_files/2023/01/17/20230117-182743.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -950,7 +954,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:28:58] local.ERROR: ErrorException: file_get_contents(/storage/files/output_files/2023/01/17/20230117-182858.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1005,7 +1009,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:34:00] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\files/output_files/2023/01/17/20230117-183400.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1060,7 +1064,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:35:38] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\files/output_files/2023/01/17/20230117-183538.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1115,7 +1119,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:36:25] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\files/output_files/2023/01/17/20230117-183625.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1170,7 +1174,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:37:35] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\publicfiles/output_files/2023/01/17/20230117-183735.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1225,7 +1229,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:38:19] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public/files/output_files/2023/01/17/20230117-183819.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1280,7 +1284,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:38:26] local.ERROR: ErrorException: file_get_contents(D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public/files/output_files/2023/01/17/20230117-183826.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1335,7 +1339,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:38:59] local.ERROR: ErrorException: file_get_contents(/storage/files/output_files/2023/01/17/20230117-183859.pdf): Failed to open stream: No such file or directory in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\smalot\pdfparser\src\Smalot\PdfParser\Parser.php:79
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Bootstrap\HandleExceptions.php(266): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError()
@@ -1390,7 +1394,7 @@ Stack trace:
 #49 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #50 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #51 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#52 {main}  
+#52 {main}
 [2023-01-17 18:42:21] local.ERROR: League\Flysystem\PathTraversalDetected: Path traversal detected: ../storage/files/output_files/2023/01/17/20230117-184221.pdf in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\league\flysystem\src\PathTraversalDetected.php:20
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\league\flysystem\src\WhitespacePathNormalizer.php(36): League\Flysystem\PathTraversalDetected::forPath()
@@ -1448,7 +1452,7 @@ Stack trace:
 #52 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #53 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #54 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#55 {main}  
+#55 {main}
 [2023-01-17 18:42:29] local.ERROR: League\Flysystem\PathTraversalDetected: Path traversal detected: ../storage/files/output_files/2023/01/17/20230117-184229.pdf in D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\league\flysystem\src\PathTraversalDetected.php:20
 Stack trace:
 #0 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\league\flysystem\src\WhitespacePathNormalizer.php(36): League\Flysystem\PathTraversalDetected::forPath()
@@ -1506,7 +1510,7 @@ Stack trace:
 #52 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(165): Illuminate\Pipeline\Pipeline->then()
 #53 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(134): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter()
 #54 D:\PortableSoft\OpenServer_5_4_2\domains\scrum-L\public\index.php(52): Illuminate\Foundation\Http\Kernel->handle()
-#55 {main}  
+#55 {main}
 [2023-01-17 18:49:08] local.ERROR: file_get_contents(): Argument #1 ($filename) must not contain any null bytes {"userId":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","exception":"[object] (ValueError(code: 0): file_get_contents(): Argument #1 ($filename) must not contain any null bytes at D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\smalot\\pdfparser\\src\\Smalot\\PdfParser\\Parser.php:79)
 [stacktrace]
 #0 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\smalot\\pdfparser\\src\\Smalot\\PdfParser\\Parser.php(79): file_get_contents()
@@ -1560,31 +1564,32 @@ Stack trace:
 #48 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php(134): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter()
 #49 D:\\PortableSoft\\OpenServer_5_4_2\\domains\\scrum-L\\public\\index.php(52): Illuminate\\Foundation\\Http\\Kernel->handle()
 #50 {main}
-"} 
-[2023-01-17 18:55:46] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 18:58:10] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 18:59:54] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:00:47] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:00:59] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:01:16] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:02:00] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:02:06] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}} 
-[2023-01-17 19:03:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}} 
-[2023-01-17 19:03:54] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}} 
-[2023-01-17 19:03:57] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:04:03] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:04:16] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:04:18] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:04:23] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:04:38] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:05:36] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:05:39] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:06:00] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:06:02] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}} 
-[2023-01-17 19:06:34] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"по  SQL,  но  в  этой  книге  вы  получите"}} 
-[2023-01-17 19:07:18] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:07:25] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"по  SQL,  но  в  этой  книге  вы  получите"}} 
-[2023-01-17 19:07:50] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:07:55] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"142300, Московская область, г. Чехов, ул. Полиграфис"}} 
-[2023-01-17 19:12:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]} 
-[2023-01-17 19:12:57] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ем  их  для  упорядочивания  наборов  данных,"}} 
+"}
+[2023-01-17 18:55:46] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 18:58:10] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 18:59:54] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:00:47] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:00:59] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:01:16] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:02:00] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:02:06] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}}
+[2023-01-17 19:03:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}}
+[2023-01-17 19:03:54] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"sdf"}}
+[2023-01-17 19:03:57] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:04:03] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:04:16] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:04:18] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:04:23] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:04:38] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:05:36] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:05:39] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:06:00] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:06:02] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ББК"}}
+[2023-01-17 19:06:34] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"по  SQL,  но  в  этой  книге  вы  получите"}}
+[2023-01-17 19:07:18] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:07:25] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"по  SQL,  но  в  этой  книге  вы  получите"}}
+[2023-01-17 19:07:50] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:07:55] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"142300, Московская область, г. Чехов, ул. Полиграфис"}}
+[2023-01-17 19:12:52] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":[]}
+[2023-01-17 19:12:57] local.INFO: App\Http\Controllers\OutgoingFiles\OutgoingFileController, method: index {"user":"Админ","request":{"short_description":null,"content":"ем  их  для  упорядочивания  наборов  данных,"}}
+[2023-01-18 07:39:29] local.INFO: App\Http\Controllers\Site\SiteController, method: index {"user_id":"cabb4d3b-38d7-4ed0-904d-cd2797aab70a","user_name":"Админ","request":[]} 

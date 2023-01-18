@@ -34,6 +34,8 @@ class OutgoingFileFilter extends AbstractFilter
 
     public function content(Builder $builder, $value)
     {
-        $builder->where('content', 'like', "%" . $value . "%");
+        //$builder->where('content', 'like', "%" . $value . "%");
+
+        $builder->whereRaw("MATCH(content) AGAINST('" . $value . "')");
     }
 }
