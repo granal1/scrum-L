@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('path', 255);
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);
+            $table->longText('content')->fullText()->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 
@@ -47,6 +48,7 @@ return new class extends Migration
     {
         Schema::table('outgoing_files', function (Blueprint $table) {
             $table->dropForeign(['author_uuid']);
+            $table->dropFullText('content');
         });
 
         Schema::dropIfExists('outgoing_files');

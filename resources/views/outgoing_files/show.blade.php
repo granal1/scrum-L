@@ -104,6 +104,12 @@
                 @enderror
             </div>
         </div>
+        <div class="row row-cols-1 mt-3">
+            <div class="col">
+                <label for="content">Содержание</label>
+                <textarea rows="20" class="form-control form-control-sm" name="content" id="content" disabled>{{$output_file->content}}</textarea>
+            </div>
+        </div>
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <button class="btn btn-sm btn-success col-12" onclick="javascript:history.back(); return false;">Назад
