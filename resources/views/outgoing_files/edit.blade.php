@@ -17,11 +17,22 @@
                     <h5>Редактирование исходящего документа</h5>
                 </div>
             </div>
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="path">Путь</label>
+                    <label for="path">Документ</label>
                     <input disabled readonly class="form-control form-control-sm" name="path" id="path" value="{{$output_file->path}}">
                     @error('file')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mt-3">
+                    <label for="archive_path">Архив</label>
+                    @if(!empty($output_file->archive_path))
+                        <input disabled readonly class="form-control form-control-sm" name="archive_path" id="archive_path" value="{{$output_file->archive_path}}">
+                    @else
+                        <input disabled readonly class="form-control form-control-sm" name="archive_path" id="archive_path" value="Отсутствует">
+                    @endif
+                        @error('archive_path')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
