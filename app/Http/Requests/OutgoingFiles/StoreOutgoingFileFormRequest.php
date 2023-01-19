@@ -25,7 +25,7 @@ class StoreOutgoingFileFormRequest extends FormRequest
     {
         return [
             'short_description' => ['required', 'string', 'min:1', 'max:255'],
-            'file' => ['required', 'max:25000000', 'mimes:pdf'], // kb
+            'file' => ['required', 'file', 'max:25000000', 'mimes:pdf'],
             'outgoing_at' => ['nullable', 'date'],
             'outgoing_number' => ['nullable', 'string', 'min:1', 'max:255'],
             'destination' => ['nullable', 'string', 'min:2', 'max:255'],
@@ -33,6 +33,7 @@ class StoreOutgoingFileFormRequest extends FormRequest
             'date_of_source_document' => ['nullable', 'date'],
             'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
             'executor_name' => ['required', 'string', 'min:2', 'max:100'],
+            'archive_file' => ['nullable', 'file', 'max:25000000', 'mimes:zip'],
         ];
     }
 

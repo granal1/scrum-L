@@ -29,6 +29,7 @@ class OutgoingFile extends Model
         'file_mark',
         'author_uuid',
         'executor_uuid',
+        'archive_path',
     ];
 
     public function executor()
