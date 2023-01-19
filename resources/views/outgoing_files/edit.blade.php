@@ -78,7 +78,14 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1">
+            <div class="row row-cols-1 row-cols-2">
+                <div class="col mt-3">
+                    <label for="executor_name" class="form-label">Исполнитель задачи<span class="text-danger"><b>*</b></span></label>
+                    <input  type="text" required readonly list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name" value="{{$output_file->executor->name}}">
+                    @error('executor_name')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
                 <div class="col mt-3">
                     <label for="destination" class="form-label">Адресат</label>
                     <input type="text" class="form-control form-control-sm" id="destination" placeholder="Корреспондент (автор)" name="destination" value="{{$output_file->destination}}">
