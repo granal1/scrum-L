@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
+use JamesMills\LaravelTimezone\Facades\Timezone;
 
 class Task extends Model
 {
@@ -128,6 +130,31 @@ class Task extends Model
         }
 
         return $this;
+    }
+
+    public function getDeadlineAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getCreatedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getUpdatedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getDeletedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function setDeadlineAtAttribute($value)
+    {
+        $this->attributes['deadline_at'] = Timezone::convertFromLocal($value);
     }
 
 }

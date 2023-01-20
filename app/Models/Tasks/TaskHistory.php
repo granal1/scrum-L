@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
+use JamesMills\LaravelTimezone\Facades\Timezone;
 
 class TaskHistory extends Model
 {
@@ -38,4 +40,10 @@ class TaskHistory extends Model
 
         return $this;
     }
+
+    public function getDeadlineAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
 }

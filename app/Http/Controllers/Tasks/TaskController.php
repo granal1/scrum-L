@@ -23,6 +23,7 @@ use App\Models\User;
 
 use App\Services\Tasks\UploadService;
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\
 {
     Auth,
@@ -30,6 +31,7 @@ use Illuminate\Support\Facades\
     Log
 };
 
+use JamesMills\LaravelTimezone\Facades\Timezone;
 use Symfony\Polyfill\Uuid\Uuid;
 
 class TaskController extends Controller
@@ -71,7 +73,7 @@ class TaskController extends Controller
         $tasks = Task::filter($filter)
             ->whereIn('id', $histories)
             ->paginate(config('front.tasks.pagination'));
-
+            
         return view('tasks.index',[
             'tasks' => $tasks,
             'old_filters' => $data,
@@ -149,7 +151,6 @@ class TaskController extends Controller
 
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
-            $data['deadline_at'] = \Illuminate\Support\Carbon::parse(\JamesMills\LaravelTimezone\Facades\Timezone::convertFromLocal($data['deadline_at']))->format('Y-m-d H:i:s');
             
             try {
                 DB::beginTransaction();
