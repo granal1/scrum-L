@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Phonebook;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\PhoneBook\PhoneBookFilter;
 use App\Http\Requests\PhoneBook\PhoneBookFilterRequest;
+use App\Models\PhoneBook\PhoneBook;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -25,7 +26,7 @@ class PhoneBookController extends Controller
     {
 
 
-        $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', PhoneBook::class);
 
         $data = $request->validated();
 

@@ -29,7 +29,7 @@
                                 <td class="d-none d-sm-table-cell">Почта</td>
                             </tr>
                         </thead>
-                        <tbody style="cursor: pointer;">
+                        <tbody>
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('phonebook.index') }}" method="get">
                                     <td class="d-none d-sm-table-cell">
@@ -49,7 +49,7 @@
                                 </form>
                             </tr>
                             @forelse($users as $user)
-                            <tr onclick="window.location='{{ route('users.show', $user->id) }}';">
+                            <tr>
                                 <td class="d-none d-sm-table-cell">{{$user->position}}</td>
                                 <td>{{$user->name}}</td>
                                 <td class="d-none d-sm-table-cell">{{$user->phone}}</td>
