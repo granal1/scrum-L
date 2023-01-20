@@ -6,6 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DateTimeZone;
 
 class RedirectIfAuthenticated
 {
@@ -19,7 +20,9 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        $request->session()->put('timezone', $request->get('timeZoneOffset')); //TODO ВНИМАНИЕ! Авторская правка. Запись в сессию часового пояса при входе на сайт.
+        if($request->get('localTimeZone') !== null){ //TODO ВНИМАНИЕ! Авторская правка. Запись в сессию часового пояса при входе на сайт.
+            $request->session()->put('localtimezone', new DateTimeZone($request->get('localTimeZone')) ); 
+        }
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

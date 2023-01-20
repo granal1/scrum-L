@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div>
-                                <input  value="" hidden type="text" id="timeZoneOffset" name="timeZoneOffset">
+                                <input  value="" hidden type="text" id="localTimeZone" name="localTimeZone">
                             </div>
                         </form>
                     </div>
@@ -65,6 +65,6 @@
     </div>
 </div>
 <script>
-    document.getElementById('timeZoneOffset').value = new Date().getTimezoneOffset();
+    document.getElementById('localTimeZone').value = Intl.DateTimeFormat().resolvedOptions().timeZone;
 </script>
 @endsection

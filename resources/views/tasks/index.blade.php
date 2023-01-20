@@ -60,16 +60,7 @@
                                 <td class="d-none d-sm-table-cell">{{$task->priority->name}}</td>
                                 <td>{{$task->description}}</td>
                                 <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
-                                <td class="d-none d-md-table-cell">{{
-                                
-                                var_dump(
-                                    date_timezone_set(
-                                        date_create($task->deadline_at),
-                                        timezone_open('Europe/Kaliningrad')
-                                    )
-                                )
-
-                                }}</td>
+                                <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
                                 <td class="d-none d-sm-table-cell">@include('graph.progressbar')</td>
                             </tr>
                             @empty
