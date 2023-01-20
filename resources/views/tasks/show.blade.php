@@ -24,7 +24,7 @@
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <label for="created_at">Создана</label>
-                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{Timezone::convertToLocal($task->created_at)}}">
+                <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
             </div>
             <div class="col mb-3">
                 <label for="user_uuid">Создал</label>
@@ -38,7 +38,7 @@
         <div class="row pt-3 row-cols-1 row-cols-md-3">
             <div class="col mb-3">
                 <label for="deadline_at">Выполнить до:</label>
-                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{Timezone::convertToLocal($task->deadline_at)}}">
+                <input class="form-control form-control-sm" name="deadline_at" id="deadline_at" disabled value="{{$task->deadline_at}}">
             </div>
             <div class="col mb-3">
                 <label for="responsible_uuid">Ответственный</label>

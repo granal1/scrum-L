@@ -52,7 +52,7 @@
                 </div>
                 <div class="col mt-3">
                     <label for="deadline_at">Срок выполнения:</label>
-                    <input disabled readonly type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{Timezone::convertToLocal($task->currentHistory->deadline_at}}">
+                    <input disabled readonly type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{$task->currentHistory->deadline_at}}">
                     @error('deadline_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

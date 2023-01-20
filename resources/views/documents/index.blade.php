@@ -59,18 +59,18 @@
                                 </tr>
                                 @forelse($documents as $document)
                                     <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
-                                        <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime(Timezone::convertToLocal($document->incoming_at))) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->number}}</td>
-                                        <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime(Timezone::convertToLocal($document->date))) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime($document->date)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentResponsible() : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime(Timezone::convertToLocal($document->tasks[0]->currentHistory->deadline_at))) : null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->currentHistory->deadline_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->currentHistory->comment : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($document->executed_at) ? Timezone::convertToLocal($document->executed_at): null}}</td>
+                                        <td class="d-none d-md-table-cell">{{isset($document->executed_at) ? $document->executed_at : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->file_mark}}</td>
                                     </tr>
                                 @empty
