@@ -38,6 +38,11 @@
                         <a class="nav-link {{ request()->routeIs('profile.show')?'active':'' }}" href="{{ route('profile.show', Auth::id()) }}">Профиль</a>
                     </li>
                 @endcan
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('phonebook.index')?'active':'' }}" href="{{ route('phonebook.index', Auth::id())}}">Телефоны</a>
+                </li>
+                
                 @can('viewAny', \App\Models\Admin\Admin::class)
                 <li class="nav-item">
                         <ul class="navbar-nav">
