@@ -20,9 +20,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
-        if($request->get('localTimeZone') !== null){ //TODO ВНИМАНИЕ! Авторская правка. Запись в сессию часового пояса при входе на сайт.
-            $request->session()->put('localtimezone', new DateTimeZone($request->get('localTimeZone')) ); 
-        }
+        $request->session()->put('localtimezone', $request->get('localTimeZone')); //TODO ВНИМАНИЕ! Авторская правка. Запись в сессию часового пояса при входе на сайт.
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

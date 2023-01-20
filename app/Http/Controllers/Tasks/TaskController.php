@@ -33,7 +33,6 @@ use Illuminate\Support\Facades\
 use Symfony\Polyfill\Uuid\Uuid;
 
 use DateTime;
-use DateTimeZone;
 
 class TaskController extends Controller
 {
@@ -70,7 +69,7 @@ class TaskController extends Controller
 
         foreach ($tasks as $key => $value) {
             $utcTime = new DateTime($value['deadline_at']);
-            $value['deadline_at'] = $utcTime->setTimezone(session('localtimezone'))->format('Y.m.d H:i');
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
         }
 
         return view('tasks.index',[
@@ -151,8 +150,8 @@ class TaskController extends Controller
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
 
-            $localTime = new DateTime($data['deadline_at'], session('localtimezone'));  //Создание объекта даты в локальном поясе
-            $data['deadline_at'] = $localTime->setTimezone(new DateTimeZone('UTC'));    //Мохранение в поясе UTC
+            $localTime = new DateTime($data['deadline_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
+            $data['deadline_at'] = $localTime->setTimezone(timezone_open('UTC'));                       //Сохранение в поясе UTC
 
             try {
 
