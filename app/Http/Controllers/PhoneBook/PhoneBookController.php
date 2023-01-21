@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Phonebook;
+namespace App\Http\Controllers\PhoneBook;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\PhoneBook\PhoneBookFilter;
