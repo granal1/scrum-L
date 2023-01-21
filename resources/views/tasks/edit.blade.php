@@ -11,7 +11,7 @@
         <div class="row row-cols-1 row-cols-md-2">
             @if(!is_null($task->parent_uuid))
                     <div class="col">
-                        <h5>Создал: {{$task->getAuthor()}}</h5>
+                        <h5>Создал: {{$task->author->name}}</h5>
                         <a class="btn btn-sm btn-info" href="{{route('tasks.show', $task->parent_uuid)}}">Базовая задача</a>
                     </div>
             @endif

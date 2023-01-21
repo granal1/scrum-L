@@ -235,4 +235,5 @@
                     </div>
                 </div>
             </div>
+<!--local time zone - {{session('localtimezone')}}-->
 @endsection

@@ -16,6 +16,7 @@ use App\Models\Tasks\Task;
 use App\Services\Tasks\TaskService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use DateTime;
 
 class SiteController extends Controller
 {
@@ -76,6 +77,16 @@ class SiteController extends Controller
             ->whereIn('id', $responsible_outstanding_task_ids)
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
+
+        foreach ($tasks as $key => $value) {
+            $utcTime = new DateTime($value['deadline_at']);
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
+        }
+
+        foreach ($outstanding_tasks as $key => $value) {
+            $utcTime = new DateTime($value['deadline_at']);
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
+        }
 
         return view('index',[
             'tasks' => $tasks,

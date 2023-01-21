@@ -196,6 +196,11 @@ class TaskController extends Controller
                 'task' => $task->id,
             ]);
 
+        $utcTime = new DateTime($task['deadline_at']);
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+        $utcTime = new DateTime($task['created_at']);
+        $task['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+
         return view('tasks.show', [
             'task' => $task,
         ]);
@@ -215,6 +220,9 @@ class TaskController extends Controller
                 'task' => $task->id,
 
             ]);
+        
+        $utcTime = new DateTime($task['deadline_at']);
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
 
         return view('tasks.edit', [
             'task' => $task,
@@ -244,6 +252,9 @@ class TaskController extends Controller
 
             $data = $request->validated();
 
+            $localTime = new DateTime($data['deadline_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
+            $data['deadline_at'] = $localTime->setTimezone(timezone_open('UTC'));                       //Сохранение в поясе UTC
+    
             try {
 
                 DB::beginTransaction();
@@ -333,6 +344,9 @@ class TaskController extends Controller
 
         $this->authorize('view', Task::class);
 
+        $utcTime = new DateTime($task['deadline_at']);
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+      
         return view('tasks.progress', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
