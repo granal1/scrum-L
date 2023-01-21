@@ -24,16 +24,14 @@ class PhoneBookController extends Controller
 
     public function index(PhoneBookFilterRequest $request)
     {
-
-
         $this->authorize('viewAny', PhoneBook::class);
 
         $data = $request->validated();
 
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);
 
-
         $users = User::filter($filter)
+            ->orderBy('name')
             ->paginate(15);
 
 
