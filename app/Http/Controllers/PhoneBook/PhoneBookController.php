@@ -31,7 +31,7 @@ class PhoneBookController extends Controller
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);
 
         $users = User::filter($filter)
-            ->orderBy('name')
+            ->orderBy('email')
             ->paginate(15);
 
 

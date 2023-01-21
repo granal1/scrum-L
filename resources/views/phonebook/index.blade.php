@@ -23,10 +23,10 @@
                     <table class="table table-sm table-hover table-striped">
                         <thead>
                             <tr>
-                                <td class="d-none d-sm-table-cell">Должность</td>
-                                <td class="d-none d-sm-table-cell">Имя</td>
-                                <td class="d-none d-sm-table-cell">Телефон</td>
-                                <td class="d-none d-sm-table-cell">Почта</td>
+                                <th class="d-none d-sm-table-cell">Должность</th>
+                                <th class="d-none d-sm-table-cell">Имя</th>
+                                <th class="d-none d-sm-table-cell">Телефон</th>
+                                <th class="d-none d-sm-table-cell">Почта</th>
                             </tr>
                         </thead>
                         <tbody>
