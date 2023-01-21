@@ -154,7 +154,7 @@ class Task extends Model
 
     public function setDeadlineAtAttribute($value)
     {
-        $this->attributes['deadline_at'] = Timezone::convertFromLocal($value);
+        $this->attributes['deadline_at'] = Carbon::parse(Timezone::convertFromLocal($value))->format('Y-m-d H:i:s');
     }
 
 }
