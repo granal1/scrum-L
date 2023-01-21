@@ -34,14 +34,14 @@
             </div>
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="outgoing_at" class="form-label">Дата исходящего:</label>
+                    <label for="outgoing_at" class="form-label">Дата исходящего:<span class="text-danger"><b>*</b></span></label>
                     <input type="date" id="outgoing_at" name="outgoing_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
                     @error('outgoing_at')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
                 <div class="col mt-3">
-                    <label for="outgoing_number" class="form-label">Номер исходящего документа</label>
+                    <label for="outgoing_number" class="form-label">Номер исходящего документа<span class="text-danger"><b>*</b></span></label>
                     <input type="text" class="form-control form-control-sm" id="outgoing_number" placeholder="Номер" name="outgoing_number">
                     @error('outgoing_number')
                     <div class="text-danger">{{$message}}</div>
@@ -50,7 +50,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="document_file" class="form-label">Загрузить документ</label>
+                    <label for="document_file" class="form-label">Загрузить PDF документ<span class="text-danger"><b>*</b></span></label>
                     <input accept=".pdf" required class="form-control form-control-sm" name="file" id="document_file" type="file">
                     @error('file')
                     <div class="text-danger">{{$message}}</div>
@@ -59,7 +59,16 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="short_description">Наименование или краткое содержание</label>
+                    <label for="archive_file" class="form-label">Загрузить архив приложение к документу</label>
+                    <input accept=".zip, .rar" class="form-control form-control-sm" name="archive_file" id="archive_file" type="file">
+                    @error('archive_file')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col mt-3">
+                    <label for="short_description">Наименование или краткое содержание<span class="text-danger"><b>*</b></span></label>
                     <input placeholder="Наименование" class="form-control form-control-sm" name="short_description" id="document_name">
                     @error('short_description')
                     <div class="text-danger">{{$message}}</div>
@@ -68,8 +77,8 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="executor_name" class="form-label">Исполнитель задачи</label>
-                    <input  list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name">
+                    <label for="executor_name" class="form-label">Исполнитель задачи<span class="text-danger"><b>*</b></span></label>
+                    <input  required list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name">
                     <datalist id="executors_list">
                         @forelse($users as $user)
                             <option value="{{$user->name}}"></option>
@@ -77,7 +86,7 @@
                             <option value="Нет исполнителей"></option>
                         @endforelse
                     </datalist>
-                    @error('executor_uuid')
+                    @error('executor_name')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>

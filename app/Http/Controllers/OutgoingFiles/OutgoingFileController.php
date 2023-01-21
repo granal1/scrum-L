@@ -9,6 +9,7 @@ use App\Http\Requests\OutgoingFiles\StoreOutgoingFileFormRequest;
 use App\Http\Requests\OutgoingFiles\UpdateOutgoingFileFormRequest;
 use App\Models\OutgoingFiles\OutgoingFile;
 use App\Models\Tasks\TaskPriority;
+use App\Services\OutgoingFiles\UploadArchiveService;
 use App\Services\OutgoingFiles\UploadService;
 use Illuminate\Http\Request;
 
@@ -77,7 +78,7 @@ class OutgoingFileController extends Controller
      * @param UploadService $uploadService
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreOutgoingFileFormRequest $request, UploadService $uploadService)
+    public function store(StoreOutgoingFileFormRequest $request, UploadService $uploadService, UploadArchiveService $uploadArchiveService)
     {
         //$this->authorize('create', OutgoingFile::class);
 
@@ -111,7 +112,11 @@ class OutgoingFileController extends Controller
                     set_time_limit(180);
                     $parser = new \Smalot\PdfParser\Parser();
                     $pdf = $parser->parseFile($request->file('file'));
-                    $outgoing_file->content = $pdf->getText();
+                    $outgoing_file->content = $pdf->getText() ?? null;
+
+                    if($request->hasFile('archive_file')){
+                        $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
+                    }
 
                     $outgoing_file->save();
 

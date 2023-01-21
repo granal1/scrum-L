@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('document_and_application_sheets', 6)->nullable()->default(null);
             $table->string('file_mark')->nullable()->default(null);
             $table->string('path', 255);
+            $table->string('archive_path', 255)->nullable()->default(null);
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);
             $table->longText('content')->fullText()->nullable()->default(null);

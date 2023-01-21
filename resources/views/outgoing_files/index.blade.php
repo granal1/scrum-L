@@ -72,14 +72,14 @@
                             @forelse($output_files as $output_file)
                                 <tr onclick="window.location='{{ route('outgoing_files.show', $output_file->id) }}';">
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_at ? date('d.m.Y', strtotime($output_file->outgoing_at)) : null}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->outgoing_number}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->destination}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->number_of_source_document}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->date_of_source_document ? date('d.m.Y', strtotime($output_file->date_of_source_document)) : null}}</td>
-                                    <td>{{$output_file->short_description}}</td>
-                                    <td>{{Str::limit($output_file->content, 30)}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->document_and_application_sheets}}</td>
-                                    <td class="d-none d-md-table-cell">{{$output_file->file_mark}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->outgoing_number ?? 'Б/Н'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->destination ?? 'Нет'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->number_of_source_document ?? 'Б/Н'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->date_of_source_document ? date('d.m.Y', strtotime($output_file->date_of_source_document)) : 'Нет'}}</td>
+                                    <td>{{$output_file->short_description ?? 'Отсутствует'}}</td>
+                                    <td>{{$output_file->content ? Str::limit($output_file->content, 30) : 'Отсутствует'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->document_and_application_sheets ?? 'Нет'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->file_mark ?? 'Нет'}}</td>
                                 </tr>
                             @empty
                                 <tr>
