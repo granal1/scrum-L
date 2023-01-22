@@ -136,11 +136,13 @@ class DocumentController extends Controller
         //$this->authorize('view', Document::class);
 
         $utcTime = new DateTime($document['created_at']);
-        $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
-//dump($document->tasks[0]->deadline_at);        
-        $utcTime = new DateTime($document->tasks[0]->deadline_at);
-        $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
-//dd($document->tasks[0]->deadline_at); 
+        $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
+
+        if(isset($document->tasks[0]->deadline_at)){
+            $utcTime = new DateTime($document->tasks[0]->deadline_at);
+            $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
+        }        
+
         return view('documents.show', [
             'document' => $document
         ]);

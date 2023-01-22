@@ -73,7 +73,7 @@
         </div>
         <div class="row row-cols-1">
             <div class="col mt-3">
-                <label for="document_and_application_sheets" class="form-label">Количество листов документа и приложения (хх+ххх)</label>
+                <label for="document_and_application_sheets" class="form-label">Количество листов документа, включая приложение</label>
                 <input readonly disabled type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="хх+ххх" name="document_and_application_sheets" value="{{$document->document_and_application_sheets}}">
                 @error('document_and_application_sheets')
                 <div class="text-danger">{{$message}}</div>
@@ -120,7 +120,7 @@
         <div class="row row-cols-1">
             <div class="col mt-3">
                 <label for="executed_result">Результат выполнения</label>
-                <textarea readonly disabled placeholder="Описание задачи" class="form-control form-control-sm" name="executed_result" id="executed_result" rows="2">{{isset($document->tasks[0]) ? $document->tasks[0]->executed_at : null}}</textarea>
+                <textarea readonly disabled placeholder="Результат выполнения" class="form-control form-control-sm" name="executed_result" id="executed_result" rows="2">{{isset($document->tasks[0]) ? $document->tasks[0]->executed_at : null}}</textarea>
                 @error('executed_result')
                 <div class="text-danger">{{$message}}</div>
                 @enderror
