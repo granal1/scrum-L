@@ -41,11 +41,8 @@ class UserController extends Controller
                 'request' => $request->all(),
 
             ]);
-
         //$this->authorize('viewAny', User::class);
-
         $data = $request->validated();
-
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
 
         $users = User::filter($filter)

@@ -109,4 +109,13 @@ class User extends Authenticatable
 
         return false;
     }
+
+    public function getTimezoneAttribute($value)
+    {
+        if ((string) $value === (string) session('localtimezone')) {
+            return $value;
+        } else {
+            return session('localtimezone');
+        }
+    }
 }

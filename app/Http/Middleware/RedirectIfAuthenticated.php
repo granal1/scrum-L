@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Http\Controllers\Users\UserController;
 use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ class RedirectIfAuthenticated
      */
     public function handle(Request $request, Closure $next, ...$guards)
     {
+        $request->session()->put('localtimezone', $request->get('localTimeZone'));
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {

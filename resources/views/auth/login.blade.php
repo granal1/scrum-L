@@ -54,6 +54,9 @@
                                     </button>
                                 </div>
                             </div>
+                            <div>
+                                <input  value="" hidden type="text" id="localTimeZone" name="localTimeZone">
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -61,4 +64,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('localTimeZone').value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+</script>
+
 @endsection

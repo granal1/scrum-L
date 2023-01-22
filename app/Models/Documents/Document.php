@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Carbon;
+use JamesMills\LaravelTimezone\Facades\Timezone;
 
 class Document extends Model
 {
@@ -55,6 +57,36 @@ class Document extends Model
         }
 
         return $this;
+    }
+
+    public function getIncomingAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getDateAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getExecutedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getDeleteddAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getCreatedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
+    }
+
+    public function getUpdatedAtAttribute($value) 
+    {
+        return Timezone::convertToLocal(new Carbon($value));
     }
 
 }
