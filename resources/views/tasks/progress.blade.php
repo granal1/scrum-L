@@ -69,7 +69,7 @@
                 </div>
                 <div class="col mt-3">
                     <label for="comment">Результат выполнения задачи</label>
-                    <textarea class="form-control form-control-sm" rows="2" id="comment" name="comment">{{$task->executed_result}}</textarea>
+                    <textarea class="form-control form-control-sm" rows="2" id="comment" name="comment">{{$task->report}}</textarea>
                     @error('executed_result')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
