@@ -26,6 +26,7 @@ class DocumentFilterRequest extends FormRequest
         return [
             'short_description' => '',
             'path' => '',
+            'content' => '',
         ];
     }
 }

@@ -34,6 +34,7 @@
                                     <th class="d-none d-md-table-cell">Номер<br>док-та</th>
                                     <th class="d-none d-md-table-cell">Дата<br>док-та</th>
                                     <th>Наименование или<br>краткое содержание</th>
+                                    <th>Полное содержание</th>
                                     <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
                                     <th class="d-none d-sm-table-cell">Задание (Резолюция)</th>
                                     <th class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</th>
@@ -54,6 +55,13 @@
                                                    class="form-control form-control-sm" id="short_description" name="short_description"
                                                    onchange="this.form.submit()">
                                         </td>
+                                        <td>
+                                            <input type="search"
+                                                   value="@if(isset($old_filters['content'])){{$old_filters['content']}}@endif"
+                                                   class="form-control form-control-sm" id="content"
+                                                   name="content"
+                                                   onchange="this.form.submit()">
+                                        </td>
                                         <td colspan="7"></td>
                                     </form>
                                 </tr>
@@ -65,6 +73,7 @@
                                         <td class="d-none d-md-table-cell">{{$document->number}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->date ? date('d.m.Y', strtotime($document->date)) : null}}</td>
                                         <td>{{$document->short_description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$document->content ? Str::limit($document->content, 30) : 'Отсутствует'}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->description : null}}</td>
                                         <td class="d-none d-md-table-cell">{{isset($document->tasks[0]) ? $document->tasks[0]->responsible->name : null}}</td>
