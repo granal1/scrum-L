@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Polyfill\Uuid\Uuid;
+use DateTime;
 
 
 class OutgoingFileController extends Controller
@@ -52,6 +53,7 @@ class OutgoingFileController extends Controller
         $outgoing_files = OutgoingFile::filter($filter)
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.outgoing_files.pagination'));
+
 
         return view('outgoing_files.index',[
             'output_files' => $outgoing_files,
@@ -142,6 +144,9 @@ class OutgoingFileController extends Controller
     public function show(OutgoingFile $outgoing_file)
     {
         //$this->authorize('view', OutgoingFile::class);
+
+        $utcTime = new DateTime($outgoing_file['created_at']);
+        $outgoing_file['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
 
         return view('outgoing_files.show', [
             'output_file' => $outgoing_file

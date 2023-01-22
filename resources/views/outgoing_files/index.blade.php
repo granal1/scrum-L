@@ -35,11 +35,11 @@
                                 <th class="d-none d-md-table-cell">Дата</th>
                                 <th class="d-none d-md-table-cell">Исх.№</th>
                                 <th class="d-none d-md-table-cell">Адресат</th>
-                                <th class="d-none d-md-table-cell">Номер<br>док-та</th>
-                                <th class="d-none d-md-table-cell">Дата<br>док-та</th>
+                                <th class="d-none d-md-table-cell">Ответ на исх.,<br>№</th>
+                                <th class="d-none d-md-table-cell">Ответ на исх.,<br>дата</th>
                                 <th>Наименование или<br>краткое содержание</th>
-                                <th class="d-none d-md-table-cell">Полное содержание</th>
                                 <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
+                                <th class="d-none d-md-table-cell">ФИО исполнителя<br>документа</th>
                                 <th class="d-none d-sm-table-cell">Место<br>подшивки</th>
                             </tr>
                             </thead>
@@ -54,13 +54,7 @@
                                     <td colspan="4"></td>
                                     <td>
                                         <input type="search"
-                                               value="@if(isset($old_filters['short_description'])){{$old_filters['short_description']}}@endif"
-                                               class="form-control form-control-sm" id="short_description"
-                                               name="short_description"
-                                               onchange="this.form.submit()">
-                                    </td>
-                                    <td>
-                                        <input type="search"
+                                               placeholder="Поиск по содержимому документов"
                                                value="@if(isset($old_filters['content'])){{$old_filters['content']}}@endif"
                                                class="form-control form-control-sm" id="content"
                                                name="content"
@@ -77,8 +71,8 @@
                                     <td class="d-none d-md-table-cell">{{$output_file->number_of_source_document ?? 'Б/Н'}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->date_of_source_document ? date('d.m.Y', strtotime($output_file->date_of_source_document)) : 'Нет'}}</td>
                                     <td>{{$output_file->short_description ?? 'Отсутствует'}}</td>
-                                    <td>{{$output_file->content ? Str::limit($output_file->content, 30) : 'Отсутствует'}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->document_and_application_sheets ?? 'Нет'}}</td>
+                                    <td class="d-none d-md-table-cell">{{$output_file->executor->name ?? 'Нет'}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->file_mark ?? 'Нет'}}</td>
                                 </tr>
                             @empty

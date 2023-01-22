@@ -99,7 +99,7 @@
             </div>
             <div class="col mt-3">
                 <label for="deadline_at" class="form-label">Срок выполнения по плану:</label>
-                <input readonly disabled type="date" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? date('Y-m-d', strtotime($document->tasks[0]->deadline_at)) : null}}">
+                <input readonly disabled type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" value="{{isset($document->tasks[0]) ? $document->tasks[0]->deadline_at : null}}">
                 @error('deadline_at')
                 <div class="text-danger">{{$message}}</div>
                 @enderror

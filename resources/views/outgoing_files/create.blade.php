@@ -18,22 +18,6 @@
             @csrf
             <div class="row row-cols-1 row-cols-md-2">
                 <div class="col mt-3">
-                    <label for="date_of_source_document" class="form-label">Дата документа входящего</label>
-                    <input type="date" id="date_of_source_document" name="date_of_source_document" class="form-control form-select-sm" placeholder="Дата">
-                    @error('date_of_source_document')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-                <div class="col mt-3">
-                    <label for="number_of_source_document" class="form-label">Номер документа входящего</label>
-                    <input type="text" class="form-control form-control-sm" id="number_of_source_document" placeholder="Номер" name="number_of_source_document">
-                    @error('number_of_source_document')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2">
-                <div class="col mt-3">
                     <label for="outgoing_at" class="form-label">Дата исходящего:<span class="text-danger"><b>*</b></span></label>
                     <input type="date" id="outgoing_at" name="outgoing_at" class="form-control form-select-sm" value="{{date('Y-m-d')}}">
                     @error('outgoing_at')
@@ -44,6 +28,22 @@
                     <label for="outgoing_number" class="form-label">Номер исходящего документа<span class="text-danger"><b>*</b></span></label>
                     <input type="text" class="form-control form-control-sm" id="outgoing_number" placeholder="Номер" name="outgoing_number">
                     @error('outgoing_number')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+            </div>
+            <div class="row row-cols-1 row-cols-md-2">
+                <div class="col mt-3">
+                    <label for="date_of_source_document" class="form-label">Ответ на исходящий, дата</label>
+                    <input type="date" id="date_of_source_document" name="date_of_source_document" class="form-control form-select-sm" placeholder="Дата">
+                    @error('date_of_source_document')
+                    <div class="text-danger">{{$message}}</div>
+                    @enderror
+                </div>
+                <div class="col mt-3">
+                    <label for="number_of_source_document" class="form-label">Ответ на исходящий №</label>
+                    <input type="text" class="form-control form-control-sm" id="number_of_source_document" placeholder="Номер" name="number_of_source_document">
+                    @error('number_of_source_document')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
                 </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="executor_name" class="form-label">Исполнитель задачи<span class="text-danger"><b>*</b></span></label>
+                    <label for="executor_name" class="form-label">Исполнитель документа<span class="text-danger"><b>*</b></span></label>
                     <input  required list="executors_list" class="form-control form-control-sm" id="executor_name" name="executor_name">
                     <datalist id="executors_list">
                         @forelse($users as $user)
