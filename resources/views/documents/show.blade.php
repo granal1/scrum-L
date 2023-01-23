@@ -89,6 +89,18 @@
                 @enderror
             </div>
         </div>
+        <div class="row row-cols-1 mt-3">
+            <div class="col">
+                <label for="content" class="form-label">Содержание</label>
+                @if(!empty($document->content))
+                    <textarea rows="10" class="form-control form-control-sm" name="content" id="content" disabled>{{$document->content}}</textarea>
+                @else
+                    <input
+                        class="form-control form-control-sm" name="content" id="content" disabled
+                        value="Отсутствует">
+                @endif
+            </div>
+        </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col mt-3">
                 <label for="executor" class="form-label">Исполнитель</label>
