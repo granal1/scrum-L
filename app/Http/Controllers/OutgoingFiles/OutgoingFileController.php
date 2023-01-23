@@ -50,9 +50,13 @@ class OutgoingFileController extends Controller
 
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 
-        $outgoing_files = OutgoingFile::filter($filter)
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('front.outgoing_files.pagination'));
+        $outgoing_files = $filter
+            ?
+            OutgoingFile::filter($filter)
+            ->paginate(config('front.outgoing_files.pagination'))
+            :
+            OutgoingFile::orderBy('created_at', 'desc')
+                ->paginate(config('front.outgoing_files.pagination'));
 
 
         return view('outgoing_files.index',[

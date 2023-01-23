@@ -49,9 +49,13 @@ class DocumentController extends Controller
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
-        $documents = Document::filter($filter)
-            ->orderBy('created_at', 'desc')
-            ->paginate(config('front.documents.pagination'));
+        $documents = $filter
+            ?
+            Document::filter($filter)
+                ->paginate(config('front.documents.pagination'))
+            :
+            Document::orderBy('created_at', 'desc')
+                        ->paginate(config('front.documents.pagination'));
 
         return view('documents.index',[
             'documents' => $documents,
