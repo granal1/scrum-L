@@ -46,7 +46,9 @@ class DocumentController extends Controller
 
         //$this->authorize('viewAny', Document::class);
         $data = $request->validated();
-        $data['content'] = (string) Str::of($data['content'])->lower()->remove(config('stop-list'));
+        if (isset($data['content'])) {
+            $data['content'] = (string) Str::of($data['content'])->lower()->remove(config('stop-list'));
+        }
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
         $documents = $filter
