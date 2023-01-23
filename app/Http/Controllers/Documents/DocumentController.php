@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Symfony\Polyfill\Uuid\Uuid;
 use DateTime;
 
@@ -44,9 +45,8 @@ class DocumentController extends Controller
             ]);
 
         //$this->authorize('viewAny', Document::class);
-
         $data = $request->validated();
-
+        $data['content'] = (string) Str::of($data['content'])->lower()->remove(config('stop-list'));
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
         $documents = $filter
