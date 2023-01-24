@@ -60,10 +60,11 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
-
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
+            ->where('author_uuid', Auth::id())
+            ->orWhere('responsible_uuid', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
@@ -220,7 +221,7 @@ class TaskController extends Controller
                 'task' => $task->id,
 
             ]);
-        
+
         $utcTime = new DateTime($task['deadline_at']);
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
 
@@ -254,7 +255,7 @@ class TaskController extends Controller
 
             $localTime = new DateTime($data['deadline_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
             $data['deadline_at'] = $localTime->setTimezone(timezone_open('UTC'));                       //Сохранение в поясе UTC
-    
+
             try {
 
                 DB::beginTransaction();
@@ -346,7 +347,7 @@ class TaskController extends Controller
 
         $utcTime = new DateTime($task['deadline_at']);
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
-      
+
         return view('tasks.progress', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
