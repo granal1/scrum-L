@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\AbstractFilter;
 use App\Http\Filters\Documents\DocumentFilter;
 use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
@@ -49,13 +50,16 @@ class DocumentController extends Controller
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
-        $documents = $filter
-            ?
-            Document::filter($filter)
-                ->paginate(config('front.documents.pagination'))
-            :
-            Document::orderBy('created_at', 'desc')
-                        ->paginate(config('front.documents.pagination'));
+        $documents = null;
+
+        if(!empty($data['content']))
+        {
+            $documents = Document::filter($filter)
+                ->paginate(config('front.documents.pagination'));
+        } else {
+            $documents = Document::orderBy('created_at', 'desc')
+                ->paginate(config('front.documents.pagination'));
+        }
 
         return view('documents.index',[
             'documents' => $documents,
@@ -145,7 +149,7 @@ class DocumentController extends Controller
         if(isset($document->tasks[0]->deadline_at)){
             $utcTime = new DateTime($document->tasks[0]->deadline_at);
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
-        }        
+        }
 
         return view('documents.show', [
             'document' => $document
