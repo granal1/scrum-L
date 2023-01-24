@@ -18,7 +18,6 @@ class DocumentFilter extends AbstractFilter
             self::SHORT_DESCRIPTION => [$this, 'short_description'],
             self::PATH => [$this, 'path'],
             self::CONTENT => [$this, 'content'],
-
         ];
     }
 
