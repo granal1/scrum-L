@@ -152,7 +152,7 @@
                                                     <td>{{$task->description}}</td>
                                                     <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
                                                     <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
-                                                    <td>{{$task->done_progress}}</td>
+                                                    <td>@include('graph.progressbar')</td>
                                                 </tr>
                                                 @empty
                                                     <tr>
