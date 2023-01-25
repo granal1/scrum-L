@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\
     Log
 };
 
+use Illuminate\Support\Str;
 use Symfony\Polyfill\Uuid\Uuid;
 
 use DateTime;
@@ -60,6 +61,9 @@ class TaskController extends Controller
 
         $data = $request->validated();
 
+        if (isset($data['description'])) {
+            $data['description'] = (string) Str::of($data['description'])->lower()->remove(config('stop-list'));
+        }
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -251,7 +255,6 @@ class TaskController extends Controller
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
-
             $localTime = new DateTime($data['deadline_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
             $data['deadline_at'] = $localTime->setTimezone(timezone_open('UTC'));                       //Сохранение в поясе UTC
     

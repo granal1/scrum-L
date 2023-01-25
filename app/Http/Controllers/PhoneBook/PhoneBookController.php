@@ -8,7 +8,7 @@ use App\Http\Requests\PhoneBook\PhoneBookFilterRequest;
 use App\Models\PhoneBook\PhoneBook;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\{
     Auth,
     DB,
@@ -27,6 +27,22 @@ class PhoneBookController extends Controller
         $this->authorize('viewAny', PhoneBook::class);
 
         $data = $request->validated();
+
+        if (isset($data['position'])) {
+            $data['position'] = (string) Str::of($data['position'])->lower()->remove(config('stop-list'));
+        }
+
+        if (isset($data['name'])) {
+            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+        }
+
+        if (isset($data['phone'])) {
+            $data['phone'] = (string) Str::of($data['phone'])->lower()->remove(config('stop-list'));
+        }
+
+        if (isset($data['email'])) {
+            $data['email'] = (string) Str::of($data['email'])->lower()->remove(config('stop-list'));
+        }
 
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);
 

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class RoleController extends Controller
 {
@@ -37,6 +38,14 @@ class RoleController extends Controller
         //$this->authorize('viewAny', Role::class);
 
         $data = $request->validated();
+        
+        if (isset($data['name'])) {
+            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+        }
+
+        if (isset($data['alias'])) {
+            $data['alias'] = (string) Str::of($data['alias'])->lower()->remove(config('stop-list'));
+        }
 
         $filter = app()->make(RoleFilter::class, ['queryParams' => array_filter($data)]);
 

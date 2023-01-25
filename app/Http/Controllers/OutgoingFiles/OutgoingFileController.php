@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Symfony\Polyfill\Uuid\Uuid;
 use DateTime;
 
@@ -47,7 +48,9 @@ class OutgoingFileController extends Controller
         //$this->authorize('viewAny', OutgoingFile::class);
 
         $data = $request->validated();
-
+        if (isset($data['content'])) {
+            $data['content'] = (string) Str::of($data['content'])->lower()->remove(config('stop-list'));
+        }
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 
         $outgoing_files = $filter

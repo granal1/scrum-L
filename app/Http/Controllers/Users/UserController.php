@@ -47,6 +47,14 @@ class UserController extends Controller
 
         $data = $request->validated();
 
+        if (isset($data['name'])) {
+            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+        }
+
+        if (isset($data['email'])) {
+            $data['email'] = (string) Str::of($data['email'])->lower()->remove(config('stop-list'));
+        }
+
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
 
         $users = User::filter($filter)

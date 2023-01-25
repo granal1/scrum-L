@@ -17,6 +17,7 @@ use App\Services\Tasks\TaskService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use DateTime;
+use Illuminate\Support\Str;
 
 class SiteController extends Controller
 {
@@ -42,6 +43,9 @@ class SiteController extends Controller
 
         $data = $request->validated();
 
+        if (isset($data['description'])) {
+            $data['description'] = (string) Str::of($data['description'])->lower()->remove(config('stop-list'));
+        }
 
         $current_task_ids = $this->taskService->getCurrentTaskIds();
         $current_task_count = count($current_task_ids);
