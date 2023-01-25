@@ -73,6 +73,8 @@ class TaskController extends Controller
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
+            ->where('author_uuid', Auth::id())
+            ->orWhere('responsible_uuid', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 

@@ -29,6 +29,22 @@
                 <label for="name">Название</label>
                 <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$document->short_description}}">
             </div>
+            <div class="row row-cols-1">
+            <div class="col mb-3">
+                <label for="path">Архив</label>
+                @if(!empty($document->archive_path))
+                    <a href="{{'/storage/' . $document->archive_path}}" target="_blank">
+                        <input
+                            class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
+                            value="{{$document->archive_path}}" style="cursor: pointer;">
+                    </a>
+                @else
+                    <input
+                        class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
+                        value="Отсутствует">
+                @endif
+            </div>
+            </div>
         </div>
         <div class="row row-cols-1 row-cols-md-2">
             <div class="col">

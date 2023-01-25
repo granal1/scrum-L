@@ -28,7 +28,8 @@ class Document extends Model
         'file_mark',
         'executed_result',
         'executed_at',
-        'author_uuid'
+        'author_uuid',
+        'archive_path',
     ];
 
 

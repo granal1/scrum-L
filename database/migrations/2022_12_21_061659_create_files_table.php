@@ -30,6 +30,7 @@ class extends Migration
             $table->string('comment')->nullable()->default(null);
             $table->integer('sort_order')->default(1);
             $table->longText('content')->fullText()->nullable()->default(null);
+            $table->string('archive_path', 255)->nullable()->default(null);
             $table->timestamps();
             $table->softDeletes();
 

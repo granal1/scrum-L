@@ -3,12 +3,17 @@
 namespace App\Http\Controllers\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\AbstractFilter;
 use App\Http\Filters\Documents\DocumentFilter;
 use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
 use App\Http\Requests\Documents\UpdateDocumentFormRequest;
+
+use App\Jobs\ProcessDocumentParsing;
+
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
+use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
@@ -51,13 +56,16 @@ class DocumentController extends Controller
         }
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
-        $documents = $filter
-            ?
-            Document::filter($filter)
-                ->paginate(config('front.documents.pagination'))
-            :
-            Document::orderBy('created_at', 'desc')
-                        ->paginate(config('front.documents.pagination'));
+        $documents = null;
+
+        if(!empty($data['content']))
+        {
+            $documents = Document::filter($filter)
+                ->paginate(config('front.documents.pagination'));
+        } else {
+            $documents = Document::orderBy('created_at', 'desc')
+                ->paginate(config('front.documents.pagination'));
+        }
 
         return view('documents.index',[
             'documents' => $documents,
@@ -84,7 +92,7 @@ class DocumentController extends Controller
      * @param UploadService $uploadService
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
+    public function store(StoreDocumentFormRequest $request, UploadService $uploadService, UploadArchiveService $uploadArchiveService)
     {
         //$this->authorize('create', Document::class);
 
@@ -110,17 +118,19 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
+                    $document->content = 'Содержимое парсится, будет позже ...';
 
-                    // Parse PDF file and build necessary objects.
-                    set_time_limit(180);
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($request->file('file'));
-                    $document->content = $pdf->getText() ?? null;
+                    if($request->hasFile('archive_file')){
+                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
+                    }
 
                     $document->save();
+
                 }
 
                 DB::commit();
+
+                ProcessDocumentParsing::dispatch($document);
 
                 return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
 
@@ -147,7 +157,7 @@ class DocumentController extends Controller
         if(isset($document->tasks[0]->deadline_at)){
             $utcTime = new DateTime($document->tasks[0]->deadline_at);
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
-        }        
+        }
 
         return view('documents.show', [
             'document' => $document

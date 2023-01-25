@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\OutgoingFiles;
+namespace App\Services\Documents;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
@@ -10,7 +10,7 @@ class UploadArchiveService
 {
     public function uploadMedia(UploadedFile $uploadedFile): string
     {
-        $path = $uploadedFile->storeAs('files/output_files/archives/' . date('Y/m/d'), date('Ymd-His') . '.zip', 'public');
+        $path = $uploadedFile->storeAs('files/documents/archives/' . date('Y/m/d'), date('Ymd-His') . '.zip', 'public');
 
         if ($path === false) {
             Log::error('Архив не удалось загрузить на диск');

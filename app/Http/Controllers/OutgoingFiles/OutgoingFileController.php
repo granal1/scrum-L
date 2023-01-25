@@ -7,6 +7,7 @@ use App\Http\Filters\OutgoingFiles\OutgoingFileFilter;
 use App\Http\Requests\OutgoingFiles\OutgoingFileFilterRequest;
 use App\Http\Requests\OutgoingFiles\StoreOutgoingFileFormRequest;
 use App\Http\Requests\OutgoingFiles\UpdateOutgoingFileFormRequest;
+use App\Jobs\ProcessOutgoingFileParsing;
 use App\Models\OutgoingFiles\OutgoingFile;
 use App\Models\Tasks\TaskPriority;
 use App\Services\OutgoingFiles\UploadArchiveService;
@@ -68,6 +69,14 @@ class OutgoingFileController extends Controller
             OutgoingFile::orderBy('created_at', 'desc')
             ->paginate(config('front.outgoing_files.pagination'));
 
+        if(!empty($data['content']))
+        {
+            $outgoing_files = OutgoingFile::filter($filter)
+                ->paginate(config('front.outgoing_files.pagination'));
+        } else {
+            $outgoing_files = OutgoingFile::orderBy('created_at', 'desc')
+                ->paginate(config('front.outgoing_files.pagination'));
+        }
 
         return view('outgoing_files.index', [
             'output_files' => $outgoing_files,
@@ -124,11 +133,7 @@ class OutgoingFileController extends Controller
                     $outgoing_file->author_uuid = Auth::id();
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
 
-                    // Parse PDF file and build necessary objects.
-                    set_time_limit(180);
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($request->file('file'));
-                    $outgoing_file->content = $pdf->getText() ?? null;
+                    $outgoing_file->content = 'Содержимое парсится, будет позже ...';
 
                     if ($request->hasFile('archive_file')) {
                         $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
@@ -138,6 +143,8 @@ class OutgoingFileController extends Controller
                 }
 
                 DB::commit();
+
+                ProcessOutgoingFileParsing::dispatch($outgoing_file);
 
                 return redirect()->route('outgoing_files.show', $outgoing_file)->with('success', 'Документ загружен.');
             } catch (\Exception $e) {
