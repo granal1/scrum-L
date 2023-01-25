@@ -32,12 +32,12 @@
                             <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                 <form action="{{ route('user_statuses.index') }}" method="get">
                                     <td>
-                                        <input type="search" value="@if(isset($old_filters['alias'])) {{ $old_filters['alias'] }} @endif"
+                                        <input type="search" value="@if(isset($old_filters['alias'])){{$old_filters['alias']}} @endif"
                                                class="form-control form-control-sm" id="alias" name="alias"
                                                onchange="this.form.submit()">
                                     </td>
                                     <td>
-                                        <input type="search" value="@if(isset($old_filters['name'])) {{ $old_filters['name'] }} @endif"
+                                        <input type="search" value="@if(isset($old_filters['name'])){{$old_filters['name']}} @endif"
                                                class="form-control form-control-sm" id="name" name="name"
                                                onchange="this.form.submit()">
                                     </td>
