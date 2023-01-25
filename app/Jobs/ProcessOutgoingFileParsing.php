@@ -53,7 +53,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function handle()
     {
         try{
-            set_time_limit(300);
+            //set_time_limit(300);
 
             $file_path = Storage::disk('public')->path($this->file->path);
 

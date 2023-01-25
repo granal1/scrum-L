@@ -24,6 +24,10 @@ class ProcessDocumentParsing implements ShouldQueue
      * @var int
      */
     //public $timeout = 310;
+    //public $tries = -1;   // unlimited tries
+    //public $backoff = 1;  // next try after 1 sec
+    //public $tries = 5;
+    //public $backoff = [1, 2, 3, 4, 5];
 
     /**
      * Indicate if the job should be marked as failed on timeout.
@@ -52,7 +56,7 @@ class ProcessDocumentParsing implements ShouldQueue
     public function handle()
     {
         try{
-            set_time_limit(300);
+            //set_time_limit(300);
 
             $file_path = Storage::disk('public')->path($this->document->path);
 
