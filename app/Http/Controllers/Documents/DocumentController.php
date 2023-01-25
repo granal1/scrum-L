@@ -8,6 +8,9 @@ use App\Http\Filters\Documents\DocumentFilter;
 use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
 use App\Http\Requests\Documents\UpdateDocumentFormRequest;
+
+use App\Jobs\ProcessDocumentParsing;
+
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
 use App\Services\Documents\UploadService;
@@ -112,17 +115,15 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
-
-                    // Parse PDF file and build necessary objects.
-                    set_time_limit(180);
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($request->file('file'));
-                    $document->content = $pdf->getText() ?? null;
+                    $document->content = 'Содержимое парсится, будет позже ...';
 
                     $document->save();
+
                 }
 
                 DB::commit();
+
+                ProcessDocumentParsing::dispatch($document);
 
                 return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
 
