@@ -12,8 +12,7 @@ use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, Task
 use App\Models\Documents\Document;
 use App\Models\OutgoingFiles\OutgoingFile;
 
-use App\Models\Tasks\
-{
+use App\Models\Tasks\{
     TaskFile,
     Task,
     TaskPriority
@@ -23,8 +22,7 @@ use App\Models\User;
 
 use App\Services\Tasks\UploadService;
 
-use Illuminate\Support\Facades\
-{
+use Illuminate\Support\Facades\{
     Auth,
     DB,
     Log
@@ -52,17 +50,24 @@ class TaskController extends Controller
      */
     public function index(TaskFilterRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
-                            [
-                                'user' => Auth::user()->name,
-                                'request' => $request->all(),
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
 
-                            ]);
+            ]
+        );
 
         $data = $request->validated();
 
         if (isset($data['description'])) {
-            $data['description'] = (string) Str::of($data['description'])->lower()->remove(config('stop-list'));
+            $data['description'] = (string) Str::of($data['description'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
@@ -76,7 +81,7 @@ class TaskController extends Controller
             $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
         }
 
-        return view('tasks.index',[
+        return view('tasks.index', [
             'tasks' => $tasks,
             'old_filters' => $data,
             'priorities' => TaskPriority::all(),
@@ -90,10 +95,12 @@ class TaskController extends Controller
      */
     public function create()
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
-            ]);
+            ]
+        );
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
@@ -113,11 +120,13 @@ class TaskController extends Controller
      */
     public function create_subtask(Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-            ]);
+            ]
+        );
 
         $this->authorize('create', Task::class);
 
@@ -141,15 +150,17 @@ class TaskController extends Controller
      */
     public function store(StoreTaskFormRequest $request, UploadService $uploadService)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
         $this->authorize('create', Task::class);
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
@@ -165,19 +176,16 @@ class TaskController extends Controller
 
                 $real_document = Document::find($data['file_uuid']);
 
-                if($real_document)
-                {
+                if ($real_document) {
                     $task_file = TaskFile::create([
                         'task_uuid' => $task->id,
                         'file_uuid' => $real_document->id,
                     ]);
-
                 }
 
                 DB::commit();
 
                 return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
-
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
@@ -194,11 +202,13 @@ class TaskController extends Controller
      */
     public function show(Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-            ]);
+            ]
+        );
 
         $utcTime = new DateTime($task['deadline_at']);
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
@@ -218,13 +228,15 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
 
-            ]);
-        
+            ]
+        );
+
         $utcTime = new DateTime($task['deadline_at']);
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
 
@@ -245,19 +257,21 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskFormRequest $request, Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
             $localTime = new DateTime($data['deadline_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
             $data['deadline_at'] = $localTime->setTimezone(timezone_open('UTC'));                       //Сохранение в поясе UTC
-    
+
             try {
 
                 DB::beginTransaction();
@@ -273,8 +287,7 @@ class TaskController extends Controller
 
                 $real_document = Document::find($data['file_uuid']);
 
-                if($real_document)
-                {
+                if ($real_document) {
                     $task_file = TaskFile::create([
                         'task_uuid' => $task->id,
                         'file_uuid' => $real_document->id,
@@ -283,17 +296,15 @@ class TaskController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('tasks.edit', $task)->with('success','Изменения сохранены.');
-
+                return redirect()->route('tasks.edit', $task)->with('success', 'Изменения сохранены.');
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 Log::error($e);
             }
-
         }
 
-        return redirect()->route('tasks.edit', $task)->with('error','Изменения не сохранились, ошибка.');
+        return redirect()->route('tasks.edit', $task)->with('error', 'Изменения не сохранились, ошибка.');
     }
 
     /**
@@ -304,11 +315,13 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-            ]);
+            ]
+        );
 
         $task->delete();
         return redirect()->route('tasks.index');
@@ -316,12 +329,14 @@ class TaskController extends Controller
 
     public function task_file_destroy(Task $task, Document $document)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
                 'document' => $document->id,
-            ]);
+            ]
+        );
 
         $this->authorize('delete', Task::class);
 
@@ -338,18 +353,20 @@ class TaskController extends Controller
      */
     public function progress(Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
 
-            ]);
+            ]
+        );
 
         $this->authorize('view', Task::class);
 
         $utcTime = new DateTime($task['deadline_at']);
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
-      
+
         return view('tasks.progress', [
             'task' => $task,
             'priorities' => TaskPriority::all(),
@@ -368,16 +385,18 @@ class TaskController extends Controller
      */
     public function progress_update(ProgressTaskFormRequest $request, Task $task)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
         $this->authorize('update', $task);
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -390,10 +409,8 @@ class TaskController extends Controller
                     'report' => $data['comment'],
                 ]);
 
-                if($task->done_progress == 100)
-                {
-                    foreach($task->documents as $document)
-                    {
+                if ($task->done_progress == 100) {
+                    foreach ($task->documents as $document) {
                         $document->update([
                             'executed_result' => $task->report,
                             'executed_at' => date('Y-m-d H:i:s')
@@ -402,28 +419,24 @@ class TaskController extends Controller
 
                     $task_files = TaskFile::where('task_uuid', $task->id)->get();
 
-                    if($task_files)
-                    {
-                        foreach($task_files as $task_file)
+                    if ($task_files) {
+                        foreach ($task_files as $task_file)
                             $task_file->update([
-                            'outgoing_file_uuid' => $data['outgoing_file_uuid'],
-                        ]);
+                                'outgoing_file_uuid' => $data['outgoing_file_uuid'],
+                            ]);
                     }
-
                 }
 
                 DB::commit();
 
-                return redirect()->route('tasks.show', $task)->with('success','Изменения сохранены.');
-
+                return redirect()->route('tasks.show', $task)->with('success', 'Изменения сохранены.');
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 Log::error($e);
             }
-
         }
 
-        return redirect()->route('tasks.show', $task)->with('error','Изменения не сохранились, ошибка.');
+        return redirect()->route('tasks.show', $task)->with('error', 'Изменения не сохранились, ошибка.');
     }
 }

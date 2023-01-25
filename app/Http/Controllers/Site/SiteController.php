@@ -34,17 +34,24 @@ class SiteController extends Controller
      */
     public function index(TaskFilterRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user_id' => Auth::id(),
                 'user_name' => Auth::user()->name,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
         $data = $request->validated();
 
         if (isset($data['description'])) {
-            $data['description'] = (string) Str::of($data['description'])->lower()->remove(config('stop-list'));
+            $data['description'] = (string) Str::of($data['description'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         $current_task_ids = $this->taskService->getCurrentTaskIds();
@@ -92,7 +99,7 @@ class SiteController extends Controller
             $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
         }
 
-        return view('index',[
+        return view('index', [
             'tasks' => $tasks,
             'current_tasks_count' => $current_task_count,
             'old_filters' => $data,

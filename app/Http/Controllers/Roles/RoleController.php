@@ -28,23 +28,35 @@ class RoleController extends Controller
      */
     public function index(RoleFilterRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
 
-            ]);
+            ]
+        );
 
         //$this->authorize('viewAny', Role::class);
 
         $data = $request->validated();
-        
+
         if (isset($data['name'])) {
-            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+            $data['name'] = (string) Str::of($data['name'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         if (isset($data['alias'])) {
-            $data['alias'] = (string) Str::of($data['alias'])->lower()->remove(config('stop-list'));
+            $data['alias'] = (string) Str::of($data['alias'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         $filter = app()->make(RoleFilter::class, ['queryParams' => array_filter($data)]);
@@ -67,8 +79,7 @@ class RoleController extends Controller
     {
         //$this->authorize('create', Role::class);
 
-        return view('roles.create', [
-        ]);
+        return view('roles.create', []);
     }
 
     /**
@@ -79,13 +90,15 @@ class RoleController extends Controller
      */
     public function store(StoreRoleFormRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $data = $request->validated();
 
@@ -98,7 +111,6 @@ class RoleController extends Controller
                 DB::commit();
 
                 return redirect()->route('roles.show', $task)->with('success', 'Роль создана.');
-
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
@@ -106,7 +118,6 @@ class RoleController extends Controller
         }
 
         return redirect()->route('roles.show', $task)->with('error', 'Ошибка при создании роли.');
-
     }
 
     /**
@@ -132,12 +143,14 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'role' => $role->id,
 
-            ]);
+            ]
+        );
 
         return view('roles.edit', [
             'role' => $role,
@@ -153,14 +166,16 @@ class RoleController extends Controller
      */
     public function update(UpdateRoleFormRequest $request, Role $role)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'role' => $role->id,
                 'request' => $request->all(),
-            ]);
+            ]
+        );
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -175,18 +190,15 @@ class RoleController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('roles.edit', $role)->with('success','Изменения сохранены.');
-
+                return redirect()->route('roles.edit', $role)->with('success', 'Изменения сохранены.');
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 Log::error($e);
             }
-
         }
 
-        return redirect()->route('roles.edit', $role)->with('error','Изменения не сохранились, ошибка.');
-
+        return redirect()->route('roles.edit', $role)->with('error', 'Изменения не сохранились, ошибка.');
     }
 
     /**
@@ -197,11 +209,13 @@ class RoleController extends Controller
      */
     public function destroy(Role $role)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'role' => $role->id,
-            ]);
+            ]
+        );
 
         $role->delete();
         return redirect()->route('roles.index');

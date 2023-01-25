@@ -29,19 +29,35 @@ class PhoneBookController extends Controller
         $data = $request->validated();
 
         if (isset($data['position'])) {
-            $data['position'] = (string) Str::of($data['position'])->lower()->remove(config('stop-list'));
+            $data['position'] = (string) Str::of($data['position'])
+                ->lower()->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         if (isset($data['name'])) {
-            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+            $data['name'] = (string) Str::of($data['name'])
+                ->lower()->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         if (isset($data['phone'])) {
-            $data['phone'] = (string) Str::of($data['phone'])->lower()->remove(config('stop-list'));
+            $data['phone'] = (string) Str::of($data['phone'])
+                ->lower()->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         if (isset($data['email'])) {
-            $data['email'] = (string) Str::of($data['email'])->lower()->remove(config('stop-list'));
+            $data['email'] = (string) Str::of($data['email'])
+                ->lower()->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);

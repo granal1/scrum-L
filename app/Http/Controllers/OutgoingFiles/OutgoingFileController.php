@@ -38,18 +38,25 @@ class OutgoingFileController extends Controller
      */
     public function index(OutgoingFileFilterRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
 
-            ]);
+            ]
+        );
 
         //$this->authorize('viewAny', OutgoingFile::class);
 
         $data = $request->validated();
         if (isset($data['content'])) {
-            $data['content'] = (string) Str::of($data['content'])->lower()->remove(config('stop-list'));
+            $data['content'] = (string) Str::of($data['content'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 
@@ -59,10 +66,10 @@ class OutgoingFileController extends Controller
             ->paginate(config('front.outgoing_files.pagination'))
             :
             OutgoingFile::orderBy('created_at', 'desc')
-                ->paginate(config('front.outgoing_files.pagination'));
+            ->paginate(config('front.outgoing_files.pagination'));
 
 
-        return view('outgoing_files.index',[
+        return view('outgoing_files.index', [
             'output_files' => $outgoing_files,
             'old_filters' => $data,
         ]);
@@ -91,7 +98,7 @@ class OutgoingFileController extends Controller
     {
         //$this->authorize('create', OutgoingFile::class);
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $data = $request->validated();
 
@@ -123,25 +130,23 @@ class OutgoingFileController extends Controller
                     $pdf = $parser->parseFile($request->file('file'));
                     $outgoing_file->content = $pdf->getText() ?? null;
 
-                    if($request->hasFile('archive_file')){
+                    if ($request->hasFile('archive_file')) {
                         $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
                     }
 
                     $outgoing_file->save();
-
                 }
 
                 DB::commit();
 
                 return redirect()->route('outgoing_files.show', $outgoing_file)->with('success', 'Документ загружен.');
-
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 Log::error($e);
             }
         }
-            return redirect()->route('outgoing_files.create')->with('error', 'Ошибка при загрузке документа.');
+        return redirect()->route('outgoing_files.create')->with('error', 'Ошибка при загрузке документа.');
     }
 
     /**
@@ -183,7 +188,7 @@ class OutgoingFileController extends Controller
     {
         //$this->authorize('update', OutgoingFile::class);
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -204,17 +209,15 @@ class OutgoingFileController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('outgoing_files.edit', $outgoing_file)->with('success','Изменения сохранены.');
-
+                return redirect()->route('outgoing_files.edit', $outgoing_file)->with('success', 'Изменения сохранены.');
             } catch (\Exception $e) {
 
                 DB::rollBack();
                 Log::error($e);
             }
-
         }
 
-        return redirect()->route('outgoing_files.edit', $outgoing_file)->with('error','Изменения не сохранились, ошибка.');
+        return redirect()->route('outgoing_files.edit', $outgoing_file)->with('error', 'Изменения не сохранились, ошибка.');
     }
 
     /**
@@ -225,17 +228,14 @@ class OutgoingFileController extends Controller
     {
         //$this->authorize('delete', OutgoingFile::class);
 
-        try{
+        try {
 
-            if(Storage::exists('/public/' . $outgoing_file->path)){
+            if (Storage::exists('/public/' . $outgoing_file->path)) {
 
                 Storage::delete('/public/' . $outgoing_file->path);
-
-
             }
 
             $outgoing_file->delete();
-
         } catch (\Exception $e) {
             Log::error($e);
         }

@@ -36,23 +36,35 @@ class UserController extends Controller
      */
     public function index(UserFilterRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
 
-            ]);
+            ]
+        );
 
         //$this->authorize('viewAny', User::class);
 
         $data = $request->validated();
 
         if (isset($data['name'])) {
-            $data['name'] = (string) Str::of($data['name'])->lower()->remove(config('stop-list'));
+            $data['name'] = (string) Str::of($data['name'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         if (isset($data['email'])) {
-            $data['email'] = (string) Str::of($data['email'])->lower()->remove(config('stop-list'));
+            $data['email'] = (string) Str::of($data['email'])
+                ->lower()
+                ->remove(config('stop-list'))
+                ->ltrim(' ')
+                ->rtrim(' ')
+                ->replace('  ', "");
         }
 
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
@@ -74,10 +86,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
-            ]);
+            ]
+        );
 
         //$this->authorize('create', User::class);
 
@@ -96,17 +110,18 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
 
-            ]);
+            ]
+        );
 
         //$this->authorize('create', User::class);
 
-        if ($request->isMethod('post'))
-        {
+        if ($request->isMethod('post')) {
             $data = $request->validated();
 
             $user = new User();
@@ -131,15 +146,14 @@ class UserController extends Controller
 
                 $data_to_sync = [];
 
-                foreach( $data['role_uuid'] as $role_id ) {
-                    $data_to_sync[ $role_id ] = [ 'id' => Str::uuid() ];
+                foreach ($data['role_uuid'] as $role_id) {
+                    $data_to_sync[$role_id] = ['id' => Str::uuid()];
                 }
 
                 $user->roles()->detach();
                 $user->roles()->sync($data_to_sync, false);
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
@@ -152,7 +166,8 @@ class UserController extends Controller
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
             } catch (\Exception $e) {
                 DB::rollBack();
-                Log::error($e);            }
+                Log::error($e);
+            }
         }
 
         return redirect()->route('users.create')->with('error', 'Не удалось создать нового сотрудника.');
@@ -166,11 +181,13 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 //'user_request_data' => $user
-            ]);
+            ]
+        );
 
         //$this->authorize('view', User::class);
 
@@ -188,10 +205,12 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
-            ]);
+            ]
+        );
 
         //$this->authorize('update', User::class);
 
@@ -213,16 +232,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
                 'request' => $request->all(),
 
-            ]);
+            ]
+        );
 
         //$this->authorize('update', User::class);
 
-        if($request->isMethod('patch')){
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -243,32 +264,28 @@ class UserController extends Controller
 
                 $data_to_sync = [];
 
-                foreach( $data['role_uuid'] as $role_id ) {
-                    $data_to_sync[ $role_id ] = [ 'id' => Str::uuid() ];
+                foreach ($data['role_uuid'] as $role_id) {
+                    $data_to_sync[$role_id] = ['id' => Str::uuid()];
                 }
 
                 $user->roles()->detach();
                 $user->roles()->sync($data_to_sync, false);
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
                         'superior_uuid' => $user->id,
                     ]);
-
                 } else {
 
                     $subordinate_user = User::where('superior_uuid', 'like', $user->id)->get()->first();
 
-                    if($subordinate_user)
-                    {
+                    if ($subordinate_user) {
                         $subordinate_user->update([
                             'superior_uuid' => null,
                         ]);
                     }
-
                 }
 
                 DB::commit();
@@ -276,7 +293,8 @@ class UserController extends Controller
                 return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
             } catch (\Exception $e) {
                 DB::rollBack();
-                Log::error($e);            }
+                Log::error($e);
+            }
         }
         return redirect()->route('users.edit', $user->id)->with('error', 'Не удалось сохранить новые данные.');
     }
@@ -289,10 +307,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
-            ]);
+            ]
+        );
 
         //$this->authorize('delete', User::class);
 
