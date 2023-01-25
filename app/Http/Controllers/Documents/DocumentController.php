@@ -13,6 +13,7 @@ use App\Jobs\ProcessDocumentParsing;
 
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
+use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
@@ -89,7 +90,7 @@ class DocumentController extends Controller
      * @param UploadService $uploadService
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
+    public function store(StoreDocumentFormRequest $request, UploadService $uploadService, UploadArchiveService $uploadArchiveService)
     {
         //$this->authorize('create', Document::class);
 
@@ -116,6 +117,10 @@ class DocumentController extends Controller
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
                     $document->content = 'Содержимое парсится, будет позже ...';
+
+                    if($request->hasFile('archive_file')){
+                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
+                    }
 
                     $document->save();
 

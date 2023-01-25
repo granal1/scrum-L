@@ -32,6 +32,7 @@ class StoreDocumentFormRequest extends FormRequest
             'number' => ['nullable', 'string', 'min:1', 'max:255'],
             'date' => ['nullable', 'date'],
             'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
+            'archive_file' => ['nullable', 'file', 'max:25000000', 'mimes:zip'],
         ];
     }
 

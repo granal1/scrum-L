@@ -60,7 +60,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="archive_file" class="form-label">Загрузить архив приложение к документу</label>
-                    <input accept=".zip, .rar" class="form-control form-control-sm" name="archive_file" id="archive_file" type="file">
+                    <input accept=".zip" class="form-control form-control-sm" name="archive_file" id="archive_file" type="file">
                     @error('archive_file')
                     <div class="text-danger">{{$message}}</div>
                     @enderror

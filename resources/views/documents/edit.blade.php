@@ -19,7 +19,7 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="path">Путь</label>
+                    <label for="path" class="form-label">Путь</label>
                     <input disabled readonly class="form-control form-control-sm" name="path" id="path" value="{{$document->path}}">
                     @error('file')
                     <div class="text-danger">{{$message}}</div>
@@ -28,7 +28,21 @@
             </div>
             <div class="row row-cols-1">
                 <div class="col mt-3">
-                    <label for="short_description">Название документа</label>
+                    <label for="path" class="form-label">Архив</label>
+                    @if(!empty($document->archive_path))
+                            <input
+                                class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
+                                value="{{$document->archive_path}}">
+                    @else
+                        <input
+                            class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
+                            value="Отсутствует">
+                    @endif
+                </div>
+            </div>
+            <div class="row row-cols-1">
+                <div class="col mt-3">
+                    <label for="short_description" class="form-label">Название документа</label>
                     <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$document->short_description}}">
                     @error('short_description')
                     <div class="text-danger">{{$message}}</div>
