@@ -55,7 +55,7 @@ class UserController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         if (isset($data['email'])) {
@@ -64,7 +64,7 @@ class UserController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);

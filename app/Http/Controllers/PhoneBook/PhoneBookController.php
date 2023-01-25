@@ -33,7 +33,7 @@ class PhoneBookController extends Controller
                 ->lower()->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         if (isset($data['name'])) {
@@ -41,7 +41,7 @@ class PhoneBookController extends Controller
                 ->lower()->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         if (isset($data['phone'])) {
@@ -49,7 +49,7 @@ class PhoneBookController extends Controller
                 ->lower()->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         if (isset($data['email'])) {
@@ -57,7 +57,7 @@ class PhoneBookController extends Controller
                 ->lower()->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);

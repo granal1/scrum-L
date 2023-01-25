@@ -67,7 +67,7 @@ class TaskController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);

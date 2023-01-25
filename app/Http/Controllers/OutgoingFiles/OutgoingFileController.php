@@ -56,7 +56,7 @@ class OutgoingFileController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 

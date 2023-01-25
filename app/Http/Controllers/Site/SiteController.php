@@ -51,7 +51,7 @@ class SiteController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         $current_task_ids = $this->taskService->getCurrentTaskIds();

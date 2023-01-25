@@ -47,7 +47,7 @@ class RoleController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         if (isset($data['alias'])) {
@@ -56,7 +56,7 @@ class RoleController extends Controller
                 ->remove(config('stop-list'))
                 ->ltrim(' ')
                 ->rtrim(' ')
-                ->replace('  ', "");
+                ->replaceMatches('/\s+/', ' ');
         }
 
         $filter = app()->make(RoleFilter::class, ['queryParams' => array_filter($data)]);
