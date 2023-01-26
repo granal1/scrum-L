@@ -45,7 +45,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function __construct(OutgoingFile $file)
     {
         $this->file = $file->withoutRelations();
-        $this->queue = 'outgoing_file';
+        //$this->queue = 'outgoing_file';
     }
 
     /**

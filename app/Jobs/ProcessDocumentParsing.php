@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Exception\DceSecurityException;
@@ -46,7 +47,7 @@ class ProcessDocumentParsing implements ShouldQueue
     public function __construct(Document $document)
     {
         $this->document = $document->withoutRelations();
-        $this->queue = 'documents';
+        //$this->queue = 'documents';
     }
 
     /**
