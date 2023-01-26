@@ -46,12 +46,7 @@ class SiteController extends Controller
         $data = $request->validated();
 
         if (isset($data['description'])) {
-            $data['description'] = (string) Str::of($data['description'])
-                ->lower()
-                ->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['description'] = no_inject($data['description']);
         }
 
         $current_task_ids = $this->taskService->getCurrentTaskIds();

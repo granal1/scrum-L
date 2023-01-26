@@ -62,12 +62,7 @@ class TaskController extends Controller
         $data = $request->validated();
 
         if (isset($data['description'])) {
-            $data['description'] = (string) Str::of($data['description'])
-                ->lower()
-                ->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['description'] = no_inject($data['description']);
         }
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
