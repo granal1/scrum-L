@@ -124,19 +124,32 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
-                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
+                    //$document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
+
+                    set_time_limit(599);
+
+                    $file_path = Storage::disk('public')->path($document->path);
+
+                    $parser = new \Smalot\PdfParser\Parser();
+                    $pdf = $parser->parseFile($file_path) ?? null;
+                    $content = $pdf->getText() ?? null;
+
+                    $document->content = $content;
                     $document->save();
+
+
+                    //$document->save();
                 }
 
                 DB::commit();
 
-                ProcessDocumentParsing::dispatch($document)
-                    ->onQueue('documents');
+                //ProcessDocumentParsing::dispatch($document)
+                   // ->onQueue('documents');
 
-                Artisan::call('queue:work --queue=documents --daemon');
+               // Artisan::call('queue:work --queue=documents --daemon');
 
-                return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
+                return redirect()->route('documents.index')->with('success', 'Документ загружен.');
 
             } catch (\Exception $e) {
 
