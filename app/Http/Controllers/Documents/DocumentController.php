@@ -110,7 +110,12 @@ class DocumentController extends Controller
                 if ($request->hasFile('file')) {
 
                     $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-                    $document->path = $uploadService->uploadMedia($request->file('file'));
+                    
+                    $now = date_create("now", timezone_open(session('localtimezone')));
+                    $document->path = $uploadService->uploadMedia($request->file('file'), $now);
+                    if($request->hasFile('archive_file')){
+                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
+                    }
 
                     $document->incoming_at = $data['incoming_at'];
                     $document->incoming_number = $data['incoming_number'];
@@ -119,14 +124,9 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
-                    $document->content = 'Содержимое парсится, будет позже ...';
-
-                    if($request->hasFile('archive_file')){
-                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
-                    }
+                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
                     $document->save();
-
                 }
 
                 DB::commit();

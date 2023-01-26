@@ -122,7 +122,12 @@ class OutgoingFileController extends Controller
                 if ($request->hasFile('file')) {
 
                     $outgoing_file->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-                    $outgoing_file->path = $uploadService->uploadMedia($request->file('file'));
+
+                    $now = date_create("now", timezone_open(session('localtimezone')));
+                    $outgoing_file->path = $uploadService->uploadMedia($request->file('file'), $now);
+                    if ($request->hasFile('archive_file')) {
+                        $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
+                    }
 
                     $outgoing_file->outgoing_at = $data['outgoing_at'];
                     $outgoing_file->outgoing_number = $data['outgoing_number'];
@@ -132,12 +137,7 @@ class OutgoingFileController extends Controller
                     $outgoing_file->document_and_application_sheets = $data['document_and_application_sheets'];
                     $outgoing_file->author_uuid = Auth::id();
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
-
-                    $outgoing_file->content = 'Содержимое парсится, будет позже ...';
-
-                    if ($request->hasFile('archive_file')) {
-                        $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
-                    }
+                    $outgoing_file->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
                     $outgoing_file->save();
                 }
