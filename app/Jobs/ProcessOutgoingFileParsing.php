@@ -24,14 +24,16 @@ class ProcessOutgoingFileParsing implements ShouldQueue
      *
      * @var int
      */
-    //public $timeout = 310;
+    public $timeout = 601;
+    public $tries = 5;
+    public $maxExceptions = 3;
 
     /**
      * Indicate if the job should be marked as failed on timeout.
      *
      * @var bool
      */
-    //public $failOnTimeout = true;
+    public $failOnTimeout = true;
 
     public OutgoingFile $file;
 
@@ -43,6 +45,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function __construct(OutgoingFile $file)
     {
         $this->file = $file->withoutRelations();
+        $this->queue = 'outgoing_file';
     }
 
     /**
@@ -53,7 +56,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function handle()
     {
         try{
-            set_time_limit(300);
+            set_time_limit(602);
 
             $file_path = Storage::disk('public')->path($this->file->path);
 

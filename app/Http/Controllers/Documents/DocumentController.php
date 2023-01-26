@@ -18,6 +18,7 @@ use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -109,7 +110,7 @@ class DocumentController extends Controller
                 if ($request->hasFile('file')) {
 
                     $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-                    
+
                     $now = date_create("now", timezone_open(session('localtimezone')));
                     $document->path = $uploadService->uploadMedia($request->file('file'), $now);
                     if($request->hasFile('archive_file')){
@@ -123,16 +124,32 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
-                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
+                    //$document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
+
+                    set_time_limit(599);
+
+                    $file_path = Storage::disk('public')->path($document->path);
+
+                    $parser = new \Smalot\PdfParser\Parser();
+                    $pdf = $parser->parseFile($file_path) ?? null;
+                    $content = $pdf->getText() ?? null;
+
+                    $document->content = $content;
                     $document->save();
+
+
+                    //$document->save();
                 }
 
                 DB::commit();
 
-                ProcessDocumentParsing::dispatch($document);
+                //ProcessDocumentParsing::dispatch($document)
+                   // ->onQueue('documents');
 
-                return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
+               // Artisan::call('queue:work --queue=documents --daemon');
+
+                return redirect()->route('documents.index')->with('success', 'Документ загружен.');
 
             } catch (\Exception $e) {
 
