@@ -110,7 +110,7 @@ class DocumentController extends Controller
                 if ($request->hasFile('file')) {
 
                     $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-                    
+
                     $now = date_create("now", timezone_open(session('localtimezone')));
                     $document->path = $uploadService->uploadMedia($request->file('file'), $now);
                     if($request->hasFile('archive_file')){
@@ -131,7 +131,10 @@ class DocumentController extends Controller
 
                 DB::commit();
 
-                ProcessDocumentParsing::dispatch($document);
+                ProcessDocumentParsing::dispatch($document)
+                    ->onQueue('documents');
+
+                Artisan::call('queue:work --queue=documents --daemon');
 
                 return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
 

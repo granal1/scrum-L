@@ -23,10 +23,10 @@ class ProcessDocumentParsing implements ShouldQueue
      *
      * @var int
      */
-    //public $timeout = 310;
-    //public $tries = -1;   // unlimited tries
+    public $timeout = 600;
+    public $tries = 5;
+    public $maxExceptions = 3;
     //public $backoff = 1;  // next try after 1 sec
-    //public $tries = 5;
     //public $backoff = [1, 2, 3, 4, 5];
 
     /**
@@ -34,7 +34,7 @@ class ProcessDocumentParsing implements ShouldQueue
      *
      * @var bool
      */
-    //public $failOnTimeout = true;
+    public $failOnTimeout = true;
 
     public Document $document;
 
@@ -46,6 +46,7 @@ class ProcessDocumentParsing implements ShouldQueue
     public function __construct(Document $document)
     {
         $this->document = $document->withoutRelations();
+        $this->queue = 'documents';
     }
 
     /**
@@ -55,8 +56,9 @@ class ProcessDocumentParsing implements ShouldQueue
      */
     public function handle()
     {
+
         try{
-            //set_time_limit(300);
+            set_time_limit(599);
 
             $file_path = Storage::disk('public')->path($this->document->path);
 
