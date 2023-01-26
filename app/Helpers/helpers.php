@@ -8,6 +8,7 @@ if (! function_exists('no_inject')) {
         $clear_data = (string) Str::of($data)
             ->lower()
             ->remove(config('stop-list'))
+            ->remove('\'')
             ->ltrim(' ')
             ->rtrim(' ')
             ->replaceMatches('/\s+/', ' ');
