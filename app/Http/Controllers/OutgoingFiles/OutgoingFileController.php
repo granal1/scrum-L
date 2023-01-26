@@ -52,12 +52,7 @@ class OutgoingFileController extends Controller
 
         $data = $request->validated();
         if (isset($data['content'])) {
-            $data['content'] = (string) Str::of($data['content'])
-                ->lower()
-                ->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['content'] = no_inject($data['content']);
         }
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 

@@ -29,35 +29,19 @@ class PhoneBookController extends Controller
         $data = $request->validated();
 
         if (isset($data['position'])) {
-            $data['position'] = (string) Str::of($data['position'])
-                ->lower()->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['position'] = no_inject($data['position']);
         }
 
         if (isset($data['name'])) {
-            $data['name'] = (string) Str::of($data['name'])
-                ->lower()->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['name'] = no_inject($data['name']);
         }
 
         if (isset($data['phone'])) {
-            $data['phone'] = (string) Str::of($data['phone'])
-                ->lower()->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['phone'] = no_inject($data['phone']);
         }
 
         if (isset($data['email'])) {
-            $data['email'] = (string) Str::of($data['email'])
-                ->lower()->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['email'] = no_inject($data['email']);
         }
 
         $filter = app()->make(PhoneBookFilter::class, ['queryParams' => array_filter($data)]);

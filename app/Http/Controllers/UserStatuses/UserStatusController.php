@@ -45,21 +45,11 @@ class UserStatusController extends Controller
         $data = $request->validated();
  
         if (isset($data['name'])) {
-            $data['name'] = (string) Str::of($data['name'])
-                ->lower()
-                ->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['name'] = no_inject($data['name']);
         }
 
         if (isset($data['alias'])) {
-            $data['alias'] = (string) Str::of($data['alias'])
-                ->lower()
-                ->remove(config('stop-list'))
-                ->ltrim(' ')
-                ->rtrim(' ')
-                ->replaceMatches('/\s+/', ' ');
+            $data['alias'] = no_inject($data['alias']);
         }
         
         $filter = app()->make(UserStatusFilter::class, ['queryParams' => array_filter($data)]);
