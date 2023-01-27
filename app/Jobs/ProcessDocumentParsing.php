@@ -24,11 +24,11 @@ class ProcessDocumentParsing implements ShouldQueue
      *
      * @var int
      */
-    //public $timeout = 600;
-    public $tries = 1;
+    public $timeout = 300;
+    public $tries = 3;
     //public $maxExceptions = 3;
     //public $backoff = 1;  // next try after 1 sec
-    //public $backoff = [1, 2, 3, 4, 5];
+    public $backoff = [1, 2, 3];
 
     /**
      * Indicate if the job should be marked as failed on timeout.

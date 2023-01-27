@@ -145,9 +145,7 @@ class DocumentController extends Controller
                 DB::commit();
 
                 ProcessDocumentParsing::dispatch($document);
-                   // ->onQueue('documents');
-
-               // Artisan::call('queue:work --queue=documents --daemon');
+                //->onQueue('documents');
 
                 return redirect()->route('documents.index')->with('success', 'Документ загружен.');
 

@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Jobs\ProcessDocumentParsing;
 use App\Models\Documents\Document;
 use Symfony\Component\Process\Process;
 
@@ -24,7 +25,7 @@ class DocumentObserver
         $process->setWorkingDirectory(base_path());
         $process->setOptions(['create_new_console' => true]);
         $process->start();
-        $process->stop(1,9);
+        $process->stop(1,0);
     }
 
     /**
