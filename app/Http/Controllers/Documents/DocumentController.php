@@ -114,6 +114,7 @@ class DocumentController extends Controller
 
                     $now = date_create("now", timezone_open(session('localtimezone')));
                     $document->path = $uploadService->uploadMedia($request->file('file'), $now);
+
                     if($request->hasFile('archive_file')){
                         $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
                     }
@@ -145,11 +146,6 @@ class DocumentController extends Controller
 
                     ProcessDocumentParsing::dispatch($document);
                     //->onQueue('documents');
-
-                    $process = new Process(['php', 'artisan', 'queue:work']);
-                    $process->setWorkingDirectory(base_path());
-                    $process->setOptions(['create_new_console' => true]);
-                    $process->start();
 
                 }
 
