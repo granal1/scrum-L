@@ -47,7 +47,7 @@ class ProcessDocumentParsing implements ShouldQueue
     public function __construct(Document $document)
     {
         $this->document = $document->withoutRelations();
-        //$this->queue = 'documents';
+        $this->queue = 'documents';
     }
 
     /**

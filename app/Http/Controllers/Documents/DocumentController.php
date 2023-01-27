@@ -144,8 +144,8 @@ class DocumentController extends Controller
 
                     DB::commit();
 
-                    ProcessDocumentParsing::dispatch($document);
-                    //->onQueue('documents');
+                    ProcessDocumentParsing::dispatch($document)
+                        ->onQueue('documents');
 
                 }
 

@@ -21,7 +21,7 @@ class DocumentObserver
     }
 
     public function saved(){
-        $process = new Process(['php', 'artisan', 'queue:work', '--once']);
+        $process = new Process(['php', 'artisan', 'queue:work', '--once', '--queue=documents']);
         $process->setWorkingDirectory(base_path());
         $process->setOptions(['create_new_console' => true]);
         $process->start();
