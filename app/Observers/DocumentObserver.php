@@ -21,11 +21,11 @@ class DocumentObserver
     }
 
     public function saved(){
-        $process = new Process(['php', 'artisan', 'queue:work', '--once']);
-        $process->setWorkingDirectory(base_path());
-        $process->setOptions(['create_new_console' => true]);
-        $process->start();
-        $process->stop(1,0);
+//        $process = new Process(['php', 'artisan', 'queue:work']);
+//        $process->setWorkingDirectory(base_path());
+//        $process->setOptions(['create_new_console' => true]);
+//        $process->start();
+//        $process->stop(1,0);
     }
 
     /**

@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\Process\Process;
 use Symfony\Polyfill\Uuid\Uuid;
 use DateTime;
 
@@ -138,16 +139,27 @@ class DocumentController extends Controller
 //                    $document->content = $content;
 //                    $document->save();
 
-
                     $document->save();
                 }
 
                 DB::commit();
 
+                $process2 = new Process(['php', 'artisan', 'queue:restart']);
+                $process2->setWorkingDirectory(base_path());
+                $process2->setOptions(['create_new_console' => true]);
+                $process2->start();
+                $process2->stop(1,0);
+
+                $process = new Process(['php', 'artisan', 'queue:work']);
+                $process->setWorkingDirectory(base_path());
+                $process->setOptions(['create_new_console' => true]);
+                $process->start();
+                $process->stop(1,0);
+
                 ProcessDocumentParsing::dispatch($document);
                 //->onQueue('documents');
 
-                return redirect()->route('documents.index')->with('success', 'Документ загружен.');
+                return redirect()->route('documents.index');
 
             } catch (\Exception $e) {
 
