@@ -150,12 +150,14 @@ class OutgoingFileController extends Controller
 
 
                     $outgoing_file->save();
+
+                    DB::commit();
+
+                    ProcessOutgoingFileParsing::dispatch($outgoing_file)
+                            ->onQueue('outgoing_files');
                 }
 
-                DB::commit();
 
-                ProcessOutgoingFileParsing::dispatch($outgoing_file);
-                    //->onQueue('outgoing_file');
 
                 return redirect()->route('outgoing_files.index')->with('success', 'Документ загружен.');
             } catch (\Exception $e) {
