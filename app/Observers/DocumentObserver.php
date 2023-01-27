@@ -3,10 +3,8 @@
 namespace App\Observers;
 
 use App\Models\Documents\Document;
-use Illuminate\Support\Facades\Artisan;
-use Symfony\Component\Process\Exception\ProcessFailedException;
-use Symfony\Component\Process\InputStream;
 use Symfony\Component\Process\Process;
+
 
 class DocumentObserver
 {
@@ -22,11 +20,11 @@ class DocumentObserver
     }
 
     public function saved(){
-        //$process = new Process(['php', 'artisan', 'queue:work']);
-        //$process->setWorkingDirectory(base_path());
-        //$process->start();
-        //$process->signal(9);
-        //exec('php artisan queue:work --max-jobs=1');
+        $process = new Process(['php', 'artisan', 'queue:work', '--once']);
+        $process->setWorkingDirectory(base_path());
+        $process->setOptions(['create_new_console' => true]);
+        $process->start();
+        $process->stop(1,9);
     }
 
     /**

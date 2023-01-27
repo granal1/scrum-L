@@ -13,8 +13,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "smalot/pdfparser": "^2.3",
-        "symfony/polyfill-uuid": "^1.27",
-        "ext-pcntl": "*"
+        "symfony/polyfill-uuid": "^1.27"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -64,7 +63,8 @@
             "@php artisan view:cach",
             "@php artisan route:cach",
             "@php artisan config:cache",
-            "@php artisan storage:link"
+            "@php artisan storage:link",
+            "@php artisan queue:restart"
         ],
         "recache": [
             "@php artisan cache:clear",
@@ -74,7 +74,8 @@
             "@php artisan route:cach",
             "@php artisan view:cach",
             "@php artisan config:cache",
-            "@php artisan storage:link"
+            "@php artisan storage:link",
+            "@php artisan queue:restart"
         ]
     },
     "extra": {
