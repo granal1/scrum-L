@@ -22,17 +22,7 @@ class DocumentObserver
 
     public function saved(){
 
-        $command = null;
-
-        if (strpos(PHP_OS, 'WIN') !== false) {
-
-            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
-
-        } else {
-
-            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents', '&'];
-        }
-
+        $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
         $process = new Process($command);
         $process->setWorkingDirectory(base_path());
         $process->setOptions(['create_new_console' => true]);
