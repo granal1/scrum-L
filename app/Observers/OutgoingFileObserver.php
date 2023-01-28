@@ -21,10 +21,23 @@ class OutgoingFileObserver
     }
 
     public function saved(){
-        $process = new Process(['php', 'artisan', 'queue:work', '--once', '--queue=outgoing_files']);
+
+        $command = null;
+
+        if (strpos(PHP_OS, 'WIN') !== false) {
+
+            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=outgoing_files'];
+
+        } else {
+
+            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=outgoing_files', '&'];
+        }
+
+        $process = new Process($command);
         $process->setWorkingDirectory(base_path());
         $process->setOptions(['create_new_console' => true]);
         $process->start();
+        //$process->signal(17);
     }
 
     /**

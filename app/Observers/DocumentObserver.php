@@ -21,9 +21,22 @@ class DocumentObserver
     }
 
     public function saved(){
-        $process = new Process(['php', 'artisan', 'queue:work', '--once', '--queue=documents']);
+
+        $command = null;
+
+        if (strpos(PHP_OS, 'WIN') !== false) {
+
+            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
+
+        } else {
+
+            $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents', '&'];
+        }
+
+        $process = new Process($command);
         $process->setWorkingDirectory(base_path());
         $process->setOptions(['create_new_console' => true]);
+        $process->disableOutput();
         $process->start();
     }
 
