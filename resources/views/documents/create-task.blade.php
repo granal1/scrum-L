@@ -85,7 +85,7 @@
             <div class="row row-cols-1">
                 <div class="col mt-3">
                     <label for="description">Описание</label>
-                    <textarea autofocus placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="2"></textarea>
+                    <textarea autofocus placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="1"></textarea>
                     @error('description')
                     <div class="text-danger">{{$message}}</div>
                     @enderror
@@ -137,6 +137,11 @@
             </div>
         </form>
     </div>
+
+    <script src="{{asset('assets/documents/autoHeightTextarea.js')}}"></script>
+    <script>
+        autoHeightTextarea('description');
+    </script>
     @endsection
 
 
