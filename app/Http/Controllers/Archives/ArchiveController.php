@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Archives;
 
 use App\Http\Controllers\Controller;
+use App\Models\Archives\Archive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +24,9 @@ class ArchiveController extends Controller
      */
     public function index()
     {
-        //
+        $archive = new Archive($this->archive_list['2023']);
+        dd($archive->get());
+
     }
 
     /**
@@ -101,7 +104,6 @@ class ArchiveController extends Controller
                 $result[substr($value, -4)] = $value;
             }
         }
-        dd($result);
         return $result;
     }
 }
