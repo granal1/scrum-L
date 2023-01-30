@@ -235,5 +235,9 @@
                     </div>
                 </div>
             </div>
+            <form action="{{ route('archive.index') }}" id="archive">
+                <input type="text" name="archive_name" form="archive">
+                <input type="submit" form="archive">
+            </form>
 <!--local time zone - {{session('localtimezone')}}-->
 @endsection

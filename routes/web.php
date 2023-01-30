@@ -7,6 +7,7 @@ use App\Http\Controllers\Tasks\TaskController as TaskController;
 use App\Http\Controllers\Users\UserController as UserController;
 use App\Http\Controllers\Documents\DocumentController as DocumentController;
 use App\Http\Controllers\Admin\AdminController as AdminController;
+use App\Http\Controllers\Archives\ArchiveController;
 use App\Http\Controllers\Roles\RoleController as RoleController;
 use App\Http\Controllers\Profile\ProfileController as ProfileController;
 use App\Http\Controllers\Site\SiteController as SiteController;
@@ -41,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
         'roles' => RoleController::class,
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
+        'archive' => ArchiveController::class,
     ]);
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
