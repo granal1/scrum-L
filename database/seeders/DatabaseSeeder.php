@@ -31,6 +31,6 @@ class DatabaseSeeder extends Seeder
             UserStatusSeeder::class,
         ]);
 
-       // \App\Models\Documents\Document::factory(1000)->create();
+        \App\Models\Documents\Document::factory(1000)->create();
     }
 }
