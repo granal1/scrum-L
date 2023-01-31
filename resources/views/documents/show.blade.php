@@ -233,10 +233,10 @@
         </div>
     </div>
 
-    <script src="{{asset('assets/documents/autoHeightTextarea.js')}}"></script>
+    <script src="{{asset('assets/documents/adaptTextarea.js')}}"></script>
     <script>
-        autoHeightTextarea('task_description');
-        autoHeightTextarea('executed_result');
+        adaptTextarea('task_description');
+        adaptTextarea('executed_result');
     </script>
     
     @endsection

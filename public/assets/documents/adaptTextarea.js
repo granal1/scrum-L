@@ -1,5 +1,5 @@
 //АВТОПОДБОР_высоты_поля_textarea
-function autoHeightTextarea(id) {
+function adaptTextarea(id) {
     var field = document.getElementById(id);
     field.setAttribute('style', 'height:' + (field.scrollHeight) + 'px;overflow-y:hidden;');
     field.addEventListener("input", OnInput, false);
