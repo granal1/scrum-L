@@ -22,12 +22,12 @@ class DocumentObserver
 
     public function saved(){
 
-        $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
-        $process = new Process($command);
-        $process->setWorkingDirectory(base_path());
-        $process->setOptions(['create_new_console' => true]);
-        $process->disableOutput();
-        $process->start();
+//        $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
+//        $process = new Process($command);
+//        $process->setWorkingDirectory(base_path());
+//        $process->setOptions(['create_new_console' => true]);
+//        $process->disableOutput();
+//        $process->start();
     }
 
     /**

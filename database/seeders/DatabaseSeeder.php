@@ -23,8 +23,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        //\App\Models\Tasks\Task::factory(50)->create();
-
         $this->call([
             RoleSeeder::class,
             TaskPrioritySeeder::class,
@@ -32,5 +30,7 @@ class DatabaseSeeder extends Seeder
             UserRoleSeeder::class,
             UserStatusSeeder::class,
         ]);
+
+        \App\Models\Documents\Document::factory(1000)->create();
     }
 }
