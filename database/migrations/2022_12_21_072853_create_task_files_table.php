@@ -27,6 +27,8 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+
+
         Schema::table('task_files', function($table)
         {
             $table->foreign('task_uuid')->references('id')->on('tasks')->onupdate('cascade')->ondelete('no action');

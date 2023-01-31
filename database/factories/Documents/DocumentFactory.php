@@ -21,7 +21,7 @@ class DocumentFactory extends Factory
 
         return [
             'id' => fake()->uuid(),
-            'incoming_at' => fake()->dateTimeBetween('2017-01-01', '2022-12-31'),
+            'incoming_at' => fake()->dateTimeBetween('2019-01-01', '2023-12-31'),
             'short_description' => fake()->realTextBetween(10, 50),
             'content' => fake()->realTextBetween(50, 2000),
             'created_at' => now(),
