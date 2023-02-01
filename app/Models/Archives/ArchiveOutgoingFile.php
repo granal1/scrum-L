@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Psy\CodeCleaner\ValidConstructorPass;
 
-class Archive extends Model
+class ArchiveOutgoingFile extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
@@ -24,15 +23,15 @@ class Archive extends Model
         'short_description',
         'path',
         'comment',
-        'incoming_at',
-        'incoming_number',
-        'incoming_author',
-        'number',
-        'date',
+        'outgoing_at',
+        'outgoing_number',
+        'outgoing_author',
+        'number_of_source_document',
+        'date_of_source_document',
         'document_and_application_sheets',
         'file_mark',
-        'executed_result',
-        'executed_at',
-        'author_uuid'
+        'author_uuid',
+        'executor_uuid',
+        'archive_path',
     ];
 }
