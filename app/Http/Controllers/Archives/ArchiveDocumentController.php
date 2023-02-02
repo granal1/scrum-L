@@ -13,7 +13,7 @@ class ArchiveDocumentController extends Controller
 
     public function __construct()
     {
-        $this->archive_list = $this->getTableArchiveList();
+        $this->archive_list = archive_document_list();
     }
 
     /**
@@ -91,17 +91,4 @@ class ArchiveDocumentController extends Controller
     {
         //
     }
-
-    private function getTableArchiveList(): array
-    {
-        $result = [];
-
-        foreach (DB::select('SHOW TABLES LIKE "archive_files_%"') as $item){
-            foreach($item as $key => $value){
-                $result[substr($value, -4)] = $value;
-            }
-        }
-        return $result;
-    }
-
 }

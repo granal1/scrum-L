@@ -13,7 +13,7 @@ class ArchiveOutgoingFileController extends Controller
 
     public function __construct()
     {
-        $this->archive_list = $this->getTableArchiveList();
+        $this->archive_list = archive_outgoing_list();
     }
 
     /**
@@ -90,17 +90,5 @@ class ArchiveOutgoingFileController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    private function getTableArchiveList(): array
-    {
-        $result = [];
-
-        foreach (DB::select('SHOW TABLES LIKE "archive_outgoing_files_%"') as $item){
-            foreach($item as $key => $value){
-                $result[substr($value, -4)] = $value;
-            }
-        }
-        return $result;
     }
 }
