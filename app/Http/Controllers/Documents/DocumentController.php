@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Symfony\Component\Process\Process;
 use Symfony\Polyfill\Uuid\Uuid;
 use DateTime;
 
@@ -113,6 +114,7 @@ class DocumentController extends Controller
 
                     $now = date_create("now", timezone_open(session('localtimezone')));
                     $document->path = $uploadService->uploadMedia($request->file('file'), $now);
+
                     if($request->hasFile('archive_file')){
                         $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
                     }
@@ -124,32 +126,30 @@ class DocumentController extends Controller
                     $document->date = $data['date'];
                     $document->document_and_application_sheets = $data['document_and_application_sheets'];
                     $document->author_uuid = Auth::id();
-                    //$document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
+                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
 
-                    set_time_limit(599);
+//                    set_time_limit(599);
+//
+//                    $file_path = Storage::disk('public')->path($document->path);
+//
+//                    $parser = new \Smalot\PdfParser\Parser();
+//                    $pdf = $parser->parseFile($file_path) ?? null;
+//                    $content = $pdf->getText() ?? null;
+//
+//                    $document->content = $content;
+//                    $document->save();
 
-                    $file_path = Storage::disk('public')->path($document->path);
-
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($file_path) ?? null;
-                    $content = $pdf->getText() ?? null;
-
-                    $document->content = $content;
                     $document->save();
 
+                    DB::commit();
 
-                    //$document->save();
+                    ProcessDocumentParsing::dispatch($document)
+                        ->onQueue('documents');
+
                 }
 
-                DB::commit();
-
-                //ProcessDocumentParsing::dispatch($document)
-                   // ->onQueue('documents');
-
-               // Artisan::call('queue:work --queue=documents --daemon');
-
-                return redirect()->route('documents.index')->with('success', 'Документ загружен.');
+                return redirect()->route('documents.index');
 
             } catch (\Exception $e) {
 

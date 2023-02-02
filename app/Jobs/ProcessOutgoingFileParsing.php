@@ -2,18 +2,14 @@
 
 namespace App\Jobs;
 
-use App\Http\Requests\Documents\StoreDocumentFormRequest;
-use App\Models\Documents\Document;
 use App\Models\OutgoingFiles\OutgoingFile;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
-use Ramsey\Uuid\Exception\DceSecurityException;
 
 class ProcessOutgoingFileParsing implements ShouldQueue
 {
@@ -24,16 +20,16 @@ class ProcessOutgoingFileParsing implements ShouldQueue
      *
      * @var int
      */
-    public $timeout = 601;
-    public $tries = 5;
-    public $maxExceptions = 3;
+    public $timeout = 300;
+    public $tries = 3;
+    //public $maxExceptions = 3;
 
     /**
      * Indicate if the job should be marked as failed on timeout.
      *
      * @var bool
      */
-    public $failOnTimeout = true;
+    //public $failOnTimeout = true;
 
     public OutgoingFile $file;
 
@@ -45,7 +41,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function __construct(OutgoingFile $file)
     {
         $this->file = $file->withoutRelations();
-        $this->queue = 'outgoing_file';
+        $this->queue = 'outgoing_files';
     }
 
     /**
@@ -56,7 +52,7 @@ class ProcessOutgoingFileParsing implements ShouldQueue
     public function handle()
     {
         try{
-            set_time_limit(602);
+            //set_time_limit(602);
 
             $file_path = Storage::disk('public')->path($this->file->path);
 

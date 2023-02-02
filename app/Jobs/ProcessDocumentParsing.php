@@ -10,6 +10,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Ramsey\Uuid\Exception\DceSecurityException;
@@ -23,18 +24,18 @@ class ProcessDocumentParsing implements ShouldQueue
      *
      * @var int
      */
-    public $timeout = 600;
-    public $tries = 5;
-    public $maxExceptions = 3;
+    public $timeout = 300;
+    public $tries = 3;
+    //public $maxExceptions = 3;
     //public $backoff = 1;  // next try after 1 sec
-    //public $backoff = [1, 2, 3, 4, 5];
+    public $backoff = [1, 2, 3];
 
     /**
      * Indicate if the job should be marked as failed on timeout.
      *
      * @var bool
      */
-    public $failOnTimeout = true;
+    //public $failOnTimeout = true;
 
     public Document $document;
 
@@ -58,7 +59,7 @@ class ProcessDocumentParsing implements ShouldQueue
     {
 
         try{
-            set_time_limit(599);
+            //set_time_limit(599);
 
             $file_path = Storage::disk('public')->path($this->document->path);
 

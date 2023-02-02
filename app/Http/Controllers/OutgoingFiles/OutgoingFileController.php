@@ -132,30 +132,32 @@ class OutgoingFileController extends Controller
                     $outgoing_file->document_and_application_sheets = $data['document_and_application_sheets'];
                     $outgoing_file->author_uuid = Auth::id();
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
-                    //$outgoing_file->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
+                    $outgoing_file->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
 
 
-                    set_time_limit(599);
+//                    set_time_limit(599);
+//
+//                    $file_path = Storage::disk('public')->path($outgoing_file->path);
+//
+//                    $parser = new \Smalot\PdfParser\Parser();
+//                    $pdf = $parser->parseFile($file_path) ?? null;
+//                    $content = $pdf->getText() ?? null;
+//
+//                    $outgoing_file->content = $content;
+//                    $outgoing_file->save();
 
-                    $file_path = Storage::disk('public')->path($outgoing_file->path);
 
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($file_path) ?? null;
-                    $content = $pdf->getText() ?? null;
 
-                    $outgoing_file->content = $content;
                     $outgoing_file->save();
 
+                    DB::commit();
 
-
-                    //$outgoing_file->save();
+                    ProcessOutgoingFileParsing::dispatch($outgoing_file)
+                            ->onQueue('outgoing_files');
                 }
 
-                DB::commit();
 
-                //ProcessOutgoingFileParsing::dispatch($outgoing_file)
-                    //->onQueue('outgoing_file');
 
                 return redirect()->route('outgoing_files.index')->with('success', 'Документ загружен.');
             } catch (\Exception $e) {
