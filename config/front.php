@@ -2,21 +2,21 @@
 
 return [
     'tasks' => [
-        'pagination' => 5
+        'pagination' => 25
     ],
     'users' => [
-        'pagination' => 5
+        'pagination' => 25
     ],
     'documents' => [
-        'pagination' => 5
+        'pagination' => 25
     ],
     'roles' => [
-        'pagination' => 5
+        'pagination' => 25
     ],
     'user_statuses' => [
-        'pagination' => 5
+        'pagination' => 25
     ],
     'outgoing_files' => [
-        'pagination' => 5
+        'pagination' => 25
     ]
 ];
