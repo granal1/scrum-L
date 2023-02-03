@@ -32,7 +32,7 @@
                             <label for="base-description">Описание базовой задачи</label>
                         </div>
                         <div class="col-8">
-                            <textarea class="form-control form-control-sm" name="base-description" id="base-description" rows="1">disabled readonly>{{$task->description}}</textarea>
+                            <textarea class="form-control form-control-sm" name="base-description" id="base-description" rows="1" disabled readonly>{{$task->description}}</textarea>
                         </div>
                     </div>
 

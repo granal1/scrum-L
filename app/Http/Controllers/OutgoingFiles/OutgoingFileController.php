@@ -87,8 +87,11 @@ class OutgoingFileController extends Controller
 
         //$this->authorize('create', OutgoingFile::class);
 
+        $last_document = OutgoingFile::orderBy('created_at', 'desc')->first();
+
         return view('outgoing_files.create', [
-            'users' => User::all()
+            'users' => User::all(),
+            'last_document_number' => $last_document->outgoing_number ?? 'отсутствует'
         ]);
     }
 
@@ -134,21 +137,6 @@ class OutgoingFileController extends Controller
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
                     $outgoing_file->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
-
-
-//                    set_time_limit(599);
-//
-//                    $file_path = Storage::disk('public')->path($outgoing_file->path);
-//
-//                    $parser = new \Smalot\PdfParser\Parser();
-//                    $pdf = $parser->parseFile($file_path) ?? null;
-//                    $content = $pdf->getText() ?? null;
-//
-//                    $outgoing_file->content = $content;
-//                    $outgoing_file->save();
-
-
-
                     $outgoing_file->save();
 
                     DB::commit();
@@ -157,9 +145,8 @@ class OutgoingFileController extends Controller
                             ->onQueue('outgoing_files');
                 }
 
+                return redirect()->route('outgoing_files.index');
 
-
-                return redirect()->route('outgoing_files.index')->with('success', 'Документ загружен.');
             } catch (\Exception $e) {
 
                 DB::rollBack();

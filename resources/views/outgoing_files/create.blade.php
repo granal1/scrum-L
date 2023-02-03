@@ -39,7 +39,7 @@
                             <label for="outgoing_number" class="form-label">Номер исходящего документа<span class="text-danger"></span></label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="outgoing_number" placeholder="Укажите номер" name="outgoing_number">
+                            <input type="text" class="form-control form-control-sm" id="outgoing_number" placeholder="{{'Предыдущий номер: ' . $last_document_number}}" name="outgoing_number">
                             @error('outgoing_number')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
