@@ -131,18 +131,6 @@ class DocumentController extends Controller
                     $document->author_uuid = Auth::id();
                     $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
-
-//                    set_time_limit(599);
-//
-//                    $file_path = Storage::disk('public')->path($document->path);
-//
-//                    $parser = new \Smalot\PdfParser\Parser();
-//                    $pdf = $parser->parseFile($file_path) ?? null;
-//                    $content = $pdf->getText() ?? null;
-//
-//                    $document->content = $content;
-//                    $document->save();
-
                     $document->save();
 
                     DB::commit();
