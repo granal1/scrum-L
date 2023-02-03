@@ -183,7 +183,8 @@ class TaskController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('tasks.index');
+                $task = $task->parent_uuid ?? $task;
+                return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
