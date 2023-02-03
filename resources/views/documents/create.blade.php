@@ -39,7 +39,7 @@
                             <label for="incoming_number" class="form-label">Регистрационный номер документа</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number">
+                            <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="{{'Предыдущий номер: ' . $last_document_number}}" name="incoming_number">
                             @error('incoming_number')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -138,7 +138,7 @@
                             <button type="submit" style="width:100px" class="btn btn-danger btn-sm">Сохранить</button>
                         </div>
                     </div>
-                    
+
                 </form>
             </div>
         </div>

@@ -87,8 +87,11 @@ class OutgoingFileController extends Controller
 
         //$this->authorize('create', OutgoingFile::class);
 
+        $last_document = OutgoingFile::orderBy('created_at', 'desc')->first();
+
         return view('outgoing_files.create', [
-            'users' => User::all()
+            'users' => User::all(),
+            'last_document_number' => $last_document->outgoing_number ?? 'отсутствует'
         ]);
     }
 

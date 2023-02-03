@@ -83,8 +83,11 @@ class DocumentController extends Controller
 
         //$this->authorize('create', Document::class);
 
+        $last_document = Document::orderBy('created_at', 'desc')->first();
+
         return view('documents.create', [
-            'users' => User::all()
+            'users' => User::all(),
+            'last_document_number' => $last_document->incoming_number ?? 'отсутствует'
         ]);
     }
 

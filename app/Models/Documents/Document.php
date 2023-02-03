@@ -31,8 +31,7 @@ class Document extends Model
         'author_uuid',
         'archive_path',
     ];
-
-
+    
     public function tasks()
     {
         return $this->belongsToMany(
