@@ -68,6 +68,8 @@ class TaskController extends Controller
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
 
         $tasks = Task::filter($filter)
+            ->where('author_uuid', Auth::id())
+            ->orWhere('responsible_uuid', Auth::id())
             ->orderBy('created_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
@@ -99,7 +101,7 @@ class TaskController extends Controller
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
-        $documents = Document::orderBy('created_at', 'desc')->get();
+        $documents = Document::orderBy('created_at', 'desc')->take(10)->get();
 
         return view('tasks.create', [
             'priorities' => TaskPriority::all(),
@@ -157,6 +159,7 @@ class TaskController extends Controller
 
         if ($request->isMethod('post')) {
 
+            
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
 

@@ -7,6 +7,7 @@ use App\Http\Filters\OutgoingFiles\OutgoingFileFilter;
 use App\Http\Requests\OutgoingFiles\OutgoingFileFilterRequest;
 use App\Http\Requests\OutgoingFiles\StoreOutgoingFileFormRequest;
 use App\Http\Requests\OutgoingFiles\UpdateOutgoingFileFormRequest;
+use App\Jobs\ProcessOutgoingFileParsing;
 use App\Models\OutgoingFiles\OutgoingFile;
 use App\Models\Tasks\TaskPriority;
 use App\Services\OutgoingFiles\UploadArchiveService;
@@ -63,6 +64,14 @@ class OutgoingFileController extends Controller
             OutgoingFile::orderBy('created_at', 'desc')
             ->paginate(config('front.outgoing_files.pagination'));
 
+        if(!empty($data['content']))
+        {
+            $outgoing_files = OutgoingFile::filter($filter)
+                ->paginate(config('front.outgoing_files.pagination'));
+        } else {
+            $outgoing_files = OutgoingFile::orderBy('created_at', 'desc')
+                ->paginate(config('front.outgoing_files.pagination'));
+        }
 
         return view('outgoing_files.index', [
             'output_files' => $outgoing_files,
@@ -108,7 +117,12 @@ class OutgoingFileController extends Controller
                 if ($request->hasFile('file')) {
 
                     $outgoing_file->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-                    $outgoing_file->path = $uploadService->uploadMedia($request->file('file'));
+
+                    $now = date_create("now", timezone_open(session('localtimezone')));
+                    $outgoing_file->path = $uploadService->uploadMedia($request->file('file'), $now);
+                    if ($request->hasFile('archive_file')) {
+                        $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
+                    }
 
                     $outgoing_file->outgoing_at = $data['outgoing_at'];
                     $outgoing_file->outgoing_number = $data['outgoing_number'];
@@ -118,23 +132,34 @@ class OutgoingFileController extends Controller
                     $outgoing_file->document_and_application_sheets = $data['document_and_application_sheets'];
                     $outgoing_file->author_uuid = Auth::id();
                     $outgoing_file->executor_uuid = $data['executor_uuid'];
+                    $outgoing_file->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
-                    // Parse PDF file and build necessary objects.
-                    set_time_limit(180);
-                    $parser = new \Smalot\PdfParser\Parser();
-                    $pdf = $parser->parseFile($request->file('file'));
-                    $outgoing_file->content = $pdf->getText() ?? null;
 
-                    if ($request->hasFile('archive_file')) {
-                        $outgoing_file->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'));
-                    }
+
+//                    set_time_limit(599);
+//
+//                    $file_path = Storage::disk('public')->path($outgoing_file->path);
+//
+//                    $parser = new \Smalot\PdfParser\Parser();
+//                    $pdf = $parser->parseFile($file_path) ?? null;
+//                    $content = $pdf->getText() ?? null;
+//
+//                    $outgoing_file->content = $content;
+//                    $outgoing_file->save();
+
+
 
                     $outgoing_file->save();
+
+                    DB::commit();
+
+                    ProcessOutgoingFileParsing::dispatch($outgoing_file)
+                            ->onQueue('outgoing_files');
                 }
 
-                DB::commit();
 
-                return redirect()->route('outgoing_files.show', $outgoing_file)->with('success', 'Документ загружен.');
+
+                return redirect()->route('outgoing_files.index')->with('success', 'Документ загружен.');
             } catch (\Exception $e) {
 
                 DB::rollBack();
