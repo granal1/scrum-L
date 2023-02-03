@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Models\PhoneBook\PhoneBook' => 'App\Policies\PhoneBook\PhoneBookPolicy',
         'App\Models\Tasks\Task' => 'App\Policies\Tasks\TaskPolicy',
         'App\Models\OutgoingFiles\OutgoingFile' => 'App\Policies\OutgoingFiles\OutgoingFilePolicy',
+        'App\Models\Archives\ArchiveDocument' => 'App\Policies\ArchivesDocuments\ArchiveDocumentPolicy',
+        'App\Models\Archives\ArchiveOutgoingFile' => 'App\Policies\ArchivesOutgoingFiles\ArchiveOutgoingFilePolicy'
     ];
 
     /**
