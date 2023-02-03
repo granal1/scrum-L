@@ -31,7 +31,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">  
+                <div class="row mt-3">
                     <div class="col-4 text-end">
                         <label for="incoming_number" class="form-label">Регистрационный номер документа</label>
                     </div>
@@ -79,7 +79,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">   
+                <div class="row mt-3">
                     <div class="col-4 text-end">
                         <label for="name">Наименование или краткое содержание</label>
                     </div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">         
+                <div class="row mt-3">
                     <div class="col-4 text-end">
                         <label for="path">Приложение к документу</label>
                     </div>
@@ -224,7 +224,7 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <button style="width:170px" class="btn btn-sm btn-success"  onclick="javascript:history.back(); return false;">Назад</button>
+                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('documents.index')}}">Назад</a>
                     </div>
                     @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">
@@ -244,7 +244,7 @@
         adaptTextarea('task_description');
         adaptTextarea('executed_result');
     </script>
-    
+
     @endsection
 
 

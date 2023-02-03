@@ -159,7 +159,7 @@ class TaskController extends Controller
 
         if ($request->isMethod('post')) {
 
-            
+
             $data = $request->validated();
             $data['author_uuid'] = Auth::id();
 
@@ -183,7 +183,7 @@ class TaskController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
+                return redirect()->route('tasks.index');
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
