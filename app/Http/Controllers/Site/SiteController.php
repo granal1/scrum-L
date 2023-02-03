@@ -56,7 +56,8 @@ class SiteController extends Controller
 
         $tasks = Task::filter($filter)
             ->whereIn('id', $current_task_ids)
-            ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('front.tasks.pagination'));
 
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
@@ -80,7 +81,8 @@ class SiteController extends Controller
 
         $outstanding_tasks = Task::filter($filter)
             ->whereIn('id', $responsible_outstanding_task_ids)
-            ->orderBy('created_at', 'desc');
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('front.tasks.pagination'));
 
         foreach ($tasks as $key => $value) {
             $utcTime = new DateTime($value['deadline_at']);
