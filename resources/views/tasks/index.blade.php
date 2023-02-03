@@ -26,11 +26,11 @@
                     <table class="table table-sm table-hover table-striped">
                         <thead>
                             <tr>
-                                <td class="d-none d-sm-table-cell">Приоритет</td>
-                                <td>Описание</td>
-                                <td class="d-none d-sm-table-cell">Ответственный</td>
-                                <td class="d-none d-md-table-cell">Выполнить до</td>
-                                <td class="d-none d-sm-table-cell">Исп.,&nbsp;%</td>
+                                <th class="d-none d-sm-table-cell">Приоритет</th>
+                                <th>Описание</th>
+                                <th class="d-none d-sm-table-cell">Ответственный</th>
+                                <th class="d-none d-md-table-cell">Выполнить до</th>
+                                <th class="d-none d-sm-table-cell">Исп.,&nbsp;%</th>
                             </tr>
                         </thead>
                         <tbody style="cursor: pointer;">
