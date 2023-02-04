@@ -19,7 +19,7 @@
                         <div class="dropdown-menu">
                             @forelse ($archive_list as $key => $value)
                                 <a class="dropdown-item"
-                                    href="{{ route('archive_documents.index') }}?archive={{ $value }}">{{ $key }}
+                                    href="{{ route('archive_documents.index') }}?archive={{$value}}">{{$key}}
                                     год</a>
                             @empty
                                 <div>нет сохранённых архивов</div>
