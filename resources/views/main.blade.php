@@ -1,3 +1,5 @@
+{{header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0")}}
+{{header("Expires: Sat, 26 Jul 1997 05:00:00 GMT")}}
 <!doctype html>
 <html>
 
@@ -12,8 +14,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
-<body>
-    <div class="container-fluid">
+<body  class="bg-dark" style="--bs-bg-opacity: .15; font-size: 0.75em">
+    <div class="container-fluid p-0">
         @yield('header')
         @yield('content')
         @yield('footer')

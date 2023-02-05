@@ -3,6 +3,8 @@
 namespace App\Models\Tasks;
 
 use App\Models\Documents\Document;
+use App\Models\OutgoingFiles\OutgoingFile;
+use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
@@ -15,76 +17,83 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Task extends Model
 {
-    use HasFactory, SoftDeletes, HasUuids;
+    use HasFactory, SoftDeletes, HasUuids, Filterable;
 
     protected $table = "tasks";
 
     protected $fillable = [
+        'parent_uuid',
+        'priority_uuid',
+        'author_uuid',
+        'responsible_uuid',
         'description',
-        'comment'
+        'deadline_at',
+        'done_progress',
+        'report',
+        'sort_order',
+        'comment',
     ];
 
-    public function histories()
+    public function responsible(): BelongsTo
     {
-        return $this->hasMany(TaskHistory::class, 'task_uuid', 'id');
-    }
-
-    public function currentHistory()
-    {
-        return $this->hasOne(TaskHistory::class, 'task_uuid')->latestOfMany();
-    }
-
-    public function priorities(): BelongsToMany
-    {
-       return $this->belongsToMany(
-           TaskPriority::class,
-           'task_histories',
-           'task_uuid',
-           'priority_uuid'
-       );
-    }
-
-    public function responsibles(): BelongsToMany
-    {
-        return $this->belongsToMany(
+        return $this->belongsTo(
             User::class,
-            'task_histories',
-            'task_uuid',
-            'responsible_uuid'
+                    'responsible_uuid'
         );
     }
 
-    public function authors(): BelongsToMany
+    public function author(): BelongsTo
     {
-        return $this->belongsToMany(
+        return $this->belongsTo(
             User::class,
-            'task_histories',
-            'task_uuid',
-            'user_uuid'
+            'author_uuid'
         );
     }
 
-    public function currentAuthor()
+    public function priority(): BelongsTo
     {
-        return $this->authors->last()->name;
-    }
-
-    public function currentResponsible()
-    {
-        return $this->responsibles->last()->name;
+        return $this->belongsTo(
+            TaskPriority::class,
+                    'priority_uuid'
+        );
     }
 
     public function documents(): BelongsToMany
     {
-        return $this->belongsToMany(Document::class, 'task_files', 'task_uuid', 'file_uuid');
+        return $this->belongsToMany(
+            Document::class,
+            'task_files',
+            'task_uuid',
+            'file_uuid'
+        )->wherePivot('deleted_at', null);
+    }
+
+    public function outgoing_documents(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            OutgoingFile::class,
+            'task_files',
+            'task_uuid',
+            'outgoing_file_uuid'
+        )->wherePivot('deleted_at', null);
     }
 
     public static function boot() {
         parent::boot();
 
         static::deleting(function($task) {
-            $task->histories()->delete();
+            $task->documents()->delete();
         });
+    }
+
+    protected function removeQueryParam(string ...$keys)
+    {
+        foreach($keys as $key)
+        {
+            unset($this->queryParams[$key]);
+        }
+
+        return $this;
     }
 
 }

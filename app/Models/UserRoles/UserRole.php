@@ -1,27 +1,23 @@
 <?php
 
-namespace App\Models\Tasks;
+namespace App\Models\UserRoles;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class TaskHistory extends Model
+class UserRole extends Model
 {
     use HasFactory, SoftDeletes, HasUuids;
 
-    protected $table = "task_histories";
+    protected $table = "user_role";
 
     protected $fillable = [
-        'priority_uuid',
-        'parent_uuid',
         'user_uuid',
-        'task_uuid',
-        'responsible_uuid',
-        'done_progress',
-        'deadline_at',
+        'role_uuid',
         'comment',
-        'sort_order',
+        'sort_order'
     ];
+
 }

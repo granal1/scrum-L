@@ -17,5 +17,6 @@ class TaskFile extends Model
         'task_uuid',
         'file_uuid',
         'comment',
+        'outgoing_file_uuid',
     ];
 }

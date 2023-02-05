@@ -24,8 +24,19 @@ class UpdateDocumentFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => [],
-            //'path' => [],
+            'incoming_at' => ['nullable', 'date'],
+            'incoming_number' => ['nullable', 'string', 'min:1', 'max:255'],
+            'incoming_author' => ['nullable', 'string', 'min:2', 'max:255'],
+            'number' => ['nullable', 'string', 'min:1', 'max:255'],
+            'date' => ['nullable', 'date'],
+            'document_and_application_sheets' => ['nullable', 'string', 'min:1', 'max:4'],
+            'task_description' => ['nullable', 'string', 'min:2', 'max:3000'],
+            'executor' => ['nullable', 'string', 'min:2', 'max:255'],
+            'deadline_at' => ['nullable', 'date'],
+            'executed_result' => ['nullable', 'string', 'min:2', 'max:3000'],
+            'executed_at' => ['nullable', 'date'],
+            'file_mark' => ['nullable', 'string', 'min:2', 'max:255'],
+            'short_description' => ['required', 'string', 'min:1', 'max:255'],
         ];
     }
 

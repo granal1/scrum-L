@@ -3,17 +3,31 @@
 namespace App\Http\Controllers\Documents;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\AbstractFilter;
+use App\Http\Filters\Documents\DocumentFilter;
+use App\Http\Requests\Documents\DocumentFilterRequest;
 use App\Http\Requests\Documents\StoreDocumentFormRequest;
 use App\Http\Requests\Documents\UpdateDocumentFormRequest;
+
+use App\Jobs\ProcessDocumentParsing;
+
 use App\Models\Documents\Document;
+use App\Models\Tasks\TaskPriority;
+use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Symfony\Component\Process\Process;
 use Symfony\Polyfill\Uuid\Uuid;
+use DateTime;
 
 
 class DocumentController extends Controller
@@ -22,18 +36,42 @@ class DocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->authorizeResource(Document::class, 'document');
     }
 
     /**
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(DocumentFilterRequest $request)
     {
+        Log::info(get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
 
-        $documents = Document::paginate(config('front.documents.pagination'));
+            ]);
+
+        //$this->authorize('viewAny', Document::class);
+        $data = $request->validated();
+        if (isset($data['content'])) {
+            $data['content'] = no_inject($data['content']);
+        }
+        $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
+
+        $documents = null;
+
+        if(!empty($data['content']))
+        {
+            $documents = Document::filter($filter)
+                ->paginate(config('front.documents.pagination'));
+        } else {
+            $documents = Document::orderBy('created_at', 'desc')
+                ->paginate(config('front.documents.pagination'));
+        }
 
         return view('documents.index',[
             'documents' => $documents,
+            'old_filters' => $data,
         ]);
     }
 
@@ -42,18 +80,27 @@ class DocumentController extends Controller
      */
     public function create()
     {
+
+        //$this->authorize('create', Document::class);
+
+        $last_document = Document::orderBy('created_at', 'desc')->first();
+
         return view('documents.create', [
-            'users' => User::all()
+            'users' => User::all(),
+            'last_document_number' => $last_document->incoming_number ?? 'отсутствует'
         ]);
     }
+
 
     /**
      * @param StoreDocumentFormRequest $request
      * @param UploadService $uploadService
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(StoreDocumentFormRequest $request, UploadService $uploadService)
+    public function store(StoreDocumentFormRequest $request, UploadService $uploadService, UploadArchiveService $uploadArchiveService)
     {
+        //$this->authorize('create', Document::class);
+
         if($request->isMethod('post')) {
 
             $data = $request->validated();
@@ -66,22 +113,39 @@ class DocumentController extends Controller
 
                 if ($request->hasFile('file')) {
 
-                    $document->name = isset($data['name']) ? $data['name'] : $request->file('file')->getClientOriginalName();
+                    $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
 
-                    $document->path = $uploadService->uploadMedia($request->file('file'));
+                    $now = date_create("now", timezone_open(session('localtimezone')));
+                    $document->path = $uploadService->uploadMedia($request->file('file'), $now);
+
+                    if($request->hasFile('archive_file')){
+                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
+                    }
+
+                    $document->incoming_at = $data['incoming_at'];
+                    $document->incoming_number = $data['incoming_number'];
+                    $document->incoming_author = $data['incoming_author'];
+                    $document->number = $data['number'];
+                    $document->date = $data['date'];
+                    $document->document_and_application_sheets = $data['document_and_application_sheets'];
+                    $document->author_uuid = Auth::id();
+                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
 
                     $document->save();
+
+                    DB::commit();
+
+                    ProcessDocumentParsing::dispatch($document)
+                        ->onQueue('documents');
+
                 }
 
-                DB::commit();
-
-                return redirect()->route('documents.show', $document)->with('success', 'Документ загружен.');
+                return redirect()->route('documents.index');
 
             } catch (\Exception $e) {
 
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
         }
             return redirect()->route('documents.create')->with('error', 'Ошибка при загрузке документа.');
@@ -93,6 +157,16 @@ class DocumentController extends Controller
      */
     public function show(Document $document)
     {
+        //$this->authorize('view', Document::class);
+
+        $utcTime = new DateTime($document['created_at']);
+        $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
+
+        if(isset($document->tasks[0]->deadline_at)){
+            $utcTime = new DateTime($document->tasks[0]->deadline_at);
+            $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
+        }
+
         return view('documents.show', [
             'document' => $document
         ]);
@@ -104,6 +178,8 @@ class DocumentController extends Controller
      */
     public function edit(Document $document)
     {
+        //$this->authorize('update', Document::class);
+
         return view('documents.edit', [
             'document' => $document,
             'users' => User::all()
@@ -117,6 +193,8 @@ class DocumentController extends Controller
      */
     public function update(UpdateDocumentFormRequest $request, Document $document)
     {
+        //$this->authorize('update', Document::class);
+
         if($request->isMethod('patch')) {
 
             $data = $request->validated();
@@ -126,7 +204,14 @@ class DocumentController extends Controller
                 DB::beginTransaction();
 
                 $document->update([
-                    'name' => $data['name']
+                    'short_description' => $data['short_description'],
+                    'incoming_at' => $data['incoming_at'],
+                    'incoming_number' => $data['incoming_number'],
+                    'incoming_author' => $data['incoming_author'],
+                    'number' => $data['number'],
+                    'date' => $data['date'],
+                    'document_and_application_sheets' => $data['document_and_application_sheets'],
+                    'file_mark' => $data['file_mark']
                 ]);
 
                 DB::commit();
@@ -136,8 +221,7 @@ class DocumentController extends Controller
             } catch (\Exception $e) {
 
                 DB::rollBack();
-                dd($e); // TODO сделать вывод ошибки в журнал, что сайт не крашился
-
+                Log::error($e);
             }
 
         }
@@ -151,17 +235,35 @@ class DocumentController extends Controller
      */
     public function destroy(Document $document)
     {
-        if(Storage::exists('/public/' . $document->path)){
+        //$this->authorize('delete', Document::class);
 
-            Storage::delete('/public/' . $document->path);
+        try{
 
-        }else{
-            // TODO сделать вывод в лог, чтобы сайт не крашился
-            dd('File does not exist.');
+            if(Storage::exists('/public/' . $document->path)){
+
+                Storage::delete('/public/' . $document->path);
+
+
+            }
+
+            $document->delete();
+
+        } catch (\Exception $e) {
+            Log::error($e);
         }
 
-        $document->delete();
-
         return redirect()->route('documents.index');
+    }
+
+    public function create_task(Document $document)
+    {
+
+        $this->authorize('create_task', Document::class);
+
+        return view('documents.create-task', [
+            'document' => $document,
+            'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
+            'priorities' => TaskPriority::all(),
+        ]);
     }
 }

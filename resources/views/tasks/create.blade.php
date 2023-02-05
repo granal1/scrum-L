@@ -2,93 +2,119 @@
 
 @section('title', 'Создание задачи')
 
-    @section('header')
-        @include('menu')
-    @endsection
+@section('header')
+    @include('menu')
+@endsection
 
-    @section('content')
-    <div class="container mt-4 card shadow-lg mb-4">
-        <div class="row row-cols-1 row-cols-md-2">
-            <div class="col">
-                <h5 class="mt-3">Новая задача</h5>
+@section('content')
+<div class="container mb-3 mt-3 card shadow-lg">
+    <div class="row">
+        <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
+            <div class="row">
+                <div class="col">
+                    <h4 class="d-inline-block">Новая задача</h4>
+                </div>
             </div>
         </div>
-        <form action="{{route('tasks.store')}}" method="post">
-            @csrf
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
-                <div class="col mt-3">
-                    <label for="priority_uuid">Приоритет</label>
-                    <select class="form-select form-select-sm" name="priority_uuid">
-                        @forelse($priorities as $priority)
-                            <option value="{{$priority->id}}">{{$priority->name}}</option>
-                        @empty
-                            <option value="">Нет приоритетов</option>
-                        @endforelse
-                    </select>
-                    @error('priority_uuid')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-                <div class="col mt-3">
-                    <label for="deadline_at">Срок выполнения:</label>
-                    <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required>
-                    @error('deadline_at')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
-                </div>
-            </div>
+        <div class="col pt-3">
+            <form action="{{route('tasks.store')}}" method="post">
+                @csrf
 
-            <div class="row row-cols-1">
-                <div class="col mt-2">
-                    <label for="description">Описание</label>
-                    <textarea required placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="2"></textarea>
-                    @error('description')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="priority_uuid">Приоритет</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select form-select-sm" name="priority_uuid">
+                            @forelse($priorities as $priority)
+                                <option value="{{$priority->id}}" {{$priority->sort_order === 1 ? 'selected' : ''}}>{{$priority->name}}</option>
+                            @empty
+                                <option value="">Нет приоритетов</option>
+                            @endforelse
+                        </select>
+                        @error('priority_uuid')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
-            </div>
-            <div class="row row-cols-1 row-cols-md-2 mb-3">
-                <div class="col mt-3">
-                    <label for="file_uuid">Приложение</label>
-                    <select class="form-select form-select-sm" name="file_uuid">
-                        <option value="">Выберите документ ...</option>
-                    @forelse($documents as $document)
-                            <option value="{{$document->id}}">{{$document->name}}</option>
-                        @empty
-                            <option value="">Нет документов</option>
-                        @endforelse
-                    </select>
-                    @error('files')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="deadline_at">Срок выполнения:</label>
+                    </div>
+                    <div class="col-8">
+                        <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required>
+                        @error('deadline_at')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
-                <div class="col mt-3">
-                    <label for="responsible_uuid">Ответственный за выполнение</label>
-                    <select class="form-select form-select-sm" name="responsible_uuid">
-                        @forelse($users as $user)
-                                <option value="{{$user->id}}">{{$user->name}}</option>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="description">Описание</label>
+                    </div>
+                    <div class="col-8">
+                        <textarea required placeholder="Описание задачи" class="form-control form-control-sm" name="description" id="description" rows="1"></textarea>
+                        @error('description')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="responsible_uuid">Ответственный за выполнение</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select form-select-sm" name="responsible_uuid">
+                            @forelse($users as $user)
+                                <option value="{{$user->id}}" {{$user->id === Auth::id() ? 'selected' : ''}}>{{$user->name}}</option>
                             @empty
                                 <option value="">Нет пользователей</option>
-                        @endforelse
-                    </select>
-                    @error('responsible_uuid')
-                    <div class="text-danger">{{$message}}</div>
-                    @enderror
+                            @endforelse
+                        </select>
+                        @error('responsible_uuid')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
-            </div>
 
-            <div class="row mt-5 mb-4">
-                <div class="col">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="history.back()">Назад</button>
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="file_uuid">Приложение</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select form-select-sm" name="file_uuid">
+                            <option value="">Выберите документ ...</option>
+                        @forelse($documents as $document)
+                                <option value="{{$document->id}}">{{$document->short_description}}</option>
+                            @empty
+                                <option value="">Нет документов</option>
+                            @endforelse
+                        </select>
+                        @error('files')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
                 </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-danger btn-sm col-12">Сохранить</button>
+
+                <div class="d-flex justify-content-center my-4">
+                    <div class="mx-3">
+                        <button type="button" style="width:100px" class="btn btn-sm btn-success"  onclick="javascript:history.back(); return false;">Назад</button>
+                    </div>
+                    <div class="mx-3">
+                        <button type="submit" style="width:100px" class="btn btn-sm btn-danger">Сохранить</button>
+                    </div>
                 </div>
-            </div>
-        </form>
+
+            </form>
+        </div>
     </div>
 </div>
-    @endsection
 
-
-
+<script src="{{asset('assets/documents/adaptTextarea.js')}}"></script>
+<script>
+    adaptTextarea('description');
+</script>
+@endsection

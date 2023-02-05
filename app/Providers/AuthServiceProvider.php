@@ -3,7 +3,10 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Roles\Role;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,15 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Documents\Document' => 'App\Policies\Documents\DocumentPolicy',
+        'App\Models\Admin\Admin' => 'App\Policies\Admin\AdminPolicy',
+        'App\Models\User' => 'App\Policies\Users\UserPolicy',
+        'App\Models\Roles\Role' => 'App\Policies\Roles\RolePolicy',
+        'App\Models\UserStatuses\UserStatus' => 'App\Policies\UserStatuses\UserStatusPolicy',
+        'App\Models\Profile\Profile' => 'App\Policies\Profile\ProfilePolicy',
+        'App\Models\PhoneBook\PhoneBook' => 'App\Policies\PhoneBook\PhoneBookPolicy',
+        'App\Models\Tasks\Task' => 'App\Policies\Tasks\TaskPolicy',
+        'App\Models\OutgoingFiles\OutgoingFile' => 'App\Policies\OutgoingFiles\OutgoingFilePolicy',
     ];
 
     /**
@@ -24,7 +35,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

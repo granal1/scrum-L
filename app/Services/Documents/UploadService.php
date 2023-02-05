@@ -3,15 +3,19 @@
 namespace App\Services\Documents;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\File\Exception\UploadException;
 
 class UploadService
 {
-    public function uploadMedia(UploadedFile $uploadedFile): string
+    public function uploadMedia(UploadedFile $uploadedFile, $now): string
     {
-        $path = $uploadedFile->storeAs('files/documents/' . date('Y/m/d'), date('Ymd-His') . '.pdf', 'public');
+        $path = $uploadedFile->storeAs('files/documents/' .
+            date_format($now,"Y/m/d"),
+            date_format($now,"Ymd-His") . '.pdf', 'public');
+
         if ($path === false) {
-            throw new UploadException("File was not upload");
+            Log::error('Файл не удалось загрузить на диск');
         }
 
         return $path;

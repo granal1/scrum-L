@@ -3,18 +3,21 @@
 namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tasks\StoreTaskFormRequest;
-use App\Http\Requests\Tasks\UpdateTaskFormRequest;
+use App\Http\Filters\Users\UserFilter;
 use App\Http\Requests\Users\StoreUserFormRequest;
 use App\Http\Requests\Users\UpdateUserFormRequest;
-use App\Services\Tasks\UploadService;
-use Illuminate\Http\Request;
+use App\Http\Requests\Users\UserFilterRequest;
+use App\Models\UserStatuses\UserStatus;
 
-use App\Models\Tasks\Task;
-use App\Models\Tasks\TaskPriority;
+
+use App\Models\Roles\Role;
 use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Symfony\Polyfill\Uuid\Uuid;
 
 
@@ -31,13 +34,38 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(UserFilterRequest $request)
     {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
 
-        $users = User::paginate(config('front.users.pagination'));
+            ]
+        );
 
-        return view('users.index',[
+        //$this->authorize('viewAny', User::class);
+
+        $data = $request->validated();
+
+        if (isset($data['name'])) {
+            $data['name'] = no_inject($data['name']);
+        }
+
+        if (isset($data['email'])) {
+            $data['email'] = no_inject($data['email']);
+        }
+
+        $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
+
+        $users = User::filter($filter)
+            ->orderBy('created_at', 'desc')
+            ->paginate(config('front.users.pagination'));
+
+        return view('users.index', [
             'users' => $users,
+            'old_filters' => $data,
         ]);
     }
 
@@ -48,8 +76,19 @@ class UserController extends Controller
      */
     public function create()
     {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]
+        );
+
+        //$this->authorize('create', User::class);
+
         return view('users.create', [
             'superiors' => User::all(),
+            'roles' => Role::all(),
+            'user_statuses' => UserStatus::all(),
         ]);
     }
 
@@ -61,8 +100,18 @@ class UserController extends Controller
      */
     public function store(StoreUserFormRequest $request)
     {
-        if ($request->isMethod('post'))
-        {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]
+        );
+
+        //$this->authorize('create', User::class);
+
+        if ($request->isMethod('post')) {
             $data = $request->validated();
 
             $user = new User();
@@ -73,18 +122,28 @@ class UserController extends Controller
 
                 $user->fill([
                     'name' => $data['name'],
-                    'login' => $data['login'],
                     'email' => $data['email'],
                     'superior_uuid' => $data['superior_uuid'],
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
-                    'password' => Hash::make($data['password'])
+                    'password' => Hash::make($data['password']),
+                    'employment_at' => $data['employment_at'],
+                    'position' => $data['position'],
+                    'user_status_uuid' => $data['user_status_uuid'],
                 ]);
 
                 $user->save();
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                $data_to_sync = [];
+
+                foreach ($data['role_uuid'] as $role_id) {
+                    $data_to_sync[$role_id] = ['id' => Str::uuid()];
+                }
+
+                $user->roles()->detach();
+                $user->roles()->sync($data_to_sync, false);
+
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
@@ -95,10 +154,9 @@ class UserController extends Controller
                 DB::commit();
 
                 return redirect()->route('users.show', $user)->with('success', 'Новый сотрудник создан.');
-
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO сделать вывод в журнол ошибок, чтобы сайт не крашился
+                Log::error($e);
             }
         }
 
@@ -113,6 +171,16 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                //'user_request_data' => $user
+            ]
+        );
+
+        //$this->authorize('view', User::class);
+
         return view('users.show', [
             'user' => $user,
             'subordinates' => User::where('superior_uuid', $user->id)->get(),
@@ -127,10 +195,21 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]
+        );
+
+        //$this->authorize('update', User::class);
+
         return view('users.edit', [
             'user' => $user,
             'superiors' => User::all(),
-            'subordinates' => User::all(),
+            'subordinates' => User::where('superior_uuid', $user->id)->get(),
+            'roles' => Role::all(),
+            'user_statuses' => UserStatus::all(),
         ]);
     }
 
@@ -143,7 +222,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserFormRequest $request, User $user)
     {
-        if($request->isMethod('patch')){
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+                'request' => $request->all(),
+
+            ]
+        );
+
+        //$this->authorize('update', User::class);
+
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -152,30 +242,48 @@ class UserController extends Controller
 
                 $user->update([
                     'name' => $data['name'],
-                    'login' => $data['login'],
                     'email' => $data['email'],
-                    //'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
+                    'password' => $data['password'] ? Hash::make($data['password']) : $user->password,
                     'phone' => $data['phone'],
                     'birthday_at' => $data['birthday_at'],
-                    'superior_uuid' => $data['superior_uuid']
+                    'superior_uuid' => $data['superior_uuid'],
+                    'employment_at' => $data['employment_at'],
+                    'position' => $data['position'],
+                    'user_status_uuid' => $data['user_status_uuid'],
                 ]);
 
-                if(isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid']))
-                {
+                $data_to_sync = [];
+
+                foreach ($data['role_uuid'] as $role_id) {
+                    $data_to_sync[$role_id] = ['id' => Str::uuid()];
+                }
+
+                $user->roles()->detach();
+                $user->roles()->sync($data_to_sync, false);
+
+                if (isset($data['subordinate_uuid']) && !empty($data['subordinate_uuid'])) {
                     $subordinate_user = User::find($data['subordinate_uuid']);
 
                     $subordinate_user->update([
                         'superior_uuid' => $user->id,
                     ]);
+                } else {
+
+                    $subordinate_user = User::where('superior_uuid', 'like', $user->id)->get()->first();
+
+                    if ($subordinate_user) {
+                        $subordinate_user->update([
+                            'superior_uuid' => null,
+                        ]);
+                    }
                 }
 
-                    DB::commit();
+                DB::commit();
 
-                    return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
-
+                return redirect()->route('users.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
             } catch (\Exception $e) {
                 DB::rollBack();
-                dd($e); // TODO, вывод ошибки в журнал, чтобы сайт не крашился
+                Log::error($e);
             }
         }
         return redirect()->route('users.edit', $user->id)->with('error', 'Не удалось сохранить новые данные.');
@@ -189,6 +297,15 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        Log::info(
+            get_class($this) . ', method: ' . __FUNCTION__,
+            [
+                'user' => Auth::user()->name,
+            ]
+        );
+
+        //$this->authorize('delete', User::class);
+
         $user->delete();
         return redirect()->route('users.index');
     }

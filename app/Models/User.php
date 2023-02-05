@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Roles\Role;
+use App\Models\Traits\Filterable;
+use App\Models\UserStatuses\UserStatus;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +14,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasUuids;
+    use HasApiTokens, HasFactory, Notifiable, HasUuids, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -22,11 +25,13 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'login',
         'phone',
         'birthday_at',
         'comment',
         'superior_uuid',
+        'position',
+        'employment_at',
+        'user_status_uuid'
     ];
 
     /**
@@ -52,8 +57,62 @@ class User extends Authenticatable
         return $this->name;
     }
 
+    public function status()
+    {
+        return $this->belongsTo(
+            UserStatus::class,
+            'user_status_uuid'
+        );
+    }
+
     public function superior()
     {
         return $this->belongsTo(User::class, 'superior_uuid');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany(
+            Role::class,
+            'user_role',
+            'user_uuid',
+            'role_uuid'
+        )->wherePivot('deleted_at', null);
+    }
+
+    protected function removeQueryParam(string ...$keys)
+    {
+        foreach($keys as $key)
+        {
+            unset($this->queryParams[$key]);
+        }
+
+        return $this;
+    }
+
+    public function isMainSupervisor()
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name === Role::MAIN_SUPERVISOR)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function isAdmin()
+    {
+        foreach($this->roles as $role)
+        {
+            if($role->name === Role::ADMIN)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -24,15 +24,18 @@ class UpdateUserFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'login' => ['required', 'string', 'min:1', 'max:100'],
             'name' => ['required', 'string', 'min:2', 'max:100'],
             'email' => ['required', 'string', 'min:3', 'max:100'],
             'phone' => ['nullable', 'string', 'min:3', 'max:15'],
-            'birthday_at' => ['nullable'],
+            'birthday_at' => ['nullable', 'date_format:Y-m-d', 'after:1940-01-01'],
             'password' => ['nullable', 'string', 'min:2', 'max:50'],
             'comment' => ['nullable', 'string', 'min:1', 'max:3000'],
             'superior_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
-            'subordinate_uuid' => ['nullable', 'string', 'min:36', 'max:36']
+            'subordinate_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'role_uuid.*' => ['required', 'string', 'min:36', 'max:36'],
+            'employment_at' => ['nullable', 'date'],
+            'position' => ['nullable', 'string', 'min:2', 'max:255'],
+            'user_status_uuid' => ['required', 'string', 'min:36', 'max:36'],
         ];
     }
 
