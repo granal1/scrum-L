@@ -10,7 +10,7 @@
     <div class="container-fluid pt-3">
         <div class="card shadow">
             <div class="card-header">
-                <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">                    
+                <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                     <div class="btn-group">
                         <button type="button" class="btn btn-outline-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -19,7 +19,7 @@
                         <div class="dropdown-menu">
                             @forelse ($archive_list as $key => $value)
                                 <a class="dropdown-item"
-                                    href="{{ route('archive_documents.index') }}?archive={{$value}}">{{$key}}
+                                    href="{{ route('archive_documents.index') }}?archive={{ $value }}">{{ $key }}
                                     год</a>
                             @empty
                                 <div>нет сохранённых архивов</div>
@@ -97,7 +97,6 @@
                                         </td>
                                         <td class="d-none d-md-table-cell">{{ $document->executed_at ?? null }}</td>
                                         <td class="d-none d-md-table-cell">{{ $document->file_mark }}
-                                            <input hidden name="arcnive_name" value="{{$archive}}">
                                         </td>
                                     </tr>
                                 @empty

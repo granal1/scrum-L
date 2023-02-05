@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Archives;
+namespace App\Models\ArchivesDocuments;
 
 use App\Models\Traits\Filterable;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;

@@ -226,14 +226,14 @@
                     <div class="mx-3">
                         <button style="width:170px" class="btn btn-sm btn-success"  onclick="javascript:history.back(); return false;">Назад</button>
                     </div>
-                    @can('update', \App\Models\Documents\Document::class)
+                    {{-- @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">
                             <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('documents.edit', $document)}}">Редактировать</a>
                         </div>
                     @endcan
                     <div class="mx-3">
                         <a style="width:170px" class="btn btn-sm btn-warning {{isset($document->tasks[0]) ? 'disabled' : ''}}" href="{{route('documents.create_task', $document)}}">Добавить резолюцию</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

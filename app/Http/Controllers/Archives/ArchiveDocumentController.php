@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Archives;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Archives\ArchiveDocumentFilterRequest;
 use App\Http\Filters\ArchiveDocuments\ArchiveDocumentFilter;
-use App\Models\Archives\ArchiveDocument;
+use App\Models\ArchivesDocuments\ArchiveDocument;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class ArchiveDocumentController extends Controller
 {
@@ -21,7 +22,6 @@ class ArchiveDocumentController extends Controller
     {
         $this->archive_list = $this->getArchiveList();
         $this->middleware(['auth']);
-        $this->authorizeResource(ArchiveDocument::class, 'archiveDocument');
     }
 
     /**
@@ -40,10 +40,14 @@ class ArchiveDocumentController extends Controller
             ]
         );
 
+        $this->authorize('viewAny', ArchiveDocument::class);
+
         if (isset($request['archive'])) {
             $archive = $request['archive'];
+            session(['archive_name' => $archive]);
         } else {
             $archive = $this->archive_list[array_key_first($this->archive_list)];
+            session(['archive_name' => $archive]);
         }
 
         $documents = new ArchiveDocument($archive);
@@ -52,7 +56,7 @@ class ArchiveDocumentController extends Controller
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
         }
-        
+
         $filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
 
         if (!empty($data['content'])) {
@@ -98,10 +102,16 @@ class ArchiveDocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ArchiveDocumentFilterRequest $request)
+    public function show($id)
     {
-        dd($request);
-        $document = new ArchiveDocument($this->archive_list[array_key_first($this->archive_list)]);
+        $this->authorize('view', ArchiveDocument::class);
+
+        $archiveDocument = new ArchiveDocument(session('archive_name'));
+
+
+        $document = $archiveDocument->find($id);
+
+
         $utcTime = new DateTime($document['created_at']);
         $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
 
@@ -110,7 +120,7 @@ class ArchiveDocumentController extends Controller
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
         }
 
-        return view('archive_documents.show', [
+        return view('archives.show', [
             'document' => $document
         ]);
     }
