@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
 
 class ArchiveDocumentController extends Controller
 {
@@ -108,9 +107,7 @@ class ArchiveDocumentController extends Controller
 
         $archiveDocument = new ArchiveDocument(session('archive_name'));
 
-
         $document = $archiveDocument->find($id);
-
 
         $utcTime = new DateTime($document['created_at']);
         $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
@@ -119,7 +116,7 @@ class ArchiveDocumentController extends Controller
             $utcTime = new DateTime($document->tasks[0]->deadline_at);
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
         }
-
+        
         return view('archives.show', [
             'document' => $document
         ]);

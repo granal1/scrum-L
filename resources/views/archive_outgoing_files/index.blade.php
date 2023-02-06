@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Архив | Документы')
+@section('title', 'Архив | Исходящие документы')
 
 @section('header')
     @include('menu')
@@ -26,16 +26,17 @@
                             @endforelse
                         </div>
                     </div>
-                    <h4 class="d-inline-block">Архив входящих документов</h4>
+                    <h4 class="d-inline-block">Архив исходящих документов</h4>
                     <div>
                         <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
+                            data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                            Поиск
                         </button>
                         <a class="btn btn-outline-success btn-sm" type="button"
-                            href="{{ route('documents.index') }}">Текущий год</a>
+                            href="{{ route('outgoing_files.index') }}">Текущий год</a>
                     </div>
                     <a class="btn btn-outline-danger btn-sm d-md-none" type="button"
-                        href="{{ route('documents.index') }}">Сброс</a>
+                        href="{{ route('outgoing_files.index') }}">Сброс</a>
                 </div>
             </div>
             <div class="card-body">
@@ -45,74 +46,63 @@
                             <thead>
                                 <tr>
                                     <th class="d-none d-md-table-cell">Дата</th>
-                                    <th class="d-none d-md-table-cell">Вх.№</th>
-                                    <th class="d-none d-md-table-cell">Корреспондент<br>(автор)</th>
-                                    <th class="d-none d-md-table-cell">Номер<br>док-та</th>
-                                    <th class="d-none d-md-table-cell">Дата<br>док-та</th>
+                                    <th class="d-none d-md-table-cell">Исх.№</th>
+                                    <th class="d-none d-md-table-cell">Адресат</th>
+                                    <th class="d-none d-md-table-cell">Ответ на исх.,<br>№</th>
+                                    <th class="d-none d-md-table-cell">Ответ на исх.,<br>дата</th>
                                     <th>Наименование или<br>краткое содержание</th>
                                     <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
-                                    <th class="d-none d-sm-table-cell">Задание (Резолюция)</th>
-                                    <th class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</th>
-                                    <th class="d-none d-sm-table-cell">Срок<br>исполнения</th>
-                                    <th class="d-none d-sm-table-cell">Результат<br>исполнения</th>
-                                    <th class="d-none d-sm-table-cell">Дата<br>исполнения</th>
+                                    <th class="d-none d-md-table-cell">ФИО исполнителя<br>документа</th>
                                     <th class="d-none d-sm-table-cell">Место<br>подшивки</th>
                                 </tr>
                             </thead>
                             <tbody style="cursor: pointer;">
 
                                 <tr class="collapse @if (!empty($old_filters)) show @endif" id="collapseExample">
-                                    <form action="{{ route('archive_documents.index') }}" method="get">
+                                    <form action="{{ route('archive_outgoing_files.index') }}" method="get">
                                         <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm"
-                                                type="button" href="{{ route('archive_documents.index') }}">Сброс</a></td>
+                                                type="button" href="{{ route('outgoing_files.index') }}">Сброс</a>
+                                        </td>
                                         <td colspan="4"></td>
                                         <td>
-                                            <input type="search"
+                                            <input type="search" placeholder="Поиск по содержимому документов"
                                                 value="@if (isset($old_filters['content'])) {{ $old_filters['content'] }} @endif"
                                                 class="form-control form-control-sm" id="content" name="content"
                                                 onchange="this.form.submit()">
                                         </td>
-                                        <td colspan="8"></td>
+                                        <td colspan="7"></td>
                                     </form>
                                 </tr>
-                                @forelse($documents as $document)
-                                    <tr onclick="window.location='{{ route('archive_documents.show', $document->id) }}';">
+                                @forelse($output_files as $output_file)
+                                    <tr
+                                        onclick="window.location='{{ route('archive_outgoing_files.show', $output_file->id) }}';">
                                         <td class="d-none d-md-table-cell">
-                                            {{ $document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null }}
+                                            {{ $output_file->outgoing_at ? date('d.m.Y', strtotime($output_file->outgoing_at)) : null }}
                                         </td>
-                                        <td class="d-none d-md-table-cell">{{ $document->incoming_number }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $document->incoming_author }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $document->number }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $output_file->outgoing_number ?? 'Б/Н' }}
+                                        </td>
+                                        <td class="d-none d-md-table-cell">{{ $output_file->destination ?? 'Нет' }}</td>
                                         <td class="d-none d-md-table-cell">
-                                            {{ $document->date ? date('d.m.Y', strtotime($document->date)) : null }}</td>
-                                        <td>{{ $document->short_description }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $document->document_and_application_sheets }}
-                                        </td>
+                                            {{ $output_file->number_of_source_document ?? 'Б/Н' }}</td>
                                         <td class="d-none d-md-table-cell">
-                                            {{ isset($document->tasks[0]) ? $document->tasks[0]->description : null }}</td>
+                                            {{ $output_file->date_of_source_document ? date('d.m.Y', strtotime($output_file->date_of_source_document)) : 'Нет' }}
+                                        </td>
+                                        <td>{{ $output_file->short_description ?? 'Отсутствует' }}</td>
                                         <td class="d-none d-md-table-cell">
-                                            {{ isset($document->tasks[0]) ? $document->tasks[0]->responsible->name : null }}
-                                        </td>
-                                        <td class="d-none d-md-table-cell">
-                                            {{ isset($document->tasks[0]) ? date('d.m.Y', strtotime($document->tasks[0]->deadline_at)) : null }}
-                                        </td>
-                                        <td class="d-none d-md-table-cell">
-                                            {{ isset($document->tasks[0]) ? $document->tasks[0]->executed_result : null }}
-                                        </td>
-                                        <td class="d-none d-md-table-cell">{{ $document->executed_at ?? null }}</td>
-                                        <td class="d-none d-md-table-cell">{{ $document->file_mark }}
-                                        </td>
+                                            {{ $output_file->document_and_application_sheets ?? 'Нет' }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $output_file->executor->name ?? 'Нет' }}</td>
+                                        <td class="d-none d-md-table-cell">{{ $output_file->file_mark ?? 'Нет' }}</td>
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="13">
+                                        <td colspan="8">
                                             Нет документов
                                         </td>
                                     </tr>
                                 @endforelse
                             </tbody>
                         </table>
-                        {{ $documents->withQueryString()->links() }}
+                        {{ $output_files->withQueryString()->links() }}
                     </div>
                 </div>
             </div>
