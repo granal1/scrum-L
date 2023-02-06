@@ -33,7 +33,7 @@
 
                     <div class="row mt-3">
                         <div class="col-4 text-end">
-                            <label for="created_at">Задача создана (ИСПРАВИТЬ ЧАСОВОЙ ПОЯС)</label>
+                            <label for="created_at">Задача создана</label>
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">

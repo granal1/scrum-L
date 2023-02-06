@@ -75,7 +75,7 @@ class TaskController extends Controller
 
         foreach ($tasks as $key => $value) {
             $utcTime = new DateTime($value['deadline_at']);
-            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i');
         }
 
         return view('tasks.index', [
@@ -129,7 +129,7 @@ class TaskController extends Controller
 
         $users = User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get();
 
-        $documents = Document::orderBy('created_at', 'desc')->get();
+        $documents = Document::orderBy('created_at', 'desc')->take(10)->get();
 
         return view('tasks.create-subtask', [
             'priorities' => TaskPriority::all(),
@@ -183,7 +183,8 @@ class TaskController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('tasks.index');
+                $task = $task->parent_uuid ?? $task;
+                return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
@@ -209,9 +210,9 @@ class TaskController extends Controller
         );
 
         $utcTime = new DateTime($task['deadline_at']);
-        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод влокальный часовой пояс
         $utcTime = new DateTime($task['created_at']);
-        $task['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+        $task['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод влокальный часовой пояс
 
         return view('tasks.show', [
             'task' => $task,
@@ -236,7 +237,7 @@ class TaskController extends Controller
         );
 
         $utcTime = new DateTime($task['deadline_at']);
-        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод влокальный часовой пояс
 
         return view('tasks.edit', [
             'task' => $task,
@@ -363,7 +364,9 @@ class TaskController extends Controller
         $this->authorize('view', Task::class);
 
         $utcTime = new DateTime($task['deadline_at']);
-        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод влокальный часовой пояс
+        $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод влокальный часовой пояс
+        $utcTime = new DateTime($task['created_at']);
+        $task['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод влокальный часовой пояс
 
         return view('tasks.progress', [
             'task' => $task,

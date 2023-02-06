@@ -163,7 +163,6 @@
                                                 @endforelse
                                                 </tbody>
                                             </table>
-                                            {{$outstanding_tasks->withQueryString()->links()}}
                                         </div>
                                     </div>
                                 </div>
@@ -226,7 +225,6 @@
                                                 @endforelse
                                                 </tbody>
                                             </table>
-                                            {{$tasks->withQueryString()->links()}}
                                         </div>
                                     </div>
                                 </div>
