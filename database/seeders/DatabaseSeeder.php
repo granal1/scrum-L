@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Factories\Tasks\TaskFactory;
+use Database\Seeders\Files\FileSeeder;
 use Database\Seeders\Roles\RoleSeeder;
 use Database\Seeders\Tasks\TaskPrioritySeeder;
 use Database\Seeders\Users\UserStatusSeeder;
@@ -24,13 +25,14 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            RoleSeeder::class,
-            TaskPrioritySeeder::class,
-            UserSeeder::class,
-            UserRoleSeeder::class,
-            UserStatusSeeder::class,
+            // RoleSeeder::class,
+            // TaskPrioritySeeder::class,
+            // UserSeeder::class,
+            // UserRoleSeeder::class,
+            // UserStatusSeeder::class,
+            FileSeeder::class,
         ]);
 
-       // \App\Models\Documents\Document::factory(1000)->create();
+      // \App\Models\Documents\Document::factory(10000)->create();
     }
 }
