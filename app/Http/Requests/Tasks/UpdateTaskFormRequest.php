@@ -31,7 +31,8 @@ class UpdateTaskFormRequest extends FormRequest
             'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
-            'report' => ['nullable', 'string', 'min:1', 'max:3000']
+            'report' => ['nullable', 'string', 'min:1', 'max:3000'],
+            'period_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
         ];
     }
 

@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col pt-3">
-            @include('message')        
+            @include('message')
             <div class="row mt-3">
                 <div class="col-4 text-end">
                     <label class="form-label">Приложение</label>
@@ -78,7 +78,7 @@
                         <label for="deadline_at">Срок выполнения:</label>
                     </div>
                     <div class="col-8">
-                        <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{$task->deadline_at}}">
+                        <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{date('Y-m-d H:i:s', strtotime($task->deadline_at))}}">
                         @error('deadline_at')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -129,6 +129,25 @@
                             @endforelse
                         </select>
                         @error('responsible_uuid')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="period_uuid">Периодичность выполнения</label>
+                    </div>
+                    <div class="col-8">
+                        <select class="form-select form-select-sm" name="period_uuid">
+                            <option value="">Не повторять</option>
+                            @forelse($periods as $period)
+                                <option value="{{$period->id}}" @if($period->id === $task->period->id) selected @endif>{{$period->name}}</option>
+                            @empty
+                                <option value="">Нет периодов</option>
+                            @endforelse
+                        </select>
+                        @error('periods')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
                     </div>

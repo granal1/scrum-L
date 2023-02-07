@@ -4,6 +4,7 @@ namespace App\Models\Tasks;
 
 use App\Models\Documents\Document;
 use App\Models\OutgoingFiles\OutgoingFile;
+use App\Models\Periods\Period;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -32,6 +33,7 @@ class Task extends Model
         'report',
         'sort_order',
         'comment',
+        'period_uuid',
     ];
 
     public function responsible(): BelongsTo
@@ -47,6 +49,14 @@ class Task extends Model
         return $this->belongsTo(
             User::class,
             'author_uuid'
+        );
+    }
+
+    public function period(): BelongsTo
+    {
+        return $this->belongsTo(
+            TaskPeriod::class,
+            'period_uuid'
         );
     }
 

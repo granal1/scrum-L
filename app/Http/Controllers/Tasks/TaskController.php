@@ -13,15 +13,13 @@ use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, Task
 use App\Models\Documents\Document;
 use App\Models\OutgoingFiles\OutgoingFile;
 
-use App\Models\Tasks\{
-    TaskFile,
-    Task,
-    TaskPriority
-};
+use App\Models\Tasks\{TaskFile, Task, TaskPeriod, TaskPriority};
 
 use App\Models\User;
 
 use App\Services\Tasks\UploadService;
+
+use App\Models\Periods\Period;
 
 use Illuminate\Support\Facades\{
     Auth,
@@ -108,6 +106,7 @@ class TaskController extends Controller
             'priorities' => TaskPriority::all(),
             'users' => $users,
             'documents' => $documents,
+            'periods' => TaskPeriod::orderBy('sort_order')->get(),
         ]);
     }
 
@@ -136,7 +135,8 @@ class TaskController extends Controller
             'priorities' => TaskPriority::all(),
             'users' => $users,
             'task' => $task,
-            'documents' => $documents
+            'documents' => $documents,
+            'periods' => TaskPeriod::orderBy('sort_order')->get(),
         ]);
     }
 
@@ -250,6 +250,7 @@ class TaskController extends Controller
             'priorities' => TaskPriority::all(),
             'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
             'documents' => Document::all(),
+            'periods' => TaskPeriod::orderBy('sort_order')->get(),
         ]);
     }
 
@@ -288,6 +289,7 @@ class TaskController extends Controller
                     'deadline_at' => $data['deadline_at'],
                     'done_progress' => $data['done_progress'] ?? $task->done_progress,
                     'report' => $data['report'] ?? $task->report,
+                    'period_uuid' => $data['period_uuid'] ?? $task->period_uuid,
                 ]);
 
                 $real_document = Document::find($data['file_uuid']);

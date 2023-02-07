@@ -8,7 +8,7 @@
 
     @section('content')
     <div class="container mb-3 mt-3 card shadow-lg">
-        <div class="row">   
+        <div class="row">
             <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
                 <div class="row">
                     <div class="col">
@@ -91,6 +91,26 @@
                                 @endforelse
                             </select>
                             @error('responsible_uuid')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-4 text-end">
+                            <label for="period_uuid">Периодичность выполнения</label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-select form-select-sm" name="period_uuid">
+                                <option value="">Не повторять</option>
+                                @forelse($periods as $period)
+                                    <option value="{{$period->id}}">{{$period->name}}</option>
+                                @empty
+                                    <option value="">Нет периодов</option>
+                                @endforelse
+                            </select>
+                            @error('periods')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>

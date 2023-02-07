@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Database\Factories\Tasks\TaskFactory;
 use Database\Seeders\Roles\RoleSeeder;
+use Database\Seeders\Tasks\TaskPeriodSeeder;
 use Database\Seeders\Tasks\TaskPrioritySeeder;
 use Database\Seeders\Users\UserStatusSeeder;
 use Database\Seeders\Users\UserRoleSeeder;
@@ -29,6 +30,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UserRoleSeeder::class,
             UserStatusSeeder::class,
+            TaskPeriodSeeder::class,
         ]);
 
        // \App\Models\Documents\Document::factory(1000)->create();

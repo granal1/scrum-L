@@ -64,6 +64,15 @@
 
                 <div class="row mt-3">
                     <div class="col-4 text-end">
+                        <label for="period_uuid">Периодичность выполнения</label>
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control form-control-sm" name="period_uuid" id="period_uuid" disabled value="{{$task->period->name}}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
                         <label for="description">Описание задачи</label>
                     </div>
                     <div class="col-8">
