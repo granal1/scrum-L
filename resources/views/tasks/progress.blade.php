@@ -8,9 +8,9 @@
 
     @section('content')
     <div class="container mb-3 mt-3 card shadow-lg">
-        <div class="row"> 
+        <div class="row">
 
-            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">   
+            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .4">
                 <div class="col">
                     <h4>Исполнение задачи</h4>
                     @if(!is_null($task->parent_uuid))
@@ -75,8 +75,8 @@
                             <textarea class="form-control form-control-sm" name="description" id="description" rows="1" disabled>{{$task->description}}</textarea>
                         </div>
                     </div>
-            
-                    @if(!empty($task->documents) && count($task->documents) > 0) 
+
+                    @if(!empty($task->documents) && count($task->documents) > 0)
                     <div class="row mt-3">
                         <div class="col-4 text-end">
                             <label for="file_uuid" class="form-label">Входящие документы</label>
@@ -163,7 +163,7 @@
         <script>
             adaptTextarea('description');
             adaptTextarea('comment');
-        </script>   
+        </script>
     @endsection
 
 
