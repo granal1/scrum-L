@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Models\Documents\Document;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -24,33 +25,15 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
 
-            // TODO сделать сразу выборку данных только старше двух лет
-        $files = DB::table('files')->orderBy('incoming_at')->get();
-
-        $need_to_copy = false;
-        $current_year = date('Y');
-
-        foreach($files as $file)
-        {
-            // Есть ли хоть один документ старше, чем два года
-            if($current_year - date('Y', strtotime($file->incoming_at)) >= 2) {
-                $need_to_copy = true;
-                break;
-            }
-        }
+        $files = DB::table('files')->where('incoming_at', '<=', Carbon::now()->subYears(2)->toDateTimeString())->orderBy('incoming_at')->get();
 
         $table_year = date('Y') - 2;
 
-        if($need_to_copy)
+        DB::statement('CREATE TABLE if not exists archive_documents_' . $table_year . ' LIKE files');
+
+        foreach($files as $file)
         {
 
-            DB::statement('CREATE TABLE if not exists archive_documents_' . $table_year . ' LIKE files');
-
-            foreach($files as $file)
-            {
-
-                if($current_year - date('Y', strtotime($file->incoming_at)) >= 2)
-                {
                     try{
 
                         DB::beginTransaction();
@@ -88,14 +71,9 @@ class Kernel extends ConsoleKernel
                         echo 'Tables copy error' . PHP_EOL;
                     }
 
-                } else {
-                    echo 'Break from tables copy foreach' . PHP_EOL;
-                    break;
-                }
-            }
         }
 
-                })->yearlyOn(2,8,'14:31');
+        })->yearlyOn(2,8,'16:26');
     }
 
     /**
