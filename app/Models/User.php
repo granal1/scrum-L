@@ -53,7 +53,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function name(){
+    public function name()
+    {
         return $this->name;
     }
 
@@ -82,8 +83,7 @@ class User extends Authenticatable
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 
@@ -92,10 +92,8 @@ class User extends Authenticatable
 
     public function isMainSupervisor()
     {
-        foreach($this->roles as $role)
-        {
-            if($role->name === Role::MAIN_SUPERVISOR)
-            {
+        foreach ($this->roles as $role) {
+            if ($role->name === Role::MAIN_SUPERVISOR) {
                 return true;
             }
         }
@@ -105,10 +103,8 @@ class User extends Authenticatable
 
     public function isAdmin()
     {
-        foreach($this->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
-            {
+        foreach ($this->roles as $role) {
+            if ($role->name === Role::ADMIN) {
                 return true;
             }
         }

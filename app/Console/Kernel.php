@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param \Illuminate\Console\Scheduling\Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
@@ -25,55 +25,54 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
 
-        $files = DB::table('files')->where('incoming_at', '<=', Carbon::now()->subYears(2)->toDateTimeString())->orderBy('incoming_at')->get();
+            $files = DB::table('files')->where('incoming_at', '<=', Carbon::now()->subYears(2)->toDateTimeString())->orderBy('incoming_at')->get();
 
-        $table_year = date('Y') - 2;
+            $table_year = date('Y') - 2;
 
-        DB::statement('CREATE TABLE if not exists archive_documents_' . $table_year . ' LIKE files');
+            DB::statement('CREATE TABLE if not exists archive_documents_' . $table_year . ' LIKE files');
 
-        foreach($files as $file)
-        {
+            foreach ($files as $file) {
 
-                    try{
+                try {
 
-                        DB::beginTransaction();
+                    DB::beginTransaction();
 
-                        DB::table('archive_documents_' . $table_year)->insert([
-                            'id' =>  (string) Str::uuid(),
-                            'incoming_at' => $file->incoming_at,
-                            'incoming_number' => $file->incoming_number,
-                            'incoming_author' => $file->incoming_author,
-                            'number' => $file->number,
-                            'date' => $file->date,
-                            'short_description' => $file->short_description,
-                            'document_and_application_sheets' => $file->document_and_application_sheets,
-                            'executed_result' => $file->executed_result,
-                            'executed_at' => $file->executed_at,
-                            'file_mark' => $file->file_mark,
-                            'path' => $file->path,
-                            'comment' => $file->comment,
-                            'sort_order' => $file->sort_order,
-                            'content' => $file->content,
-                            'archive_path' => $file->archive_path,
-                            'created_at' => $file->created_at,
-                            'updated_at' => $file->updated_at,
-                            'deleted_at' => $file->deleted_at,
-                            'author_uuid' => $file->author_uuid
-                        ]);
+                    DB::table('archive_documents_' . $table_year)->insert([
+                        'id' => (string)Str::uuid(),
+                        'incoming_at' => $file->incoming_at,
+                        'incoming_number' => $file->incoming_number,
+                        'incoming_author' => $file->incoming_author,
+                        'number' => $file->number,
+                        'date' => $file->date,
+                        'short_description' => $file->short_description,
+                        'document_and_application_sheets' => $file->document_and_application_sheets,
+                        'executed_result' => $file->executed_result,
+                        'executed_at' => $file->executed_at,
+                        'file_mark' => $file->file_mark,
+                        'path' => $file->path,
+                        'comment' => $file->comment,
+                        'sort_order' => $file->sort_order,
+                        'content' => $file->content,
+                        'archive_path' => $file->archive_path,
+                        'created_at' => $file->created_at,
+                        'updated_at' => $file->updated_at,
+                        'deleted_at' => $file->deleted_at,
+                        'author_uuid' => $file->author_uuid
+                    ]);
 
-                        Document::find($file->id)->forceDelete();
+                    Document::find($file->id)->forceDelete();
 
-                        DB::commit();
+                    DB::commit();
 
-                    } catch(\Exception $e) {
-                        Log::error($e);
-                        DB::rollBack();
-                        echo 'Tables copy error' . PHP_EOL;
-                    }
+                } catch (\Exception $e) {
+                    Log::error($e);
+                    DB::rollBack();
+                    echo 'Tables copy error' . PHP_EOL;
+                }
 
-        }
+            }
 
-        })->yearlyOn(2,8,'16:26');
+        })->yearlyOn(2, 8, '16:26');
     }
 
     /**
@@ -83,7 +82,7 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
-        $this->load(__DIR__.'/Commands');
+        $this->load(__DIR__ . '/Commands');
 
 
         require base_path('routes/console.php');

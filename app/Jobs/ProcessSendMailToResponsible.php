@@ -46,9 +46,9 @@ class ProcessSendMailToResponsible implements ShouldQueue
     public function handle()
     {
 
-        try{
+        try {
 
-                Mail::to($this->task->responsible->email)->send(new NewTaskCreated($this->task));
+            Mail::to($this->task->responsible->email)->send(new NewTaskCreated($this->task));
 
         } catch (\Throwable $e) {
 

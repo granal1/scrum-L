@@ -33,6 +33,7 @@ class PhoneBookFilter extends AbstractFilter
     {
         $builder->where('name', 'like', "%" . $value . "%");
     }
+
     public function phone(Builder $builder, $value)
     {
         $builder->where('phone', 'like', "%" . $value . "%");

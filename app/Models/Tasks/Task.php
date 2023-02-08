@@ -41,7 +41,7 @@ class Task extends Model
     {
         return $this->belongsTo(
             User::class,
-                    'responsible_uuid'
+            'responsible_uuid'
         );
     }
 
@@ -57,7 +57,7 @@ class Task extends Model
     {
         return $this->belongsTo(
             TaskPriority::class,
-                    'priority_uuid'
+            'priority_uuid'
         );
     }
 
@@ -81,18 +81,18 @@ class Task extends Model
         )->wherePivot('deleted_at', null);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($task) {
+        static::deleting(function ($task) {
             $task->documents()->delete();
         });
     }
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 

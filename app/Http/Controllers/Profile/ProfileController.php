@@ -35,7 +35,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -57,7 +57,7 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -81,8 +81,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateProfileFormRequest $request, User $user)
@@ -96,7 +96,7 @@ class ProfileController extends Controller
 
         $this->authorize('update', Profile::class);
 
-        if($request->isMethod('patch')){
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -114,13 +114,14 @@ class ProfileController extends Controller
                     'position' => $data['position'],
                 ]);
 
-                    DB::commit();
+                DB::commit();
 
-                    return redirect()->route('profile.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
+                return redirect()->route('profile.edit', $user->id)->with('success', 'Новые данные сотрудника сохранены.');
 
             } catch (\Exception $e) {
                 DB::rollBack();
-                Log::error($e);            }
+                Log::error($e);
+            }
         }
         return redirect()->route('profile.edit', $user->id)->with('error', 'Не удалось сохранить новые данные.');
     }

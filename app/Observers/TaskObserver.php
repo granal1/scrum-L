@@ -11,7 +11,7 @@ class TaskObserver
     /**
      * Handle the document "created" event.
      *
-     * @param  \App\Models\Tasks\Task $task
+     * @param \App\Models\Tasks\Task $task
      * @return void
      */
     public function created(Task $task)
@@ -19,7 +19,8 @@ class TaskObserver
 
     }
 
-    public function saved(){
+    public function saved()
+    {
 
         $command = ['php', 'artisan', 'queue:work', '--once', '--queue=tasks'];
         $process = new Process($command);
@@ -32,7 +33,7 @@ class TaskObserver
     /**
      * Handle the document "updated" event.
      *
-     * @param  \App\Models\Tasks\Task $task
+     * @param \App\Models\Tasks\Task $task
      * @return void
      */
     public function updated(Task $task)
@@ -43,7 +44,7 @@ class TaskObserver
     /**
      * Handle the document "deleted" event.
      *
-     * @param  \App\Models\Tasks\Task $task
+     * @param \App\Models\Tasks\Task $task
      * @return void
      */
     public function deleted(Task $task)
@@ -54,7 +55,7 @@ class TaskObserver
     /**
      * Handle the document "restored" event.
      *
-     * @param  \App\Models\Tasks\Task $task
+     * @param \App\Models\Tasks\Task $task
      * @return void
      */
     public function restored(Task $task)
@@ -65,7 +66,7 @@ class TaskObserver
     /**
      * Handle the document "force deleted" event.
      *
-     * @param  \App\Models\Tasks\Task $task
+     * @param \App\Models\Tasks\Task $task
      * @return void
      */
     public function forceDeleted(Task $task)

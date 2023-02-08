@@ -26,6 +26,7 @@ class UserStatusController extends Controller
         $this->middleware(['auth']);
         $this->authorizeResource(UserStatus::class, 'user_status');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +44,7 @@ class UserStatusController extends Controller
         //$this->authorize('viewAny', UserStatus::class);
 
         $data = $request->validated();
- 
+
         if (isset($data['name'])) {
             $data['name'] = no_inject($data['name']);
         }
@@ -51,7 +52,7 @@ class UserStatusController extends Controller
         if (isset($data['alias'])) {
             $data['alias'] = no_inject($data['alias']);
         }
-        
+
         $filter = app()->make(UserStatusFilter::class, ['queryParams' => array_filter($data)]);
 
         $user_statuses = UserStatus::filter($filter)
@@ -79,7 +80,7 @@ class UserStatusController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUserStatusFormRequest $request)
@@ -90,7 +91,7 @@ class UserStatusController extends Controller
                 'request' => $request->all(),
             ]);
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $data = $request->validated();
 
@@ -117,7 +118,7 @@ class UserStatusController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(UserStatus $user_status)
@@ -132,7 +133,7 @@ class UserStatusController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(UserStatus $user_status)
@@ -152,8 +153,8 @@ class UserStatusController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserStatusFormRequest $request, UserStatus $user_status)
@@ -165,7 +166,7 @@ class UserStatusController extends Controller
                 'request' => $request->all(),
             ]);
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -180,7 +181,7 @@ class UserStatusController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('user_statuses.edit', $user_status)->with('success','Изменения сохранены.');
+                return redirect()->route('user_statuses.edit', $user_status)->with('success', 'Изменения сохранены.');
 
             } catch (\Exception $e) {
 
@@ -190,14 +191,14 @@ class UserStatusController extends Controller
 
         }
 
-        return redirect()->route('user_statuses.edit', $user_status)->with('error','Изменения не сохранились, ошибка.');
+        return redirect()->route('user_statuses.edit', $user_status)->with('error', 'Изменения не сохранились, ошибка.');
 
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(UserStatus $user_status)

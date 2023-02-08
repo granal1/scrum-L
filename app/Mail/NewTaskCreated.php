@@ -17,6 +17,7 @@ class NewTaskCreated extends Mailable
     use Queueable, SerializesModels;
 
     public $task;
+
     /**
      * Create a new message instance.
      *
@@ -69,9 +70,9 @@ class NewTaskCreated extends Mailable
     public function attachments()
     {
         return [
-           // Attachment::fromStorageDisk('public', $this->task->documents[0]->path)
-              //  ->as($this->task->documents[0]->short_description.'.pdf')
-               // ->withMime('application/pdf'),
+            // Attachment::fromStorageDisk('public', $this->task->documents[0]->path)
+            //  ->as($this->task->documents[0]->short_description.'.pdf')
+            // ->withMime('application/pdf'),
         ];
     }
 }

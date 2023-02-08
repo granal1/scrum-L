@@ -12,7 +12,7 @@ class DocumentObserver
     /**
      * Handle the document "created" event.
      *
-     * @param  \App\Models\Documents\Document  $document
+     * @param \App\Models\Documents\Document $document
      * @return void
      */
     public function created(Document $document)
@@ -20,7 +20,8 @@ class DocumentObserver
 
     }
 
-    public function saved(){
+    public function saved()
+    {
 
         $command = ['php', 'artisan', 'queue:work', '--once', '--queue=documents'];
         $process = new Process($command);
@@ -33,7 +34,7 @@ class DocumentObserver
     /**
      * Handle the document "updated" event.
      *
-     * @param  \App\Models\Documents\Document  $document
+     * @param \App\Models\Documents\Document $document
      * @return void
      */
     public function updated(Document $document)
@@ -44,7 +45,7 @@ class DocumentObserver
     /**
      * Handle the document "deleted" event.
      *
-     * @param  \App\Models\Documents\Document  $document
+     * @param \App\Models\Documents\Document $document
      * @return void
      */
     public function deleted(Document $document)
@@ -55,7 +56,7 @@ class DocumentObserver
     /**
      * Handle the document "restored" event.
      *
-     * @param  \App\Models\Documents\Document  $document
+     * @param \App\Models\Documents\Document $document
      * @return void
      */
     public function restored(Document $document)
@@ -66,7 +67,7 @@ class DocumentObserver
     /**
      * Handle the document "force deleted" event.
      *
-     * @param  \App\Models\Documents\Document  $document
+     * @param \App\Models\Documents\Document $document
      * @return void
      */
     public function forceDeleted(Document $document)

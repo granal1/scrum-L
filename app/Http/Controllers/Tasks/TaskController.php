@@ -139,7 +139,7 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreTaskFormRequest $request, UploadService $uploadService)
@@ -198,7 +198,7 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show(Task $task)
@@ -224,7 +224,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task)
@@ -252,8 +252,8 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateTaskFormRequest $request, Task $task)
@@ -314,7 +314,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Task  $task
+     * @param Task $task
      * @return \Illuminate\Http\Response
      */
     public function destroy(Task $task)
@@ -352,7 +352,7 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function progress(Task $task)
@@ -385,8 +385,8 @@ class TaskController extends Controller
     /**
      * Progress the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function progress_update(ProgressTaskFormRequest $request, Task $task)
@@ -425,8 +425,7 @@ class TaskController extends Controller
 
                     }
 
-                    if(isset($data['create_new_task']))
-                    {
+                    if (isset($data['create_new_task'])) {
                         $new_task = $task->replicate();
                         $new_task->done_progress = 0;
                         $new_task->report = null;

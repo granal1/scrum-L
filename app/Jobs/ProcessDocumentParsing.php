@@ -58,7 +58,7 @@ class ProcessDocumentParsing implements ShouldQueue
     public function handle()
     {
 
-        try{
+        try {
             //set_time_limit(599);
 
             $file_path = Storage::disk('public')->path($this->document->path);

@@ -24,7 +24,7 @@ class StoreTaskFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => [ 'required', 'string', 'min:2', 'max:3000' ],
+            'description' => ['required', 'string', 'min:2', 'max:3000'],
             'deadline_at' => ['required', 'date', 'after_or_equal:' . date('Y-m-d')],
             'responsible_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
