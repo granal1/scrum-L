@@ -8,9 +8,9 @@
 
     @section('content')
     <div class="container mb-3 mt-3 card shadow-lg">
-        <div class="row"> 
+        <div class="row">
 
-            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">   
+            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
                 <div class="col">
                     <h4>Исполнение задачи</h4>
                     @if(!is_null($task->parent_uuid))
@@ -75,8 +75,8 @@
                             <textarea class="form-control form-control-sm" name="description" id="description" rows="1" disabled>{{$task->description}}</textarea>
                         </div>
                     </div>
-            
-                    @if(!empty($task->documents) && count($task->documents) > 0) 
+
+                    @if(!empty($task->documents) && count($task->documents) > 0)
                     <div class="row mt-3">
                         <div class="col-4 text-end">
                             <label for="file_uuid" class="form-label">Входящие документы</label>
@@ -99,6 +99,15 @@
                         </div>
                         <div class="col-8">
                             <input class="form-control form-control-sm" name="responsible_uuid" id="responsible_uuid" disabled value="{{$task->responsible->name}}">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col-4 text-end">
+                            <label for="period_uuid">Периодичность выполнения</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm" name="period_uuid" id="period_uuid" disabled value="{{$task->repeat_value}} {{translate_repeat_period($task->repeat_period)}}">
                         </div>
                     </div>
 
@@ -128,6 +137,12 @@
                     </div>
 
                     <div id="outgoing_files_block" class="row mt-3">
+                            <div class="col-4 text-end">
+                                <label for="create_new_task"><span class="text-danger"><b>*</b></span> Повторить эту задачу</label>
+                            </div>
+                            <div class="col-8 mb-3">
+                                <input class="form-check-input" type="checkbox" value="1" id="create_new_task" name="create_new_task" checked>
+                            </div>
                         <div class="col-4 text-end">
                             <label for="outgoing_file_uuid">Приложение исходящее</label>
                         </div>
@@ -163,7 +178,7 @@
         <script>
             adaptTextarea('description');
             adaptTextarea('comment');
-        </script>   
+        </script>
     @endsection
 
 

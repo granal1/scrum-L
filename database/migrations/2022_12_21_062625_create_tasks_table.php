@@ -21,7 +21,8 @@ return new class extends Migration
             $table->foreignUuid('author_uuid');
             $table->foreignUuid('responsible_uuid');
 
-            $table->string('period_uuid', 36)->nullable()->default(null);
+            $table->string('repeat_period', 6)->nullable()->default(null);
+            $table->tinyInteger('repeat_value')->nullable()->default(null);
 
             $table->text('description');
             $table->timestamp('deadline_at');

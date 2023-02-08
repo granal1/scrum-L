@@ -99,20 +99,22 @@
 
                     <div class="row mt-3">
                         <div class="col-4 text-end">
-                            <label for="period_uuid">Периодичность выполнения</label>
+                            <label for="repeat_value">Повторять через</label>
                         </div>
-                        <div class="col-8">
-                            <select class="form-select form-select-sm" name="period_uuid">
-                                <option value="">Не повторять</option>
-                                @forelse($periods as $period)
-                                    <option value="{{$period->id}}">{{$period->name}}</option>
-                                @empty
-                                    <option value="">Нет периодов</option>
-                                @endforelse
+                        <div class="col-1">
+                            <select class="form-select form-select-sm" id="repeat_value" name="repeat_value">
+                                <option value="">0</option>
+                                @for($i = 1; $i <= 31; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                @endfor
                             </select>
-                            @error('periods')
-                            <div class="text-danger">{{$message}}</div>
-                            @enderror
+                        </div>
+                        <div class="col-2">
+                            <select class="form-select form-select-sm" id="repeat_period" name="repeat_period">
+                                <option value="days">день</option>
+                                <option value="months">месяц</option>
+                                <option value="years">год</option>
+                            </select>
                         </div>
                     </div>
 

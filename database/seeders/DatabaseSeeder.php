@@ -30,7 +30,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             UserRoleSeeder::class,
             UserStatusSeeder::class,
-            TaskPeriodSeeder::class,
         ]);
 
        // \App\Models\Documents\Document::factory(1000)->create();

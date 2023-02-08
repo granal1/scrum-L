@@ -16,3 +16,19 @@ if (! function_exists('no_inject')) {
         return $clear_data;
     }
 }
+
+if (! function_exists('translate_repeat_period')) {
+    function translate_repeat_period(string $period): string
+    {
+        switch($period) {
+            case('months'):
+                return 'месяц';
+
+            case('years'):
+                return 'год';
+
+            default:
+                return 'день';
+        }
+    }
+}

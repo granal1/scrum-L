@@ -33,7 +33,8 @@ class Task extends Model
         'report',
         'sort_order',
         'comment',
-        'period_uuid',
+        'repeat_period',
+        'repeat_value',
     ];
 
     public function responsible(): BelongsTo
@@ -49,14 +50,6 @@ class Task extends Model
         return $this->belongsTo(
             User::class,
             'author_uuid'
-        );
-    }
-
-    public function period(): BelongsTo
-    {
-        return $this->belongsTo(
-            TaskPeriod::class,
-            'period_uuid'
         );
     }
 

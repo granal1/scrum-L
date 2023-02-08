@@ -64,10 +64,10 @@
 
                 <div class="row mt-3">
                     <div class="col-4 text-end">
-                        <label for="period_uuid">Периодичность выполнения</label>
+                        <label for="repeat_period">Периодичность выполнения</label>
                     </div>
                     <div class="col-8">
-                        <input class="form-control form-control-sm" name="period_uuid" id="period_uuid" disabled value="{{$task->period->name}}">
+                        <input class="form-control form-control-sm" name="repeat_period" id="repeat_period" disabled value="{{$task->repeat_value}} {{translate_repeat_period($task->repeat_period)}}">
                     </div>
                 </div>
 

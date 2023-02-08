@@ -30,7 +30,8 @@ class StoreTaskFormRequest extends FormRequest
             'priority_uuid' => ['required', 'string', 'min:36', 'max:36'],
             'parent_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
             'file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
-            'period_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'repeat_value' => ['nullable', 'numeric', 'min:0', 'max:31'],
+            'repeat_period' => ['nullable', 'string', 'min:4', 'max:10'],
         ];
     }
 

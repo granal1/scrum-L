@@ -136,20 +136,22 @@
 
                 <div class="row mt-3">
                     <div class="col-4 text-end">
-                        <label for="period_uuid">Периодичность выполнения</label>
+                        <label for="repeat_value">Повторить через</label>
                     </div>
-                    <div class="col-8">
-                        <select class="form-select form-select-sm" name="period_uuid">
-                            <option value="">Не повторять</option>
-                            @forelse($periods as $period)
-                                <option value="{{$period->id}}" @if($period->id === $task->period->id) selected @endif>{{$period->name}}</option>
-                            @empty
-                                <option value="">Нет периодов</option>
-                            @endforelse
+                    <div class="col-1">
+                        <select class="form-select form-select-sm" id="repeat_value" name="repeat_value">
+                            <option value="">0</option>
+                            @for($i = 1; $i <= 31; $i++)
+                                <option value="{{$i}}" @if($task->repeat_value === $i) selected @endif>{{$i}}</option>
+                            @endfor
                         </select>
-                        @error('periods')
-                        <div class="text-danger">{{$message}}</div>
-                        @enderror
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm" id="repeat_period" name="repeat_period">
+                            <option value="days" @if($task->repeat_period === 'days') selected @endif>день</option>
+                            <option value="months" @if($task->repeat_period === 'months') selected @endif>месяц</option>
+                            <option value="years" @if($task->repeat_period === 'years') selected @endif>год</option>
+                        </select>
                     </div>
                 </div>
 
