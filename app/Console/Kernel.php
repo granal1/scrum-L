@@ -24,7 +24,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
 
-
+            // TODO сделать сразу выборку данных только старше двух лет
         $files = DB::table('files')->orderBy('incoming_at')->get();
 
         $need_to_copy = false;
