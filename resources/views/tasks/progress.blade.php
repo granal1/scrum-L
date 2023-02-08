@@ -107,7 +107,7 @@
                             <label for="period_uuid">Периодичность выполнения</label>
                         </div>
                         <div class="col-8">
-                            <input class="form-control form-control-sm" name="period_uuid" id="period_uuid" disabled value="{{$task->repeat_value}} {{translate_repeat_period($task->repeat_period)}}">
+                            <input class="form-control form-control-sm" name="period_uuid" id="period_uuid" disabled value="{{$task->repeat_value}} {{$task->repeat_value !== null ? translate_repeat_period($task->repeat_period) : 'нет'}}">
                         </div>
                     </div>
 
