@@ -128,16 +128,23 @@ class Kernel extends ConsoleKernel
 
                 foreach($tasks_for_users as $key => $value)
                 {
-                    Mail::to($key)->send(new DeadlineOnThisWeek($value));
+                    $hostname = explode('@', $key, 2)[1];
+
+                    if (checkdnsrr($hostname, 'ANY')) {
+
+                        Mail::to($key)->send(new DeadlineOnThisWeek($value));
+
+                    } else {
+                        echo "NO DNS Record found for " . $hostname . PHP_EOL;
+                    }
+
                 }
 
-            } catch (\Throwable $e) {
+            } catch (\Exception $e) {
                 Log::error($e);
-                echo $e;
             }
 
-            })
-            ->weeklyOn(4, '10:20');
+            })->weeklyOn(4, '12:12');
     }
 
     /**
