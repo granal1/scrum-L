@@ -116,7 +116,7 @@ class ArchiveDocumentController extends Controller
             $utcTime = new DateTime($document->tasks[0]->deadline_at);
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
         }
-        
+
         return view('archives.show', [
             'document' => $document
         ]);
