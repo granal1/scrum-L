@@ -13,6 +13,7 @@ use App\Http\Controllers\Site\SiteController as SiteController;
 use App\Http\Controllers\UserStatuses\UserStatusController as UserStatusController;
 use App\Http\Controllers\OutgoingFiles\OutgoingFileController as OutgoingFileController;
 use App\Http\Controllers\PhoneBook\PhoneBookController;
+use App\Http\Controllers\Logs\LogsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('phonebook', [PhoneBookController::class, 'index'])->name('phonebook.index');
+    Route::get('logs', [LogsController::class, 'index'])->name('logs.index');
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
 });
 
