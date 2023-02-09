@@ -2,13 +2,16 @@
 
 namespace App\Console;
 
+use App\Mail\DeadlineOnThisWeek;
 use App\Models\Documents\Document;
+use App\Models\Tasks\Task;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
 
@@ -23,9 +26,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
+        // Создание архивной таблицы и перенос данных из основной таблицы документов старше двух лет, раз в год
         $schedule->call(function () {
 
-            $files = DB::table('files')->where('incoming_at', '<=', Carbon::now()->subYears(2)->toDateTimeString())->orderBy('incoming_at')->get();
+            $files = DB::table('files')
+                ->where('incoming_at', '<=', Carbon::now()
+                    ->subYears(2)
+                    ->toDateTimeString())
+                ->orderBy('incoming_at')
+                ->get();
 
             $table_year = date('Y') - 2;
 
@@ -73,6 +82,55 @@ class Kernel extends ConsoleKernel
             }
 
         })->yearlyOn(2, 8, '16:26');
+
+
+        // Рассылка заданий, которые должны быть закончены на этой неделе
+        $schedule->call(function () {
+
+            $tasks = Task::where('deadline_at',
+                '<',
+                Carbon::now()->addDays(7)->toDateTimeString()
+            )
+                ->where('done_progress', '<', 100)
+                ->orderBy('deadline_at')
+                ->get();
+
+
+            $emails = $tasks->map(function($item){
+                return $item->responsible->email;
+            })->toArray();
+
+            $emails = array_unique(array_values($emails));
+
+            $tasks_for_users = [];
+
+            foreach($tasks as $task)
+            {
+                foreach($emails as $email)
+                {
+                    if($email === $task->responsible->email)
+                    {
+                        $tasks_for_users[$email][] = $task;
+                    }
+                }
+            }
+
+            try {
+
+                foreach($tasks_for_users as $key => $value)
+                {
+                    Mail::to($key)->send(new DeadlineOnThisWeek($value));
+                }
+
+            } catch (\Throwable $e) {
+
+                Log::error($e);
+                echo $e;
+
+            }
+
+            })
+            ->weeklyOn(4, '9:04');
     }
 
     /**
