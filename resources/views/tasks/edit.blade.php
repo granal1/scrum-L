@@ -9,7 +9,7 @@
 @section('content')
 <div class="container mb-3 mt-3 card shadow-lg">
     <div class="row">
-        <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
+        <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .4">
             <div class="row">
                 <div class="col">
                     <h4 class="d-inline-block">Редактирование задачи</h4>
@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="col pt-3">
-            @include('message')        
+            @include('message')
             <div class="row mt-3">
                 <div class="col-4 text-end">
                     <label class="form-label">Приложение</label>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Filters\Tasks\TaskFilter;
 
+use App\Jobs\ProcessSendMailToResponsible;
 use App\Services\Tasks\TaskService;
 use App\Http\Requests\Tasks\{ProgressTaskFormRequest, StoreTaskFormRequest, TaskFilterRequest, UpdateTaskFormRequest};
 
@@ -183,8 +184,13 @@ class TaskController extends Controller
 
                 DB::commit();
 
+                ProcessSendMailToResponsible::dispatch($task)
+                    ->onQueue('tasks');
+
                 $task = $task->parent_uuid ?? $task;
+
                 return redirect()->route('tasks.show', $task)->with('success', 'Задача создана.');
+
             } catch (\Exception $e) {
                 DB::rollBack();
                 Log::error($e);
