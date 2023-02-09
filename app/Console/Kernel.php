@@ -84,7 +84,9 @@ class Kernel extends ConsoleKernel
         })->yearlyOn(2, 8, '16:26');
 
 
-        // Рассылка заданий, которые должны быть закончены на этой неделе
+
+
+        // Рассылка заданий, которые должны быть закончены на этой неделе или уже просрочены
         $schedule->call(function () {
 
             $tasks = Task::where('deadline_at',
@@ -110,7 +112,14 @@ class Kernel extends ConsoleKernel
                 {
                     if($email === $task->responsible->email)
                     {
-                        $tasks_for_users[$email][] = $task;
+                        if($task->deadline_at < Carbon::now()->addDays(7)->toDateTimeString()
+                            &&
+                            $task->deadline_at > Carbon::now()->toDateTimeString())
+                        {
+                            $tasks_for_users[$email]['current'][] = $task;
+                        } else {
+                            $tasks_for_users[$email]['overdue'][] = $task; // просроченные
+                        }
                     }
                 }
             }
@@ -123,14 +132,12 @@ class Kernel extends ConsoleKernel
                 }
 
             } catch (\Throwable $e) {
-
                 Log::error($e);
                 echo $e;
-
             }
 
             })
-            ->weeklyOn(4, '9:04');
+            ->weeklyOn(4, '9:46');
     }
 
     /**

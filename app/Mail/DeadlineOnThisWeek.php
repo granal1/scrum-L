@@ -38,7 +38,7 @@ class DeadlineOnThisWeek extends Mailable
 
         return new Envelope(
             from: new Address('kesvesna@projects-collection.ru', 'Делопроизводство'),
-            subject: 'Задачи до конца недели',
+            subject: 'Запланированные задачи',
         );
     }
 
