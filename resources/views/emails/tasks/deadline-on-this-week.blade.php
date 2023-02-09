@@ -1,5 +1,7 @@
 
 <div>
+
+    @if(isset($tasks['overdue']) && count($tasks['overdue']) > 0)
     <p>На сегодняшний день у Вас <b style="color: red;">просрочено</b> выполнение следующих задач:</p>
     <hr>
     <?php $counter = 1; ?>
@@ -14,6 +16,9 @@
         @endif
     @endforeach
     <br>
+    @endif
+
+    @if(isset($tasks['current']) && count($tasks['current']) > 0)
     <p>У Вас на этой неделе <b style="color: green;">запланированы</b> следующие задачи:</p>
     <hr>
     <?php $counter = 1; ?>
@@ -27,4 +32,6 @@
             @endforeach
         @endif
     @endforeach
+        @endif
+
 </div>

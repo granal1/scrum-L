@@ -137,7 +137,7 @@ class Kernel extends ConsoleKernel
             }
 
             })
-            ->weeklyOn(4, '9:46');
+            ->weeklyOn(4, '10:20');
     }
 
     /**
