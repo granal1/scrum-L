@@ -9,7 +9,7 @@
     @section('content')
     <div class="container mb-3 mt-3 card shadow-lg">
         <div class="row">
-            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
+            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .4">
                 <div class="row">
                     <div class="col">
                         <h4 class="d-inline-block">Редактирование документа</h4>
@@ -83,11 +83,11 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">   
+                    <div class="row mt-3">
                         <div class="col-4 text-end">
                             <label for="short_description">Наименование или краткое содержание</label>
                         </div>
-                        <div class="col-8">                        
+                        <div class="col-8">
                             <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$document->short_description}}">
                             @error('short_description')
                             <div class="text-danger">{{$message}}</div>
@@ -107,7 +107,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">         
+                    <div class="row mt-3">
                         <div class="col-4 text-end">
                             <label for="path">Приложение к документу</label>
                         </div>
@@ -215,7 +215,7 @@
                         <div class="mx-3">
                             <button type="submit" style="width:100px" class="btn btn-warning btn-sm">Сохранить</button>
                         </div>
-                    
+
                 </form>
                         <form action="{{route('documents.destroy', $document)}}" method="post">
                             @csrf
