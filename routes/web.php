@@ -42,13 +42,13 @@ Route::middleware(['auth'])->group(function () {
         'roles' => RoleController::class,
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
+        'logs' => LogsController::class,
     ]);
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('phonebook', [PhoneBookController::class, 'index'])->name('phonebook.index');
-    Route::get('logs', [LogsController::class, 'index'])->name('logs.index');
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
 });
 

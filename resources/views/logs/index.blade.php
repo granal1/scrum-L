@@ -48,18 +48,18 @@
                                 <td class="d-none d-sm-table-cell">{{$log->id}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->task_uuid}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->parent_uuid}}</td>
-                                <td class="d-none d-md-table-cell">{{$log->author_uuid}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->responsible_uuid}}</td>
+                                <td class="d-none d-md-table-cell">{{$log->author->name}}</td>
+                                <td class="d-none d-sm-table-cell">{{$log->responsible->name}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->description}}</td>
                                 <td class="d-none d-md-table-cell">{{$log->deadline_at}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->done_progress}}</td>
+                                <td class="d-none d-sm-table-cell">@include('graph.progressbar', ['done_progress'=> $log->done_progress])</td>
                                 <td class="d-none d-sm-table-cell">{{$log->report}}</td>
                                 <td class="d-none d-md-table-cell">{{$log->sort_order}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->comment}}</td>
                                 <td class="d-none d-md-table-cell">{{$log->created_at}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->updated_at}}</td>
                                 <td class="d-none d-sm-table-cell">{{$log->deleted_at}}</td>
-                                <td class="d-none d-sm-table-cell"><form action="{{ url('/logs/{log}', ['log' => $log->id]) }}" method="post">
+                                <td class="d-none d-sm-table-cell"><form action="{{ url('/logs', ['log' => $log->id]) }}" method="post">
                                     <input class="btn btn-default" type="submit" value="Delete" />
                                     @csrf
                                     @method('delete')

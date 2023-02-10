@@ -21,7 +21,7 @@
                                             stroke = "#0000ff"
                                             pathLength = "100"
                                             stroke-dasharray = "100"
-                                            stroke-dashoffset = "{{100-$task->done_progress}}"
+                                            stroke-dashoffset = "{{100-$done_progress}}"
                                             transform = "rotate(-90 18 18)"
                                         >
                                         </circle>
@@ -30,6 +30,6 @@
                                             y = "19"
                                             font-size = "11px"
                                             text-anchor = "middle"
-                                        >{{$task->done_progress}}
+                                        >{{$done_progress}}
                                         </text>
                                     </svg>
