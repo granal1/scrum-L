@@ -79,6 +79,26 @@
                         @enderror
                     </div>
                 </div>
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="repeat_value">Повторять через</label>
+                    </div>
+                    <div class="col-1">
+                        <select class="form-select form-select-sm" id="repeat_value" name="repeat_value">
+                            <option value="">0</option>
+                            @for($i = 1; $i <= 31; $i++)
+                                <option value="{{$i}}">{{$i}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm" id="repeat_period" name="repeat_period">
+                            <option value="days">день</option>
+                            <option value="months">месяц</option>
+                            <option value="years">год</option>
+                        </select>
+                    </div>
+                </div>
 
                 <div class="row mt-3">
                     <div class="col-4 text-end">

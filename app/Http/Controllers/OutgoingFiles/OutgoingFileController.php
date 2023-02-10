@@ -59,13 +59,12 @@ class OutgoingFileController extends Controller
         $outgoing_files = $filter
             ?
             OutgoingFile::filter($filter)
-            ->paginate(config('front.outgoing_files.pagination'))
+                ->paginate(config('front.outgoing_files.pagination'))
             :
             OutgoingFile::orderBy('created_at', 'desc')
-            ->paginate(config('front.outgoing_files.pagination'));
+                ->paginate(config('front.outgoing_files.pagination'));
 
-        if(!empty($data['content']))
-        {
+        if (!empty($data['content'])) {
             $outgoing_files = OutgoingFile::filter($filter)
                 ->paginate(config('front.outgoing_files.pagination'));
         } else {
@@ -142,7 +141,7 @@ class OutgoingFileController extends Controller
                     DB::commit();
 
                     ProcessOutgoingFileParsing::dispatch($outgoing_file)
-                            ->onQueue('outgoing_files');
+                        ->onQueue('outgoing_files');
                 }
 
                 return redirect()->route('outgoing_files.index');

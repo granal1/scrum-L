@@ -12,20 +12,20 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class NewTaskCreated extends Mailable
+class DeadlineOnThisWeek extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $task;
+    public $tasks;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(Task $task)
+    public function __construct(array $tasks)
     {
-        $this->task = $task;
+        $this->tasks = $tasks;
     }
 
     /**
@@ -38,7 +38,7 @@ class NewTaskCreated extends Mailable
 
         return new Envelope(
             from: new Address('kesvesna@projects-collection.ru', 'Делопроизводство'),
-            subject: 'Новая задача',
+            subject: 'Запланированные задачи',
         );
     }
 
@@ -50,14 +50,9 @@ class NewTaskCreated extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.tasks.created',
+            view: 'emails.tasks.deadline-on-this-week',
             with: [
-                'name' => $this->task->responsible->name,
-                'created_at' => $this->task->created_at,
-                'description' => $this->task->description,
-                'priority' => $this->task->priority->name,
-                'deadline_at' => $this->task->deadline_at,
-                'author' => $this->task->author->name,
+                'tasks' => $this->tasks
             ],
         );
     }
@@ -70,9 +65,6 @@ class NewTaskCreated extends Mailable
     public function attachments()
     {
         return [
-            // Attachment::fromStorageDisk('public', $this->task->documents[0]->path)
-            //  ->as($this->task->documents[0]->short_description.'.pdf')
-            // ->withMime('application/pdf'),
         ];
     }
 }

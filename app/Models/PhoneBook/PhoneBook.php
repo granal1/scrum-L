@@ -54,7 +54,8 @@ class PhoneBook extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function name(){
+    public function name()
+    {
         return $this->name;
     }
 
@@ -83,8 +84,7 @@ class PhoneBook extends Authenticatable
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 
@@ -93,10 +93,8 @@ class PhoneBook extends Authenticatable
 
     public function isMainSupervisor()
     {
-        foreach($this->roles as $role)
-        {
-            if($role->name === Role::MAIN_SUPERVISOR)
-            {
+        foreach ($this->roles as $role) {
+            if ($role->name === Role::MAIN_SUPERVISOR) {
                 return true;
             }
         }
@@ -106,10 +104,8 @@ class PhoneBook extends Authenticatable
 
     public function isAdmin()
     {
-        foreach($this->roles as $role)
-        {
-            if($role->name === Role::ADMIN)
-            {
+        foreach ($this->roles as $role) {
+            if ($role->name === Role::ADMIN) {
                 return true;
             }
         }

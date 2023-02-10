@@ -60,8 +60,7 @@ class DocumentController extends Controller
 
         $documents = null;
 
-        if(!empty($data['content']))
-        {
+        if (!empty($data['content'])) {
             $documents = Document::filter($filter)
                 ->paginate(config('front.documents.pagination'));
         } else {
@@ -69,7 +68,7 @@ class DocumentController extends Controller
                 ->paginate(config('front.documents.pagination'));
         }
 
-        return view('documents.index',[
+        return view('documents.index', [
             'documents' => $documents,
             'old_filters' => $data,
         ]);
@@ -92,6 +91,7 @@ class DocumentController extends Controller
     }
 
 // test changes on git
+
     /**
      * @param StoreDocumentFormRequest $request
      * @param UploadService $uploadService
@@ -101,7 +101,7 @@ class DocumentController extends Controller
     {
         //$this->authorize('create', Document::class);
 
-        if($request->isMethod('post')) {
+        if ($request->isMethod('post')) {
 
             $data = $request->validated();
 
@@ -118,7 +118,7 @@ class DocumentController extends Controller
                     $now = date_create("now", timezone_open(session('localtimezone')));
                     $document->path = $uploadService->uploadMedia($request->file('file'), $now);
 
-                    if($request->hasFile('archive_file')){
+                    if ($request->hasFile('archive_file')) {
                         $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
                     }
 
@@ -148,7 +148,7 @@ class DocumentController extends Controller
                 Log::error($e);
             }
         }
-            return redirect()->route('documents.create')->with('error', 'Ошибка при загрузке документа.');
+        return redirect()->route('documents.create')->with('error', 'Ошибка при загрузке документа.');
     }
 
     /**
@@ -162,7 +162,7 @@ class DocumentController extends Controller
         $utcTime = new DateTime($document['created_at']);
         $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
 
-        if(isset($document->tasks[0]->deadline_at)){
+        if (isset($document->tasks[0]->deadline_at)) {
             $utcTime = new DateTime($document->tasks[0]->deadline_at);
             $document->tasks[0]->deadline_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
         }
@@ -195,7 +195,7 @@ class DocumentController extends Controller
     {
         //$this->authorize('update', Document::class);
 
-        if($request->isMethod('patch')) {
+        if ($request->isMethod('patch')) {
 
             $data = $request->validated();
 
@@ -216,7 +216,7 @@ class DocumentController extends Controller
 
                 DB::commit();
 
-                return redirect()->route('documents.edit', $document)->with('success','Изменения сохранены.');
+                return redirect()->route('documents.edit', $document)->with('success', 'Изменения сохранены.');
 
             } catch (\Exception $e) {
 
@@ -226,7 +226,7 @@ class DocumentController extends Controller
 
         }
 
-        return redirect()->route('documents.edit', $document)->with('error','Изменения не сохранились, ошибка.');
+        return redirect()->route('documents.edit', $document)->with('error', 'Изменения не сохранились, ошибка.');
     }
 
     /**
@@ -237,9 +237,9 @@ class DocumentController extends Controller
     {
         //$this->authorize('delete', Document::class);
 
-        try{
+        try {
 
-            if(Storage::exists('/public/' . $document->path)){
+            if (Storage::exists('/public/' . $document->path)) {
 
                 Storage::delete('/public/' . $document->path);
 

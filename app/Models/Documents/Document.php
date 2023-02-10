@@ -31,7 +31,7 @@ class Document extends Model
         'author_uuid',
         'archive_path',
     ];
-    
+
     public function tasks()
     {
         return $this->belongsToMany(
@@ -44,8 +44,7 @@ class Document extends Model
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 

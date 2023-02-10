@@ -78,7 +78,7 @@
                         <label for="deadline_at">Срок выполнения:</label>
                     </div>
                     <div class="col-8">
-                        <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{$task->deadline_at}}">
+                        <input type="datetime-local" id="deadline_at" name="deadline_at" class="form-control form-select-sm" placeholder="Срок выполнения задачи" required value="{{date('Y-m-d H:i:s', strtotime($task->deadline_at))}}">
                         @error('deadline_at')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -131,6 +131,27 @@
                         @error('responsible_uuid')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
+                        <label for="repeat_value">Повторить через</label>
+                    </div>
+                    <div class="col-1">
+                        <select class="form-select form-select-sm" id="repeat_value" name="repeat_value">
+                            <option value="">0</option>
+                            @for($i = 1; $i <= 31; $i++)
+                                <option value="{{$i}}" @if($task->repeat_value === $i) selected @endif>{{$i}}</option>
+                            @endfor
+                        </select>
+                    </div>
+                    <div class="col-2">
+                        <select class="form-select form-select-sm" id="repeat_period" name="repeat_period">
+                            <option value="days" @if($task->repeat_period === 'days') selected @endif>день</option>
+                            <option value="months" @if($task->repeat_period === 'months') selected @endif>месяц</option>
+                            <option value="years" @if($task->repeat_period === 'years') selected @endif>год</option>
+                        </select>
                     </div>
                 </div>
 

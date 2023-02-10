@@ -29,6 +29,7 @@ class ProgressTaskFormRequest extends FormRequest
             'file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
             'report' => ['nullable', 'string', 'min:1', 'max:3000'],
             'outgoing_file_uuid' => ['nullable', 'string', 'min:36', 'max:36'],
+            'create_new_task' => ['nullable', 'in:1'],
         ];
     }
 

@@ -10,9 +10,9 @@ class UploadArchiveService
 {
     public function uploadMedia(UploadedFile $uploadedFile, $now): string
     {
-        $path = $uploadedFile->storeAs('files/documents/archives/' . 
-            date_format($now,"Y/m/d"),
-            date_format($now,"Ymd-His") . '.zip', 'public');
+        $path = $uploadedFile->storeAs('files/documents/archives/' .
+            date_format($now, "Y/m/d"),
+            date_format($now, "Ymd-His") . '.zip', 'public');
 
         if ($path === false) {
             Log::error('Архив не удалось загрузить на диск');

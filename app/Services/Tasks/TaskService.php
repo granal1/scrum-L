@@ -14,8 +14,8 @@ class TaskService extends Model
     {
         return Task::where(function ($query) {
             $query->where('responsible_uuid', Auth::id())
-                    ->orWhere('author_uuid', Auth::id());
-            })
+                ->orWhere('author_uuid', Auth::id());
+        })
             ->where([
                 ['deadline_at', '>', now()],
                 ['done_progress', '<', 100]
@@ -25,12 +25,12 @@ class TaskService extends Model
             ->all();
     }
 
-    public function getOutstandingTaskIds( )
+    public function getOutstandingTaskIds()
     {
         return Task::where(function ($query) {
             $query->where('responsible_uuid', Auth::id())
-                    ->orWhere('author_uuid', Auth::id());
-            })
+                ->orWhere('author_uuid', Auth::id());
+        })
             ->where([
                 ['deadline_at', '<=', now()],
                 ['done_progress', '<', 100]

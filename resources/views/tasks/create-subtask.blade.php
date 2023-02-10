@@ -9,7 +9,7 @@
     @section('content')
     <div class="container mb-3 mt-3 card shadow-lg">
         <div class="row">
-            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .4">
+            <div class="col-lg-2 col-md-12 rounded text-white bg-primary pt-3" style="--bs-bg-opacity: .45">
                 <div class="row">
                     <div class="col">
                         <h4 class="d-inline-block">Новая подзадача</h4>
@@ -93,6 +93,28 @@
                             @error('responsible_uuid')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
+                        </div>
+                    </div>
+
+
+                    <div class="row mt-3">
+                        <div class="col-4 text-end">
+                            <label for="repeat_value">Повторять через</label>
+                        </div>
+                        <div class="col-1">
+                            <select class="form-select form-select-sm" id="repeat_value" name="repeat_value">
+                                <option value="">0</option>
+                                @for($i = 1; $i <= 31; $i++)
+                                    <option value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <select class="form-select form-select-sm" id="repeat_period" name="repeat_period">
+                                <option value="days">день</option>
+                                <option value="months">месяц</option>
+                                <option value="years">год</option>
+                            </select>
                         </div>
                     </div>
 

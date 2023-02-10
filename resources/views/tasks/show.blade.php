@@ -64,6 +64,15 @@
 
                 <div class="row mt-3">
                     <div class="col-4 text-end">
+                        <label for="repeat_period">Периодичность выполнения</label>
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control form-control-sm" name="repeat_period" id="repeat_period" disabled value="{{$task->repeat_value}} {{$task->repeat_value !== null ? translate_repeat_period($task->repeat_period) : 'нет'}}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4 text-end">
                         <label for="description">Описание задачи</label>
                     </div>
                     <div class="col-8">

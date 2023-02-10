@@ -15,7 +15,7 @@ class ProfilePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
@@ -26,15 +26,13 @@ class ProfilePolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user)
     {
-        foreach($user->roles as $role)
-        {
-            if($role->name === Role::ADMIN || $role->name === Role::KADR)
-            {
+        foreach ($user->roles as $role) {
+            if ($role->name === Role::ADMIN || $role->name === Role::KADR) {
                 return true;
             }
         }

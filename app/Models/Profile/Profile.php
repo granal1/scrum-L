@@ -51,7 +51,8 @@ class Profile extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function name(){
+    public function name()
+    {
         return $this->name;
     }
 
@@ -72,8 +73,7 @@ class Profile extends Authenticatable
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 

@@ -4,6 +4,7 @@ namespace App\Models\Tasks;
 
 use App\Models\Documents\Document;
 use App\Models\OutgoingFiles\OutgoingFile;
+use App\Models\Periods\Period;
 use App\Models\Traits\Filterable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
@@ -32,13 +33,15 @@ class Task extends Model
         'report',
         'sort_order',
         'comment',
+        'repeat_period',
+        'repeat_value',
     ];
 
     public function responsible(): BelongsTo
     {
         return $this->belongsTo(
             User::class,
-                    'responsible_uuid'
+            'responsible_uuid'
         );
     }
 
@@ -54,7 +57,7 @@ class Task extends Model
     {
         return $this->belongsTo(
             TaskPriority::class,
-                    'priority_uuid'
+            'priority_uuid'
         );
     }
 
@@ -78,18 +81,18 @@ class Task extends Model
         )->wherePivot('deleted_at', null);
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($task) {
+        static::deleting(function ($task) {
             $task->documents()->delete();
         });
     }
 
     protected function removeQueryParam(string ...$keys)
     {
-        foreach($keys as $key)
-        {
+        foreach ($keys as $key) {
             unset($this->queryParams[$key]);
         }
 
