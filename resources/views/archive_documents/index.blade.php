@@ -13,13 +13,15 @@
                     <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                         <div class="col-1">
                             <form action="{{route('archive_documents.index')}}" method="get">
+                                @if(!is_null($archive_documents))
                                 <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
                                         <option value="{{$value}}" @if(isset($old_filters['year']) && $old_filters['year'] === $value)  selected @endif>{{substr($value, -4)}}</option>
                                     @empty
-                                        <option value="">пусто (</option>
+                                        <option value="">пусто</option>
                                     @endforelse
                                 </select>
+                                @endif
                             </form>
                         </div>
                         <h4 class="d-inline-block">Архив входящих документов</h4>
