@@ -179,9 +179,14 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(ArchiveDocument $document)
+    public function show($document_id)
     {
         //$this->authorize('view', ArchiveDocument::class);
+        $document = DB::table('archive_files_2021')
+            ->where('id', 'LIKE', '%' . $document_id . '%')
+            ->first();
+
+        $document = json_decode(json_encode($document),true);
 
         $utcTime = new DateTime($document['created_at']);
         $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
@@ -192,7 +197,7 @@ class ArchiveDocumentController extends Controller
         }
 
         return view('archive_documents.show', [
-            'document' => $document
+            'archive_document' => $document
         ]);
     }
 
@@ -301,13 +306,14 @@ class ArchiveDocumentController extends Controller
     private function getLastArchiveTable(): string
     {
         $years = $this->getArchiveList();
-        return array_pop($years);
+        return array_shift($years);
     }
 
     public function paginate($items, $perPage = 2, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        $paginator = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        return $paginator->setPath(Paginator::resolveCurrentPath());
     }
 }

@@ -24,7 +24,7 @@
                         <label for="incoming_at" class="form-label">Дата поступления</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime($archive_document->incoming_at))}}">
+                        <input readonly disabled type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime($archive_document['incoming_at']))}}">
                         @error('incoming_at')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -36,7 +36,7 @@
                         <label for="incoming_number" class="form-label">Регистрационный номер документа</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number" value="{{$archive_document->incoming_number}}">
+                        <input readonly disabled type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number" value="{{$archive_document['incoming_number']}}">
                         @error('incoming_number')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -48,7 +48,7 @@
                         <label for="incoming_author" class="form-label">Корреспондент (автор)</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="text" class="form-control form-control-sm" id="incoming_author" placeholder="Корреспондент (автор)" name="incoming_author" value="{{$archive_document->incoming_author}}">
+                        <input readonly disabled type="text" class="form-control form-control-sm" id="incoming_author" placeholder="Корреспондент (автор)" name="incoming_author" value="{{$archive_document['incoming_author']}}">
                         @error('incoming_author')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -60,7 +60,7 @@
                         <label for="number" class="form-label">Номер документа</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number" value="{{$archive_document->number}}">
+                        <input readonly disabled type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number" value="{{$archive_document['number']}}">
                         @error('number')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -72,7 +72,7 @@
                         <label for="date" class="form-label">Дата документа</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime($archive_document->date))}}">
+                        <input readonly disabled type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime($archive_document['date']))}}">
                         @error('date')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -84,7 +84,7 @@
                         <label for="name">Наименование или краткое содержание</label>
                     </div>
                     <div class="col-8">
-                        <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$archive_document->short_description}}">
+                        <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$archive_document['short_description']}}">
                     </div>
                 </div>
 
@@ -93,7 +93,7 @@
                         <label for="path">Место хранения документа</label>
                     </div>
                     <div class="col-8">
-                        <a href="{{'/storage/' . $archive_document->path}}" target="_blank"><input class="form-control form-control-sm" name="path" id="path" disabled value="{{$archive_document->path}}" style="cursor: pointer;"></a>
+                        <a href="{{'/storage/' . $archive_document['path']}}" target="_blank"><input class="form-control form-control-sm" name="path" id="path" disabled value="{{$archive_document['path']}}" style="cursor: pointer;"></a>
                     </div>
                 </div>
 
@@ -102,11 +102,11 @@
                         <label for="path">Приложение к документу</label>
                     </div>
                     <div class="col-8">
-                        @if(!empty($archive_document->archive_path))
-                            <a href="{{'/storage/' . $archive_document->archive_path}}" target="_blank">
+                        @if(!empty($archive_document['archive_path']))
+                            <a href="{{'/storage/' . $archive_document['archive_path']}}" target="_blank">
                                 <input
                                     class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
-                                    value="{{$archive_document->archive_path}}" style="cursor: pointer;">
+                                    value="{{$archive_document['archive_path']}}" style="cursor: pointer;">
                             </a>
                         @else
                             <input
@@ -121,7 +121,7 @@
                         <label for="document_and_application_sheets" class="form-label">Количество листов документа, включая приложение</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="text" class="form-control form-control-sm" id="document_and_application_sheets" name="document_and_application_sheets" value="{{$archive_document->document_and_application_sheets}}">
+                        <input readonly disabled type="text" class="form-control form-control-sm" id="document_and_application_sheets" name="document_and_application_sheets" value="{{$archive_document['document_and_application_sheets']}}">
                         @error('document_and_application_sheets')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -137,8 +137,8 @@
                         </div>
                         <div id="collapseOne" class="collapse" data-bs-parent="#accordion">
                             <div class="card-body">
-                                @if(!empty($archive_document->content))
-                                    <textarea rows="20" class="form-control form-control-sm" name="content" id="content" disabled>{{$archive_document->content}}</textarea>
+                                @if(!empty($archive_document['content']))
+                                    <textarea rows="20" class="form-control form-control-sm" name="content" id="content" disabled>{{$archive_document['content']}}</textarea>
                                 @else
                                     <input
                                         class="form-control form-control-sm" name="content" id="content" disabled
@@ -215,7 +215,7 @@
                         <label for="file_mark" class="form-label">Отметка о подшивке документа</label>
                     </div>
                     <div class="col-8">
-                        <input readonly disabled type="text" class="form-control form-control-sm" id="file_mark" placeholder="Документ в дело не подшит" name="file_mark" value="{{$archive_document->file_mark}}">
+                        <input readonly disabled type="text" class="form-control form-control-sm" id="file_mark" placeholder="Документ в дело не подшит" name="file_mark" value="{{$archive_document['file_mark']}}">
                         @error('file_mark')
                         <div class="text-danger">{{$message}}</div>
                         @enderror
@@ -224,16 +224,13 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('documents.index')}}">Назад</a>
+                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('archive_documents.index')}}">Назад</a>
                     </div>
                     @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">
-                            <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('documents.edit', $archive_document)}}">Редактировать</a>
+                            <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('archive_documents.edit', $archive_document['id'])}}">Редактировать</a>
                         </div>
                     @endcan
-                    <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-warning {{isset($archive_document->tasks[0]) ? 'disabled' : ''}}" href="{{route('documents.create_task', $archive_document)}}">Добавить резолюцию</a>
-                    </div>
                 </div>
             </div>
         </div>

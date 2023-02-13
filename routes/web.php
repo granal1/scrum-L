@@ -44,8 +44,12 @@ Route::middleware(['auth'])->group(function () {
         'roles' => RoleController::class,
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
-        'archive_documents' => ArchiveDocumentController::class,
+        //'archive_documents' => ArchiveDocumentController::class,
     ]);
+
+    Route::get('archive_documents/show/{document_id}', [ArchiveDocumentController::class, 'show'])->name('archive_documents.show');
+    Route::get('archive_documents/edit/{document_id}', [ArchiveDocumentController::class, 'edit'])->name('archive_documents.edit');
+    Route::get('archive_documents/index/{request?}', [ArchiveDocumentController::class, 'index'])->name('archive_documents.index');
 
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
