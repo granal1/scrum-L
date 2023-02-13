@@ -43,31 +43,6 @@ class ArchiveDocumentPolicy
         return false;
     }
 
-    /**
-     * Determine whether the user can create models.
-     *
-     * @param \App\Models\User $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function create(User $user)
-    {
-        foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public function create_task(User $user)
-    {
-        foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     /**
      * Determine whether the user can update the model.

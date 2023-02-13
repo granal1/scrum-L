@@ -24,7 +24,7 @@
                                 <div class="col-md-6">
                                     <input id="email" type="email" class="form-control" name="email" value="admin@admin.ru" required autocomplete="email" autofocus>
                                     @error('email')
-                                    <div>{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
@@ -33,7 +33,7 @@
                                 <div class="col-md-6">
                                     <input id="password" type="password" class="form-control" name="password" value="+1234567" required autocomplete="current-password">
                                     @error('password')
-                                    <div>{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>

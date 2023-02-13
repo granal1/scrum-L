@@ -29,7 +29,6 @@ class ArchiveDocumentController extends Controller
         $this->middleware(['auth']);
         $this->archive_list = $this->getArchiveList();
         $this->archive_year = $this->getLastArchiveTableYear();
-       // $this->authorizeResource(ArchiveDocument::class, 'archiveDocument');
     }
 
     /**
@@ -43,12 +42,15 @@ class ArchiveDocumentController extends Controller
                 'request' => $request->all(),
             ]);
 
+        $this->authorize('viewAny', ArchiveDocument::class);
+
         if(empty($this->archive_list))
         {
             return view('archive_documents.index', [
                 'archive_documents' => null,
                 'old_filters' => null,
                 'archive_years' => null,
+                'year' => null,
             ]);
         }
 
@@ -89,6 +91,7 @@ class ArchiveDocumentController extends Controller
             'archive_documents' => $documents,
             'old_filters' => $data,
             'archive_years' => $this->archive_list,
+            'year' => substr($tableName, -4),
         ]);
     }
 
@@ -97,10 +100,13 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show($document_id)
+    public function show($document_id, $year = null)
     {
-        //$this->authorize('view', ArchiveDocument::class);
-        $document = DB::table('archive_files_2021')
+        $this->authorize('view', ArchiveDocument::class);
+
+        $year = $year ?? $this->getLastArchiveTableYear();
+
+        $document = DB::table('archive_files_' . $year)
             ->where('id', 'LIKE', '%' . $document_id . '%')
             ->first();
 
@@ -115,7 +121,8 @@ class ArchiveDocumentController extends Controller
         }
 
         return view('archive_documents.show', [
-            'archive_document' => $document
+            'archive_document' => $document,
+            'year' => $year,
         ]);
     }
 
@@ -123,11 +130,12 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($document_id)
+    public function edit($document_id, $year = null)
     {
-        //$this->authorize('update', ArchiveDocument::class);
+        $this->authorize('update', ArchiveDocument::class);
+        $year = $year ?? $this->getLastArchiveTableYear();
 
-        $document = DB::table('archive_files_2021')
+        $document = DB::table('archive_files_' . $year)
             ->where('id', 'LIKE', '%' . $document_id . '%')
             ->first();
 
@@ -135,7 +143,8 @@ class ArchiveDocumentController extends Controller
 
         return view('archive_documents.edit', [
             'archive_document' => $document,
-            'users' => User::all()
+            'users' => User::all(),
+            'year' => $year,
         ]);
     }
 
@@ -144,9 +153,11 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(UpdateArchiveDocumentFormRequest $request, ArchiveDocument $document)
+    public function update(UpdateArchiveDocumentFormRequest $request, $document_id, $year = null)
     {
-        //$this->authorize('update', ArchiveDocument::class);
+        $this->authorize('update', ArchiveDocument::class);
+
+        $year = $year ?? $this->getLastArchiveTableYear();
 
         if ($request->isMethod('patch')) {
 
@@ -156,20 +167,15 @@ class ArchiveDocumentController extends Controller
 
                 DB::beginTransaction();
 
-                $document->update([
-                    'short_description' => $data['short_description'],
-                    'incoming_at' => $data['incoming_at'],
-                    'incoming_number' => $data['incoming_number'],
-                    'incoming_author' => $data['incoming_author'],
-                    'number' => $data['number'],
-                    'date' => $data['date'],
-                    'document_and_application_sheets' => $data['document_and_application_sheets'],
-                    'file_mark' => $data['file_mark']
-                ]);
+                DB::table('archive_files_' . $year)
+                    ->where('id', $document_id)
+                    ->update(array(
+                    'incoming_number'=>$data['incoming_number'],
+                ));
 
                 DB::commit();
 
-                return redirect()->route('archive_documents.edit', $document)->with('success', 'Изменения сохранены.');
+                return redirect()->route('archive_documents.edit', [$document_id, $year])->with('success', 'Изменения сохранены.');
 
             } catch (\Exception $e) {
 
@@ -179,20 +185,21 @@ class ArchiveDocumentController extends Controller
 
         }
 
-        return redirect()->route('archive_documents.edit', $document)->with('error', 'Изменения не сохранились, ошибка.');
+        return redirect()->route('archive_documents.edit', [$document_id, $year])->with('error', 'Изменения не сохранились, ошибка.');
     }
 
     /**
      * @param ArchiveDocument $document
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($document_id)
+    public function destroy($document_id, $year = null)
     {
-        //$this->authorize('delete', Document::class);
+        $this->authorize('delete', ArchiveDocument::class);
+        $year = $year ?? $this->getLastArchiveTableYear();
 
         try {
 
-            $document = DB::table('archive_files_2021')
+            $document = DB::table('archive_files_' . $year)
                 ->where('id', 'LIKE', '%' . $document_id . '%')
                 ->first();
 
@@ -205,7 +212,7 @@ class ArchiveDocumentController extends Controller
 
             }
 
-            DB::table('archive_files_2021')->delete($document_id);
+            DB::table('archive_files_' . $year)->delete($document_id);
 
         } catch (\Exception $e) {
             Log::error($e);
