@@ -23,6 +23,7 @@
                                     <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink2">
                                         <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
                                         <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('outgoing_files.*')?'active':'' }}" href="{{ route('outgoing_files.index') }}">Исходящие</a></li>
+                                        <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('archive_documents.*')?'active':'' }}" href="{{ route('archive_documents.index') }}">Архив входящие</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -42,7 +43,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('phonebook.index')?'active':'' }}" href="{{ route('phonebook.index', Auth::id())}}">Телефоны</a>
                 </li>
-                
+
                 @can('viewAny', \App\Models\Admin\Admin::class)
                 <li class="nav-item">
                         <ul class="navbar-nav">

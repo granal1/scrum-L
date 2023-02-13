@@ -12,6 +12,7 @@ use App\Http\Controllers\Profile\ProfileController as ProfileController;
 use App\Http\Controllers\Site\SiteController as SiteController;
 use App\Http\Controllers\UserStatuses\UserStatusController as UserStatusController;
 use App\Http\Controllers\OutgoingFiles\OutgoingFileController as OutgoingFileController;
+use App\Http\Controllers\ArchiveDocuments\ArchiveDocumentController as ArchiveDocumentController;
 use App\Http\Controllers\PhoneBook\PhoneBookController;
 
 /*
@@ -26,6 +27,7 @@ use App\Http\Controllers\PhoneBook\PhoneBookController;
 */
 
 Route::middleware(['auth'])->group(function () {
+
     Route::controller(TaskController::class)
         ->group(function () {
             Route::delete('tasks/task-file-destroy/{task}/{document}', 'task_file_destroy')->name('tasks.task-file-destroy');
@@ -33,6 +35,7 @@ Route::middleware(['auth'])->group(function () {
             Route::patch('tasks/progress_update/{task}', 'progress_update')->name('tasks.progress_update');
             Route::post('tasks/create-subtask/{task}', 'create_subtask')->name('tasks.create-subtask');
         });
+
     Route::resources([
         'tasks' => TaskController::class,
         'users' => UserController::class,
@@ -41,22 +44,28 @@ Route::middleware(['auth'])->group(function () {
         'roles' => RoleController::class,
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
+        'archive_documents' => ArchiveDocumentController::class,
     ]);
+
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('edit/{user}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('update/{user}', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('phonebook', [PhoneBookController::class, 'index'])->name('phonebook.index');
     Route::get('/', [SiteController::class, 'index'])->name('site.index');
+
 });
 
 Route::middleware(['guest'])->group(function () {
+
     Route::any('/login', function () {
         return view('auth.login');
     });
+
     Route::any('/', function () {
         return view('auth.login');
     });
+
 });
 
 
