@@ -171,6 +171,7 @@ class ArchiveDocumentController extends Controller
                     ->where('id', $document_id)
                     ->update(array(
                     'incoming_number'=>$data['incoming_number'],
+                    'short_description' => $data['short_description'],
                 ));
 
                 DB::commit();
