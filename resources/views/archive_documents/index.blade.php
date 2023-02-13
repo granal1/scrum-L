@@ -14,10 +14,11 @@
                         <div class="col-1">
                             <form action="{{route('archive_documents.index')}}" method="get">
                                 <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
-                                    <option value="2021" @if(isset($old_filters['year']) && $old_filters['year'] === '2021')  selected @endif>2021</option>
-                                    <option value="2020" @if(isset($old_filters['year']) && $old_filters['year'] === '2020')  selected @endif>2020</option>
-                                    <option value="2019" @if(isset($old_filters['year']) && $old_filters['year'] === '2019')  selected @endif>2019</option>
-                                    <option value="2018" @if(isset($old_filters['year']) && $old_filters['year'] === '2018')  selected @endif>2018</option>
+                                    @forelse($archive_years as $key => $value)
+                                        <option value="{{$value}}" @if(isset($old_filters['year']) && $old_filters['year'] === substr($value, -4))  selected @endif>{{substr($value, -4)}}</option>
+                                    @empty
+                                        <option value="">пусто (</option>
+                                    @endforelse
                                 </select>
                             </form>
                         </div>
@@ -64,6 +65,7 @@
                                         <td colspan="8"></td>
                                     </form>
                                 </tr>
+                                @if(!is_null($archive_documents))
                                 @forelse($archive_documents as $archive_document)
                                     <tr  onclick="window.location='{{ route('documents.show', $archive_document->id) }}';">
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_at ? date('d.m.Y', strtotime($archive_document->incoming_at)) : null}}</td>
@@ -87,9 +89,18 @@
                                         </td>
                                     </tr>
                                 @endforelse
+                                @else
+                                    <tr>
+                                        <td colspan="13">
+                                            Нет документов
+                                        </td>
+                                    </tr>
+                                @endif
                                 </tbody>
                             </table>
-                            {{$archive_documents->withQueryString()->links()}}
+                            @if(!is_null($archive_documents))
+                                {{$archive_documents->withQueryString()->links()}}
+                            @endif
                         </div>
                     </div>
                 </div>

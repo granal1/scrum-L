@@ -14,8 +14,6 @@ class ArchiveDocument extends Model
 {
     use HasFactory, SoftDeletes, HasUuids, Filterable;
 
-    protected $table = '';
-
     protected $fillable = [
         'short_description',
         'path',
@@ -33,14 +31,17 @@ class ArchiveDocument extends Model
         'archive_path',
     ];
 
-    public function __construct(array $attributes = [])
+    public function __construct(array $attributes = [], $tableName = 'files')
     {
         parent::__construct($attributes);
 
-        $time = strtotime("-2 year", time());
-        $date = date("Y", $time);
+        $this->table = $tableName;
 
-        $this->table = Schema::hasTable('archive_files_' . $date) ? 'archive_files_' . $date : 'files';
+            //$time = strtotime("-2 year", time());
+            //$date = date("Y", $time);
+
+            //$this->table = Schema::hasTable('archive_files_' . $date) ? 'archive_files_' . $date : 'files';
+
     }
 
     protected function setTableName(string $tableName = 'files')

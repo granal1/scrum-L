@@ -15,6 +15,9 @@ use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -24,10 +27,14 @@ use DateTime;
 
 class ArchiveDocumentController extends Controller
 {
+    public $archive_list = [];
+    public $archive_year = '';
 
     public function __construct()
     {
         $this->middleware(['auth']);
+        $this->archive_list = $this->getArchiveList();
+        $this->archive_year = $this->getLastArchiveTableYear();
        // $this->authorizeResource(ArchiveDocument::class, 'archiveDocument');
     }
 
@@ -42,29 +49,52 @@ class ArchiveDocumentController extends Controller
                 'request' => $request->all(),
             ]);
 
-        $tables = DB::select('SELECT table_name FROM information_schema.tables WHERE table_schema = "scrum"' );
-        dd($tables);
-        //$this->authorize('viewAny', ArchiveDocument::class);
+        if(empty($this->archive_list))
+        {
+            return view('archive_documents.index', [
+                'archive_documents' => null,
+                'old_filters' => null,
+                'archive_years' => null,
+            ]);
+        }
+
         $data = $request->validated();
 
-        if (isset($data['content'])) {
-            $data['content'] = no_inject($data['content']);
-        }
-        $filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
+        $tableName = null;
 
-        $documents = null;
-
-        if (!empty($data['content'])) {
-            $documents = ArchiveDocument::filter($filter)
-                ->paginate(config('front.documents.pagination'));
+        if(isset($data['year']))
+        {
+            $tableName = $data['year'];
         } else {
-            $documents = ArchiveDocument::orderBy('created_at', 'desc')
-                ->paginate(config('front.documents.pagination'));
+            $tableName = $this->getLastArchiveTable();
         }
+
+        $documents = DB::select('select * from ' . $tableName);
+        $documents = $this->paginate($documents);
+
+
+//        //$this->authorize('viewAny', ArchiveDocument::class);
+//        $data = $request->validated();
+//
+//        if (isset($data['content'])) {
+//            $data['content'] = no_inject($data['content']);
+//        }
+//        $filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
+//
+//        $documents = null;
+//
+//        if (!empty($data['content'])) {
+//            $documents = ArchiveDocument::filter($filter)
+//                ->paginate(config('front.documents.pagination'));
+//        } else {
+//            $documents = ArchiveDocument::orderBy('created_at', 'desc')
+//                ->paginate(config('front.documents.pagination'));
+//        }
 
         return view('archive_documents.index', [
             'archive_documents' => $documents,
             'old_filters' => $data,
+            'archive_years' => $this->archive_list,
         ]);
     }
 
@@ -247,5 +277,37 @@ class ArchiveDocumentController extends Controller
         }
 
         return redirect()->route('archive_documents.index');
+    }
+
+    private function getArchiveList(): array
+    {
+        $result = [];
+
+        foreach (DB::select('SHOW TABLES LIKE "archive_files_%"') as $item) {
+            foreach ($item as $key => $value) {
+                $result[substr($value, -4)] = $value;
+            }
+        }
+        arsort($result);
+        return $result;
+    }
+
+    private function getLastArchiveTableYear(): string
+    {
+        $years = $this->getArchiveList();
+        return substr(array_pop($years), -4);
+    }
+
+    private function getLastArchiveTable(): string
+    {
+        $years = $this->getArchiveList();
+        return array_pop($years);
+    }
+
+    public function paginate($items, $perPage = 2, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 }
