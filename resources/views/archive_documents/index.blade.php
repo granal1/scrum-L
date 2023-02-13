@@ -52,7 +52,7 @@
                                 <tbody style="cursor: pointer;">
 
                                 <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
-                                    <form action="{{ route('documents.index') }}" method="get">
+                                    <form action="{{ route('archive_documents.index') }}" method="get">
                                         <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('archive_documents.index')}}">Сброс</a></td>
                                       <td colspan="4"></td>
                                         <td>

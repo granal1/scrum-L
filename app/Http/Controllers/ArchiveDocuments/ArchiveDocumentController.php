@@ -3,16 +3,10 @@
 namespace App\Http\Controllers\ArchiveDocuments;
 
 use App\Http\Controllers\Controller;
-use App\Http\Filters\ArchiveDocuments\ArchiveDocumentFilter;
 use App\Http\Requests\ArchiveDocuments\ArchiveDocumentFilterRequest;
-use App\Http\Requests\ArchiveDocuments\StoreArchiveDocumentFormRequest;
 use App\Http\Requests\ArchiveDocuments\UpdateArchiveDocumentFormRequest;
 
-use App\Jobs\ProcessArchiveDocumentParsing;
-
 use App\Models\ArchiveDocuments\ArchiveDocument;
-use App\Services\Documents\UploadArchiveService;
-use App\Services\Documents\UploadService;
 
 use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -98,82 +92,6 @@ class ArchiveDocumentController extends Controller
         ]);
     }
 
-    /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
-     */
-    public function create()
-    {
-
-        //$this->authorize('create', ArchiveDocument::class);
-
-        $last_document = ArchiveDocument::orderBy('created_at', 'desc')->first();
-
-        return view('archive_documents.create', [
-            'users' => User::all(),
-            'last_document_number' => $last_document->incoming_number ?? 'отсутствует'
-        ]);
-    }
-
-// test changes on git
-
-    /**
-     * @param StoreArchiveDocumentFormRequest $request
-     * @param UploadService $uploadService
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(StoreArchiveDocumentFormRequest $request, UploadService $uploadService, UploadArchiveService $uploadArchiveService)
-    {
-        //$this->authorize('create', Document::class);
-
-        if ($request->isMethod('post')) {
-
-            $data = $request->validated();
-
-            try {
-
-                DB::beginTransaction();
-
-                $document = new ArchiveDocument();
-
-                if ($request->hasFile('file')) {
-
-                    $document->short_description = isset($data['short_description']) ? $data['short_description'] : $request->file('file')->getClientOriginalName();
-
-                    $now = date_create("now", timezone_open(session('localtimezone')));
-                    $document->path = $uploadService->uploadMedia($request->file('file'), $now);
-
-                    if ($request->hasFile('archive_file')) {
-                        $document->archive_path = $uploadArchiveService->uploadMedia($request->file('archive_file'), $now);
-                    }
-
-                    $document->incoming_at = $data['incoming_at'];
-                    $document->incoming_number = $data['incoming_number'];
-                    $document->incoming_author = $data['incoming_author'];
-                    $document->number = $data['number'];
-                    $document->date = $data['date'];
-                    $document->document_and_application_sheets = $data['document_and_application_sheets'];
-                    $document->author_uuid = Auth::id();
-                    $document->content = 'Содержимое документа обрабатывается, скоро будет готово ...';
-
-                    $document->save();
-
-                    DB::commit();
-
-                    ProcessArchiveDocumentParsing::dispatch($document)
-                        ->onQueue('documents');
-
-                }
-
-                return redirect()->route('archive_documents.index');
-
-            } catch (\Exception $e) {
-
-                DB::rollBack();
-                Log::error($e);
-            }
-        }
-        return redirect()->route('archive_documents.create')->with('error', 'Ошибка при загрузке документа.');
-    }
 
     /**
      * @param ArchiveDocument $document
@@ -205,12 +123,18 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit(ArchiveDocument $document)
+    public function edit($document_id)
     {
         //$this->authorize('update', ArchiveDocument::class);
 
+        $document = DB::table('archive_files_2021')
+            ->where('id', 'LIKE', '%' . $document_id . '%')
+            ->first();
+
+        $document = json_decode(json_encode($document),true);
+
         return view('archive_documents.edit', [
-            'document' => $document,
+            'archive_document' => $document,
             'users' => User::all()
         ]);
     }
@@ -262,20 +186,26 @@ class ArchiveDocumentController extends Controller
      * @param ArchiveDocument $document
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(ArchiveDocument $document)
+    public function destroy($document_id)
     {
         //$this->authorize('delete', Document::class);
 
         try {
 
-            if (Storage::exists('/public/' . $document->path)) {
+            $document = DB::table('archive_files_2021')
+                ->where('id', 'LIKE', '%' . $document_id . '%')
+                ->first();
 
-                Storage::delete('/public/' . $document->path);
+            $document = json_decode(json_encode($document),true);
+
+            if (Storage::exists('/public/' . $document['path'])) {
+
+                //Storage::delete('/public/' . $document['path']);
 
 
             }
 
-            $document->delete();
+            DB::table('archive_files_2021')->delete($document_id);
 
         } catch (\Exception $e) {
             Log::error($e);

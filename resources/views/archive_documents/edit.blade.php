@@ -19,7 +19,7 @@
 
             <div class="col pt-3">
                 @include('message')
-                <form action="{{route('documents.update', $archive_document)}}" method="post">
+                <form action="{{route('documents.update', $archive_document['id'])}}" method="post">
                     @csrf
                     @method('patch')
 
@@ -28,7 +28,7 @@
                             <label for="incoming_at" class="form-label">Дата поступления</label>
                         </div>
                         <div class="col-8">
-                            <input type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime($archive_document->incoming_at))}}">
+                            <input type="date" id="incoming_at" name="incoming_at" class="form-control form-select-sm" placeholder="Дата входящего документа" value="{{date('Y-m-d', strtotime($archive_document['incoming_at']))}}">
                             @error('incoming_at')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -40,7 +40,7 @@
                             <label for="incoming_number" class="form-label">Регистрационный номер документа</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number" value="{{$archive_document->incoming_number}}">
+                            <input type="text" class="form-control form-control-sm" id="incoming_number" placeholder="Номер" name="incoming_number" value="{{$archive_document['incoming_number']}}">
                             @error('incoming_number')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -52,7 +52,7 @@
                             <label for="incoming_author" class="form-label">Корреспондент (автор)</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="incoming_author" placeholder="Корреспондент (автор)" name="incoming_author" value="{{$archive_document->incoming_author}}">
+                            <input type="text" class="form-control form-control-sm" id="incoming_author" placeholder="Корреспондент (автор)" name="incoming_author" value="{{$archive_document['incoming_author']}}">
                             @error('incoming_author')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -64,7 +64,7 @@
                             <label for="number" class="form-label">Номер документа</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number" value="{{$archive_document->number}}">
+                            <input type="text" class="form-control form-control-sm" id="number" placeholder="Номер" name="number" value="{{$archive_document['number']}}">
                             @error('number')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -76,7 +76,7 @@
                             <label for="date" class="form-label">Дата документа</label>
                         </div>
                         <div class="col-8">
-                            <input type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime($archive_document->date))}}">
+                            <input type="date" id="date" name="date" class="form-control form-select-sm" placeholder="Дата" value="{{date('Y-m-d', strtotime($archive_document['date']))}}">
                             @error('date')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -88,7 +88,7 @@
                             <label for="short_description">Наименование или краткое содержание</label>
                         </div>
                         <div class="col-8">
-                            <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$archive_document->short_description}}">
+                            <input class="form-control form-control-sm" name="short_description" id="short_description" value="{{$archive_document['short_description']}}">
                             @error('short_description')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -100,7 +100,7 @@
                             <label for="path">Место хранения документа</label>
                         </div>
                         <div class="col-8">
-                            <input disabled readonly class="form-control form-control-sm" name="path" id="path" value="{{$archive_document->path}}">
+                            <input disabled readonly class="form-control form-control-sm" name="path" id="path" value="{{$archive_document['path']}}">
                             @error('file')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -112,10 +112,10 @@
                             <label for="path">Приложение к документу</label>
                         </div>
                         <div class="col-8">
-                            @if(!empty($archive_document->archive_path))
+                            @if(!empty($archive_document['archive_path']))
                                     <input
                                         class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
-                                        value="{{$archive_document->archive_path}}">
+                                        value="{{$archive_document['archive_path']}}">
                             @else
                                 <input
                                     class="form-control form-control-sm" name="archive_path" id="archive_path" disabled
@@ -129,7 +129,7 @@
                             <label for="document_and_application_sheets" class="form-label">Количество листов документа, включая приложение</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="укажите количество листов" name="document_and_application_sheets" value="{{$archive_document->document_and_application_sheets}}">
+                            <input type="text" class="form-control form-control-sm" id="document_and_application_sheets" placeholder="укажите количество листов" name="document_and_application_sheets" value="{{$archive_document['document_and_application_sheets']}}">
                             @error('document_and_application_sheets')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -201,7 +201,7 @@
                             <label for="file_mark" class="form-label">Отметка о подшивке документа</label>
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control form-control-sm" id="file_mark" placeholder="Документ в дело не подшит" name="file_mark" value="{{$archive_document->file_mark}}">
+                            <input type="text" class="form-control form-control-sm" id="file_mark" placeholder="Документ в дело не подшит" name="file_mark" value="{{$archive_document['file_mark']}}">
                             @error('file_mark')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
@@ -210,14 +210,14 @@
 
                     <div class="d-flex justify-content-center my-4">
                         <div class="mx-3">
-                            <a type="button" style="width:100px" class="btn btn-success btn-sm"  href="{{route('documents.show', $archive_document->id)}}">Назад</a>
+                            <a type="button" style="width:100px" class="btn btn-success btn-sm"  href="{{route('archive_documents.show', $archive_document['id'])}}">Назад</a>
                         </div>
                         <div class="mx-3">
                             <button type="submit" style="width:100px" class="btn btn-warning btn-sm">Сохранить</button>
                         </div>
 
                 </form>
-                        <form action="{{route('documents.destroy', $archive_document)}}" method="post">
+                        <form action="{{route('archive_documents.destroy', $archive_document['id'])}}" method="post">
                             @csrf
                             @method('delete')
                             <div class="mx-3">
