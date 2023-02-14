@@ -67,26 +67,11 @@ class ArchiveDocumentController extends Controller
 
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
-            $documents = $documents->getAllByYear(Session::get('year'));
-            //$documents = $documents->searchByContent(Session::get('year'), $data['content']);
+            $documents = $documents->searchByContent(Session::get('year'), $data['content']);
         } else
         {
             $documents = $documents->getAllByYear(Session::get('year'));
         }
-
-        //$filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
-
-
-        //print_r($filter);
-//        $documents = null;
-//
-//        if (!empty($data['content'])) {
-//            $documents = ArchiveDocument::filter($filter)
-//                ->paginate(config('front.documents.pagination'));
-//        } else {
-//            $documents = ArchiveDocument::orderBy('created_at', 'desc')
-//                ->paginate(config('front.documents.pagination'));
-//        }
 
         $documents = $this->paginate($documents, config('front.archive_files.pagination'));
 

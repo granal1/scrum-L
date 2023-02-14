@@ -110,6 +110,8 @@ class ArchiveDocument extends Model
 
     public function searchByContent(string $year, string $content)
     {
-        return DB::select("select *, MATCH (content) AGAINST (' . $content . ') from archive_files_" . $year);
+        return DB::select("SELECT *
+                                    FROM archive_files_" . $year . "
+                                    WHERE MATCH (content) AGAINST ('$content' )");
     }
 }
