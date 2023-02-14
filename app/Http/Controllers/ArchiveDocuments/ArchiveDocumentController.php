@@ -232,6 +232,7 @@ class ArchiveDocumentController extends Controller
     private function getLastArchiveYear(): string
     {
         $years = $this->getArchiveList();
+        $years = array_reverse($years);
         return substr(array_pop($years), -4);
     }
 
