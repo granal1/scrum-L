@@ -62,7 +62,8 @@ class ArchiveDocumentController extends Controller
             Session::put('year', $this->getLastArchiveYear());
         }
 
-        $documents = DB::select('select * from archive_files_' . Session::get('year'));
+        $documents = new ArchiveDocument();
+        $documents = $documents->getAllByYear(Session::get('year'));
         $documents = $this->paginate($documents);
 
 
@@ -100,10 +101,8 @@ class ArchiveDocumentController extends Controller
     {
         $this->authorize('view', ArchiveDocument::class);
 
-        $document = DB::table('archive_files_' . Session::get('year'))
-            ->where('id', 'LIKE', '%' . $document_id . '%')
-            ->first();
-
+        $document = new ArchiveDocument();
+        $document = $document->getOneByIdAndYear($document_id, Session::get('year'));
         $document = json_decode(json_encode($document),true);
 
         $utcTime = new DateTime($document['created_at']);
@@ -127,10 +126,8 @@ class ArchiveDocumentController extends Controller
     {
         $this->authorize('update', ArchiveDocument::class);
 
-        $document = DB::table('archive_files_' . Session::get('year'))
-            ->where('id', 'LIKE', '%' . $document_id . '%')
-            ->first();
-
+        $document = new ArchiveDocument();
+        $document = $document->getOneByIdAndYear($document_id, Session::get('year'));
         $document = json_decode(json_encode($document),true);
 
         return view('archive_documents.edit', [
@@ -156,18 +153,8 @@ class ArchiveDocumentController extends Controller
 
                 DB::beginTransaction();
 
-                DB::table('archive_files_' . Session::get('year'))
-                    ->where('id', $document_id)
-                    ->update(array(
-                        'incoming_at' => $data['incoming_at'],
-                        'incoming_number'=>$data['incoming_number'],
-                        'short_description' => $data['short_description'],
-                        'incoming_author' => $data['incoming_author'],
-                        'number' => $data['number'],
-                        'date' => $data['date'],
-                        'document_and_application_sheets' => $data['document_and_application_sheets'],
-                        'file_mark' => $data['file_mark'],
-                ));
+                $document = new ArchiveDocument();
+                $document->updateByIdAndYear($document_id, Session::get('year'), $data);
 
                 DB::commit();
 
@@ -194,22 +181,15 @@ class ArchiveDocumentController extends Controller
 
         try {
 
-            $document = DB::table('archive_files_' . Session::get('year'))
-                ->where('id', 'LIKE', '%' . $document_id . '%')
-                ->first();
+            DB::beginTransaction();
 
-            $document = json_decode(json_encode($document),true);
+            $document = new ArchiveDocument();
+            $document->deleteByIdAndYear($document_id, Session::get('year'));
 
-            if (Storage::exists('/public/' . $document['path'])) {
-
-                //Storage::delete('/public/' . $document['path']);
-
-
-            }
-
-            DB::table('archive_files_' . Session::get('year'))->delete($document_id);
+            DB::commit();
 
         } catch (\Exception $e) {
+            DB::rollBack();
             Log::error($e);
         }
 

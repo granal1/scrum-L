@@ -8,7 +8,9 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Session;
 
 class ArchiveDocument extends Model
 {
@@ -73,4 +75,36 @@ class ArchiveDocument extends Model
         return $this;
     }
 
+    public function getAllByYear(string $year)
+    {
+        return DB::select('select * from archive_files_' . $year);
+    }
+
+    public function getOneByIdAndYear(string $id, string $year)
+    {
+        return DB::table('archive_files_' . $year)
+            ->where('id', 'LIKE', '%' . $id . '%')
+            ->first();
+    }
+
+    public function updateByIdAndYear(string $id, string $year, array $data)
+    {
+        return   DB::table('archive_files_' . $year)
+            ->where('id', $id)
+            ->update(array(
+                'incoming_at' => $data['incoming_at'],
+                'incoming_number'=>$data['incoming_number'],
+                'short_description' => $data['short_description'],
+                'incoming_author' => $data['incoming_author'],
+                'number' => $data['number'],
+                'date' => $data['date'],
+                'document_and_application_sheets' => $data['document_and_application_sheets'],
+                'file_mark' => $data['file_mark'],
+            ));
+    }
+
+    public function deleteByIdAndYear(string $id, string $year)
+    {
+        DB::table('archive_files_' . $year)->delete($id);
+    }
 }
