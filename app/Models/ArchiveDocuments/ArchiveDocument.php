@@ -107,4 +107,9 @@ class ArchiveDocument extends Model
     {
         DB::table('archive_files_' . $year)->delete($id);
     }
+
+    public function searchByContent(string $year, string $content)
+    {
+        return DB::select("select *, MATCH (content) AGAINST (' . $content . ') from archive_files_" . $year);
+    }
 }

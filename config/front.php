@@ -20,6 +20,6 @@ return [
         'pagination' => 15
     ],
     'archive_files' => [
-        'pagination' => 15
+        'pagination' => 3
     ]
 ];

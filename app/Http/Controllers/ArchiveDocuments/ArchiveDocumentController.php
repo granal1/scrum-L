@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ArchiveDocuments;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\ArchiveDocuments\ArchiveDocumentFilter;
 use App\Http\Requests\ArchiveDocuments\ArchiveDocumentFilterRequest;
 use App\Http\Requests\ArchiveDocuments\UpdateArchiveDocumentFormRequest;
 
@@ -63,17 +64,20 @@ class ArchiveDocumentController extends Controller
         }
 
         $documents = new ArchiveDocument();
-        $documents = $documents->getAllByYear(Session::get('year'));
-        $documents = $this->paginate($documents);
+
+        if (isset($data['content'])) {
+            $data['content'] = no_inject($data['content']);
+            $documents = $documents->getAllByYear(Session::get('year'));
+            //$documents = $documents->searchByContent(Session::get('year'), $data['content']);
+        } else
+        {
+            $documents = $documents->getAllByYear(Session::get('year'));
+        }
+
+        //$filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
 
 
-
-
-//        if (isset($data['content'])) {
-//            $data['content'] = no_inject($data['content']);
-//        }
-//        $filter = app()->make(ArchiveDocumentFilter::class, ['queryParams' => array_filter($data)]);
-//
+        //print_r($filter);
 //        $documents = null;
 //
 //        if (!empty($data['content'])) {
@@ -84,6 +88,7 @@ class ArchiveDocumentController extends Controller
 //                ->paginate(config('front.documents.pagination'));
 //        }
 
+        $documents = $this->paginate($documents, config('front.archive_files.pagination'));
 
         return view('archive_documents.index', [
             'archive_documents' => $documents,
