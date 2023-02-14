@@ -228,7 +228,7 @@
                     </div>
                     @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">
-                            <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('archive_documents.edit', [$archive_document['id'], $year])}}">Редактировать</a>
+                            <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('archive_documents.edit', $archive_document['id'])}}">Редактировать</a>
                         </div>
                     @endcan
                 </div>

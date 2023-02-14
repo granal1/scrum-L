@@ -16,7 +16,7 @@
                                 @if(!is_null($archive_documents))
                                 <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
-                                        <option value="{{$value}}" @if(isset($old_filters['year']) && $old_filters['year'] === $value)  selected @endif>{{substr($value, -4)}}</option>
+                                        <option value="{{substr($value, -4)}}" @if(isset($old_filters['year']) && $old_filters['year'] == substr($value, -4)) selected @endif>{{substr($value, -4)}}</option>
                                     @empty
                                         <option value="">пусто</option>
                                     @endforelse
@@ -69,7 +69,7 @@
                                 </tr>
                                 @if(!is_null($archive_documents))
                                 @forelse($archive_documents as $archive_document)
-                                    <tr  onclick="window.location='{{ route('archive_documents.show', [$archive_document->id, $year]) }}';">
+                                    <tr  onclick="window.location='{{ route('archive_documents.show', $archive_document->id) }}';">
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_at ? date('d.m.Y', strtotime($archive_document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_number}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_author}}</td>

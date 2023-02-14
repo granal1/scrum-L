@@ -47,11 +47,11 @@ Route::middleware(['auth'])->group(function () {
         //'archive_documents' => ArchiveDocumentController::class,
     ]);
 
-    Route::get('archive_documents/show/{document_id}/{year?}', [ArchiveDocumentController::class, 'show'])->name('archive_documents.show');
-    Route::get('archive_documents/edit/{document_id}/{year?}', [ArchiveDocumentController::class, 'edit'])->name('archive_documents.edit');
-    Route::get('archive_documents/index/{request?}', [ArchiveDocumentController::class, 'index'])->name('archive_documents.index');
-    Route::delete('archive_documents/destroy/{document_id}/{year?}', [ArchiveDocumentController::class, 'destroy'])->name('archive_documents.destroy');
-    Route::patch('archive_documents/update/{document_id}/{year?}', [ArchiveDocumentController::class, 'update'])->name('archive_documents.update');
+    Route::get('archive_documents/show/{document_id}', [ArchiveDocumentController::class, 'show'])->name('archive_documents.show');
+    Route::get('archive_documents/edit/{document_id}', [ArchiveDocumentController::class, 'edit'])->name('archive_documents.edit');
+    Route::get('archive_documents/index', [ArchiveDocumentController::class, 'index'])->name('archive_documents.index');
+    Route::delete('archive_documents/destroy/{document_id}', [ArchiveDocumentController::class, 'destroy'])->name('archive_documents.destroy');
+    Route::patch('archive_documents/update/{document_id}', [ArchiveDocumentController::class, 'update'])->name('archive_documents.update');
 
 
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
