@@ -70,6 +70,7 @@
                                     <td colspan="7"></td>
                                 </form>
                             </tr>
+                            @if(!empty($archive_outgoing_documents))
                             @forelse($archive_outgoing_documents as $output_file)
                                 <tr onclick="window.location='{{ route('archive_outgoing_documents.show', $output_file->id) }}';">
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_at ? date('d.m.Y', strtotime($output_file->outgoing_at)) : null}}</td>
@@ -89,9 +90,18 @@
                                     </td>
                                 </tr>
                             @endforelse
+                            @else
+                                <tr>
+                                    <td colspan="8">
+                                        Нет документов
+                                    </td>
+                                </tr>
+                            @endif
                             </tbody>
                         </table>
+                        @if(!empty($archive_outgoing_documents))
                         {{$archive_outgoing_documents->withQueryString()->links()}}
+                        @endif
                     </div>
                 </div>
             </div>
