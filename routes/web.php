@@ -13,6 +13,7 @@ use App\Http\Controllers\Site\SiteController as SiteController;
 use App\Http\Controllers\UserStatuses\UserStatusController as UserStatusController;
 use App\Http\Controllers\OutgoingFiles\OutgoingFileController as OutgoingFileController;
 use App\Http\Controllers\ArchiveDocuments\ArchiveDocumentController as ArchiveDocumentController;
+use App\Http\Controllers\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentController as ArchiveOutgoingDocumentController;
 use App\Http\Controllers\PhoneBook\PhoneBookController;
 
 /*
@@ -52,6 +53,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('archive_documents/index', [ArchiveDocumentController::class, 'index'])->name('archive_documents.index');
     Route::delete('archive_documents/destroy/{document_id}', [ArchiveDocumentController::class, 'destroy'])->name('archive_documents.destroy');
     Route::patch('archive_documents/update/{document_id}', [ArchiveDocumentController::class, 'update'])->name('archive_documents.update');
+
+    Route::get('archive_outgoing_documents/show/{document_id}', [ArchiveOutgoingDocumentController::class, 'show'])->name('archive_outgoing_documents.show');
+    Route::get('archive_outgoing_documents/edit/{document_id}', [ArchiveOutgoingDocumentController::class, 'edit'])->name('archive_outgoing_documents.edit');
+    Route::get('archive_outgoing_documents/index', [ArchiveOutgoingDocumentController::class, 'index'])->name('archive_outgoing_documents.index');
+    Route::delete('archive_outgoing_documents/destroy/{document_id}', [ArchiveOutgoingDocumentController::class, 'destroy'])->name('archive_outgoing_documents.destroy');
+    Route::patch('archive_outgoing_documents/update/{document_id}', [ArchiveOutgoingDocumentController::class, 'update'])->name('archive_outgoing_documents.update');
+
 
 
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');

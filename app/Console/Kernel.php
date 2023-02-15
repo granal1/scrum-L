@@ -4,6 +4,7 @@ namespace App\Console;
 
 use App\Mail\DeadlineOnThisWeek;
 use App\Models\Documents\Document;
+use App\Models\OutgoingFiles\OutgoingFile;
 use App\Models\Tasks\Task;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -26,7 +27,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
-        // Создание архивной таблицы и перенос данных из основной таблицы документов старше двух лет, раз в год
+        // Создание архивной таблицы входящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
         $schedule->call(function () {
 
             $files = DB::table('files')
@@ -76,7 +77,7 @@ class Kernel extends ConsoleKernel
                 } catch (\Exception $e) {
                     Log::error($e);
                     DB::rollBack();
-                    echo 'Tables copy error' . PHP_EOL;
+                    echo 'Tables document copy error' . PHP_EOL;
                 }
 
             }
@@ -84,6 +85,61 @@ class Kernel extends ConsoleKernel
         })->yearlyOn(2, 8, '16:26');
 
 
+        // Создание архивной таблицы исходящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
+        $schedule->call(function () {
+
+            $files = DB::table('outgoing_files')
+                ->where('outgoing_at', '<=', Carbon::now()
+                    ->subYears(2)
+                    ->toDateTimeString())
+                ->orderBy('outgoing_at')
+                ->get();
+
+            $table_year = date('Y') - 2;
+
+            DB::statement('CREATE TABLE if not exists archive_outgoing_documents_' . $table_year . ' LIKE outgoing_files');
+
+            foreach ($files as $file) {
+
+                try {
+
+                    DB::beginTransaction();
+
+                    DB::table('archive_outgoing_documents_' . $table_year)->insert([
+                        'id' => (string)Str::uuid(),
+                        'outgoing_at' => $file->outgoing_at,
+                        'outgoing_number' => $file->outgoing_number,
+                        'destination' => $file->destination,
+                        'number_of_source_document' => $file->number_of_source_document,
+                        'date_of_source_document' => $file->date_of_source_document,
+                        'short_description' => $file->short_description,
+                        'document_and_application_sheets' => $file->document_and_application_sheets,
+                        'file_mark' => $file->file_mark,
+                        'path' => $file->path,
+                        'comment' => $file->comment,
+                        'sort_order' => $file->sort_order,
+                        'content' => $file->content,
+                        'archive_path' => $file->archive_path,
+                        'created_at' => $file->created_at,
+                        'updated_at' => $file->updated_at,
+                        'deleted_at' => $file->deleted_at,
+                        'author_uuid' => $file->author_uuid,
+                        'executor_uuid' => $file->executor_uuid,
+                    ]);
+
+                    OutgoingFile::find($file->id)->forceDelete();
+
+                    DB::commit();
+
+                } catch (\Exception $e) {
+                    Log::error($e);
+                    DB::rollBack();
+                    echo 'Tables outgoing copy error' . PHP_EOL;
+                }
+
+            }
+
+        })->yearlyOn(2, 8, '16:26');
 
 
         // Рассылка заданий, которые должны быть закончены на этой неделе или уже просрочены
@@ -155,7 +211,6 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__ . '/Commands');
-
 
         require base_path('routes/console.php');
     }

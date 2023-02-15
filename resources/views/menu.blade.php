@@ -24,6 +24,7 @@
                                         <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('documents.*')?'active':'' }}" href="{{ route('documents.index') }}">Входящие</a></li>
                                         <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('outgoing_files.*')?'active':'' }}" href="{{ route('outgoing_files.index') }}">Исходящие</a></li>
                                         <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('archive_documents.*')?'active':'' }}" href="{{ route('archive_documents.index') }}">Архив входящие</a></li>
+                                        <li class="nav-item"><a class="dropdown-item {{ request()->routeIs('archive_outgoing_documents.*')?'active':'' }}" href="{{ route('archive_outgoing_documents.index') }}">Архив исходящие</a></li>
                                     </ul>
                                 </li>
                             </ul>

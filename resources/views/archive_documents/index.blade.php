@@ -27,7 +27,7 @@
                         <h4 class="d-inline-block">Архив входящих документов</h4>
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>
-                            <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('documents.index')}}">Сброс</a>
+                            <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('archive_documents.index')}}">Сброс</a>
                     </div>
                 </div>
                 <div class="card-body">

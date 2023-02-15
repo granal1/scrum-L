@@ -21,5 +21,8 @@ return [
     ],
     'archive_files' => [
         'pagination' => 3
-    ]
+    ],
+    'archive_outgoing_files' => [
+        'pagination' => 3
+    ],
 ];
