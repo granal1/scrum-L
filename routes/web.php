@@ -15,6 +15,7 @@ use App\Http\Controllers\OutgoingFiles\OutgoingFileController as OutgoingFileCon
 use App\Http\Controllers\ArchiveDocuments\ArchiveDocumentController as ArchiveDocumentController;
 use App\Http\Controllers\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentController as ArchiveOutgoingDocumentController;
 use App\Http\Controllers\PhoneBook\PhoneBookController;
+use App\Http\Controllers\Logs\LogsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
         //'archive_documents' => ArchiveDocumentController::class,
+        'logs' => LogsController::class,
     ]);
 
     Route::get('archive_documents/show/{document_id}', [ArchiveDocumentController::class, 'show'])->name('archive_documents.show');
