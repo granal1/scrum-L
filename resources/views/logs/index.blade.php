@@ -44,27 +44,28 @@
                         </thead>
                         <tbody style="cursor: pointer;">
                             @forelse($logs as $log)
-                            <tr>
-                                <td class="d-none d-sm-table-cell">{{$log->id}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->task_uuid}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->parent_uuid}}</td>
-                                <td class="d-none d-md-table-cell">{{$log->author->name}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->responsible->name}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->description}}</td>
-                                <td class="d-none d-md-table-cell">{{$log->deadline_at}}</td>
-                                <td class="d-none d-sm-table-cell">@include('graph.progressbar', ['done_progress'=> $log->done_progress])</td>
-                                <td class="d-none d-sm-table-cell">{{$log->report}}</td>
-                                <td class="d-none d-md-table-cell">{{$log->sort_order}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->comment}}</td>
-                                <td class="d-none d-md-table-cell">{{$log->created_at}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->updated_at}}</td>
-                                <td class="d-none d-sm-table-cell">{{$log->deleted_at}}</td>
-                                <td class="d-none d-sm-table-cell"><form action="{{ url('/logs', ['log' => $log->id]) }}" method="post">
-                                    <input class="btn btn-default" type="submit" value="Delete" />
-                                    @csrf
-                                    @method('delete')
-                                </form></td>
-                            </tr>
+                                    <tr onclick="window.location='{{ route('logs.show', $log->id) }}';">
+                                        <td class="d-none d-sm-table-cell">{{$log->id}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->task_uuid}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->parent_uuid}}</td>
+                                        <td class="d-none d-md-table-cell">{{$log->author->name}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->responsible->name}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$log->deadline_at}}</td>
+                                        <td class="d-none d-sm-table-cell">@include('graph.progressbar', ['done_progress'=> $log->done_progress])</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->report}}</td>
+                                        <td class="d-none d-md-table-cell">{{$log->sort_order}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->comment}}</td>
+                                        <td class="d-none d-md-table-cell">{{$log->created_at}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->updated_at}}</td>
+                                        <td class="d-none d-sm-table-cell">{{$log->deleted_at}}</td>
+                                        <td class="d-none d-sm-table-cell"><form action="{{ url('/logs', ['log' => $log->id]) }}" method="post">
+                                                <input class="btn btn-outline-danger btn-sm" type="submit" value="Удалить"/>
+                                               
+                                                @csrf
+                                                @method('delete')
+                                            </form></td>
+                                    </tr>
                             @empty
                             <tr>
                                 <td colspan="6">
