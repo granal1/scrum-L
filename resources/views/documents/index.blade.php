@@ -18,10 +18,11 @@
                             @endcan
                             @endauth
                         </div>
+
                         <div class="col-10 text-center">
                             <form action="{{route('documents.index')}}" method="get">
                                 <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
-                            <select onchange="this.form.submit();" class="form-select form-select-sm d-inline-block" name="year" style="width: 6rem;">
+                            <select class="h5" onchange="this.form.submit();" class="form-select form-select-sm" name="year" >
                                 @forelse($years as $year)
                                     <option @if(isset($old_filters['year']) && $old_filters['year']  === $year) selected @endif value="{{$year}}">{{$year}}</option>
                                 @empty
@@ -31,6 +32,7 @@
                                 <h4 class="d-inline-block">год</h4>
                             </form>
                         </div>
+                        
                         <div class="col-1 text-end">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>

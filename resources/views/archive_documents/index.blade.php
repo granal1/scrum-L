@@ -10,50 +10,33 @@
         <div class="container-fluid pt-3">
             <div class="card shadow">
                 <div class="card-header">
-                    <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                    <div class="row row-cols-3">
                         <div class="col-1">
                             
+                        </div>
+
+                        <div class="col-10 text-center">
                             <form action="{{route('archive_documents.index')}}" method="get">
+                                <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
                                 @if(!is_null($archive_documents))
-                                <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
+                                <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
-                                        <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
+                                    <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
                                     @empty
-                                        <option value="">пусто</option>
+                                        <option value="">____</option>
                                     @endforelse
                                 </select>
                                 @endif
+                                <h4 class="d-inline-block">год</h4>
                             </form>
                         </div>
 
 
-                        <div class="d-flex justify-content-center">
-                            <div class="pe-1">
-                                <h4>Журнал учета входящих документов за</h4>
-                            </div>
-                            <div>
-                                <form action="{{route('archive_documents.index')}}" method="get">
-                                    @if(!is_null($archive_documents))
-                                    <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
-                                        @forelse($archive_years as $key => $value)
-                                            <option value="{{substr($value, -4)}}" @if(isset($old_filters['year']) && $old_filters['year'] == substr($value, -4)) selected @endif>{{substr($value, -4)}}</option>
-                                        @empty
-                                            <option value="">____</option>
-                                        @endforelse
-                                    </select>
-                                    @endif
-                                </form>
-                            </div>
-                            <div class="ps-1 pe-3">
-                                <h4>год</h4>
-                            </div>
-                        </div>
-
-
-
-                                <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
-                                </button>
-                            <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('archive_documents.index')}}">Сброс</a>
+                        <div class="col-1 text-end">
+                            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
+                            </button>
+                        <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('documents.index')}}">Сброс</a>
+                    </div>
                     </div>
                 </div>
                 <div class="card-body">
