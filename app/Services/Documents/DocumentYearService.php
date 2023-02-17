@@ -10,7 +10,7 @@ class DocumentYearService
     {
         $years = Document::groupBy('incoming_at')->get()->pluck('incoming_at')->map(function($item, $key){
             return date('Y', strtotime($item));
-        });
+        })->unique()->sortDesc();
 
         return $years;
     }

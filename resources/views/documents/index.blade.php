@@ -26,7 +26,7 @@
                                 @forelse($years as $year)
                                     <option @if(isset($old_filters['year']) && $old_filters['year']  === $year) selected @endif value="{{$year}}">{{$year}}</option>
                                 @empty
-                                    <option value="">Нет данных ...</option>
+                                    <option value="">_____</option>
                                 @endforelse
                             </select>
                                 <h4 class="d-inline-block">год</h4>
