@@ -43,7 +43,7 @@ class DocumentController extends Controller
     {
         $this->middleware(['auth']);
         $this->authorizeResource(Document::class, 'document');
-        $this->archiveDocumentService = new ArchiveDocumentService();
+        $this->archiveService = new ArchiveDocumentService();
     }
 
     /**
@@ -77,7 +77,7 @@ class DocumentController extends Controller
 
         $documents = null;
 
-        if(Session::get('year') > $this->archiveDocumentService->getLastArchiveYear())
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear())
         {
             if (!empty($data['content'])) {
 
@@ -93,10 +93,10 @@ class DocumentController extends Controller
 
             }
         } else {
-            return redirect()->route('archive_documents.index');
+            return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
          }
 
-        $years = $this->archiveDocumentService->getYearsList();
+        $years = $this->archiveService->getYearsList();
 
         return view('documents.index', [
             'documents' => $documents,
@@ -296,13 +296,5 @@ class DocumentController extends Controller
             'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
             'priorities' => TaskPriority::all(),
         ]);
-    }
-
-    public function paginate($items, $perPage = 2, $page = null, $options = [])
-    {
-        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        $paginator = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
-        return $paginator->setPath(Paginator::resolveCurrentPath());
     }
 }

@@ -29,7 +29,7 @@ class ArchiveDocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->archiveDocumentService = new ArchiveDocumentService();
+        $this->archiveService = new ArchiveDocumentService();
     }
 
     /**
@@ -51,15 +51,15 @@ class ArchiveDocumentController extends Controller
         {
             Session::put('year', $data['year']);
         } else {
-            Session::put('year', $this->archiveDocumentService->getLastArchiveYear());
+            Session::put('year', $this->archiveService->getLastArchiveYear());
         }
 
-        if(Session::get('year') > $this->archiveDocumentService->getLastArchiveYear())
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear())
         {
             return redirect()->route('documents.index');
         }
 
-        if(empty($this->archiveDocumentService->getYearsList()))
+        if(empty($this->archiveService->getYearsList()))
         {
             return view('archive_documents.index', [
                 'archive_documents' => null,
@@ -84,7 +84,7 @@ class ArchiveDocumentController extends Controller
         return view('archive_documents.index', [
             'archive_documents' => $documents,
             'old_filters' => $data,
-            'archive_years' => $this->archiveDocumentService->getYearsList(),
+            'archive_years' => $this->archiveService->getYearsList(),
         ]);
     }
 

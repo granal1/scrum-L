@@ -10,24 +10,29 @@
         <div class="container-fluid pt-3">
             <div class="card shadow">
                 <div class="card-header">
-                    <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                    <div class="row row-cols-1 row-cols-md-3">
                         <div class="col-1">
-                            <form action="{{route('archive_documents.index')}}" method="get">
-                                @if(!is_null($archive_documents))
-                                <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
+                        </div>
+                        <div class="col-10 text-center">
+                        <form action="{{route('archive_documents.index')}}" method="get">
+                            <h4 class="d-inline-block">Архив входящих документов за</h4>
+                        @if(!is_null($archive_documents))
+                                <select name="year" id="year" class="form-select form-select-sm d-inline-block" onchange="this.form.submit();" style="width: 6rem;">
                                     @forelse($archive_years as $key => $value)
                                         <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
                                     @empty
                                         <option value="">пусто</option>
                                     @endforelse
                                 </select>
-                                @endif
-                            </form>
+                            @endif
+                            <h4 class="d-inline-block">год</h4>
+                        </form>
                         </div>
-                        <h4 class="d-inline-block">Архив входящих документов</h4>
+                        <div class="col-1 text-end">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>
                             <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('archive_documents.index')}}">Сброс</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
