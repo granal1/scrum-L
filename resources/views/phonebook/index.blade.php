@@ -36,6 +36,7 @@
                                         <div class="input-group mb-3">
                                                 <a class="btn btn-outline-danger btn-sm" type="button" href="{{route('phonebook.index')}}">Сброс</a>
                                               <input type="search" value="@if(isset($old_filters['position'])){{$old_filters['position']}}@endif" class="form-control form-control-sm" id="position" name="position" onchange="this.form.submit()">
+                                        </div>
                                     </td>
                                     <td class="d-none d-sm-table-cell">
                                         <input type="search" value="@if(isset($old_filters['name'])){{$old_filters['name']}}@endif" class="form-control form-control-sm" id="name" name="name" onchange="this.form.submit()">
@@ -52,8 +53,8 @@
                             <tr>
                                 <td class="d-none d-sm-table-cell">{{$user->position}}</td>
                                 <td>{{$user->name}}</td>
-                                <td class="d-none d-sm-table-cell">{{$user->phone}}</td>
-                                <td class="d-none d-sm-table-cell">{{$user->email}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->phone}} &nbsp;&nbsp;<a href="tel: {{$user->phone}}"><img src="{{asset('./assets/icons/phone.svg')}}" alt="Телефонная трубка" title="Позвонить" style="width: 15px; height: 15px;"></a></td>
+                                <td class="d-none d-sm-table-cell">{{$user->email}} &nbsp;&nbsp;<a href="mailto: {{$user->email}}"><img src="{{asset('./assets/icons/send-email.svg')}}" alt="Отправка письма" title="Отправить письмо" style="width: 15px; height: 15px;"></a></td>
                             </tr>
                             @empty
                             <tr>

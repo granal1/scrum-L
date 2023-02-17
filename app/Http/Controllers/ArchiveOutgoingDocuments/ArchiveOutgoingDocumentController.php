@@ -66,7 +66,7 @@ class ArchiveOutgoingDocumentController extends Controller
 
         if(Session::get('year') > $this->archiveService->getLastArchiveYear())
         {
-            return redirect()->route('outgoing_files.index');
+            return redirect()->route('outgoing_files.index', ['year' => Session::get('year')]);
         }
 
         $documents = new ArchiveOutgoingDocument();
