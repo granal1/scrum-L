@@ -110,6 +110,7 @@
                             </table>
                             @if(!is_null($archive_documents))
                                 {{$archive_documents->withQueryString()->links()}}
+                                {{Session::put('page', $archive_documents->currentPage())}}
                             @endif
                         </div>
                     </div>

@@ -224,7 +224,7 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('documents.index', ['year' => Session::get('year')])}}">Назад</a>
+                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('documents.index', ['year' => Session::get('year'), 'page' => Session::get('page')])}}">Назад</a>
                     </div>
                     @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">

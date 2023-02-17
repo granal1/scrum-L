@@ -113,6 +113,7 @@
                         </table>
                         @if(!empty($archive_outgoing_documents))
                         {{$archive_outgoing_documents->withQueryString()->links()}}
+                            {{Session::put('page', $archive_outgoing_documents->currentPage())}}
                         @endif
                     </div>
                 </div>
