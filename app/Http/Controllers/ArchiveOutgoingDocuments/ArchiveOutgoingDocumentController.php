@@ -11,6 +11,7 @@ use App\Models\ArchiveOutgoingDocuments\ArchiveOutgoingDocument;
 
 use App\Models\User;
 use App\Services\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentService;
+use App\Services\OutgoingFiles\OutgoingDocumentYearService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -81,10 +82,23 @@ class ArchiveOutgoingDocumentController extends Controller
 
         $documents = $this->paginate($documents, config('front.archive_outgoing_files.pagination'));
 
+        $yearService = new OutgoingDocumentYearService();
+        $years = [];
+
+        foreach($yearService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
+        foreach ($this->archiveService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
         return view('archive_outgoing_documents.index', [
             'archive_outgoing_documents' => $documents,
             'old_filters' => $data,
-            'years' => $this->archiveService->getYearsList(),
+            'years' => $years,
         ]);
     }
 

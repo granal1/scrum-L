@@ -11,6 +11,7 @@ use App\Models\ArchiveDocuments\ArchiveDocument;
 
 use App\Models\User;
 use App\Services\ArchiveDocuments\ArchiveDocumentService;
+use App\Services\Documents\DocumentYearService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -81,10 +82,23 @@ class ArchiveDocumentController extends Controller
 
         $documents = $this->paginate($documents, config('front.archive_files.pagination'));
 
+        $yearService = new DocumentYearService();
+        $years = [];
+
+        foreach($yearService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
+        foreach ($this->archiveService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
         return view('archive_documents.index', [
             'archive_documents' => $documents,
             'old_filters' => $data,
-            'archive_years' => $this->archiveService->getYearsList(),
+            'archive_years' => $years,
         ]);
     }
 
