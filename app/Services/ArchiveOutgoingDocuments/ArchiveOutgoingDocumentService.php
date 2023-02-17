@@ -14,8 +14,7 @@ class ArchiveOutgoingDocumentService
         $date = strtotime(date('Y') . ' -1 year');
         $result[] = date('Y', $date);
 
-        if(Schema::hasTable('archive_outgoing_files_%'))
-        {
+
             foreach (DB::select('SHOW TABLES LIKE "archive_outgoing_files_%"') as $item) {
                 foreach ($item as $key => $value) {
                     $result[] = substr($value, -4);
@@ -26,14 +25,14 @@ class ArchiveOutgoingDocumentService
                 arsort($result);
                 return $result;
             }
-        }
+
 
         return [];
     }
 
     public function getLastArchiveYear(): string
     {
-        if(Schema::hasTable('archive_outgoing_files_%')) {
+
             foreach (DB::select('SHOW TABLES LIKE "archive_outgoing_files_%"') as $item) {
                 foreach ($item as $key => $value) {
                     $result[] = substr($value, -4);
@@ -45,7 +44,7 @@ class ArchiveOutgoingDocumentService
                 $years = array_reverse($result);
                 return array_pop($years);
             }
-        }
+
 
         return '';
     }

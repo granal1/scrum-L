@@ -16,8 +16,6 @@ class ArchiveDocumentService
         $result[] = date('Y', $date);
 
 
-        if(Schema::hasTable('archive_files_%'))
-        {
             foreach (DB::select('SHOW TABLES LIKE "archive_files_%"') as $item) {
                 foreach ($item as $key => $value) {
                     $result[] = substr($value, -4);
@@ -28,14 +26,13 @@ class ArchiveDocumentService
                 arsort($result);
                 return $result;
             }
-        }
 
        return [];
     }
 
     public function getLastArchiveYear(): string
     {
-        if(Schema::hasTable('archive_files_%')) {
+
             foreach (DB::select('SHOW TABLES LIKE "archive_files_%"') as $item) {
                 foreach ($item as $key => $value) {
                     $result[] = substr($value, -4);
@@ -47,7 +44,7 @@ class ArchiveDocumentService
                 $years = array_reverse($result);
                 return array_pop($years);
             }
-        }
+
 
         return '';
     }
