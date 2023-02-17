@@ -65,7 +65,9 @@
             "@php artisan view:cach",
             "@php artisan route:cach",
             "@php artisan config:cache",
-            "@php artisan storage:link"
+            "@php artisan storage:link",
+            "@php artisan queue:restart",
+            "@php artisan schedule:work"
         ],
         "recache": [
             "@php artisan cache:clear",
@@ -75,7 +77,9 @@
             "@php artisan route:cach",
             "@php artisan view:cach",
             "@php artisan config:cache",
-            "@php artisan storage:link"
+            "@php artisan storage:link",
+            "@php artisan queue:restart",
+            "@php artisan schedule:work"
         ]
     },
     "extra": {
