@@ -15,6 +15,7 @@ use App\Models\ArchiveDocuments\ArchiveDocument;
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
 use App\Services\ArchiveDocuments\ArchiveDocumentService;
+use App\Services\Documents\DocumentYearService;
 use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
@@ -96,7 +97,18 @@ class DocumentController extends Controller
             return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
          }
 
-        $years = $this->archiveService->getYearsList();
+        $yearService = new DocumentYearService();
+        $years = [];
+
+        foreach($yearService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
+        foreach ($this->archiveService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
 
         return view('documents.index', [
             'documents' => $documents,

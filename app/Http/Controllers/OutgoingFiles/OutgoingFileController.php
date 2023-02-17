@@ -10,6 +10,7 @@ use App\Http\Requests\OutgoingFiles\UpdateOutgoingFileFormRequest;
 use App\Jobs\ProcessOutgoingFileParsing;
 use App\Models\OutgoingFiles\OutgoingFile;
 use App\Services\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentService;
+use App\Services\OutgoingFiles\OutgoingDocumentYearService;
 use App\Services\OutgoingFiles\UploadArchiveService;
 use App\Services\OutgoingFiles\UploadService;
 
@@ -86,10 +87,23 @@ class OutgoingFileController extends Controller
                 ->paginate(config('front.outgoing_files.pagination'));
         }
 
+        $yearService = new OutgoingDocumentYearService();
+        $years = [];
+
+        foreach($yearService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
+        foreach ($this->archiveService->getYearsList() as $year)
+        {
+            $years[] = $year;
+        }
+
         return view('outgoing_files.index', [
             'output_files' => $outgoing_files,
             'old_filters' => $data,
-            'years' => $this->archiveService->getYearsList(),
+            'years' => $years,
         ]);
     }
 
