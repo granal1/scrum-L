@@ -46,7 +46,6 @@ Route::middleware(['auth'])->group(function () {
         'roles' => RoleController::class,
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
-        //'archive_documents' => ArchiveDocumentController::class,
         'logs' => LogsController::class,
     ]);
 
@@ -61,8 +60,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('archive_outgoing_documents/index', [ArchiveOutgoingDocumentController::class, 'index'])->name('archive_outgoing_documents.index');
     Route::delete('archive_outgoing_documents/destroy/{document_id}', [ArchiveOutgoingDocumentController::class, 'destroy'])->name('archive_outgoing_documents.destroy');
     Route::patch('archive_outgoing_documents/update/{document_id}', [ArchiveOutgoingDocumentController::class, 'update'])->name('archive_outgoing_documents.update');
-
-
 
     Route::get('documents/create-task/{document}', [DocumentController::class, 'create_task'])->name('documents.create_task');
     Route::get('show/{user}', [ProfileController::class, 'show'])->name('profile.show');

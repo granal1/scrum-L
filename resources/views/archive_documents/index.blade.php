@@ -16,7 +16,7 @@
                                 @if(!is_null($archive_documents))
                                 <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
-                                        <option value="{{substr($value, -4)}}" @if(isset($old_filters['year']) && $old_filters['year'] == substr($value, -4)) selected @endif>{{substr($value, -4)}}</option>
+                                        <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
                                     @empty
                                         <option value="">пусто</option>
                                     @endforelse

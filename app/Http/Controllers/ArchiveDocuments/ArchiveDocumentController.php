@@ -10,6 +10,7 @@ use App\Http\Requests\ArchiveDocuments\UpdateArchiveDocumentFormRequest;
 use App\Models\ArchiveDocuments\ArchiveDocument;
 
 use App\Models\User;
+use App\Services\ArchiveDocuments\ArchiveDocumentService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -28,7 +29,7 @@ class ArchiveDocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->archive_list = $this->getArchiveList();
+        $this->archiveDocumentService = new ArchiveDocumentService();
     }
 
     /**
@@ -44,7 +45,21 @@ class ArchiveDocumentController extends Controller
 
         $this->authorize('viewAny', ArchiveDocument::class);
 
-        if(empty($this->archive_list))
+        $data = $request->validated();
+
+        if(isset($data['year']))
+        {
+            Session::put('year', $data['year']);
+        } else {
+            Session::put('year', $this->archiveDocumentService->getLastArchiveYear());
+        }
+
+        if(Session::get('year') > $this->archiveDocumentService->getLastArchiveYear())
+        {
+            return redirect()->route('documents.index');
+        }
+
+        if(empty($this->archiveDocumentService->getYearsList()))
         {
             return view('archive_documents.index', [
                 'archive_documents' => null,
@@ -52,15 +67,6 @@ class ArchiveDocumentController extends Controller
                 'archive_years' => null,
                 'year' => null,
             ]);
-        }
-
-        $data = $request->validated();
-
-        if(isset($data['year']))
-        {
-            Session::put('year', $data['year']);
-        } else {
-            Session::put('year', $this->getLastArchiveYear());
         }
 
         $documents = new ArchiveDocument();
@@ -78,7 +84,7 @@ class ArchiveDocumentController extends Controller
         return view('archive_documents.index', [
             'archive_documents' => $documents,
             'old_filters' => $data,
-            'archive_years' => $this->archive_list,
+            'archive_years' => $this->archiveDocumentService->getYearsList(),
         ]);
     }
 
