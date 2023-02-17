@@ -56,7 +56,7 @@ class ArchiveDocumentController extends Controller
 
         if(Session::get('year') > $this->archiveService->getLastArchiveYear())
         {
-            return redirect()->route('documents.index');
+            return redirect()->route('documents.index', ['year' => Session::get('year')]);
         }
 
         if(empty($this->archiveService->getYearsList()))
