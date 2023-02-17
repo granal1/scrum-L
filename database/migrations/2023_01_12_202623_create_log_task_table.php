@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('task_uuid', 36);
             $table->string('parent_uuid', 36)->nullable()->default(null);
             $table->string('priority_uuid', 36)->nullable()->default(null);
-            $table->string('author_uuid', 36);
+            $table->foreignUuid('author_uuid');
             $table->string('responsible_uuid', 36);
             $table->text('description');
             $table->timestamp('deadline_at');
@@ -29,6 +29,11 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+
+        Schema::table('log_task', function ($table) {
+            $table->foreign('author_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
+            $table->foreign('responsible_uuid')->references('id')->on('users')->onupdate('cascade')->ondelete('no action');
+        });
     }
 
     /**
@@ -38,6 +43,11 @@ return new class extends Migration
      */
     public function down()
     {
+        Schema::table('log_task', function (Blueprint $table) {
+            $table->dropForeign(['author_uuid']);
+            $table->dropForeign(['responsible_uuid']);
+        });
+
         Schema::dropIfExists('log_task');
     }
 };

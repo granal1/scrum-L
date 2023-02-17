@@ -27,6 +27,7 @@ class DocumentFilterRequest extends FormRequest
             'short_description' => '',
             'path' => '',
             'content' => '',
+            'year' => '',
         ];
     }
 }

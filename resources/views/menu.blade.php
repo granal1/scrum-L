@@ -55,6 +55,7 @@
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item {{ request()->routeIs('roles.*')?'active':'' }}" href="{{ route('roles.index') }}">Роли</a></li>
                                     <li><a class="dropdown-item  {{ request()->routeIs('user_statuses.*')?'active':'' }}"  href="{{ route('user_statuses.index') }}">Статусы</a></li>
+                                    <li><a class="dropdown-item{{ request()->routeIs('logs.index.*')?'active':'' }}" href="{{ route('logs.index')}}">Логи</a></li>
                                 </ul>
                             </li>
                         </ul>

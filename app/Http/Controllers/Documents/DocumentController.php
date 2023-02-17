@@ -11,18 +11,24 @@ use App\Http\Requests\Documents\UpdateDocumentFormRequest;
 
 use App\Jobs\ProcessDocumentParsing;
 
+use App\Models\ArchiveDocuments\ArchiveDocument;
 use App\Models\Documents\Document;
 use App\Models\Tasks\TaskPriority;
+use App\Services\ArchiveDocuments\ArchiveDocumentService;
 use App\Services\Documents\UploadArchiveService;
 use App\Services\Documents\UploadService;
 use Illuminate\Http\Request;
 
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
@@ -37,6 +43,7 @@ class DocumentController extends Controller
     {
         $this->middleware(['auth']);
         $this->authorizeResource(Document::class, 'document');
+        $this->archiveDocumentService = new ArchiveDocumentService();
     }
 
     /**
@@ -44,6 +51,7 @@ class DocumentController extends Controller
      */
     public function index(DocumentFilterRequest $request)
     {
+
         Log::info(get_class($this) . ', method: ' . __FUNCTION__,
             [
                 'user' => Auth::user()->name,
@@ -53,24 +61,47 @@ class DocumentController extends Controller
 
         //$this->authorize('viewAny', Document::class);
         $data = $request->validated();
+
+        if(isset($data['year']))
+        {
+            Session::put('year', $data['year']);
+        } else {
+            Session::put('year', date('Y'));
+        }
+
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
         }
+
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
         $documents = null;
 
-        if (!empty($data['content'])) {
-            $documents = Document::filter($filter)
-                ->paginate(config('front.documents.pagination'));
+        if(Session::get('year') > $this->archiveDocumentService->getLastArchiveYear())
+        {
+            if (!empty($data['content'])) {
+
+                $documents = Document::filter($filter)
+                    ->whereYear('incoming_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            } else {
+
+                $documents = Document::orderBy('created_at', 'desc')
+                    ->whereYear('incoming_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            }
         } else {
-            $documents = Document::orderBy('created_at', 'desc')
-                ->paginate(config('front.documents.pagination'));
-        }
+            return redirect()->route('archive_documents.index');
+         }
+
+        $years = $this->archiveDocumentService->getYearsList();
 
         return view('documents.index', [
             'documents' => $documents,
             'old_filters' => $data,
+            'years' => $years,
         ]);
     }
 
@@ -265,5 +296,13 @@ class DocumentController extends Controller
             'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
             'priorities' => TaskPriority::all(),
         ]);
+    }
+
+    public function paginate($items, $perPage = 2, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        $paginator = new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        return $paginator->setPath(Paginator::resolveCurrentPath());
     }
 }
