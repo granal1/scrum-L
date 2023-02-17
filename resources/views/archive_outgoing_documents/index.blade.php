@@ -12,19 +12,31 @@
             <div class="card-header">
                 <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
                     <div class="col-1">
-                        <form action="{{route('archive_outgoing_documents.index')}}" method="get">
-                            @if(!is_null($archive_outgoing_documents))
-                                <select name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
+
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="pe-1">
+                            <h4>Журнал учета исходящих документов за</h4>
+                        </div>
+                        <div>
+                            <form action="{{route('archive_outgoing_documents.index')}}" method="get">
+                                @if(!is_null($archive_outgoing_documents))
+                                    <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
                                         <option value="{{substr($value, -4)}}" @if(isset($old_filters['year']) && $old_filters['year'] == substr($value, -4)) selected @endif>{{substr($value, -4)}}</option>
                                     @empty
-                                        <option value="">пусто</option>
+                                        <option value="">____</option>
                                     @endforelse
                                 </select>
-                            @endif
-                        </form>
+                                @endif
+                            </form>
+                        </div>
+                        <div class="ps-1 pe-3">
+                            <h4>год</h4>
+                        </div>
                     </div>
-                    <h4 class="d-inline-block">Архив исходящих документов</h4>
+
                     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Поиск

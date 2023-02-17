@@ -75,9 +75,7 @@
             "@php artisan route:cach",
             "@php artisan view:cach",
             "@php artisan config:cache",
-            "@php artisan storage:link",
-            "@php artisan queue:restart",
-            "@php artisan schedule:work"
+            "@php artisan storage:link"
         ]
     },
     "extra": {
