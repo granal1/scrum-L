@@ -101,6 +101,7 @@
                                 </tbody>
                             </table>
                             {{$documents->withQueryString()->links()}}
+                            {{Session::put('page', $documents->currentPage())}}
                         </div>
                     </div>
                 </div>

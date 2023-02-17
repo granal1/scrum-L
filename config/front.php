@@ -17,7 +17,7 @@ return [
         'pagination' => 15
     ],
     'outgoing_files' => [
-        'pagination' => 15
+        'pagination' => 3
     ],
     'archive_files' => [
         'pagination' => 3

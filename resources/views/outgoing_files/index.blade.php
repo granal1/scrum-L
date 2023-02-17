@@ -97,6 +97,7 @@
                             </tbody>
                         </table>
                         {{$output_files->withQueryString()->links()}}
+                        {{Session::put('page', $output_files->currentPage())}}
                     </div>
                 </div>
             </div>
