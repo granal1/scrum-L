@@ -191,7 +191,7 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:150px" class="btn btn-sm btn-success"  href="{{route('archive_outgoing_documents.index')}}">Назад
+                        <a style="width:150px" class="btn btn-sm btn-success"  href="{{route('archive_outgoing_documents.index', ['year' => Session::get('year')])}}">Назад
                         </a>
                     </div>
                     @can('update', \App\Models\OutgoingFiles\OutgoingFile::class)
