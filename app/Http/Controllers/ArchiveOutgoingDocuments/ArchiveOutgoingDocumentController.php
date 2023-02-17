@@ -10,6 +10,7 @@ use App\Http\Requests\ArchiveOutgoingDocuments\UpdateArchiveOutgoingDocumentForm
 use App\Models\ArchiveOutgoingDocuments\ArchiveOutgoingDocument;
 
 use App\Models\User;
+use App\Services\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentService;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
@@ -28,7 +29,7 @@ class ArchiveOutgoingDocumentController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->archive_list = $this->getArchiveList();
+        $this->archiveService = new ArchiveOutgoingDocumentService();
     }
 
     /**
@@ -44,7 +45,7 @@ class ArchiveOutgoingDocumentController extends Controller
 
         $this->authorize('viewAny', ArchiveOutgoingDocument::class);
 
-        if(empty($this->archive_list))
+        if(empty($this->archiveService->getYearsList()))
         {
             return view('archive_outgoing_documents.index', [
                 'archive_outgoing_documents' => null,
@@ -60,7 +61,12 @@ class ArchiveOutgoingDocumentController extends Controller
         {
             Session::put('year', $data['year']);
         } else {
-            Session::put('year', $this->getLastArchiveYear());
+            Session::put('year', $this->archiveService->getLastArchiveYear());
+        }
+
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear())
+        {
+            return redirect()->route('outgoing_files.index');
         }
 
         $documents = new ArchiveOutgoingDocument();
@@ -78,7 +84,7 @@ class ArchiveOutgoingDocumentController extends Controller
         return view('archive_outgoing_documents.index', [
             'archive_outgoing_documents' => $documents,
             'old_filters' => $data,
-            'archive_years' => $this->archive_list,
+            'years' => $this->archiveService->getYearsList(),
         ]);
     }
 
@@ -184,26 +190,6 @@ class ArchiveOutgoingDocumentController extends Controller
         }
 
         return redirect()->route('archive_outgoing_documents.index');
-    }
-
-    private function getArchiveList(): array
-    {
-        $result = [];
-
-        foreach (DB::select('SHOW TABLES LIKE "archive_outgoing_files_%"') as $item) {
-            foreach ($item as $key => $value) {
-                $result[substr($value, -4)] = $value;
-            }
-        }
-        arsort($result);
-        return $result;
-    }
-
-    private function getLastArchiveYear(): string
-    {
-        $years = $this->getArchiveList();
-        $years = array_reverse($years);
-        return substr(array_pop($years), -4);
     }
 
     public function paginate($items, $perPage = 2, $page = null, $options = [])

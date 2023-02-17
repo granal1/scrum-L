@@ -27,6 +27,7 @@ class OutgoingFileFilterRequest extends FormRequest
             'short_description' => '',
             'path' => '',
             'content' => '',
+            'year' => '',
         ];
     }
 }

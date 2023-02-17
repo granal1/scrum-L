@@ -23,8 +23,8 @@
                             <form action="{{route('archive_outgoing_documents.index')}}" method="get">
                                 @if(!is_null($archive_outgoing_documents))
                                     <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
-                                    @forelse($archive_years as $key => $value)
-                                        <option value="{{substr($value, -4)}}" @if(isset($old_filters['year']) && $old_filters['year'] == substr($value, -4)) selected @endif>{{substr($value, -4)}}</option>
+                                    @forelse($years as $key => $value)
+                                        <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
                                     @empty
                                         <option value="">____</option>
                                     @endforelse

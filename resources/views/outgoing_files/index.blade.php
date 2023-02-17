@@ -17,7 +17,19 @@
                                href="{{route('outgoing_files.create')}}">Добавить</a>
                         @endcan
                     @endauth
-                    <h4 class="d-inline-block">Журнал учета исходящих документов</h4>
+                        <div class="col-10 text-center">
+                            <form action="{{route('outgoing_files.index')}}" method="get">
+                                <h4 class="d-inline-block">Журнал учета исходящих документов за </h4>
+                                <select onchange="this.form.submit();" class="form-select form-select-sm d-inline-block" name="year" style="width: 6rem;">
+                                    @forelse($years as $year)
+                                        <option @if(isset($old_filters['year']) && $old_filters['year']  == $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                    @empty
+                                        <option value="">Нет данных ...</option>
+                                    @endforelse
+                                </select>
+                                <h4 class="d-inline-block">год</h4>
+                            </form>
+                        </div>
                     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Поиск

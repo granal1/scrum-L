@@ -9,19 +9,16 @@ use App\Http\Requests\OutgoingFiles\StoreOutgoingFileFormRequest;
 use App\Http\Requests\OutgoingFiles\UpdateOutgoingFileFormRequest;
 use App\Jobs\ProcessOutgoingFileParsing;
 use App\Models\OutgoingFiles\OutgoingFile;
-use App\Models\Tasks\TaskPriority;
+use App\Services\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentService;
 use App\Services\OutgoingFiles\UploadArchiveService;
 use App\Services\OutgoingFiles\UploadService;
-use Illuminate\Http\Request;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Symfony\Polyfill\Uuid\Uuid;
 use DateTime;
 
 
@@ -32,6 +29,8 @@ class OutgoingFileController extends Controller
     {
         $this->middleware(['auth']);
         $this->authorizeResource(OutgoingFile::class, 'outgoing_file');
+        $this->archiveService = new ArchiveOutgoingDocumentService();
+
     }
 
     /**
@@ -51,18 +50,33 @@ class OutgoingFileController extends Controller
         //$this->authorize('viewAny', OutgoingFile::class);
 
         $data = $request->validated();
+
+        if(isset($data['year']))
+        {
+            Session::put('year', $data['year']);
+        } else {
+            Session::put('year', date('Y'));
+        }
+
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
         }
+
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 
-        $outgoing_files = $filter
-            ?
-            OutgoingFile::filter($filter)
-                ->paginate(config('front.outgoing_files.pagination'))
-            :
-            OutgoingFile::orderBy('created_at', 'desc')
-                ->paginate(config('front.outgoing_files.pagination'));
+        $outgoing_files = null;
+
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear()) {
+            $outgoing_files = $filter
+                ?
+                OutgoingFile::filter($filter)
+                    ->paginate(config('front.outgoing_files.pagination'))
+                :
+                OutgoingFile::orderBy('created_at', 'desc')
+                    ->paginate(config('front.outgoing_files.pagination'));
+        } else {
+            return redirect()->route('archive_outgoing_documents.index', ['year'=> Session::get('year')]);
+        }
 
         if (!empty($data['content'])) {
             $outgoing_files = OutgoingFile::filter($filter)
@@ -75,6 +89,7 @@ class OutgoingFileController extends Controller
         return view('outgoing_files.index', [
             'output_files' => $outgoing_files,
             'old_filters' => $data,
+            'years' => $this->archiveService->getYearsList(),
         ]);
     }
 
