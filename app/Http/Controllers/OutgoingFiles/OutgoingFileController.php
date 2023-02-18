@@ -68,23 +68,21 @@ class OutgoingFileController extends Controller
         $outgoing_files = null;
 
         if(Session::get('year') > $this->archiveService->getLastArchiveYear()) {
-            $outgoing_files = $filter
-                ?
-                OutgoingFile::filter($filter)
-                    ->paginate(config('front.outgoing_files.pagination'))
-                :
-                OutgoingFile::orderBy('created_at', 'desc')
-                    ->paginate(config('front.outgoing_files.pagination'));
+            if (!empty($data['content'])) {
+
+                $outgoing_files = OutgoingFile::filter($filter)
+                    ->whereYear('outgoing_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            } else {
+
+                $outgoing_files = OutgoingFile::orderBy('created_at', 'desc')
+                    ->whereYear('outgoing_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            }
         } else {
             return redirect()->route('archive_outgoing_documents.index', ['year'=> Session::get('year')]);
-        }
-
-        if (!empty($data['content'])) {
-            $outgoing_files = OutgoingFile::filter($filter)
-                ->paginate(config('front.outgoing_files.pagination'));
-        } else {
-            $outgoing_files = OutgoingFile::orderBy('created_at', 'desc')
-                ->paginate(config('front.outgoing_files.pagination'));
         }
 
         $yearService = new OutgoingDocumentYearService();
