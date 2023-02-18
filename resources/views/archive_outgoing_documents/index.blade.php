@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Главная | Исходящие документы')
+@section('title', 'Главная | Архив Исходящих документов')
 
 @section('header')
     @include('menu')
