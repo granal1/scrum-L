@@ -26,7 +26,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
+    /*
         // Создание архивной таблицы входящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
         $schedule->call(function () {
 
@@ -83,8 +83,9 @@ class Kernel extends ConsoleKernel
             }
 
         })->yearlyOn(2, 8, '16:26');
+    */
 
-
+    /*
         // Создание архивной таблицы исходящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
         $schedule->call(function () {
 
@@ -140,7 +141,7 @@ class Kernel extends ConsoleKernel
             }
 
         })->yearlyOn(2, 8, '16:26');
-
+    */
 
         // Рассылка заданий, которые должны быть закончены на этой неделе или уже просрочены
         $schedule->call(function () {

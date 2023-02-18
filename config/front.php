@@ -8,7 +8,7 @@ return [
         'pagination' => 15
     ],
     'documents' => [
-        'pagination' => 2
+        'pagination' => 20
     ],
     'roles' => [
         'pagination' => 15
@@ -20,9 +20,9 @@ return [
         'pagination' => 3
     ],
     'archive_files' => [
-        'pagination' => 3
+        'pagination' => 20
     ],
     'archive_outgoing_files' => [
-        'pagination' => 3
+        'pagination' => 20
     ],
 ];

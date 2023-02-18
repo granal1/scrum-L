@@ -20,11 +20,11 @@
                         <div class="col-10 text-center">
                             <form action="{{route('outgoing_files.index')}}" method="get">
                                 <h4 class="d-inline-block">Журнал учета исходящих документов за </h4>
-                                <select onchange="this.form.submit();" class="form-select form-select-sm d-inline-block" name="year" style="width: 6rem;">
+                                <select class="h5" onchange="this.form.submit();" class="form-select form-select-sm d-inline-block" name="year">
                                     @forelse($years as $year)
                                         <option @if(isset($old_filters['year']) && $old_filters['year']  == $year) selected @endif value="{{$year}}">{{$year}}</option>
                                     @empty
-                                        <option value="">Нет данных ...</option>
+                                        <option value="">_____</option>
                                     @endforelse
                                 </select>
                                 <h4 class="d-inline-block">год</h4>

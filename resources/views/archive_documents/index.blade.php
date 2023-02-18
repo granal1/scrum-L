@@ -10,18 +10,20 @@
         <div class="container-fluid pt-3">
             <div class="card shadow">
                 <div class="card-header">
-                    <div class="row row-cols-1 row-cols-md-3">
+                    <div class="row row-cols-3">
                         <div class="col-1">
+                            
                         </div>
+
                         <div class="col-10 text-center">
-                        <form action="{{route('archive_documents.index')}}" method="get">
-                            <h4 class="d-inline-block">Архив входящих документов за</h4>
-                        @if(!is_null($archive_documents))
-                                <select name="year" id="year" class="form-select form-select-sm d-inline-block" onchange="this.form.submit();" style="width: 6rem;">
+                            <form action="{{route('archive_documents.index')}}" method="get">
+                                <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
+                                @if(!is_null($archive_documents))
+                                <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($archive_years as $key => $value)
-                                        <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
+                                    <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
                                     @empty
-                                        <option value="">пусто</option>
+                                        <option value="">____</option>
                                     @endforelse
                                 </select>
                             @endif
