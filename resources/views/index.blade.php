@@ -152,7 +152,7 @@
                                                     <td>{{$task->description}}</td>
                                                     <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
                                                     <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
-                                                    <td>@include('graph.progressbar')</td>
+                                                    <td>@include('graph.progressbar', ['done_progress'=> $task->done_progress])</td>
                                                 </tr>
                                                 @empty
                                                     <tr>
@@ -214,7 +214,7 @@
                                                         <td class="">{{$task->description}}</td>
                                                         <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
                                                         <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
-                                                        <td>@include('graph.progressbar')</td>
+                                                        <td>@include('graph.progressbar', ['done_progress'=> $task->done_progress])</td>
                                                     </tr>
                                                 @empty
                                                     <tr>

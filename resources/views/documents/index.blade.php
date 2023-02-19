@@ -10,16 +10,34 @@
         <div class="container-fluid pt-3">
             <div class="card shadow">
                 <div class="card-header">
-                    <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
+                    <div class="row row-cols-3">
+                        <div class="col-1">
                         @auth
                             @can('create', \App\Models\Documents\Document::class)
                                 <a class="btn btn-outline-success btn-sm" href="{{route('documents.create')}}">Добавить</a>
                             @endcan
                             @endauth
-                        <h4 class="d-inline-block">Журнал учета входящих документов</h4>
+                        </div>
+
+                        <div class="col-10 text-center">
+                            <form action="{{route('documents.index')}}" method="get">
+                                <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
+                            <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
+                                @forelse($years as $year)
+                                    <option @if(isset($old_filters['year']) && $old_filters['year']  === $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                @empty
+                                    <option value="">_____</option>
+                                @endforelse
+                            </select>
+                                <h4 class="d-inline-block">год</h4>
+                            </form>
+                        </div>
+
+                        <div class="col-1 text-end">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
                                 </button>
                             <a class="btn btn-outline-danger btn-sm d-md-none" type="button" href="{{route('documents.index')}}">Сброс</a>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">
@@ -85,6 +103,7 @@
                                 </tbody>
                             </table>
                             {{$documents->withQueryString()->links()}}
+                            {{Session::put('page', $documents->currentPage())}}
                         </div>
                     </div>
                 </div>

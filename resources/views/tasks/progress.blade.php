@@ -130,7 +130,7 @@
                         </div>
                         <div class="col-8">
                             <textarea class="form-control form-control-sm" rows="1" id="comment" name="comment">{{$task->report}}</textarea>
-                            @error('executed_result')
+                            @error('comment')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
                         </div>

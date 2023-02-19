@@ -42,7 +42,7 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('phonebook.index')?'active':'' }}" href="{{ route('phonebook.index', Auth::id())}}">Телефоны</a>
                 </li>
-                
+
                 @can('viewAny', \App\Models\Admin\Admin::class)
                 <li class="nav-item">
                         <ul class="navbar-nav">
@@ -53,6 +53,7 @@
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item {{ request()->routeIs('roles.*')?'active':'' }}" href="{{ route('roles.index') }}">Роли</a></li>
                                     <li><a class="dropdown-item  {{ request()->routeIs('user_statuses.*')?'active':'' }}"  href="{{ route('user_statuses.index') }}">Статусы</a></li>
+                                    <li><a class="dropdown-item{{ request()->routeIs('logs.index.*')?'active':'' }}" href="{{ route('logs.index')}}">Логи</a></li>
                                 </ul>
                             </li>
                         </ul>

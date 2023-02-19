@@ -22,18 +22,18 @@
                                 <label for="email" class="col-md-4 col-form-label text-md-end">Email
                                     пользователя:</label>
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="admin@admin.ru" required autocomplete="email" autofocus>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
                                     @error('email')
-                                    <div>{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
                             <div class="row mb-3">
                                 <label for="password" class="col-md-4 col-form-label text-md-end">Пароль:</label>
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" value="+1234567" required autocomplete="current-password">
+                                    <input id="password" type="password" class="form-control" name="password" value="" required autocomplete="current-password">
                                     @error('password')
-                                    <div>{{$message}}</div>
+                                    <div class="text-danger">{{$message}}</div>
                                     @enderror
                                 </div>
                             </div>
