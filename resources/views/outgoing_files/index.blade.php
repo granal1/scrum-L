@@ -10,26 +10,39 @@
     <div class="container-fluid pt-3">
         <div class="card shadow">
             <div class="card-header">
+
                 <div class="d-grid gap-2 d-md-flex align-items-center justify-content-between">
-                    @auth
-                        @can('create', \App\Models\OutgoingFiles\OutgoingFile::class)
-                            <a class="btn btn-outline-success btn-sm"
-                               href="{{route('outgoing_files.create')}}">Добавить</a>
-                        @endcan
-                    @endauth
-                        <div class="col-10 text-center">
+                    <div class="col-1">
+                        @auth
+                            @can('create', \App\Models\OutgoingFiles\OutgoingFile::class)
+                                <a class="btn btn-outline-success btn-sm"
+                                href="{{route('outgoing_files.create')}}">Добавить</a>
+                            @endcan
+                        @endauth
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="pe-1">
+                            <h4>Журнал учета исходящих документов за</h4>
+                        </div>
+                        <div>
                             <form action="{{route('outgoing_files.index')}}" method="get">
-                                <h4 class="d-inline-block">Журнал учета исходящих документов за </h4>
-                                <select class="h5" onchange="this.form.submit();" class="form-select form-select-sm d-inline-block" name="year">
+                                
+                                <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($years as $year)
-                                        <option @if(isset($old_filters['year']) && $old_filters['year']  == $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                        <option @if(isset($old_filters['year']) && $old_filters['year']  === $year) selected @endif value="{{$year}}">{{$year}}</option>
                                     @empty
                                         <option value="">_____</option>
                                     @endforelse
                                 </select>
-                                <h4 class="d-inline-block">год</h4>
+                                
                             </form>
                         </div>
+                        <div class="ps-1 pe-3">
+                            <h4>год</h4>
+                        </div>
+                    </div>
+
                     <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         Поиск
@@ -37,6 +50,7 @@
                     <a class="btn btn-outline-danger btn-sm d-md-none" type="button"
                        href="{{route('outgoing_files.index')}}">Сброс</a>
                 </div>
+
             </div>
             <div class="card-body">
                 <div class="row">
