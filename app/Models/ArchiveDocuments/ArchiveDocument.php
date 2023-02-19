@@ -80,7 +80,7 @@ class ArchiveDocument extends Model
 
     public function getAllByYear(string $year)
     {
-        return DB::select('select * from archive_files_' . $year);
+        return DB::select('select * from archive_files_' . $year . ' order by incoming_at desc');
     }
 
     public function getOneByIdAndYear(string $id, string $year)

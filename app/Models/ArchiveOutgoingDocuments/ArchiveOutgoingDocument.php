@@ -81,7 +81,7 @@ class ArchiveOutgoingDocument extends Model
 
     public function getAllByYear(string $year)
     {
-        return DB::select('select * from archive_outgoing_files_' . $year);
+        return DB::select('select * from archive_outgoing_files_' . $year . ' order by outgoing_at desc');
     }
 
     public function getOneByIdAndYear(string $id, string $year)
