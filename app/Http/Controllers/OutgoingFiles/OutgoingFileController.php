@@ -76,7 +76,7 @@ class OutgoingFileController extends Controller
 
             } else {
 
-                $outgoing_files = OutgoingFile::orderBy('created_at', 'desc')
+                $outgoing_files = OutgoingFile::orderBy('outgoing_at', 'desc')
                     ->whereYear('outgoing_at', Session::get('year'))
                     ->paginate(config('front.documents.pagination'));
 

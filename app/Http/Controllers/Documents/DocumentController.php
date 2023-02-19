@@ -88,7 +88,7 @@ class DocumentController extends Controller
 
             } else {
 
-                $documents = Document::orderBy('created_at', 'desc')
+                $documents = Document::orderBy('incoming_at', 'desc')
                     ->whereYear('incoming_at', Session::get('year'))
                     ->paginate(config('front.documents.pagination'));
 
