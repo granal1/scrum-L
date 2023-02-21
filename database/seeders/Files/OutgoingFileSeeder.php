@@ -26,12 +26,11 @@ class OutgoingFileSeeder extends Seeder
 
     public function getData()
     {
-       // $faker = \Faker\Factory::create('ru_RU');
         return [
             'id' => fake()->uuid(),
-            'outgoing_at' => fake()->dateTimeBetween('2015-01-01', '2023-02-01'),
+            'outgoing_at' => fake()->dateTimeBetween('2021-01-01', '2023-01-10'),
             'short_description' => fake()->realTextBetween(10, 50),
-            'content' => fake()->realTextBetween(1000, 14660),
+            'content' => fake()->realTextBetween(1000, 2660),
             'created_at' => now(),
             'path' => fake()->realText(45),
             'author_uuid' => User::inRandomOrder()->first()->id,

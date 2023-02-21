@@ -24,7 +24,7 @@
                                 <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
                             <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                 @forelse($years as $year)
-                                    <option @if(isset($old_filters['year']) && $old_filters['year']  === $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                    <option @if(isset($old_filters['year']) && $old_filters['year']  == $year) selected @endif value="{{$year}}">{{$year}}</option>
                                 @empty
                                     <option value="">_____</option>
                                 @endforelse
