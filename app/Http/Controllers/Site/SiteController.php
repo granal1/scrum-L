@@ -56,6 +56,7 @@ class SiteController extends Controller
 
         $tasks = Task::filter($filter)
             ->whereIn('id', $current_task_ids)
+            ->with(['priority', 'author', 'responsible'])
             ->orderBy('created_at', 'desc')
             ->get();
 
