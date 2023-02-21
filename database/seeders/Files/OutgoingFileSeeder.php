@@ -29,7 +29,7 @@ class OutgoingFileSeeder extends Seeder
        // $faker = \Faker\Factory::create('ru_RU');
         return [
             'id' => fake()->uuid(),
-            'outgoing_at' => fake()->dateTimeBetween('2015-01-01', '2023-02-01'),
+            'outgoing_at' => fake()->dateTimeBetween('2018-01-01', '2023-02-01'),
             'short_description' => fake()->realTextBetween(10, 50),
             'content' => fake()->realTextBetween(1000, 14660),
             'created_at' => now(),

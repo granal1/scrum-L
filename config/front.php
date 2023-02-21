@@ -8,7 +8,7 @@ return [
         'pagination' => 15
     ],
     'documents' => [
-        'pagination' => 20
+        'pagination' => 15
     ],
     'roles' => [
         'pagination' => 15
