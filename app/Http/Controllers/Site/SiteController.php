@@ -62,15 +62,11 @@ class SiteController extends Controller
 
         $filter = app()->make(DocumentFilter::class, ['queryParams' => array_filter($data)]);
 
-        $file_ids = TaskFile::all()->pluck('file_uuid')->all();
-
         $new_documents = Document::filter($filter)
-            ->with(['tasks'])
-            ->whereNot(function ($query) use ($file_ids) {
-                $query->whereIn('id', $file_ids);
-            })
-            ->orderBy('created_at', 'desc')
-            ->latest()
+            ->select('files.*')
+            ->leftjoin('task_files', 'files.id', '=', 'task_files.file_uuid')
+            ->orderBy('files.created_at', 'desc')
+            ->where('task_files.file_uuid','=',null)
             ->get();
 
         $filter = app()->make(TaskFilter::class, ['queryParams' => array_filter($data)]);
