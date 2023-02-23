@@ -34,6 +34,7 @@ class UpdateTaskFormRequest extends FormRequest
             'report' => ['nullable', 'string', 'min:1', 'max:3000'],
             'repeat_value' => ['nullable', 'numeric', 'min:0', 'max:31'],
             'repeat_period' => ['nullable', 'string', 'min:4', 'max:10'],
+            'executed_at' => ['nullable', 'date'],
         ];
     }
 

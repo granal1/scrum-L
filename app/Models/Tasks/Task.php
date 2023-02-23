@@ -35,6 +35,7 @@ class Task extends Model
         'comment',
         'repeat_period',
         'repeat_value',
+        'executed_at',
     ];
 
     public function responsible(): BelongsTo

@@ -128,6 +128,17 @@
                 </div>
                 @endif
 
+                @if($task->done_progress > 99)
+                    <div class="row mt-3">
+                        <div class="col-4 text-end">
+                            <label for="executed_at">Задача выполнена</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-control form-control-sm" name="executed_at" id="executed_at" disabled value="{{$task->executed_at}}">
+                        </div>
+                    </div>
+                @endif
+
                 @if(!empty($task->outgoing_documents) && count($task->outgoing_documents) > 0)
                 <div class="row mt-3">
                     <div class="col-4 text-end">

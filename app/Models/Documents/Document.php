@@ -26,8 +26,6 @@ class Document extends Model
         'date',
         'document_and_application_sheets',
         'file_mark',
-        'executed_result',
-        'executed_at',
         'author_uuid',
         'archive_path',
     ];

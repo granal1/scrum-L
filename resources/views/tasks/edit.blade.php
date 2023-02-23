@@ -184,6 +184,20 @@
                 </div>
                 @endif
 
+                @if($task->done_progress > 99)
+                    <div class="row mt-3">
+                        <div class="col-4 text-end">
+                            <label for="executed_at">Задача выполнена</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="datetime-local" class="form-control form-control-sm" name="executed_at" id="executed_at" value="{{$task->executed_at}}">
+                        </div>
+                        @error('executed_at')
+                        <div class="text-danger">{{$message}}</div>
+                        @enderror
+                    </div>
+                @endif
+
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
                         <button type="button" style="width:100px" class="btn btn-sm btn-success"  onclick="javascript:history.back(); return false;">Назад</button>
