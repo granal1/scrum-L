@@ -85,11 +85,11 @@
                                         <td class="d-none d-md-table-cell">{{$archive_document->date ? date('d.m.Y', strtotime($archive_document->date)) : null}}</td>
                                         <td>{{$archive_document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->document_and_application_sheets}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($archive_document->tasks[0]) ? $archive_document->tasks[0]->description : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($archive_document->tasks[0]) ? $archive_document->tasks[0]->responsible->name : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($archive_document->tasks[0]) ? date('d.m.Y', strtotime($archive_document->tasks[0]->deadline_at)) : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{isset($archive_document->tasks[0]) ? $archive_document->tasks[0]->executed_result : null}}</td>
-                                        <td class="d-none d-md-table-cell">{{$archive_document->executed_at ?? null}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->name}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->deadline_at}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->report}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->executed_at}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->file_mark}}</td>
                                     </tr>
                                 @empty

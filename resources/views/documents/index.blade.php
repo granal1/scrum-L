@@ -27,7 +27,7 @@
                                         <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
                                         <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                             @forelse($years as $year)
-                                                <option @if(Session::has('year') && Session::get('year') === $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                                <option @if(Session::has('year') && Session::get('year') == $year) selected @endif value="{{$year}}">{{$year}}</option>
                                             @empty
                                                 <option value="">_____</option>
                                             @endforelse
@@ -130,6 +130,7 @@
                                     </form>
                                 </tr>
                                 @forelse($documents as $document)
+                                {{dd($document)}}
                                     <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
                                         <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>

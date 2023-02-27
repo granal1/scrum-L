@@ -85,6 +85,7 @@ class DocumentController extends Controller
             if (!empty($data['content'])) {
 
                 $documents = Document::filter($filter)
+                    ->with('tasks')
                     ->whereYear('incoming_at', Session::get('year'))
                     ->paginate(config('front.documents.pagination'));
 
@@ -100,6 +101,7 @@ class DocumentController extends Controller
                 Session::put('to_month',  $data['to_month']);
 
                 $documents = Document::whereBetween('incoming_at', [$start_date, $finish_date])
+                    ->with('tasks')
                     ->orderBy('incoming_at', 'desc')
                     ->paginate(config('front.documents.pagination'));
 
@@ -111,19 +113,21 @@ class DocumentController extends Controller
                 $finish_date = Session::get('year') . '-' . Session::get('to_month') . '-' . Session::get('to_day');
 
                 $documents = Document::whereBetween('incoming_at', [$start_date, $finish_date])
+                    ->with('tasks')
                     ->orderBy('incoming_at', 'desc')
                     ->paginate(config('front.documents.pagination'));
 
             }  else {
 
                 $documents = Document::orderBy('incoming_at', 'desc')
+                    ->with('tasks')
                     ->whereYear('incoming_at', Session::get('year'))
                     ->paginate(config('front.documents.pagination'));
 
             }
         } else {
             return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
-         }
+        }
 
         $yearService = new DocumentYearService();
         $years = [];

@@ -30,8 +30,6 @@ class ArchiveDocument extends Model
         'date',
         'document_and_application_sheets',
         'file_mark',
-        'executed_result',
-        'executed_at',
         'author_uuid',
         'archive_path',
     ];
@@ -59,6 +57,7 @@ class ArchiveDocument extends Model
         return $this->table;
     }
 
+/*
     public function tasks()
     {
         return $this->belongsToMany(
@@ -68,6 +67,7 @@ class ArchiveDocument extends Model
             'task_uuid'
         )->wherePivot('deleted_at', null);
     }
+*/
 
     protected function removeQueryParam(string ...$keys)
     {
@@ -78,9 +78,31 @@ class ArchiveDocument extends Model
         return $this;
     }
 
-    public function getAllByYear(string $year)
+    public static function getAllByYear(string $year)
     {
-        return DB::select('select * from archive_files_' . $year . ' order by incoming_at desc');
+        $table = 'archive_files_' . $year;
+        return DB::table($table)
+            ->join('task_files', 'task_files.file_uuid', '=', $table.'.id')
+            ->join('tasks', 'tasks.id', '=', 'task_files.task_uuid')
+            ->join('users', 'users.id', '=', 'tasks.responsible_uuid')
+            ->select(
+                $table.'.id',
+                $table.'.incoming_at',
+                $table.'.incoming_number',
+                $table.'.incoming_author',
+                $table.'.number',
+                $table.'.date',
+                $table.'.short_description',
+                $table.'.document_and_application_sheets',
+                $table.'.file_mark',
+                'tasks.description',
+                'tasks.responsible_uuid',
+                'tasks.deadline_at',
+                'tasks.report',
+                'tasks.executed_at',
+                'users.name'                               
+            )
+            ->get();
     }
 
     public function getOneByIdAndYear(string $id, string $year)
@@ -111,7 +133,7 @@ class ArchiveDocument extends Model
         DB::table('archive_files_' . $year)->delete($id);
     }
 
-    public function searchByContent(string $year, string $content)
+    public static function searchByContent(string $year, string $content)
     {
         return DB::select("SELECT *
                                     FROM archive_files_" . $year . "

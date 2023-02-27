@@ -70,14 +70,14 @@ class ArchiveDocumentController extends Controller
             ]);
         }
 
-        $documents = new ArchiveDocument();
+        $documents = null;
 
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
-            $documents = $documents->searchByContent(Session::get('year'), $data['content']);
+            $documents = ArchiveDocument::searchByContent(Session::get('year'), $data['content']);
         } else
         {
-            $documents = $documents->getAllByYear(Session::get('year'));
+            $documents = ArchiveDocument::getAllByYear(Session::get('year'));
         }
 
         $documents = $this->paginate($documents, config('front.archive_files.pagination'));
