@@ -130,7 +130,6 @@
                                     </form>
                                 </tr>
                                 @forelse($documents as $document)
-                                {{dd($document)}}
                                     <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
                                         <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>

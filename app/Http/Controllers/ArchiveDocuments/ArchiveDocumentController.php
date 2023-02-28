@@ -111,12 +111,11 @@ class ArchiveDocumentController extends Controller
     {
         $this->authorize('view', ArchiveDocument::class);
 
-        $document = new ArchiveDocument();
-        $document = $document->getOneByIdAndYear($document_id, Session::get('year'));
-        $document = json_decode(json_encode($document),true);
+        $document = null;
+        $document = ArchiveDocument::getOneByIdAndYear($document_id, Session::get('year'));
 
-        $utcTime = new DateTime($document['created_at']);
-        $document['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
+        $utcTime = new DateTime($document->created_at);
+        $document->created_at = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
 
         if (isset($document->tasks[0]->deadline_at)) {
             $utcTime = new DateTime($document->tasks[0]->deadline_at);

@@ -105,10 +105,14 @@ class ArchiveDocument extends Model
             ->get();
     }
 
-    public function getOneByIdAndYear(string $id, string $year)
+    public static function getOneByIdAndYear(string $id, string $year)
     {
-        return DB::table('archive_files_' . $year)
-            ->where('id', 'LIKE', '%' . $id . '%')
+        $table = 'archive_files_' . $year;
+        return DB::table($table)
+            ->where($table.'.id', '=', $id)
+            ->join('task_files', 'task_files.file_uuid', '=', $table.'.id')
+            ->join('tasks', 'tasks.id', '=', 'task_files.task_uuid')
+            ->join('users', 'users.id', '=', 'tasks.responsible_uuid')
             ->first();
     }
 
