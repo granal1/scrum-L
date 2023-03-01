@@ -37,7 +37,7 @@ class TaskSeeder extends Seeder
             'done_progress' => '100',
             'report' => 'Исполнено',
             'created_at' => now(),
-            'updated_at' => now()->addMinutes(1),
+            'executed_at' => now()->addMinutes(1),
         ];
     }
 }

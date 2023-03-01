@@ -139,9 +139,30 @@ class ArchiveDocument extends Model
 
     public static function searchByContent(string $year, string $content)
     {
-        return DB::select("SELECT *
-                                    FROM archive_files_" . $year . "
-                                    WHERE MATCH (content) AGAINST ('$content' )");
+        $table = 'archive_files_' . $year;
+        return DB::table($table)
+            ->whereRaw('MATCH (content) AGAINST (\''.$content.'\')')
+            ->join('task_files', 'task_files.file_uuid', '=', $table.'.id')
+            ->join('tasks', 'tasks.id', '=', 'task_files.task_uuid')
+            ->join('users', 'users.id', '=', 'tasks.responsible_uuid')
+            ->select(
+                $table.'.id',
+                $table.'.incoming_at',
+                $table.'.incoming_number',
+                $table.'.incoming_author',
+                $table.'.number',
+                $table.'.date',
+                $table.'.short_description',
+                $table.'.document_and_application_sheets',
+                $table.'.file_mark',
+                'tasks.description',
+                'tasks.responsible_uuid',
+                'tasks.deadline_at',
+                'tasks.report',
+                'tasks.executed_at',
+                'users.name'                               
+            )
+            ->get();
     }
 
     public function paginate($items, $perPage = 2, $page = null, $options = [])
