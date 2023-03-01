@@ -50,6 +50,13 @@ class OutgoingFileController extends Controller
 
         //$this->authorize('viewAny', OutgoingFile::class);
 
+        Session::put('year', date('Y'));
+
+        if(isset($data['year']))
+        {
+            Session::put('year', $data['year']);
+        }
+
         $data = $request->validated();
 
         if(isset($data['year']))
@@ -66,6 +73,10 @@ class OutgoingFileController extends Controller
         $filter = app()->make(OutgoingFileFilter::class, ['queryParams' => array_filter($data)]);
 
         $outgoing_files = null;
+
+
+
+
 
         if(Session::get('year') > $this->archiveService->getLastArchiveYear()) {
             if (!empty($data['content'])) {
@@ -84,6 +95,54 @@ class OutgoingFileController extends Controller
         } else {
             return redirect()->route('archive_outgoing_documents.index', ['year'=> Session::get('year')]);
         }
+
+
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear())
+        {
+            if (!empty($data['content'])) {
+
+                $outgoing_files = OutgoingFile::filter($filter)
+                    ->whereYear('outgoing_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            } elseif (!empty($data['from_day']))
+            {
+
+                $start_date = Session::get('year') . '-' . $data['from_month'] . '-' . $data['from_day'];
+                $finish_date = Session::get('year') . '-' . $data['to_month'] . '-' . $data['to_day'];
+
+                Session::put('from_day', $data['from_day']);
+                Session::put('from_month',  $data['from_month']);
+                Session::put('to_day', $data['to_day']);
+                Session::put('to_month',  $data['to_month']);
+
+                $outgoing_files = OutgoingFile::whereBetween('outgoing_at', [$start_date, $finish_date])
+                    ->orderBy('outgoing_at', 'desc')
+                    //->whereYear('outgoing_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            }
+            elseif (Session::has('from_day'))
+            {
+
+                $start_date = Session::get('year') . '-' . Session::get('from_month') . '-' . Session::get('from_day');
+                $finish_date = Session::get('year') . '-' . Session::get('to_month') . '-' . Session::get('to_day');
+
+                $outgoing_files = OutgoingFile::whereBetween('outgoing_at', [$start_date, $finish_date])
+                    ->orderBy('outgoing_at', 'desc')
+                    ->paginate(config('front.documents.pagination'));
+
+            }  else {
+
+                $outgoing_files = OutgoingFile::orderBy('outgoing_at', 'desc')
+                    ->whereYear('outgoing_at', Session::get('year'))
+                    ->paginate(config('front.documents.pagination'));
+
+            }
+        } else {
+            return redirect()->route('archive_outgoing_documents.index', ['year'=> Session::get('year')]);
+        }
+
 
         $yearService = new OutgoingDocumentYearService();
         $years = [];

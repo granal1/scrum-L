@@ -71,7 +71,6 @@ class DocumentController extends Controller
         }
 
 
-
         if (isset($data['content'])) {
             $data['content'] = no_inject($data['content']);
         }
@@ -125,8 +124,11 @@ class DocumentController extends Controller
                     ->paginate(config('front.documents.pagination'));
 
             }
+
         } else {
+
             return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
+
         }
 
         $yearService = new DocumentYearService();

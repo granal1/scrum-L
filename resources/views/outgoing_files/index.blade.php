@@ -27,15 +27,15 @@
                         </div>
                         <div>
                             <form action="{{route('outgoing_files.index')}}" method="get">
-                                
+
                                 <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
                                     @forelse($years as $year)
-                                        <option @if(isset($old_filters['year']) && $old_filters['year']  == $year) selected @endif value="{{$year}}">{{$year}}</option>
+                                        <option @if(Session::has('year') && Session::get('year') == $year) selected @endif value="{{$year}}">{{$year}}</option>
                                     @empty
                                         <option value="">_____</option>
                                     @endforelse
                                 </select>
-                                
+
                             </form>
                         </div>
                         <div class="ps-1 pe-3">
@@ -49,6 +49,54 @@
                     </button>
                     <a class="btn btn-outline-danger btn-sm d-md-none" type="button"
                        href="{{route('outgoing_files.index')}}">Сброс</a>
+                </div>
+                <div class="row">
+                    <div class="col text-center">
+                        <form action="{{route('outgoing_files.index')}}" method="get">
+                            <input hidden name="year" value="{{Session::get('year')}}">
+                            <h4 class="d-inline-block">Период с: </h4>
+                            <select name="from_day" id="day" class="h5">
+                                @for($i = 1; $i <= 31; $i++)
+                                    <option  @if(Session::has('from_day') && Session::get('from_day') == $i) selected @endif value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                            <select name="from_month" id="month" class="h5">
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 1) selected @endif value="01">январь</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 2) selected @endif value="02">февраль</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 3) selected @endif value="03">март</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 4) selected @endif value="04">апрель</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 5) selected @endif value="05">май</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 6) selected @endif value="06">июнь</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 7) selected @endif value="07">июль</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 8) selected @endif value="08">август</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 9) selected @endif value="09">сентябрь</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 10) selected @endif value="10">октябрь</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 11) selected @endif value="11">ноябрь</option>
+                                <option @if(Session::has('from_month') && Session::get('from_month') == 12) selected @endif value="12">декабрь</option>
+                            </select>
+                            <h4 class="d-inline-block"> по: </h4>
+                            <select name="to_day" id="day" class="h5">
+                                @for($i = 1; $i <= 31; $i++)
+                                    <option @if(Session::has('to_day') && Session::get('to_day') == $i) selected @endif value="{{$i}}">{{$i}}</option>
+                                @endfor
+                            </select>
+                            <select name="to_month" id="month" class="h5">
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 1) selected @endif value="01">январь</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 2) selected @endif value="02">февраль</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 3) selected @endif value="03">март</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 4) selected @endif value="04">апрель</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 5) selected @endif value="05">май</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 6) selected @endif value="06">июнь</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 7) selected @endif value="07">июль</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 8) selected @endif value="08">август</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 9) selected @endif value="09">сентябрь</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 10) selected @endif value="10">октябрь</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 11) selected @endif value="11">ноябрь</option>
+                                <option @if(Session::has('to_month') && Session::get('to_month') == 12) selected @endif value="12">декабрь</option>
+                            </select>
+                            <button type="submit" class="btn btn-outline-dark btn-sm mb-2">Найти</button>
+                        </form>
+                    </div>
                 </div>
 
             </div>

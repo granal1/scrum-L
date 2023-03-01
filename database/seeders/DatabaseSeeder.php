@@ -30,16 +30,16 @@ class DatabaseSeeder extends Seeder
     {
 
         $this->call([
-            RoleSeeder::class,
-            TaskPrioritySeeder::class,
-            UserSeeder::class,
-            UserRoleSeeder::class,
-            UserStatusSeeder::class,
-            
-            //FileSeeder::class,
-            //OutgoingFileSeeder::class,
-            //TaskSeeder::class,
-            //TaskFileSeeder::class,
+            //RoleSeeder::class,
+            //TaskPrioritySeeder::class,
+            //UserSeeder::class,
+            //UserRoleSeeder::class,
+            //UserStatusSeeder::class,
+
+            FileSeeder::class,
+            OutgoingFileSeeder::class,
+            TaskSeeder::class,
+            TaskFileSeeder::class,
         ]);
 
        // \App\Models\Documents\Document::factory(1000)->create();
