@@ -77,7 +77,7 @@
                                 </tr>
                                 @if(!is_null($archive_documents))
                                 @forelse($archive_documents as $archive_document)
-                                    <tr  onclick="window.location='{{ route('archive_documents.show', $archive_document->id) }}';">
+                                <tr onclick="window.open('{{route('archive_documents.show', $archive_document->id)}}', '_blank')"> 
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_at ? date('d.m.Y', strtotime($archive_document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_number}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_author}}</td>
