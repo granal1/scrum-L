@@ -84,7 +84,7 @@
                             </tr>
                             @if(!empty($archive_outgoing_documents))
                             @forelse($archive_outgoing_documents as $output_file)
-                                <tr onclick="window.location='{{ route('archive_outgoing_documents.show', $output_file->id) }}';">
+                                <tr onclick="window.open('{{route('archive_outgoing_documents.show', $output_file->id)}}', '_blank')">
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_at ? date('d.m.Y', strtotime($output_file->outgoing_at)) : null}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_number ?? 'Б/Н'}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->destination ?? 'Нет'}}</td>
