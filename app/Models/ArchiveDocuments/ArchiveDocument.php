@@ -162,6 +162,7 @@ class ArchiveDocument extends Model
                 'tasks.executed_at',
                 'users.name'                               
             )
+            ->limit(200)
             ->get();
     }
 
