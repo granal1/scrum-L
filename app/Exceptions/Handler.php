@@ -2,7 +2,12 @@
 
 namespace App\Exceptions;
 
+
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -45,6 +50,16 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (InvalidSignatureException $e, Request $request) {
+            Log::error('Ошибка 403', [
+                'user' => Auth::user()->name,
+                'error' => $e,
+                'request' => $request->all(),
+                'route' => $request->path(),
+            ]);
+            return redirect()->route('auth.login');
         });
     }
 }

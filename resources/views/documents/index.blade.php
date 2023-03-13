@@ -130,7 +130,7 @@
                                     </form>
                                 </tr>
                                 @forelse($documents as $document)
-                                    <tr  onclick="window.location='{{ route('documents.show', $document->id) }}';">
+                                    <tr  onclick="window.open('{{route('documents.show', $document->id)}}', '_blank')">
                                         <td class="d-none d-md-table-cell">{{$document->incoming_at ? date('d.m.Y', strtotime($document->incoming_at)) : null}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_number}}</td>
                                         <td class="d-none d-md-table-cell">{{$document->incoming_author}}</td>
