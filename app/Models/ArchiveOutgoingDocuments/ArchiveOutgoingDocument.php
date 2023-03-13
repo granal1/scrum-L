@@ -81,13 +81,34 @@ class ArchiveOutgoingDocument extends Model
 
     public function getAllByYear(string $year)
     {
-        return DB::select('select * from archive_outgoing_files_' . $year . ' order by outgoing_at desc');
+
+        $table = 'archive_outgoing_files_' . $year;
+
+        return DB::table($table)
+            //->join('outgoing_files', 'outgoing_files.file_uuid', '=', $table.'.id')
+            ->select(
+                $table.'.id',
+                $table.'.outgoing_at',
+                $table.'.outgoing_number',
+                $table.'.destination',
+                $table.'.number_of_source_document',
+                $table.'.date_of_source_document',
+                $table.'.short_description',
+                $table.'.document_and_application_sheets',
+                $table.'.file_mark',
+                $table.'.path',
+                $table.'.archive_path',
+                $table.'.comment',
+
+            )
+            ->get();
     }
 
-    public function getOneByIdAndYear(string $id, string $year)
+    public static function getOneByIdAndYear(string $id, string $year)
     {
-        return DB::table('archive_outgoing_files_' . $year)
-            ->where('id', 'LIKE', '%' . $id . '%')
+        $table = 'archive_outgoing_files_' . $year;
+        return DB::table($table)
+            ->where($table.'.id', '=', $id)
             ->first();
     }
 
@@ -99,6 +120,10 @@ class ArchiveOutgoingDocument extends Model
                 'outgoing_at' => $data['outgoing_at'],
                 'outgoing_number'=>$data['outgoing_number'],
                 'short_description' => $data['short_description'],
+                'number_of_source_document' => $data['number_of_source_document'],
+                'date_of_source_document' => $data['date_of_source_document'],
+                'document_and_application_sheets' => $data['document_and_application_sheets'],
+                'file_mark' => $data['file_mark'],
             ));
     }
 
@@ -109,8 +134,27 @@ class ArchiveOutgoingDocument extends Model
 
     public function searchByContent(string $year, string $content)
     {
-        return DB::select("SELECT *
-                                    FROM archive_outgoing_files_" . $year . "
-                                    WHERE MATCH (content) AGAINST ('$content' )");
+        $table = 'archive_outgoing_files_' . $year;
+
+        return DB::table($table)
+            ->whereRaw('MATCH (content) AGAINST (\''.$content.'\')')
+            //->join('outgoing_files', 'outgoing_files.file_uuid', '=', $table.'.id')
+            ->select(
+                $table.'.id',
+                $table.'.outgoing_at',
+                $table.'.outgoing_number',
+                $table.'.destination',
+                $table.'.number_of_source_document',
+                $table.'.date_of_source_document',
+                $table.'.short_description',
+                $table.'.document_and_application_sheets',
+                $table.'.file_mark',
+                $table.'.path',
+                $table.'.archive_path',
+                $table.'.comment',
+
+            )
+            ->limit(200)
+            ->get();
     }
 }
