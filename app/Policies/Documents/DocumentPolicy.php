@@ -19,11 +19,15 @@ class DocumentPolicy
      */
     public function viewAny(User $user)
     {
-        //foreach ($user->roles as $role) {
-        //    if ($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR) {
-        //        return true;
-        //    }
-        //}
+//        foreach ($user->roles as $role) {
+//            if (
+//                $role->name === Role::DELO
+//                || $role->name === Role::ADMIN
+//                || $role->name === Role::MAIN_SUPERVISOR
+//            ) {
+//                return true;
+//            }
+//        }
         return false;
     }
 
