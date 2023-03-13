@@ -4,12 +4,15 @@
 
 @section('content')
 
-    <?php auth()->logout(); ?>
+    {{
+       Log::error('Ошибка 403',
+       [
+           'user' => Auth::user()->name ?? 'not authorized user',
+           'url' => $_SERVER['HTTP_HOST'],
+       ])
+   }}
 
-    {{Log::error('Ошибка 403',
-    [
-        'user' => Auth::user()->name ?? 'not authorized user',
-    ])}}
+    <?php auth()->logout(); ?>
 
     <?php route('login'); ?>
 
