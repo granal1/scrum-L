@@ -138,7 +138,7 @@
                                 </form>
                             </tr>
                             @forelse($output_files as $output_file)
-                                <tr onclick="window.location='{{ route('outgoing_files.show', $output_file->id) }}';">
+                                <tr onclick="window.open('{{route('outgoing_files.show', $output_file->id)}}', '_blank')"> 
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_at ? date('d.m.Y', strtotime($output_file->outgoing_at)) : null}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->outgoing_number ?? 'Б/Н'}}</td>
                                     <td class="d-none d-md-table-cell">{{$output_file->destination ?? 'Нет'}}</td>
