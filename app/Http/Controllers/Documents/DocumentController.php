@@ -63,11 +63,12 @@ class DocumentController extends Controller
         //$this->authorize('viewAny', Document::class);
         $data = $request->validated();
 
-        Session::put('year', date('Y'));
-
         if(isset($data['year']))
         {
             Session::put('year', $data['year']);
+        }
+        else {
+            Session::put('year', date('Y'));
         }
 
 

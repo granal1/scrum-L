@@ -120,6 +120,7 @@
                                         <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('documents.index')}}">Сброс</a></td>
                                       <td colspan="4"></td>
                                         <td>
+                                            <input hidden name="year" value="{{Session::get('year')}}">
                                             <input type="search"
                                                    value="@if(isset($old_filters['content'])){{$old_filters['content']}}@endif"
                                                    class="form-control form-control-sm" id="content"
