@@ -12,13 +12,14 @@
        ])
    }}
 
-    <?php auth()->logout(); ?>
+{{
+    Request::session()->invalidate(),
+    Request::session()->regenerateToken(),
+    header('location: http://'.$_SERVER['HTTP_HOST'].'/'),
+    exit
+}}
 
-    <?php route('login'); ?>
-
-    <?php header("Refresh:0"); ?>
-
-{{--    --}}
+{{-- как вариант:  header('Refresh:3; http://'.$_SERVER['HTTP_HOST'].'/') --}}
 {{--    <style>--}}
 {{--    @import url(https://fonts.googleapis.com/css?family=Raleway:700);--}}
 
