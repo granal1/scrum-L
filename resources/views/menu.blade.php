@@ -72,15 +72,7 @@
                 @endauth
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Документация</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Помощь проекту</a>
-                </li>
-                <li class="nav-item">
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
-                        Войти
-                      </button>
+                    <a class="nav-link {{ request()->routeIs('login')?'active':'' }}" href="/login">Вход</a>
                 </li>
                 @endguest
             </ul>

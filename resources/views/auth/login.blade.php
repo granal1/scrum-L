@@ -3,7 +3,7 @@
 @section('title', 'Вход')
 
 @section('header')
-@include('menu')
+@include('login-menu')
 @endsection
 
 @section('content')
@@ -75,11 +75,23 @@
 
 <section id="first" style="
 height: 100vh; 
+background-image: url('{{asset('assets/images/edp(FHD).jpg')}}');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+margin-top: -60px;">
+<div class="container pt-5">
+
+</div>
+</section>
+
+<section id="first" style="
+height: 100vh; 
 background-image: url('{{asset('assets/images/background(FHD).jpg')}}');
 background-position: center;
 background-repeat: no-repeat;
 background-size: cover;">
-<div class="container pt-3">
+<div class="container pt-5">
 <div class="row d-flex justify-content-center">
     <div class="col-1 me-5">
     <h1 style="font-size: 4em;">Опять</h1>
@@ -100,6 +112,88 @@ background-size: cover;">
     <a href="#second" class="btn btn-outline-success btn-lg">Выход есть</a>
     </div>
 </div>
+</div>
+</section>
+
+<section id="second" style="
+height: 100vh; 
+background-image: url('{{asset('assets/images/second_section_background(FHD).jpg')}}');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
+<div class="container">
+  <div class="row pt-2">
+    <div class="col  d-flex justify-content-center">
+      <image src="{{asset('assets/images/document_flow.jpg')}}" style="width: 40vw;" class="my-auto"></image>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col d-flex justify-content-center">
+      <a href="#third" class="btn btn-warning btn-lg">Зачем все это?</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="third"  
+style="
+height: 100vh; 
+background-image: url('{{asset('assets/images/third_section_background(FHD).jpg')}}');
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;">
+<div class="container">
+  <div class="row">
+    <div class="col mt-5  d-flex justify-content-center">
+      <h1 style="color: white;">Не выполнена задача?</h1>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="fourth"style="
+height: 100vh;">
+<div class="container">
+  <div class="row row-cols-1 row-cols-md-3 pt-5 d-flex justify-content-around">
+    <div class="col-6 col-sm-3 col-md-3 card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/keeping.svg')}}" class="card-img-top rounded mx-auto" alt="Keeping image">
+      <div class="card-body">
+        <p class="card-text">Хранение документов и файлов</p>
+      </div>
+    </div>
+    <div class="col-6  col-sm-3 col-md-3 card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/searching.svg')}}" class="card-img-top rounded mx-auto" alt="Searching image">
+      <div class="card-body">
+        <p class="card-text">Полнотекстовый поиск</p>
+      </div>
+    </div>
+    <div class="col-6  col-sm-3 col-md-3 card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/control.svg')}}" class="card-img-top rounded mx-auto" alt="Control image">
+      <div class="card-body">
+        <p class="card-text">Учет и контроль исполнения задач</p>
+      </div>
+    </div>
+  </div>
+  <div class="row row-cols-1 row-cols-md-3 pt-5">
+    <div class="col card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/keeping.svg')}}" class="card-img-top rounded mx-auto" alt="Keeping image">
+      <div class="card-body">
+        <p class="card-text">Хранение документов и файлов</p>
+      </div>
+    </div>
+    <div class="col card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/searching.svg')}}" class="card-img-top rounded mx-auto" alt="Searching image">
+      <div class="card-body">
+        <p class="card-text">Полнотекстовый поиск</p>
+      </div>
+    </div>
+    <div class="col card text-center shadow-lg">
+      <img style="height: 15vh;" src="{{asset('assets/images/control.svg')}}" class="card-img-top rounded mx-auto" alt="Control image">
+      <div class="card-body">
+        <p class="card-text">Учет и контроль исполнения задач</p>
+      </div>
+    </div>
+  </div>
 </div>
 </section>
 
