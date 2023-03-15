@@ -1,6 +1,9 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Tasks\TaskController as TaskController;
@@ -83,6 +86,12 @@ Route::middleware(['guest'])->group(function () {
 });
 
 
-Route::fallback(function () {
-    return view('errors.404');
+Route::fallback(function (Request $request) {
+    Log::error('Ошибка 404',
+        [
+            'user' => Auth::user()->name,
+            'request' => $request->all(),
+            'route' => $request->path(),
+        ]);
+    return redirect()->route('site.index');
 });
