@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm" 
+<nav class="navbar navbar-expand-md navbar-dark bg-light shadow-sm" 
     style=" font-size: 1.25em; 
             --bs-bg-opacity: .1;
             backdrop-filter: blur(40px);
@@ -13,10 +13,10 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Документация</a>
+                    <a class="nav-link text-white" href="#">Документация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Помощь проекту</a>
+                    <a class="nav-link text-white" href="#">Помощь проекту</a>
                 </li>
                 @endguest
             </ul>
@@ -24,7 +24,7 @@
         @guest
         <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#login">
+                <button type="button" class="btn btn-outline-light" data-bs-toggle="modal" data-bs-target="#login">
                     Войти
                 </button>
             </li>
