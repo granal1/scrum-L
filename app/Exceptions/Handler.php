@@ -51,17 +51,5 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-
-//        $this->renderable(function (InvalidSignatureException $e, Request $request) {
-//            Log::error('Ошибка 403', [
-//                'user' => Auth::user()->name,
-//                'error' => $e,
-//                'request' => $request->all(),
-//                'route' => $request->path(),
-//            ]);
-//            // session reset
-//            // authorization reset
-//            return route('login');
-//        });
     }
 }

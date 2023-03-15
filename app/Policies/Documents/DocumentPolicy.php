@@ -19,15 +19,15 @@ class DocumentPolicy
      */
     public function viewAny(User $user)
     {
-//        foreach ($user->roles as $role) {
-//            if (
-//                $role->name === Role::DELO
-//                || $role->name === Role::ADMIN
-//                || $role->name === Role::MAIN_SUPERVISOR
-//            ) {
-//                return true;
-//            }
-//        }
+        foreach ($user->roles as $role) {
+            if (
+                $role->name === Role::DELO
+                || $role->name === Role::ADMIN
+                || $role->name === Role::MAIN_SUPERVISOR
+            ) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -41,7 +41,11 @@ class DocumentPolicy
     public function view(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN 
+                || $role->name === Role::MAIN_SUPERVISOR
+            ) {
                 return true;
             }
         }
@@ -57,7 +61,10 @@ class DocumentPolicy
     public function create(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN
+            ) {
                 return true;
             }
         }
@@ -67,7 +74,11 @@ class DocumentPolicy
     public function create_task(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN || $role->name === Role::MAIN_SUPERVISOR) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN 
+                || $role->name === Role::MAIN_SUPERVISOR
+            ) {
                 return true;
             }
         }
@@ -84,7 +95,10 @@ class DocumentPolicy
     public function update(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN
+            ) {
                 return true;
             }
         }
@@ -101,7 +115,10 @@ class DocumentPolicy
     public function delete(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN
+            ) {
                 return true;
             }
         }
@@ -118,7 +135,10 @@ class DocumentPolicy
     public function restore(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN
+            ) {
                 return true;
             }
         }
@@ -135,7 +155,10 @@ class DocumentPolicy
     public function forceDelete(User $user)
     {
         foreach ($user->roles as $role) {
-            if ($role->name === Role::DELO || $role->name === Role::ADMIN) {
+            if (
+                $role->name === Role::DELO 
+                || $role->name === Role::ADMIN
+            ) {
                 return true;
             }
         }
