@@ -13,7 +13,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#">Документация</a>
+                    <a class="nav-link text-white" href="http://scrum-l.local/support/ЭДП.Презентация(2023.03.16).pdf" target="_blank">Документация</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Помощь проекту</a>
