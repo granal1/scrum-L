@@ -89,7 +89,7 @@ Route::middleware(['guest'])->group(function () {
 Route::fallback(function (Request $request) {
     Log::error('Ошибка 404',
         [
-            'user' => Auth::user()->name,
+            'user' => Auth::user()->name ?? 'unauthorized user',
             'request' => $request->all(),
             'route' => $request->path(),
         ]);

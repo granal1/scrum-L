@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-light shadow-sm" 
-    style=" font-size: 1.25em; 
+<nav class="navbar navbar-expand-md navbar-dark bg-light shadow-sm"
+    style=" font-size: 1.25em;
             --bs-bg-opacity: .1;
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);">
@@ -13,7 +13,7 @@
             <ul class="navbar-nav mb-2 mb-lg-0">
                 @guest
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="http://scrum-l.local/support/ЭДП.Презентация(2023.03.16).pdf" target="_blank">Документация</a>
+                    <a class="nav-link text-white" href="http://scrum/support/ЭДП.Презентация(2023.03.16).pdf" target="_blank">Документация</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#">Помощь проекту</a>
