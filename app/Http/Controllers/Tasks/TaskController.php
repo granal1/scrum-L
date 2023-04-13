@@ -244,7 +244,7 @@ class TaskController extends Controller
             'task' => $task,
             'priorities' => TaskPriority::all(),
             'users' => User::where('superior_uuid', 'like', Auth::id())->orWhere('id', 'like', Auth::id())->get(),
-            'documents' => Document::all(),
+            'documents' => Document::orderBy('created_at', 'desc')->take(10)->get(),
         ]);
     }
 
@@ -364,7 +364,6 @@ class TaskController extends Controller
             [
                 'user' => Auth::user()->name,
                 'task' => $task->id,
-
             ]
         );
 
@@ -381,7 +380,7 @@ class TaskController extends Controller
             'task' => $task,
             'priorities' => TaskPriority::all(),
             'users' => User::all(),
-            'documents' => Document::all(),
+            'documents' => Document::orderBy('created_at', 'desc')->take(10)->get(),
             'outgoing_documents' => OutgoingFile::where('executor_uuid', Auth::id())->get(),
         ]);
     }
