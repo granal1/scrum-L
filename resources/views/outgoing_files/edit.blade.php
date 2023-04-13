@@ -162,17 +162,17 @@
 
                     <div class="d-flex justify-content-center my-4">
                         <div class="mx-3">
-                            <a type="button" style="width:150px" class="btn btn-success btn-sm"  href="{{route('outgoing_files.show', $output_file->id)}}">Назад</a>
+                            <a type="button" class="btn btn-primary btn-sm" style="width:150px" href="{{route('outgoing_files.show', $output_file->id)}}">Назад</a>
                         </div>
                         <div class="mx-3">
-                            <button type="submit" style="width:150px" class="btn btn-warning btn-sm">Сохранить</button>
+                            <button type="submit" class="btn btn-success btn-sm" style="width:150px">Сохранить</button>
                         </div>
                 </form>
                         <form action="{{route('outgoing_files.destroy', $output_file)}}" method="post">
                             @csrf
                             @method('delete')
                             <div class="mx-3">
-                                <button type="submit" style="width:150px" class="btn btn-danger btn-sm">Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-sm" style="width:150px">Удалить</button>
                             </div>
                         </form>
                     </div>

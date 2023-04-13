@@ -191,15 +191,16 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:150px" class="btn btn-sm btn-success"  href="{{route('outgoing_files.index', ['year' => Session::get('year'), 'page' => Session::get('page')])}}">Назад
+                        <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('outgoing_files.index', ['year' => Session::get('year'), 'page' => Session::get('page')])}}">Назад
                         </a>
                     </div>
                     @can('update', \App\Models\OutgoingFiles\OutgoingFile::class)
                         <div class="mx-3">
-                            <a style="width:150px" class="btn btn-sm btn-danger" href="{{route('outgoing_files.edit', $output_file)}}">Редактировать</a>
+                            <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('outgoing_files.edit', $output_file)}}">Редактировать</a>
                         </div>
                     @endcan
                 </div>
+
             </div>
         </div>
     </div>

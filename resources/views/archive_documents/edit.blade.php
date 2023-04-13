@@ -210,10 +210,10 @@
 
                     <div class="d-flex justify-content-center my-4">
                         <div class="mx-3">
-                            <a type="button" style="width:100px" class="btn btn-success btn-sm"  href="{{route('archive_documents.show', $archive_document['id'])}}">Назад</a>
+                            <a type="button" class="btn btn-primary btn-sm" style="width:100px" href="{{route('archive_documents.show', $archive_document['id'])}}">Назад</a>
                         </div>
                         <div class="mx-3">
-                            <button type="submit" style="width:100px" class="btn btn-warning btn-sm">Сохранить</button>
+                            <button type="submit" class="btn btn-success btn-sm" style="width:100px">Сохранить</button>
                         </div>
 
                 </form>

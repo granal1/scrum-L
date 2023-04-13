@@ -23,8 +23,8 @@
                         <table class="table table-sm table-hover table-striped">
                             <thead>
                             <tr>
-                                <td>Название</td>
-                                <td colspan="2">Алиас</td>
+                                <th>Название</th>
+                                <th colspan="2">Алиас</th>
                             </tr>
                             </thead>
                             <tbody style="cursor: pointer;">

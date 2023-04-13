@@ -35,17 +35,16 @@
                     @enderror
                 </div>
             </div>
-            <div class="row row-cols-1 row-cols-md-3 mt-2 mb-3">
-                <div class="col mt-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('user_statuses.index')}}">Все роли</a>
+
+            <div class="d-flex justify-content-center my-4">
+                <div class="mx-3">
+                    <button type="button" class="btn btn-primary btn-sm" style="width:150px" onclick="javascript:history.back(); return false;">Назад</button>
                 </div>
-                <div class="col mt-3">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back(); return false;">Назад</button>
-                </div>
-                <div class="col mt-3">
-                    <button type="submit" class="btn btn-warning btn-sm col-12">Сохранить</button>
+                <div class="mx-3">
+                    <button type="submit" class="btn btn-success btn-sm" style="width:150px">Сохранить</button>
                 </div>
             </div>
+
         </form>
     </div>
     @endsection

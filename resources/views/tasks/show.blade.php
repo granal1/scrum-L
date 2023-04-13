@@ -159,18 +159,18 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-success"  href="{{route('tasks.index')}}">Назад</a>
+                        <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('tasks.index')}}">Назад</a>
                     </div>
-
-                    @if($task->responsible_uuid === Auth::id())
-                    <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-warning {{$task->done_progress < 100 ? '' : 'disabled'}}" href="{{route('tasks.progress', $task)}}">Выполнение</a>
-                    </div>
-                    @endif
 
                     @if($task->author_uuid === Auth::id() || Auth::user()->isAdmin())
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('tasks.edit', $task)}}">Редактировать</a>
+                        <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('tasks.edit', $task)}}">Редактировать</a>
+                    </div>
+                    @endif
+
+                    @if($task->responsible_uuid === Auth::id())
+                    <div class="mx-3">
+                        <a class="btn btn-sm btn-primary {{$task->done_progress < 100 ? '' : 'disabled'}}" style="width:170px" href="{{route('tasks.progress', $task)}}">Выполнение</a>
                     </div>
                     @endif
 
@@ -179,12 +179,13 @@
                         <form action="{{route('tasks.create-subtask', $task)}}" method="post">
                             @csrf
                             <div>
-                                <button type="submit" style="width:170px" class="btn btn-danger btn-sm">Создать подзадачу</button>
+                                <button type="submit" class="btn btn-primary btn-sm" style="width:170px">Создать подзадачу</button>
                             </div>
                         </form>
                     </div>
                     @endif
                 </div>
+
             </div>
         </div>
     </div>

@@ -34,14 +34,16 @@
                     @enderror
                 </div>
             </div>
-            <div class="row mt-4 mb-4">
-                <div class="col">
-                    <button type="button" class="btn btn-success btn-sm col-12"  onclick="javascript:history.back(); return false;">Назад</button>
+
+            <div class="d-flex justify-content-center my-4">
+                <div class="mx-3">
+                    <button type="button" class="btn btn-primary btn-sm" style="width:150px" onclick="javascript:history.back(); return false;">Назад</button>
                 </div>
-                <div class="col">
-                    <button type="submit" class="btn btn-danger btn-sm col-12">Сохранить</button>
+                <div class="mx-3">
+                    <button type="submit" class="btn btn-success btn-sm" style="width:150px">Сохранить</button>
                 </div>
             </div>
+            
         </form>
     </div>
 </div>

@@ -86,15 +86,13 @@
                     </ol>
                 </div>
             </div>
-            <div class="row pt-3 row-cols-1 row-cols-md-3 mb-3">
-                <div class="col mb-3">
-                    <a class="btn btn-primary btn-sm col-12" href="{{route('users.index')}}">Все пользователи</a>
+
+            <div class="d-flex justify-content-center my-4">
+                <div class="mx-3">
+                    <a class="btn btn-primary btn-sm" style="width:150px" href="{{route('users.index')}}">Все сотрудники</a>
                 </div>
-                <div class="col mb-3">
-                    <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
-                </div>
-                <div class="col mb-3">
-                    <a class="btn btn-sm btn-danger col-12" href="{{route('users.edit', $user)}}">Редактировать</a>
+                <div class="mx-3">
+                    <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('users.edit', $user)}}">Редактировать</a>
                 </div>
             </div>
 

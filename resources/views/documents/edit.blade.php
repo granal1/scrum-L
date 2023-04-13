@@ -210,10 +210,10 @@
 
                     <div class="d-flex justify-content-center my-4">
                         <div class="mx-3">
-                            <a type="button" style="width:100px" class="btn btn-success btn-sm"  href="{{route('documents.show', $document->id)}}">Назад</a>
+                            <a type="button" class="btn btn-primary btn-sm" style="width:100px" href="{{route('documents.show', $document->id)}}">Назад</a>
                         </div>
                         <div class="mx-3">
-                            <button type="submit" style="width:100px" class="btn btn-warning btn-sm">Сохранить</button>
+                            <button type="submit" style="width:100px" class="btn btn-success btn-sm">Сохранить</button>
                         </div>
 
                 </form>
@@ -221,7 +221,7 @@
                             @csrf
                             @method('delete')
                             <div class="mx-3">
-                                <button type="submit" style="width:100px" class="btn btn-danger btn-sm">Удалить</button>
+                                <button type="submit" class="btn btn-danger btn-sm" style="width:100px">Удалить</button>
                             </div>
                         </form>
                     </div>

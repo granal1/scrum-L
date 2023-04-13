@@ -224,17 +224,18 @@
 
                 <div class="d-flex justify-content-center my-4">
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-success" href="{{route('documents.index', ['year' => Session::get('year'), 'page' => Session::get('page')])}}">Назад</a>
+                        <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('documents.index', ['year' => Session::get('year'), 'page' => Session::get('page')])}}">Назад</a>
                     </div>
                     @can('update', \App\Models\Documents\Document::class)
                         <div class="mx-3">
-                            <a style="width:170px" class="btn btn-sm btn-danger" href="{{route('documents.edit', $document)}}">Редактировать</a>
+                            <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('documents.edit', $document)}}">Редактировать</a>
                         </div>
                     @endcan
                     <div class="mx-3">
-                        <a style="width:170px" class="btn btn-sm btn-warning {{isset($document->tasks[0]) ? 'disabled' : ''}}" href="{{route('documents.create_task', $document)}}">Добавить резолюцию</a>
+                        <a class="btn btn-sm btn-primary {{isset($document->tasks[0]) ? 'disabled' : ''}}" style="width:170px" href="{{route('documents.create_task', $document)}}">Добавить резолюцию</a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

@@ -34,17 +34,16 @@
                 <input class="form-control form-control-sm" name="name" id="name" disabled value="{{$role->name}}">
             </div>
         </div>
-        <div class="row pt-3 row-cols-1 row-cols-md-3">
-            <div class="col mb-3">
-                <a class="btn btn-primary btn-sm col-12" href="{{route('roles.index')}}">Все роли</a>
+
+        <div class="d-flex justify-content-center my-4">
+            <div class="mx-3">
+                <a class="btn btn-primary btn-sm" style="width:150px" href="{{route('roles.index')}}">Все роли</a>
             </div>
-            <div class="col mb-3">
-                <button class="btn btn-sm btn-success col-12"  onclick="javascript:history.back(); return false;">Назад</button>
+            <div class="mx-3">
+                <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('roles.edit', $role)}}">Редактировать</a>
             </div>
-                <div class="col mb-3">
-                    <a class="btn btn-sm btn-danger col-12" href="{{route('roles.edit', $role)}}">Редактировать</a>
-                </div>
         </div>
+
     </div>
     @endsection
 

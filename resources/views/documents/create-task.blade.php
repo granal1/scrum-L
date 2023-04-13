@@ -182,10 +182,10 @@
 
                     <div class="d-flex justify-content-center my-4">
                         <div class="mx-3">
-                            <a type="button" style="width:100px" class="btn btn-sm btn-success"  href="{{route('documents.show', $document->id)}}">Назад</a>
+                            <a type="button" class="btn btn-sm btn-primary" style="width:100px" href="{{route('documents.show', $document->id)}}">Назад</a>
                         </div>
                         <div class="mx-3">
-                            <button type="submit" style="width:100px" class="btn btn-sm btn-danger">Сохранить</button>
+                            <button type="submit" class="btn btn-sm btn-success" style="width:100px">Сохранить</button>
                         </div>
                     </div>
 
