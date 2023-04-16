@@ -24,10 +24,14 @@
                     <table class="table table-sm table-hover table-striped">
                         <thead>
                             <tr>
-                                <td class="d-none d-md-table-cell">Uuid</td>
-                                <td class="d-none d-md-table-cell">Статус</td>
-                                <td>Имя</td>
-                                <td class="d-none d-sm-table-cell">Почта</td>
+                                <th class="d-none d-sm-table-cell">Имя</th>
+                                <th class="d-none d-sm-table-cell">Должность</th>
+                                <th class="d-none d-sm-table-cell">Роль</th>
+                                <th class="d-none d-sm-table-cell">Телефон</th>
+                                <th class="d-none d-sm-table-cell">Почта</th>
+                                <th class="d-none d-sm-table-cell">Д/рождения</th>
+                                <th class="d-none d-sm-table-cell">Д/трудоустр.</th>
+                                <th class="d-none d-md-table-cell">Статус</th>
                             </tr>
                         </thead>
                         <tbody style="cursor: pointer;">
@@ -44,10 +48,20 @@
                             </tr>
                             @forelse($users as $user)
                             <tr onclick="window.location='{{ route('users.show', $user->id) }}';">
-                                <td class="d-none d-md-table-cell">{{$user->id}}</td>
-                                <td class="d-none d-md-table-cell">{{$user->status->name}}</td>
-                                <td>{{$user->name}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->name}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->position}}</td>
+                                <td class="d-none d-sm-table-cell">
+                                    @forelse($user->roles as $user_role)
+                                        {{$user_role->alias}} <br>
+                                    @empty
+                                        Нет ролей
+                                    @endforelse
+                                </td>
+                                <td class="d-none d-sm-table-cell">{{$user->phone}}</td>
                                 <td class="d-none d-sm-table-cell">{{$user->email}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->birthday_at}}</td>
+                                <td class="d-none d-sm-table-cell">{{$user->employment_at}}</td>
+                                <td class="d-none d-md-table-cell">{{$user->status->name}}</td>
                             </tr>
                             @empty
                             <tr>

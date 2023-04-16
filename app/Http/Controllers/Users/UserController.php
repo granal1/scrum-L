@@ -60,7 +60,7 @@ class UserController extends Controller
         $filter = app()->make(UserFilter::class, ['queryParams' => array_filter($data)]);
 
         $users = User::filter($filter)
-            ->orderBy('created_at', 'desc')
+            ->orderBy('name')
             ->paginate(config('front.users.pagination'));
 
         return view('users.index', [
