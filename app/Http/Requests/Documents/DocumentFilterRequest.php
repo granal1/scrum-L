@@ -28,10 +28,8 @@ class DocumentFilterRequest extends FormRequest
             'path' => '',
             'content' => '',
             'year' => '',
-            'from_day' => '',
-            'from_month' => '',
-            'to_day' => '',
-            'to_month' => '',
+            'from_date' => '',
+            'to_date' => '',
         ];
     }
 }
