@@ -78,7 +78,7 @@ class ArchiveDocument extends Model
         return $this;
     }
 
-    public static function getAllByYear(string $year)
+    public static function getAllByYear(string $year, string $start_date, string $finish_date)
     {
         $table = 'archive_files_' . $year;
         return DB::table($table)
@@ -102,6 +102,8 @@ class ArchiveDocument extends Model
                 'tasks.executed_at',
                 'users.name'                               
             )
+            ->whereBetween('incoming_at', [$start_date, $finish_date])
+            ->orderBy('incoming_at', 'desc')
             ->get();
     }
 

@@ -16,19 +16,57 @@
                         </div>
 
                         <div class="col-10 text-center">
-                            <form action="{{route('archive_documents.index')}}" method="get">
-                                <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
-                                @if(!is_null($archive_documents))
-                                <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
-                                    @forelse($archive_years as $key => $value)
-                                    <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
-                                    @empty
-                                        <option value="">____</option>
-                                    @endforelse
-                                </select>
-                            @endif
-                            <h4 class="d-inline-block">год</h4>
-                        </form>
+                            <div class="col">
+                                <form action="{{route('archive_documents.index')}}" method="get">
+                                    <h4 class="d-inline-block">Журнал учета входящих документов за </h4>
+                                    @if(!is_null($archive_documents))
+                                    <select class="h5" name="year" id="year" class="form-select form-select-sm" onchange="this.form.submit();">
+                                        @forelse($archive_years as $key => $value)
+                                        <option value="{{$value}}" @if(Session::get('year') == $value) selected @endif>{{$value}}</option>
+                                        @empty
+                                            <option value="">____</option>
+                                        @endforelse
+                                    </select>
+                                    @endif
+                                    <h4 class="d-inline-block">год</h4>
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form action="{{route('archive_documents.index')}}" method="get">
+                                    <input hidden name="year" value="{{Session::get('year')}}">
+
+                                    <h5 class="d-inline-block">Период с </h5>
+                                    <input class="h6" id="dateFrom" type="date" name="from_date"
+                                        @if(Session::has('from_date')) 
+                                            value="{{Session::get('year') . Session::get('from_date')}}" 
+                                        @else 
+                                            value="{{Session::get('year')}}-01-01"
+                                        @endif 
+                                        min="{{Session::get('year')}}-01-01" 
+                                        @if(Session::has('to_date')) 
+                                            max="{{Session::get('year') . Session::get('to_date')}}" 
+                                        @else 
+                                            max="{{Session::get('year')}}-12-31" 
+                                        @endif>
+
+                                    <h5 class="d-inline-block"> по </h5>
+                                    <input class="h6" id="dateTo" type="date" name="to_date"
+                                        @if(Session::has('to_date'))
+                                            value="{{Session::get('year') . Session::get('to_date')}}"
+                                        @else 
+                                            value="{{Session::get('year')}}-12-31"
+                                        @endif
+                                        @if(Session::has('from_date')) 
+                                            min="{{Session::get('year') . Session::get('from_date')}}"
+                                        @else 
+                                            min="{{Session::get('year')}}-01-01" 
+                                        @endif
+                                        max="{{Session::get('year')}}-12-31">
+
+                                    <button type="submit" class="btn btn-outline-dark mb-1 ms-2"
+                                        style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .85rem;">Выбрать</button>
+                                </form>
+                            </div>
                         </div>
                         <div class="col-1 text-end">
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Поиск
@@ -48,7 +86,7 @@
                                     <th class="d-none d-md-table-cell">Корреспондент<br>(автор)</th>
                                     <th class="d-none d-md-table-cell">Номер<br>док-та</th>
                                     <th class="d-none d-md-table-cell">Дата<br>док-та</th>
-                                    <th>Наименование или<br>краткое содержание</th>
+                                    <th class="d-none d-md-table-cell">Наименование или<br>краткое содержание</th>
                                     <th class="d-none d-md-table-cell">Кол-во<br>листов</th>
                                     <th class="d-none d-sm-table-cell">Задание (Резолюция)</th>
                                     <th class="d-none d-sm-table-cell">Исполнитель<br>(Исполнители)</th>
@@ -83,7 +121,7 @@
                                         <td class="d-none d-md-table-cell">{{$archive_document->incoming_author}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->number}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->date ? date('d.m.Y', strtotime($archive_document->date)) : null}}</td>
-                                        <td>{{$archive_document->short_description}}</td>
+                                        <td class="d-none d-md-table-cell">{{$archive_document->short_description}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->document_and_application_sheets}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->description}}</td>
                                         <td class="d-none d-md-table-cell">{{$archive_document->name}}</td>
@@ -116,5 +154,15 @@
                     </div>
                 </div>
             </div>
+            <script>
+                document.getElementById("dateFrom").onchange = function(){
+                    var input = document.getElementById("dateTo");
+                    input.setAttribute("min", this.value);
+                }
+                document.getElementById("dateTo").onchange = function(){
+                    var input = document.getElementById("dateFrom");
+                    input.setAttribute("max", this.value);
+                }
+            </script>
 @endsection
 
