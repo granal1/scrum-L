@@ -58,26 +58,47 @@ class ArchiveOutgoingDocumentController extends Controller
 
         $data = $request->validated();
 
-        if(isset($data['year']))
+        if(!empty($data['year']))
         {
-            Session::put('year', $data['year']);
-        } else {
-            Session::put('year', $this->archiveService->getLastArchiveYear());
-        }
+            if ($data['year'] != Session::get('year') || Session::missing('year')){
+                Session::put('year', $data['year']);
 
-        if(Session::get('year') > $this->archiveService->getLastArchiveYear())
+                if($data['year'] > $this->archiveService->getLastArchiveYear()){               
+                    return redirect()->route('outgoing_files.index', ['year' => Session::get('year')]);
+                }
+            }
+        }
+        elseif(Session::missing('year'))
         {
-            return redirect()->route('outgoing_files.index', ['year' => Session::get('year')]);
+            Session::put('year', $this->archiveService->getLastArchiveYear());
         }
 
         $documents = new ArchiveOutgoingDocument();
 
-        if (isset($data['content'])) {
+        if (!empty($data['content'])) {
             $data['content'] = no_inject($data['content']);
             $documents = $documents->searchByContent(Session::get('year'), $data['content']);
-        } else
+        }
+        elseif (!empty($data['from_date']))
         {
-            $documents = $documents->getAllByYear(Session::get('year'));
+            Session::put('from_date', substr($data['from_date'], 4));
+            Session::put('to_date', substr($data['to_date'], 4));
+
+            $start_date = Session::get('year') . Session::get('from_date');
+            $finish_date = Session::get('year') . Session::get('to_date');
+            $documents = $documents->getAllByYear(Session::get('year'), $start_date, $finish_date);
+        }
+        elseif (Session::has('from_date'))
+        {
+            $start_date = Session::get('year') . Session::get('from_date');
+            $finish_date = Session::get('year') . Session::get('to_date');
+            $documents = $documents->getAllByYear(Session::get('year'), $start_date, $finish_date);
+        } 
+        else
+        {
+            $start_date = Session::get('year') . '-01-01';
+            $finish_date = Session::get('year') . '-12-31';
+            $documents = $documents->getAllByYear(Session::get('year'), $start_date, $finish_date);
         }
 
         $documents = $this->paginate($documents, config('front.archive_outgoing_files.pagination'));
@@ -98,7 +119,7 @@ class ArchiveOutgoingDocumentController extends Controller
         return view('archive_outgoing_documents.index', [
             'archive_outgoing_documents' => $documents,
             'old_filters' => $data,
-            'years' => $years,
+            'archive_years' => $years,
         ]);
     }
 

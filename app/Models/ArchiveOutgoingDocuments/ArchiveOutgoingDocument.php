@@ -79,7 +79,7 @@ class ArchiveOutgoingDocument extends Model
         return $this;
     }
 
-    public function getAllByYear(string $year)
+    public function getAllByYear(string $year, string $start_date, string $finish_date)
     {
 
         $table = 'archive_outgoing_files_' . $year;
@@ -99,8 +99,9 @@ class ArchiveOutgoingDocument extends Model
                 $table.'.path',
                 $table.'.archive_path',
                 $table.'.comment',
-
             )
+            ->whereBetween('outgoing_at', [$start_date, $finish_date])
+            ->orderBy('outgoing_at', 'desc')
             ->get();
     }
 
