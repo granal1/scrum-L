@@ -62,15 +62,15 @@ class ArchiveOutgoingDocumentController extends Controller
         {
             if ($data['year'] != Session::get('year') || Session::missing('year')){
                 Session::put('year', $data['year']);
-
-                if($data['year'] > $this->archiveService->getLastArchiveYear()){               
-                    return redirect()->route('outgoing_files.index', ['year' => Session::get('year')]);
-                }
             }
         }
         elseif(Session::missing('year'))
         {
             Session::put('year', $this->archiveService->getLastArchiveYear());
+        }
+
+        if(Session::get('year') > $this->archiveService->getLastArchiveYear()){               
+            return redirect()->route('outgoing_files.index', ['year' => Session::get('year')]);
         }
 
         $documents = new ArchiveOutgoingDocument();

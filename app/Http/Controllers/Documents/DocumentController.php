@@ -66,15 +66,15 @@ class DocumentController extends Controller
         {
             if ($data['year'] != Session::get('year') || Session::missing('year')){
                 Session::put('year', $data['year']);
-
-                if($data['year'] <= $this->archiveService->getLastArchiveYear()){               
-                    return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
-                }
             }
         }
         elseif(Session::missing('year'))
         {
             Session::put('year', date('Y'));
+        }
+
+        if(Session::get('year') <= $this->archiveService->getLastArchiveYear()){              
+            return redirect()->route('archive_documents.index', ['year'=> Session::get('year')]);
         }
 
         if (isset($data['content'])) {
