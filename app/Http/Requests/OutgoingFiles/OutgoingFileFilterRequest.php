@@ -28,6 +28,8 @@ class OutgoingFileFilterRequest extends FormRequest
             'path' => '',
             'content' => '',
             'year' => '',
+            'from_date' => '',
+            'to_date' => '',
         ];
     }
 }
