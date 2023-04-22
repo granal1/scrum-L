@@ -110,12 +110,33 @@ class ArchiveDocument extends Model
     public static function getOneByIdAndYear(string $id, string $year)
     {
         $table = 'archive_files_' . $year;
-        return DB::table($table)
+        $result = DB::table($table)
             ->where($table.'.id', '=', $id)
             ->join('task_files', 'task_files.file_uuid', '=', $table.'.id')
             ->join('tasks', 'tasks.id', '=', 'task_files.task_uuid')
             ->join('users', 'users.id', '=', 'tasks.responsible_uuid')
-            ->first();
+            ->select(
+                $table.'.id',
+                $table.'.created_at',
+                $table.'.incoming_at',
+                $table.'.incoming_number',
+                $table.'.incoming_author',
+                $table.'.number',
+                $table.'.date',
+                $table.'.short_description',
+                $table.'.path',
+                $table.'.archive_path',
+                $table.'.document_and_application_sheets',
+                $table.'.content',
+                $table.'.file_mark',
+                'tasks.description',
+                'tasks.deadline_at',
+                'tasks.report',
+                'tasks.executed_at',
+                'users.name',
+            )
+            ->get();
+        return $result[0]; //TODO Убрать [0] без потери работоспособнгости
     }
 
     public function updateByIdAndYear(string $id, string $year, array $data)
