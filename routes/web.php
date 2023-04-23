@@ -19,6 +19,8 @@ use App\Http\Controllers\ArchiveDocuments\ArchiveDocumentController as ArchiveDo
 use App\Http\Controllers\ArchiveOutgoingDocuments\ArchiveOutgoingDocumentController as ArchiveOutgoingDocumentController;
 use App\Http\Controllers\PhoneBook\PhoneBookController;
 use App\Http\Controllers\Logs\LogsController;
+use App\Http\Controllers\SiteLogs\SiteLogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
         'user_statuses' => UserStatusController::class,
         'outgoing_files' => OutgoingFileController::class,
         'logs' => LogsController::class,
+        'site_logs' => SiteLogController::class,
     ]);
 
     Route::get('archive_documents/show/{document_id}', [ArchiveDocumentController::class, 'show'])->name('archive_documents.show');

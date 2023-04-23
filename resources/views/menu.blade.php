@@ -53,7 +53,8 @@
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item {{ request()->routeIs('roles.*')?'active':'' }}" href="{{ route('roles.index') }}">Роли</a></li>
                                     <li><a class="dropdown-item  {{ request()->routeIs('user_statuses.*')?'active':'' }}"  href="{{ route('user_statuses.index') }}">Статусы</a></li>
-                                    <li><a class="dropdown-item{{ request()->routeIs('logs.index.*')?'active':'' }}" href="{{ route('logs.index')}}">Логи</a></li>
+                                    <li><a class="dropdown-item{{ request()->routeIs('logs.index.*')?'active':'' }}" href="{{ route('logs.index')}}">Логи задач</a></li>
+                                    <li><a class="dropdown-item{{ request()->routeIs('site_logs.index.*')?'active':'' }}" href="{{ route('site_logs.index')}}">Логи сайта</a></li>
                                 </ul>
                             </li>
                         </ul>
