@@ -67,7 +67,8 @@ class TaskController extends Controller
         $tasks = Task::filter($filter)
             ->where('author_uuid', Auth::id())
             ->orWhere('responsible_uuid', Auth::id())
-            ->orderBy('created_at', 'desc')
+            ->orderBy('done_progress')                  // Сначала сортировка по проценту исполнения, затем по дате
+            ->orderBy('deadline_at', 'desc')
             ->paginate(config('front.tasks.pagination'));
 
         foreach ($tasks as $key => $value) {
@@ -409,8 +410,10 @@ class TaskController extends Controller
 
             $data = $request->validated();
 
-            $localTime = new DateTime($data['executed_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
-            $data['executed_at'] = $localTime->setTimezone(timezone_open('UTC'));//Сохранение в поясе UTC
+            if ($data['done_progress'] == 100) {
+                $localTime = new DateTime($data['executed_at'], timezone_open(session('localtimezone')));   //Создание объекта даты в локальном поясе
+                $data['executed_at'] = $localTime->setTimezone(timezone_open('UTC'));//Сохранение в поясе UTC
+            }
 
             try {
 

@@ -138,7 +138,7 @@
 
                     <div id="outgoing_files_block" class="row mt-3">
                         <div class="col-4 text-end">
-                            <label for="create_new_task"><span class="text-danger"><b>*</b></span> Повторить эту задачу</label>
+                            <label for="create_new_task"><span class="text-danger"></span> Повторить эту задачу</label>
                         </div>
                         <div class="col-8 mb-3">
                             <input class="form-check-input" type="checkbox" value="1" id="create_new_task" name="create_new_task">
