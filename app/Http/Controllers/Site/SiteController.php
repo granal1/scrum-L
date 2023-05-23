@@ -49,6 +49,9 @@ class SiteController extends Controller
             $data['description'] = no_inject($data['description']);
         }
 
+        $fullname = explode(" ", Auth::user()->name);
+        $name = $fullname[0] . ' ' . $fullname[1];          // Подготовка имени пользователя
+
         $current_task_ids = $this->taskService->getCurrentTaskIds();
         $current_task_count = count($current_task_ids);
 
@@ -91,6 +94,7 @@ class SiteController extends Controller
         }
 
         return view('index', [
+            'name' => $name,
             'tasks' => $tasks,
             'current_tasks_count' => $current_task_count,
             'old_filters' => $data,

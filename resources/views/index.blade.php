@@ -10,7 +10,7 @@
     <div class="container pt-3">
             <div class="row mb-3 d-flex justify-content-between">
                 <div class="col-auto">
-                    <h5>Здравствуйте {{ auth()->user()->name() }}</h5>
+                    <h5>Здравствуйте, {{ $name }}!</h5>
                 </div>
             </div>
             <div class="card shadow">
