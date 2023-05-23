@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Вход')
+@section('title', 'Электронное делопроизводство')
 
 @section('header')
 @include('login-menu')
