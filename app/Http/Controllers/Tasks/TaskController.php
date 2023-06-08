@@ -415,6 +415,10 @@ class TaskController extends Controller
                 $data['executed_at'] = $localTime->setTimezone(timezone_open('UTC'));//Сохранение в поясе UTC
             }
 
+            if ($data['done_progress'] < 100){ //TODO Требуется оптимизировать
+                $data['executed_at'] = null;
+            }
+
             try {
 
                 DB::beginTransaction();
