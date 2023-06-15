@@ -11,6 +11,7 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use DateTime;
 
 class NewTaskCreated extends Mailable
 {
@@ -50,6 +51,13 @@ class NewTaskCreated extends Mailable
      */
     public function content()
     {
+        
+        //перевод в локальный часовой пояс
+        $utcTime = new DateTime($this->task->deadline_at);
+        $this->task->deadline_at = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
+        $utcTime = new DateTime($this->task->created_at);
+        $this->task->created_at = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
+         
         return new Content(
             view: 'emails.tasks.created',
             with: [

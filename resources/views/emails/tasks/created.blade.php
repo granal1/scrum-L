@@ -1,9 +1,13 @@
-
 <div>
-    <p>Для Вас {{$name}}, есть новая задача</p>
-    <p>Создана: {{$created_at}}</p>
-    <p>Задача: {{$description}}</p>
-    <p>Приоритет: {{$priority}}</p>
-    <p>Выполнить до: {{$deadline_at}}</p>
-    <p>Создал: {{$author}}</p>
+    <p>{{$author}} добавил(а) новую задачу {{date('d.m.Y H:i', strtotime($created_at))}} мск.<br>
+    Срок исполнения до {{date('d.m.Y H:i', strtotime($deadline_at))}} мск., приоритет {{$priority}}.</p>
+    <p><a href="https://format-edp.ru/tasks/{{$id}}" 
+        style="text-decoration: none; 
+        display: inline-block; 
+        background: #0d6efd;
+        color: #fff;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;" 
+        target="_blank">Открыть задачу</a>
+    </p>
 </div>
