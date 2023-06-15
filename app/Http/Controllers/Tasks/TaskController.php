@@ -374,8 +374,8 @@ class TaskController extends Controller
         $task['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод в локальный часовой пояс
         $utcTime = new DateTime($task['created_at']);
         $task['created_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод в локальный часовой пояс
-        $utcTime = new DateTime($task['executed_at']);
-        $task['executed_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('d.m.Y H:i'); // перевод в локальный часовой пояс
+        $utcTime = new DateTime('now');
+        $task['executed_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i'); // перевод в локальный часовой пояс
 
         return view('tasks.progress', [
             'task' => $task,

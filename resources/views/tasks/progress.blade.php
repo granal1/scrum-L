@@ -138,24 +138,18 @@
 
                     <div id="outgoing_files_block" class="row mt-3">
                         <div class="col-4 text-end">
-                            <label for="create_new_task"><span class="text-danger"></span> Повторить эту задачу</label>
+                            <label for="comment">Дата выполнения задачи</label>
                         </div>
                         <div class="col-8 mb-3">
-                            <input class="form-check-input" type="checkbox" value="1" id="create_new_task" name="create_new_task">
+                            <input type="datetime-local" id="executed_at" name="executed_at" class="form-control form-select-sm" value="{{$task->executed_at}}">
+                            @error('executed_at')
+                            <div class="text-danger">{{$message}}</div>
+                            @enderror
                         </div>
-                            <div class="col-4 text-end">
-                                <label for="comment">Дата выполнения задачи</label>
-                            </div>
-                            <div class="col-8 mb-3">
-                                <input type="datetime-local" id="executed_at" name="executed_at" class="form-control form-select-sm" placeholder="Дата выполнения задачи">
-                                @error('executed_at')
-                                <div class="text-danger">{{$message}}</div>
-                                @enderror
-                            </div>
                         <div class="col-4 text-end">
                             <label for="outgoing_file_uuid">Приложение исходящее</label>
                         </div>
-                        <div class="col-8">
+                        <div class="col-8 mb-3">
                             <select class="form-select form-select-sm" name="outgoing_file_uuid">
                                 <option value="">Выберите документ ...</option>
                                 @forelse($outgoing_documents as $outgoing_document)
@@ -167,6 +161,12 @@
                             @error('outgoing_file_uuid')
                             <div class="text-danger">{{$message}}</div>
                             @enderror
+                        </div>
+                        <div class="col-4 text-end">
+                            <label for="create_new_task"><span class="text-danger"></span> Повторить эту задачу</label>
+                        </div>
+                        <div class="col-8">
+                            <input class="form-check-input" type="checkbox" value="1" id="create_new_task" name="create_new_task">
                         </div>
                     </div>
 
