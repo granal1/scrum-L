@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
+use DateTime;
 
 class Kernel extends ConsoleKernel
 {
@@ -165,6 +166,10 @@ class Kernel extends ConsoleKernel
 
             foreach($tasks as $task)
             {
+
+                $utcTime = new DateTime($task['deadline_at']);
+                $task['deadline_at'] = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
+
                 foreach($emails as $email)
                 {
                     if($email === $task->responsible->email)
@@ -201,7 +206,10 @@ class Kernel extends ConsoleKernel
                 Log::error($e);
             }
 
-            })->weeklyOn(4, '12:12');
+            })
+            ->weeklyOn(1, '09:00');
+            //->everyTwoMinutes(); //Для тестирования
+            //->dailyAt('06:00'); //Для тестирования
     }
 
     /**
