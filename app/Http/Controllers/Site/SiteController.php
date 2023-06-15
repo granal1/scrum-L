@@ -49,9 +49,14 @@ class SiteController extends Controller
             $data['description'] = no_inject($data['description']);
         }
 
-        $fullname = explode(" ", Auth::user()->name);
-        $name = $fullname[0] . ' ' . $fullname[1];          // Подготовка имени пользователя
-
+        $fullname = explode(" ", Auth::user()->name); // Подготовка имени пользователя для приветствия на главной странице
+        if (count($fullname) > 1) {
+            $name = $fullname[count($fullname) -2 ] . ' ' . $fullname[count($fullname) -1 ]; //Если 2 и более слова
+        }
+        else{
+            $name = $fullname[0]; //Если одно слово
+        }
+        
         $current_task_ids = $this->taskService->getCurrentTaskIds();
         $current_task_count = count($current_task_ids);
 
