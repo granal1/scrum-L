@@ -12,8 +12,8 @@
     <meta name="description" content="Электронное делопроизводство. БЕСПЛАТНО. Без ограничений. Навсегда.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="favicon.svg" type="image/svg">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="{{ URL::asset('assets/css/bootstrap.min.css'); }}" rel="stylesheet">
+    <script src="{{ URL::asset('assets/js/bootstrap.bundle.min.js'); }}"></script>
 </head>
 
 <body  class="bg-dark" style="--bs-bg-opacity: .15; font-size: 0.75em">
