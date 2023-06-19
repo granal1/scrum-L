@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Symfony\Component\Process\Process;
+use DateTime;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,122 +27,6 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-    /*
-        // Создание архивной таблицы входящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
-        $schedule->call(function () {
-
-            $files = DB::table('files')
-                ->where('incoming_at', '<=', Carbon::now()
-                    ->subYears(2)
-                    ->toDateTimeString())
-                ->orderBy('incoming_at')
-                ->get();
-
-            $table_year = date('Y') - 2;
-
-            DB::statement('CREATE TABLE if not exists archive_documents_' . $table_year . ' LIKE files');
-
-            foreach ($files as $file) {
-
-                try {
-
-                    DB::beginTransaction();
-
-                    DB::table('archive_documents_' . $table_year)->insert([
-                        'id' => (string)Str::uuid(),
-                        'incoming_at' => $file->incoming_at,
-                        'incoming_number' => $file->incoming_number,
-                        'incoming_author' => $file->incoming_author,
-                        'number' => $file->number,
-                        'date' => $file->date,
-                        'short_description' => $file->short_description,
-                        'document_and_application_sheets' => $file->document_and_application_sheets,
-                        'executed_result' => $file->executed_result,
-                        'executed_at' => $file->executed_at,
-                        'file_mark' => $file->file_mark,
-                        'path' => $file->path,
-                        'comment' => $file->comment,
-                        'sort_order' => $file->sort_order,
-                        'content' => $file->content,
-                        'archive_path' => $file->archive_path,
-                        'created_at' => $file->created_at,
-                        'updated_at' => $file->updated_at,
-                        'deleted_at' => $file->deleted_at,
-                        'author_uuid' => $file->author_uuid
-                    ]);
-
-                    Document::find($file->id)->forceDelete();
-
-                    DB::commit();
-
-                } catch (\Exception $e) {
-                    Log::error($e);
-                    DB::rollBack();
-                    echo 'Tables document copy error' . PHP_EOL;
-                }
-
-            }
-
-        })->yearlyOn(2, 8, '16:26');
-    */
-
-    /*
-        // Создание архивной таблицы исходящих документов и перенос данных из основной таблицы документов старше двух лет, раз в год
-        $schedule->call(function () {
-
-            $files = DB::table('outgoing_files')
-                ->where('outgoing_at', '<=', Carbon::now()
-                    ->subYears(2)
-                    ->toDateTimeString())
-                ->orderBy('outgoing_at')
-                ->get();
-
-            $table_year = date('Y') - 2;
-
-            DB::statement('CREATE TABLE if not exists archive_outgoing_documents_' . $table_year . ' LIKE outgoing_files');
-
-            foreach ($files as $file) {
-
-                try {
-
-                    DB::beginTransaction();
-
-                    DB::table('archive_outgoing_documents_' . $table_year)->insert([
-                        'id' => (string)Str::uuid(),
-                        'outgoing_at' => $file->outgoing_at,
-                        'outgoing_number' => $file->outgoing_number,
-                        'destination' => $file->destination,
-                        'number_of_source_document' => $file->number_of_source_document,
-                        'date_of_source_document' => $file->date_of_source_document,
-                        'short_description' => $file->short_description,
-                        'document_and_application_sheets' => $file->document_and_application_sheets,
-                        'file_mark' => $file->file_mark,
-                        'path' => $file->path,
-                        'comment' => $file->comment,
-                        'sort_order' => $file->sort_order,
-                        'content' => $file->content,
-                        'archive_path' => $file->archive_path,
-                        'created_at' => $file->created_at,
-                        'updated_at' => $file->updated_at,
-                        'deleted_at' => $file->deleted_at,
-                        'author_uuid' => $file->author_uuid,
-                        'executor_uuid' => $file->executor_uuid,
-                    ]);
-
-                    OutgoingFile::find($file->id)->forceDelete();
-
-                    DB::commit();
-
-                } catch (\Exception $e) {
-                    Log::error($e);
-                    DB::rollBack();
-                    echo 'Tables outgoing copy error' . PHP_EOL;
-                }
-
-            }
-
-        })->yearlyOn(2, 8, '16:26');
-    */
 
         // Рассылка заданий, которые должны быть закончены на этой неделе или уже просрочены
         $schedule->call(function () {
@@ -153,18 +38,16 @@ class Kernel extends ConsoleKernel
                 ->where('done_progress', '<', 100)
                 ->orderBy('deadline_at')
                 ->get();
-
-
             $emails = $tasks->map(function($item){
                 return $item->responsible->email;
             })->toArray();
 
             $emails = array_unique(array_values($emails));
-
             $tasks_for_users = [];
-
             foreach($tasks as $task)
             {
+                $utcTime = new DateTime($task['deadline_at']);
+                $task['deadline_at'] = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
                 foreach($emails as $email)
                 {
                     if($email === $task->responsible->email)
@@ -182,26 +65,77 @@ class Kernel extends ConsoleKernel
             }
 
             try {
-
                 foreach($tasks_for_users as $key => $value)
                 {
                     $hostname = explode('@', $key, 2)[1];
-
                     if (checkdnsrr($hostname, 'ANY')) {
-
                         Mail::to($key)->send(new DeadlineOnThisWeek($value));
-
                     } else {
                         echo "NO DNS Record found for " . $hostname . PHP_EOL;
                     }
-
                 }
-
-            } catch (\Exception $e) {
+            } 
+            catch (\Exception $e) {
                 Log::error($e);
             }
+        })
+        ->weeklyOn(1, '09:00');
+        //->everyTwoMinutes(); //Для тестирования
+        //->dailyAt('06:00'); //Для тестирования
 
-            })->weeklyOn(4, '12:12');
+
+        // Создание архива документов
+        $schedule->call(function(){
+            $check_date = date('Y') - 1 . "-01-01";
+
+            // Архивирование ВХОДЯЩИХ документов
+            $oldest_date = DB::table('files')->min('incoming_at');
+            $archive_table = 'archive_files_' . date('Y', strtotime($oldest_date));
+            if ($oldest_date < $check_date) {
+                while ($oldest_date < $check_date) {
+                    Log::info('Перенос в архив ВХОДЯЩИХ за '. $oldest_date);
+                    DB::statement('CREATE TABLE if not exists ' . $archive_table . ' LIKE files');
+                    try {
+                        DB::beginTransaction();
+                        DB::statement('INSERT INTO `' .$archive_table. '` (SELECT * FROM `files` WHERE `incoming_at`= "' .$oldest_date. '")');
+                        DB::statement('DELETE FROM `files` WHERE `incoming_at`= "' .$oldest_date. '"');
+                        DB::commit();
+                    }
+                    catch (\Exception $e) {
+                        Log::error($e);
+                        DB::rollBack();
+                        echo 'Tables document copy error' . PHP_EOL;
+                    }
+                    $oldest_date = DB::table('files')->min('incoming_at');
+                    $archive_table = 'archive_files_' . date('Y', strtotime($oldest_date));
+                }
+            }
+
+            // Архивирование ИСХОДЯЩИХ документов
+            $oldest_date = DB::table('outgoing_files')->min('outgoing_at');
+            $archive_table = 'archive_outgoing_files_' . date('Y', strtotime($oldest_date));
+            if ($oldest_date < $check_date) {
+                while ($oldest_date < $check_date) {
+                    Log::info('Перенос в архив ИСХОДЯЩИХ за '. $oldest_date);
+                    DB::statement('CREATE TABLE if not exists ' . $archive_table . ' LIKE outgoing_files');
+                    try {
+                        DB::beginTransaction();
+                        DB::statement('INSERT INTO `' .$archive_table. '` (SELECT * FROM `outgoing_files` WHERE `outgoing_at`= "' .$oldest_date. '")');
+                        DB::statement('DELETE FROM `outgoing_files` WHERE `outgoing_at`= "' .$oldest_date. '"');
+                        DB::commit();
+                    }
+                    catch (\Exception $e) {
+                        Log::error($e);
+                        DB::rollBack();
+                        echo 'Tables document copy error' . PHP_EOL;
+                    }
+                    $oldest_date = DB::table('outgoing_files')->min('outgoing_at');
+                    $archive_table = 'archive_outgoing_files_' . date('Y', strtotime($oldest_date));
+                }
+            }
+        })        
+        ->daily();
+        //->dailyAt('21:24'); //Для тестирования
     }
 
     /**
