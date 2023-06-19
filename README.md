@@ -1,28 +1,43 @@
-# Office Work
+# Электронное делопроизводство
 
-The software is designed for electronic office work.
-At this moment only russian language.
+Программное обеспечение предназначено для организации электронного делопроизводства.
 
-## Features
+## Особенности
 
-- Office work
-- Storage of documents and files
-- Full text search in documents
-- Accounting and control of execution of tasks
-- Phonebook
+- Учет входящих и исходящих документов
+- Хранение документов и файлов
+- Полнотекстовый поиск в документах
+- Учет и контроль выполнения поставленных задач
+- Телефонная книга
 
-## License
+## Лицензия
 
-This soft is under the GPL-3.0 license.
+Это программное обеспечение распространяется под лицензией GPL-3.0.
 
-## Install
+## Установка
 
-- Download zip archive.
-- Extract content.
-- Run command: composer start
+- Скачайте zip-архив.
+- Извлеките содержимое.
+- В MySql создайте базу данных
+- Создайте файл настроек .env по примеру .env.example 
+- Обнуление БД и заполнение таблиц миниммально необходимыми записями выполняется командой: composer start
 
 ```bash
 composer start
 ```
 
+- Выполните вход под учетной записью администратора и добавьте учетные записи других сотрудников.
+login: admin@admin.ru
+pass:  +1234567
 
+- Для изучения работы приложения, БД можно наполнить фэйковыми данными с помощью команды: composer seed
+
+```bash
+composer seed
+```
+
+- Приведение БД к стартовому состоянию выполняется командой: composer start
+
+```bash
+composer start
+```
