@@ -21,11 +21,6 @@ class UserRoleSeeder extends Seeder
         DB::table('user_role')->insert([
             [
                 'id' => Str::uuid(),
-                'user_uuid' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab70a',
-                'role_uuid' => DB::table('roles')->where('name', 'like', 'admin')->value('id'),
-            ],
-            [
-                'id' => Str::uuid(),
                 'user_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'role_uuid' => DB::table('roles')->where('name', 'like', 'main_supervisor')->value('id'),
             ],

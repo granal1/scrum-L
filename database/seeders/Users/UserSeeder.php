@@ -29,17 +29,6 @@ class UserSeeder extends Seeder
                 'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
             ],
             [
-                'id' => 'cabb4d3b-38d7-4ed0-904d-cd2797aab70a',
-                'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
-                'name' => 'Админ',
-                'email' => 'admin@admin.ru',
-                'phone' => '999-854-99-74',
-                'position' => 'Администратор',
-                'birthday_at' => '1980-01-10',
-                'email_verified_at' => now(),
-                'password' => '$2y$10$wCv1t74ruEq.ijydsd4zYuJZSg3LnWoNmShVfdy0JicSYnDLUK5Ae', // password
-            ],
-            [
                 'id' => '0c91a116-6127-43d9-95bb-c09fa39fb455',
                 'superior_uuid' => '1a80b3d0-89b8-40d8-8e85-cb643f022fb9',
                 'name' => 'Валентина Валентиновна',

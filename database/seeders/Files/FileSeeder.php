@@ -28,7 +28,7 @@ class FileSeeder extends Seeder
     {
         return [
             'id' => fake()->uuid(),
-            'incoming_at' => fake()->dateTimeBetween('2021-01-01', '2023-01-10'),
+            'incoming_at' => fake()->dateTimeBetween('2020-01-01', date('Y-m-d')),
             'incoming_number' => fake()->biasedNumberBetween($min = 1, $max = 10000, $function = 'sqrt'),
             'incoming_author' => 'руководство',
             'number' => fake()->biasedNumberBetween($min = 1, $max = 10000, $function = 'sqrt'),

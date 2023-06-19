@@ -28,7 +28,7 @@ class OutgoingFileSeeder extends Seeder
     {
         return [
             'id' => fake()->uuid(),
-            'outgoing_at' => fake()->dateTimeBetween('2021-01-01', '2023-01-10'),
+            'outgoing_at' => fake()->dateTimeBetween('2020-01-01', date('Y-m-d')),
             'short_description' => fake()->realTextBetween(10, 50),
             'content' => fake()->realTextBetween(1000, 2660),
             'created_at' => now(),
