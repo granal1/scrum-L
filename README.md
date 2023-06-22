@@ -41,3 +41,24 @@ composer seed
 ```bash
 composer start
 ```
+
+- На локальном сервере обработчик задач (Task Scheduling) запускается командой: php artisan schedule:work. Используется для создания архивов, рассылки списка задач на неделю и проверки наличия очередей и ее обработки.
+
+```bash
+php artisan schedule:work
+```
+
+- Обработчик очередей (Queues) вызывается ежеминутно обработчиком задач и закрывается при отсутствии заданий в очереди. Обработчик очереди может быть вызван отдельно командой: php artisan squeue:work.
+
+```bash
+php artisan queue:work
+```
+
+- На хостинге для вызова обработчика задач необходимо настроить cron на ежеминутное выполнение команды: artisan schedule:run. Настройка cron может отличаться у разных поставщиков услуги. Примеры:
+
+```bash
+* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1
+```
+```bash
+* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+```
