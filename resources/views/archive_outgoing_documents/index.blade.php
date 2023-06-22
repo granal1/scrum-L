@@ -42,7 +42,7 @@
                                     @else 
                                         value="{{Session::get('year')}}-01-01"
                                     @endif 
-                                    min="{{Session::get('year')}}-01-01" 
+                                        min="{{Session::get('year')}}-01-01" 
                                     @if(Session::has('to_date')) 
                                         max="{{Session::get('year') . Session::get('to_date')}}" 
                                     @else 
@@ -61,7 +61,7 @@
                                     @else 
                                         min="{{Session::get('year')}}-01-01" 
                                     @endif
-                                    max="{{Session::get('year')}}-12-31">
+                                        max="{{Session::get('year')}}-12-31">
 
                                 <button type="submit" class="btn btn-outline-dark mb-1 ms-2"
                                     style="--bs-btn-padding-y: .1rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .85rem;">Выбрать</button>
@@ -94,7 +94,7 @@
                             </thead>
                             <tbody style="cursor: pointer;">
 
-                            <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
+                            <tr class="collapse @if(!empty($old_filters['content'])) show @endif" id="collapseExample">
                                 <form action="{{ route('archive_outgoing_documents.index') }}" method="get">
                                     <td class="d-none d-md-table-cell"><a class="btn btn-outline-danger btn-sm"
                                                                           type="button"
