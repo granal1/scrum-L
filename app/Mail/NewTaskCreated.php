@@ -36,12 +36,9 @@ class NewTaskCreated extends Mailable
      */
     public function envelope()
     {
-
         return new Envelope(
-            from: new Address('granal1@mail.ru', 'Электронное делопроизводство'),
-            //from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
             subject: 'Добавлена новая задача',
-        );  //TODO Реализовать вариант с env
+        );
     }
 
     /**
@@ -51,17 +48,19 @@ class NewTaskCreated extends Mailable
      */
     public function content()
     {
-        
+
         //перевод в локальный часовой пояс
         $utcTime = new DateTime($this->task->deadline_at);
         $this->task->deadline_at = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
         $utcTime = new DateTime($this->task->created_at);
         $this->task->created_at = $utcTime->setTimezone(timezone_open('Europe/Moscow'))->format('Y-m-d H:i'); // перевод МСК часовой пояс
-         
+
         return new Content(
             view: 'emails.tasks.created',
             with: [
+                'id' => $this->task->id,
                 'name' => $this->task->responsible->name,
+                'email' => $this->task->responsible->email,
                 'created_at' => $this->task->created_at,
                 'description' => $this->task->description,
                 'priority' => $this->task->priority->name,

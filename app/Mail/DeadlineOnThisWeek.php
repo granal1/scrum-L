@@ -37,10 +37,8 @@ class DeadlineOnThisWeek extends Mailable
     {
 
         return new Envelope(
-            from: new Address('granal1@mail.ru', 'Электронное делопроизводство'),
-            //from: new Address(env('MAIL_FROM_ADDRESS'), env('MAIL_FROM_NAME')),
             subject: 'Добавлена новая задача',
-        );  //TODO Реализовать вариант с env
+        );
     }
 
     /**

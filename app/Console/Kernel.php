@@ -27,8 +27,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-
+        //__________________________________________________________________________________
         // Рассылка заданий, которые должны быть закончены на этой неделе или уже просрочены
+        //__________________________________________________________________________________
         $schedule->call(function () {
 
             $tasks = Task::where('deadline_at',
@@ -79,12 +80,13 @@ class Kernel extends ConsoleKernel
                 Log::error($e);
             }
         })
-        ->weeklyOn(1, '09:00');
-        //->everyTwoMinutes(); //Для тестирования
+        ->weeklyOn(1, '06:00');
         //->dailyAt('06:00'); //Для тестирования
 
 
+        //____________________________
         // Создание архива документов
+        //____________________________
         $schedule->call(function(){
             $check_date = date('Y') - 1 . "-01-01";
 
@@ -134,8 +136,24 @@ class Kernel extends ConsoleKernel
                 }
             }
         })        
-        ->daily();
-        //->dailyAt('21:24'); //Для тестирования
+        ->daily(); //->dailyAt('21:24'); //Для тестирования
+
+
+        //__________________________
+        //Запуск обработчика очереди
+        //__________________________
+
+        if (!$this->osProcessIsRunning('queue:work')) {
+            $schedule->command('queue:work --stop-when-empty')
+            ->everyMinute();
+        }
+
+
+
+
+
+
+
     }
 
     /**
@@ -148,5 +166,22 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
+    }
+
+    /**
+     * Checks whether the process is running.
+     *
+     * @return bool
+     */
+    protected function osProcessIsRunning($needle)
+    {
+        exec('ps aux -ww', $process_status);
+
+        $result = array_filter($process_status, function($var) use ($needle) {
+            return strpos($var, $needle);
+        });
+
+        $process_exist = !empty($result) ? true : false;
+        return $process_exist;
     }
 }

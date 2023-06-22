@@ -35,7 +35,6 @@ class ProcessSendMailToResponsible implements ShouldQueue
     public function __construct(Task $task)
     {
         $this->task = $task;
-        $this->queue = 'tasks';
     }
 
     /**

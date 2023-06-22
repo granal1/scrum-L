@@ -181,8 +181,7 @@ class TaskController extends Controller
 
                 DB::commit();
 
-                ProcessSendMailToResponsible::dispatch($task)
-                    ->onQueue('tasks');
+                ProcessSendMailToResponsible::dispatch($task);
 
                 $task = $task->parent_uuid ?? $task;
 
