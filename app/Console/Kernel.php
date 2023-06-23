@@ -149,7 +149,14 @@ class Kernel extends ConsoleKernel
         }
 
 
+        //________________________
+        //Обнуление Базы данных
+        //________________________
 
+        $schedule->exec('composer start && composer seed')
+        //TODO Надо добавить команду на стирание файлов
+        ->dailyAt('20:34');
+    
 
 
 
