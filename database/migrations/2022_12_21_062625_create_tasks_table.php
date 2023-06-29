@@ -26,7 +26,7 @@ return new class extends Migration
 
             $table->text('description');
             $table->timestamp('deadline_at');
-            $table->date('executed_at')->nullable()->default(null);
+            $table->timestamp('executed_at')->nullable()->default(null);
             $table->integer('done_progress')->nullable()->default(0);
             $table->text('report')->nullable()->default(null);
             $table->integer('sort_order')->default(1);

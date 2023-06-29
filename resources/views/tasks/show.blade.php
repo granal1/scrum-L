@@ -31,7 +31,7 @@
                         <label for="created_at">Задача создана</label>
                     </div>
                     <div class="col-8">
-                        <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
+                        <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at->setTimezone(session('localtimezone'))->format('d.m.Y H:i')}}">
                     </div>
                 </div>
 
@@ -158,32 +158,33 @@
 
 
                 <div class="d-flex justify-content-center my-4">
-                    <div class="mx-3">
-                        <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('tasks.index')}}">Назад</a>
+                    <div class="mx-2">
+                        <a class="d-none d-md-block btn btn-sm btn-primary" style="width:150px" href="{{route('tasks.index')}}">Назад</a>
                     </div>
-
-                    @if($task->author_uuid === Auth::id() || Auth::user()->isAdmin())
-                    <div class="mx-3">
-                        <a class="btn btn-sm btn-primary" style="width:170px" href="{{route('tasks.edit', $task)}}">Редактировать</a>
-                    </div>
-                    @endif
-
-                    @if($task->responsible_uuid === Auth::id())
-                    <div class="mx-3">
-                        <a class="btn btn-sm btn-primary {{$task->done_progress < 100 ? '' : 'disabled'}}" style="width:170px" href="{{route('tasks.progress', $task)}}">Выполнение</a>
-                    </div>
-                    @endif
 
                     @if($task->done_progress < 100)
-                    <div class="mx-3">
+                        @if($task->author_uuid === Auth::id() || Auth::user()->isAdmin())
+                        <div class="mx-2">
+                            <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('tasks.edit', $task)}}">Редактировать</a>
+                        </div>
+                        @endif
+
+                        @if($task->responsible_uuid === Auth::id())
+                        <div class="mx-2">
+                            <a class="btn btn-sm btn-primary" style="width:150px" href="{{route('tasks.progress', $task)}}">Выполнение</a>
+                        </div>
+                        @endif
+                    @endif
+
+                    <div class="mx-2">
                         <form action="{{route('tasks.create-subtask', $task)}}" method="post">
                             @csrf
                             <div>
-                                <button type="submit" class="btn btn-primary btn-sm" style="width:170px">Создать подзадачу</button>
+                                <button type="submit" class="btn btn-primary btn-sm" style="width:150px">Создать подзадачу</button>
                             </div>
                         </form>
                     </div>
-                    @endif
+                    
                 </div>
 
             </div>

@@ -36,7 +36,7 @@
                             <label for="created_at">Задача создана</label>
                         </div>
                         <div class="col-8">
-                            <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at}}">
+                            <input class="form-control form-control-sm" name="created_at" id="created_at" disabled value="{{$task->created_at->setTimezone(session('localtimezone'))->format('d.m.Y H:i')}}">
                         </div>
                     </div>
 
