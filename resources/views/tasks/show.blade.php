@@ -180,7 +180,7 @@
                         <form action="{{route('tasks.create-subtask', $task)}}" method="post">
                             @csrf
                             <div>
-                                <button type="submit" class="btn btn-primary btn-sm" style="width:150px">Создать подзадачу</button>
+                                <button type="submit" class="d-none d-md-block btn btn-sm btn-primary" style="width:150px">Создать подзадачу</button>
                             </div>
                         </form>
                     </div>
