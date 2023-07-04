@@ -414,6 +414,8 @@ class TaskController extends Controller
             else {
                 $data['executed_at'] = null;
             }
+
+            $task->deadline_at = new DateTime($task->deadline_at); // Объект из строки, чтобы не изменялась deadline_at при обновлении данных.
             
             try {
 
