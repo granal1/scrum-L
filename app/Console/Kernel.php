@@ -81,7 +81,6 @@ class Kernel extends ConsoleKernel
             }
         })
         ->weeklyOn(1, '06:00');
-        //->dailyAt('06:00'); //Для тестирования
 
 
         //____________________________
@@ -136,7 +135,7 @@ class Kernel extends ConsoleKernel
                 }
             }
         })        
-        ->daily(); //->dailyAt('21:24'); //Для тестирования
+        ->dailyAt('00:30');
 
 
         //__________________________
@@ -149,15 +148,20 @@ class Kernel extends ConsoleKernel
         }
 
 
-        //________________________
-        //Обнуление Базы данных
-        //________________________
-
-        $schedule->exec('composer start && composer seed')
-        //TODO Надо добавить команду на стирание файлов
-        ->dailyAt('20:34');
-    
-
+        //_____________________________________
+        //Обнуление Базы данных для режима demo
+        //_____________________________________
+        
+        /**
+         * 
+         * Выполняется в cron
+         * 0****
+         * cd /path/to/project && 
+         * php 
+         * /path/to/composer start-demo 
+         * > /path/to/project/storage/logs/composer.log 2>&1
+         *  
+         */
 
 
 

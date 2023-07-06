@@ -93,6 +93,25 @@
             "@php artisan db:seed --class=Database\\\\Seeders\\\\Files\\\\OutgoingFileSeeder",
             "@php artisan db:seed --class=Database\\\\Seeders\\\\Tasks\\\\TaskSeeder",
             "@php artisan db:seed --class=Database\\\\Seeders\\\\Tasks\\\\TaskFileSeeder"
+        ],
+        "start-demo": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php artisan migrate:fresh --seed",
+            "@php artisan cache:clear",
+            "@php artisan route:clear",
+            "@php artisan view:clear",
+            "@php artisan config:clear",
+            "@php artisan view:cach",
+            "@php artisan route:cach",
+            "@php artisan config:cache",
+            "@php artisan storage:link",
+            "@php artisan queue:restart",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Users\\\\UserSeeder",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Users\\\\UserRoleSeeder",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Files\\\\FileSeeder",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Files\\\\OutgoingFileSeeder",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Tasks\\\\TaskSeeder",
+            "@php artisan db:seed --class=Database\\\\Seeders\\\\Tasks\\\\TaskFileSeeder"
         ]
     },
     "extra": {
