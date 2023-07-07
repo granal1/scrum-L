@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title', 'Главная | Пользователи')
+@section('title', 'Главная | Сотрудники')
 
 @section('header')
 @include('menu')
