@@ -106,52 +106,45 @@
                                             <table class="table table-sm table-hover table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <td class="d-none d-sm-table-cell">Приоритет</td>
-                                                    <td>Описание</td>
-                                                    <td class="d-none d-sm-table-cell">Ответственный</td>
-                                                    <td class="d-none d-md-table-cell">Выполнить до</td>
-                                                    <td>Исп.,&nbsp;%</td>
+                                                    <th class="d-sm-table-cell">Срок</th>
+                                                    <th class="d-none d-lg-table-cell">Приоритет</th>
+                                                    <th class="d-none d-md-table-cell">Исполнитель</th>
+                                                    <th class="d-sm-table-cell">Задача</th>
+                                                    <th class="d-none d-md-table-cell">Отчет</th>
+                                                    <th class="d-sm-table-cell">Исп.,&nbsp;%</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody style="cursor: pointer;">
-
                                                 <tr class="collapse " id="collapseExample">
                                                     <form action="{{route('site.index')}}" method="get">
-                                                        <td class="d-none d-sm-table-cell">
-                                                            <select class="form-select form-select-sm"
-                                                                    name="priority_uuid" id="priority_uuid"
-                                                                    onchange="this.form.submit()">
+                                                        <td class="d-sm-table-cell"></td>
+                                                        <td class="d-none d-lg-table-cell">
+                                                            <select class="form-select form-select-sm" name="priority_uuid" id="priority_uuid" onchange="this.form.submit()">
                                                                 <option value="">Выберите ...</option>
                                                                 @forelse($priorities as $priority)
-                                                                <option {{isset($old_filters['priority_uuid']) && $old_filters['priority_uuid'] === $priority->id ? 'selected' : null}}
-                                                                    value="{{$priority->id}}">{{$priority->name}}</option>
+                                                                    <option @if(isset($old_filters['priority_uuid'])) {{$priority->id === $old_filters['priority_uuid'] ? 'selected' : ''}}  @endif value="{{$priority->id}}">{{$priority->name}}</option>
                                                                 @empty
                                                                     <option value="">Нет приоритетов</option>
                                                                 @endforelse
                                                             </select>
                                                         </td>
-                                                        <td>
-                                                            <input type="search" value="{{isset($old_filters['description']) ? $old_filters['description'] : null}}"
-                                                                   class="form-control form-control-sm"
-                                                                   id="description" name="description"
-                                                                   onchange="this.form.submit()">
+                                                        <td class="d-none d-md-table-cell"></td>
+                                                        <td class="d-sm-table-cell">
+                                                            <input class="form-control form-control-sm" type="search" value="@if(isset($old_filters['description'])){{$old_filters['description']}}@endif" id="description" name="description" onchange="this.form.submit()">
                                                         </td>
-                                                        <td class="d-none d-sm-table-cell"></td>
-                                                        <td>
-                                                            <a class="btn btn-outline-danger btn-sm d-sm-none"
-                                                               type="button" href="http://scrum-l.local">Сброс</a>
+                                                        <td class="d-none d-md-table-cell"></td>
+                                                        <td class="d-sm-table-cell">
+                                                            <a class="btn btn-outline-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс</a>
                                                         </td>
-                                                        <td colspan="3" class="d-none d-sm-table-cell"><a
-                                                                class="btn btn-outline-danger btn-sm" type="button"
-                                                                href="http://scrum-l.local">Сброс</a></td>
                                                     </form>
                                                 </tr>
                                                 @forelse($outstanding_tasks as $task)
                                                     <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
-                                                    <td class="d-none d-sm-table-cell">{{$task->priority->name}}</td>
-                                                    <td>{{$task->description}}</td>
-                                                    <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
-                                                    <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
+                                                    <td class="d-sm-table-cell">{{$task->deadline_at}}</td>
+                                                    <td class="d-none d-lg-table-cell">{{$task->priority->name}}</td>
+                                                    <td class="d-none d-md-table-cell">{{$task->responsible->name}}</td>
+                                                    <td class="d-sm-table-cell">{{$task->description}}</td>
+                                                    <td class="d-none d-md-table-cell">{{$task->report}}</td>
                                                     <td>@include('graph.progressbar', ['done_progress'=> $task->done_progress])</td>
                                                 </tr>
                                                 @empty
@@ -178,17 +171,19 @@
                                             <table class="table table-sm table-hover table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <td class="d-none d-sm-table-cell">Приоритет</td>
-                                                    <td>Описание</td>
-                                                    <td class="d-none d-sm-table-cell">Ответственный</td>
-                                                    <td class="d-none d-md-table-cell">Выполнить до</td>
-                                                    <td>Исп.,&nbsp;%</td>
+                                                    <th class="d-sm-table-cell">Срок</th>
+                                                    <th class="d-none d-lg-table-cell">Приоритет</th>
+                                                    <th class="d-none d-md-table-cell">Исполнитель</th>
+                                                    <th class="d-sm-table-cell">Задача</th>
+                                                    <th class="d-none d-md-table-cell">Отчет</th>
+                                                    <th class="d-sm-table-cell">Исп.,&nbsp;%</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody style="cursor: pointer;">
                                                 <tr class="collapse @if(!empty($old_filters)) show @endif" id="collapseExample">
                                                     <form action="{{ route('site.index') }}" method="get">
-                                                        <td class="d-none d-sm-table-cell">
+                                                        <td class="d-sm-table-cell"></td>
+                                                        <td class="d-none d-lg-table-cell">
                                                             <select class="form-select form-select-sm" name="priority_uuid" id="priority_uuid" onchange="this.form.submit()">
                                                                 <option value="">Выберите ...</option>
                                                                 @forelse($priorities as $priority)
@@ -198,22 +193,23 @@
                                                                 @endforelse
                                                             </select>
                                                         </td>
-                                                        <td>
-                                                            <input type="search" value="@if(isset($old_filters['description'])){{$old_filters['description']}}@endif" class="form-control form-control-sm" id="description" name="description" onchange="this.form.submit()">
+                                                        <td class="d-none d-md-table-cell"></td>
+                                                        <td class="d-sm-table-cell">
+                                                            <input class="form-control form-control-sm" type="search" value="@if(isset($old_filters['description'])){{$old_filters['description']}}@endif" id="description" name="description" onchange="this.form.submit()">
                                                         </td>
-                                                        <td class="d-none d-sm-table-cell"></td>
-                                                        <td>
-                                                            <a class="btn btn-outline-danger btn-sm d-sm-none" type="button" href="{{route('site.index')}}">Сброс</a>
+                                                        <td class="d-none d-md-table-cell"></td>
+                                                        <td class="d-sm-table-cell">
+                                                            <a class="btn btn-outline-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс</a>
                                                         </td>
-                                                        <td colspan="3" class="d-none d-sm-table-cell"><a class="btn btn-outline-danger btn-sm" type="button" href="{{route('site.index')}}">Сброс</a></td>
                                                     </form>
                                                 </tr>
                                                 @forelse($tasks as $task)
                                                     <tr onclick="window.location='{{ route('tasks.show', $task->id) }}';">
-                                                        <td class="d-none d-sm-table-cell">{{$task->priority->name}}</td>
-                                                        <td class="">{{$task->description}}</td>
-                                                        <td class="d-none d-sm-table-cell">{{$task->responsible->name}}</td>
-                                                        <td class="d-none d-md-table-cell">{{$task->deadline_at}}</td>
+                                                        <td class="d-sm-table-cell">{{$task->deadline_at}}</td>
+                                                        <td class="d-none d-lg-table-cell">{{$task->priority->name}}</td>
+                                                        <td class="d-none d-md-table-cell">{{$task->responsible->name}}</td>
+                                                        <td class="d-sm-table-cell">{{$task->description}}</td>
+                                                        <td class="d-none d-md-table-cell">{{$task->report}}</td>
                                                         <td>@include('graph.progressbar', ['done_progress'=> $task->done_progress])</td>
                                                     </tr>
                                                 @empty

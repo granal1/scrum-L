@@ -90,12 +90,12 @@ class SiteController extends Controller
 
         foreach ($tasks as $key => $value) {
             $utcTime = new DateTime($value['deadline_at']);
-            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('m.d.Y H:i');
         }
 
         foreach ($outstanding_tasks as $key => $value) {
             $utcTime = new DateTime($value['deadline_at']);
-            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('Y-m-d H:i');
+            $value['deadline_at'] = $utcTime->setTimezone(timezone_open(session('localtimezone')))->format('m.d.Y H:i');
         }
 
         return view('index', [
